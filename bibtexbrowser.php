@@ -566,7 +566,7 @@ else $page = 1;
      } else if (isset($_GET[Q_AUTHOR])) {  
 	$to_find = urldecode($_GET[Q_AUTHOR]);
 	$searched = $this->db->search($to_find, array('author'));
-	$header = 'Author: ' . ucwords($to_find);
+	$header = 'Publications of ' . ucwords($to_find);
         $result = new ResultDisplay($searched, $header,array(Q_AUTHOR => $to_find));
 	// clicking a type, a menu item from the types menu?
       } else if(isset($_GET[Q_TAG])) {
@@ -761,7 +761,8 @@ class ResultDisplay {
     // print a page bar, a list of clickable page numbers
     $pageSize = PAGE_SIZE; // no. of entries per page
     $noPages = ceil(count($biblist) / $pageSize);
-    $this->displayPageBar($noPages, $page);
+    
+    if ($noPages>1) $this->displayPageBar($noPages, $page);
 
     // create a year -> entries map to display by years
     $years = array();
@@ -1184,7 +1185,7 @@ $result = $dispmgr->mainVC();
 
 <title>
 <?
-if ($result != null) echo $result->header.' in file '.$filename;
+if ($result != null) echo $result->header.' in '.$filename;
 else echo 'bibtexbrowser: dynamic bibtex to HTML';
 ?>
 </title>
