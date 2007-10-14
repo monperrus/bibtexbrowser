@@ -1,20 +1,30 @@
-<?/* bibtexbrowser : a PHP script to browse and search bib entries from BibTex files 
+<?/* bibtexbrowser : a PHP script to browse and search bib entries from BibTex files.
+* This script is a refactored, extended and repackaged version from an excellent script 
+* of the University of Texas at El Paso.
 * 
-* Unlike related works (bib2html, bibtohtml, bibtex2html, bibtex2web) bibtexbrowser is dynamic.
-* Thus, you do not need to regenerate the static HTML files each time the bib file changes,
-* and you can search any string in it. This work is a refactored, extended and repackaged version
-* from an excellent script of the University of Texas at El Paso.
-*
 * online demonstration site: http://www.ensieta.fr/~monperma/bibtexbrowser.php
 *
 * (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 * (C) 2006-2007 Martin Monperrus
-*
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public License as
 * published by the Free Software Foundation; either version 2 of the
 * License, or (at your option) any later version.
-**
+*
+* Related works:
+*
+* bib2html, bibtohtml, bibtex2html, bibtex2web
+* Unlike them, bibtexbrowser is dynamic.
+* Thus, you do not need to regenerate the static HTML files each time the bib file changes,
+* and you can search any string in it. 
+*
+* "PHP BibTeX Database Manager", bibadmin
+* Unlike them, bibtexbrowser does not need a MySQL database. Furthermore, they are made for 
+* managing bibliographies and not only browsing them.
+*
+* SimplyBibtex has the same spirit, makes different architectural and presentation choices, has * editing features
+*
+*
 * Warning : the parser has some limitations
 * please follow the best practices for bib entries 
 *  @book{discours-de-la-methode,
@@ -69,6 +79,7 @@ define('Q_TAG_PAGE', 'tag_page');
 
 define('Q_TYPE', 'type');
 define('Q_TYPE_PAGE', 'type_page');
+
 
 define('Q_ALL', 'all');
 define('Q_ENTRY', 'entry');
@@ -560,8 +571,11 @@ else $page = 1;
      } else if (isset($_GET[Q_SEARCH])){  // search?
 	$to_find = $_GET[Q_SEARCH];
 	$searched = $this->db->search($to_find);
-	$header = 'Search: ' . trim($to_find);
-        $result = new ResultDisplay($searched, $header,array(Q_SEARCH => $to_find));
+	if (count($searched)==1) $result = new SingleResultDisplay($searched[0]);
+	else {
+	  $header = 'Search: ' . trim($to_find);
+          $result = new ResultDisplay($searched, $header,array(Q_SEARCH => $to_find));
+        }
 	// clicking an author, a menu item from the authors menu?
      } else if (isset($_GET[Q_AUTHOR])) {  
 	$to_find = urldecode($_GET[Q_AUTHOR]);
