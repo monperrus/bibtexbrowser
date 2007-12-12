@@ -13,7 +13,7 @@
 *
 * Related works:
 *
-* bib2html, bibtohtml, bibtex2html, bibtex2web
+* bibhtml, bib2html, bibtohtml, bibtex2html, bibtex2web
 * Unlike them, bibtexbrowser is dynamic.
 * Thus, you do not need to regenerate the static HTML files each time the bib file changes,
 * and you can search any string in it. 
@@ -22,7 +22,10 @@
 * Unlike them, bibtexbrowser does not need a MySQL database. Furthermore, they are made for 
 * managing bibliographies and not only browsing them.
 *
-* SimplyBibtex has the same spirit, makes different architectural and presentation choices, has * editing features
+* SimplyBibtex has the same spirit, makes different architectural and presentation choices, has
+* editing features
+*
+* Misc: a matlab script is similar !! http://www.sat.ltu.se/publications/publications.m
 *
 *
 * Warning : the parser has some limitations
@@ -113,6 +116,15 @@ $_SESSION[Q_FILE] = $filename;
 $_SESSION['main'] = & $dispmgr;
 
 
+if (isset($_GET[Q_ENTRY])) {
+        $headers=getallheaders();
+        $headers['date'] = time(); // ajout de la date
+        $headers['file'] = $_GET[Q_FILE].'#'.$_GET[Q_ENTRY];//$dispmgr->db->getEntry($_GET[Q_ENTRY])->getTitle();
+        $headers['ip'] = $_SERVER["REMOTE_ADDR"];
+	$file  = fopen ("log-bibtexbrowser.txt", "a");
+	fputs($file,serialize($headers)."\n");
+	fclose($file);
+}
 
 
 ////////////////////////////////////////////////////////
@@ -540,7 +552,7 @@ class DisplayManager {
     }  else $page = 1;
     
 
-    $this->displayMenu('Tags', $tags, $page, TAGS_SIZE, Q_TAG_PAGE, 
+    $this->displayMenu('Keywords', $tags, $page, TAGS_SIZE, Q_TAG_PAGE, 
 		       Q_TAG);
   }
 
@@ -585,8 +597,8 @@ else $page = 1;
 	// clicking a type, a menu item from the types menu?
       } else if(isset($_GET[Q_TAG])) {
 	$to_find = $_GET[Q_TAG];
-	$searched = $this->db->search($to_find, array('tag'));
-	$header = 'Tag: ' . ucwords($to_find);
+	$searched = $this->db->search($to_find, array('keywords'));
+	$header = 'Keyword: ' . ucwords($to_find);
         $result = new ResultDisplay($searched, $header,array(Q_TAG => $to_find));
       } 
 	else if(isset($_GET[Q_YEAR])) {
@@ -1031,7 +1043,7 @@ class BibDataBase {
   function tagIndex(){
     $result = array();
     foreach ($this->bibdb as $bib) {
-      $tags =explode(' and ', $bib->getField("tag"));
+      $tags =explode(' and ', $bib->getField("keywords"));
       foreach($tags as $a){
 	$ta = trim($a);
 	  $result[$ta] = $ta;
