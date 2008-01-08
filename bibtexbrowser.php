@@ -94,6 +94,8 @@ define('EDITOR', 'editor');
 define('TITLE', 'title');
 define('YEAR', 'year');
 
+error_reporting(E_ERROR);
+
 session_start();
 
 // default bib file, if no file is specified in the query string.
@@ -105,8 +107,8 @@ if (isset($_GET[Q_FILE])) {
 }
 
 // parse a new bib file, if requested
-if (($filename ==  $_SESSION[Q_FILE]) && isset($_SESSION['main'])) {
-  $dispmgr = $_SESSION['main'];
+if (isset($_SESSION[Q_FILE]) && isset($_SESSION['main']) && ($filename ==  $_SESSION[Q_FILE])) {
+      $dispmgr = $_SESSION['main'];
 } else {
   $dispmgr = new DisplayManager(new BibDataBase($filename));
 }
@@ -1235,7 +1237,7 @@ else {
   if ($result != null) {
     echo '<body>';
     $result->display();
-    echo '<div class="poweredby">Powered by bibtexbrowser</div>';
+    echo '<a class="poweredby" href="pub/bibtexbrowser.php.txt">Powered by bibtexbrowser</a>';
     echo '</body>';
   }
   else {
