@@ -108,25 +108,25 @@ if (isset($_GET[Q_FILE])) {
 
 // parse a new bib file, if requested
 if (isset($_SESSION[Q_FILE]) && isset($_SESSION['main']) && ($filename ==  $_SESSION[Q_FILE])) {
-      $dispmgr = $_SESSION['main'];
+      $_SESSION['main']  = $_SESSION['main'];
 } else {
-  $dispmgr = new DisplayManager(new BibDataBase($filename));
+  $_SESSION['main']  = new DisplayManager(new BibDataBase($filename));
 }
 
 $_SESSION[Q_FILE] = $filename;
-// stores the information in the session for performance
-$_SESSION['main'] = & $dispmgr;
 
-
-if (isset($_GET[Q_ENTRY])) {
-        $headers=getallheaders();
-        $headers['date'] = time(); // ajout de la date
-        $headers['file'] = $_GET[Q_FILE].'#'.$_GET[Q_ENTRY];//$dispmgr->db->getEntry($_GET[Q_ENTRY])->getTitle();
-        $headers['ip'] = $_SERVER["REMOTE_ADDR"];
-	$file  = fopen ("log-bibtexbrowser.txt", "a");
-	fputs($file,serialize($headers)."\n");
-	fclose($file);
-}
+if (isset($_GET[Q_ENTRY])) {//__removeme__
+        $headers=getallheaders();//__removeme__
+        if (!eregi("googlebot|slurp|msnbot|fast",$headers['User-Agent'])) {
+          $headers['date'] = time();//__removeme__
+          $entry = $_SESSION['main']->db->getEntry($_GET[Q_ENTRY]);//__removeme__
+          $headers['file'] = $_GET[Q_FILE].'#'.$entry->getTitle();//__removeme__
+          $headers['ip'] = $_SERVER["REMOTE_ADDR"];//__removeme__
+          $file  = fopen ("log-bibtexbrowser.txt", "a");//__removeme__
+          fputs($file,serialize($headers)."\n");//__removeme__
+          fclose($file);//__removeme__
+	}
+}//__removeme__
 
 
 ////////////////////////////////////////////////////////
@@ -228,7 +228,7 @@ class BibParser {
   
   /** Creates and return a bib entry by doing any postprogessing to
    * the arguments. E.g., canonical rep. of type names. */
-  function makeBibEntry($type, $fields, $raw_bib) {
+  function makeBibEntry($type, &$fields, $raw_bib) {
     // remove a trailing comma, if exists.
     foreach ($fields as $name => $value) {
       $fields[$name] = rtrim($value, ',');
@@ -295,25 +295,6 @@ class BibParser {
 }
 
 
-/** A class to parse a single bib entry starting from the given 
- * source code line. */
-class SingleEntryParser extends BibParser {
-  function SingleEntryParser() {
-  }
-
-  /** Parses and returns an entry. */
-  function parse($filename, $startIndex) {
-    $file = fopen($filename, 'r');
-    while ($startIndex > 0) {
-      fgets($file, READLINE_LIMIT);
-      $startIndex--;
-    }
-    $e =& $this->parseEntry($file);
-    fclose($file);
-    return $e;
-  }
-}
-
 // ----------------------------------------------------------------------
 // BIB ENTRIES
 // ----------------------------------------------------------------------
@@ -334,12 +315,12 @@ class BibEntry {
 
   /** Creates a new bib entry. Each bib entry is assigned a unique 
    * identification number. */
-  function BibEntry($type, $fields = array(), $text = '') {
+  function BibEntry($type, &$fields, &$text) {
     static $id = 0;
     $this->id = $id++;
     $this->type = $type;
-    $this->fields =& $fields;
-    $this->text =& $text;
+    $this->fields =$fields;
+    $this->text =$text;
   }
 
   /** Returns the type of this bib entry. */
@@ -464,7 +445,7 @@ class DisplayManager {
 
   /** Creates a new display manager that uses the given bib database. */
   function DisplayManager(&$db) {
-    $this->db =& $db;
+    $this->db =$db;
   }
 
   /** Displays the title in a table. */
@@ -746,7 +727,7 @@ class ResultDisplay {
 
   /** Creates an instance with the given entries and header. */
   function ResultDisplay(&$result, $header,$filter) {
-    $this->result =& $result;
+    $this->result = $result;
     $this->header = $header;
     $this->page = 1;
     $this->filter = $filter;
@@ -777,24 +758,23 @@ class ResultDisplay {
    * displayed.
    */
   function displayContents() {
-    $biblist =& $this->result;
     $page = $this->page;
 
     // print error message if no entry.
-    if (empty($biblist)) {
+    if (empty($this->result)) {
       echo "<b>No match found!</b>\n";
       return;
     }
 
     // print a page bar, a list of clickable page numbers
     $pageSize = PAGE_SIZE; // no. of entries per page
-    $noPages = ceil(count($biblist) / $pageSize);
+    $noPages = ceil(count($this->result) / $pageSize);
     
     if ($noPages>1) $this->displayPageBar($noPages, $page);
 
     // create a year -> entries map to display by years
     $years = array();
-    foreach ($biblist as $e) {
+    foreach ($this->result as $e) {
       $y =  trim($e->getField(YEAR));
       $years[$y][] = $e;
     }
@@ -904,18 +884,17 @@ class SingleResultDisplay extends ResultDisplay {
    * mutated to read the rest of the fields.
    */
   function SingleResultDisplay(&$bibentry) {
-    $this->result =& $bibentry;
+    $this->result = $bibentry;
     $this->header = $this->result->getTitle();
   }
 
   /** Displays the bib entry, both in the formatted and raw text. 
    * The object may be mutated. */
   function displayContents() {
-    $entry =& $this->result;
-    if ($entry) {
-      $this->displayEntryFormatted($entry);
+    if ($this->result) {
+      $this->displayEntryFormatted($this->result);
       echo '<br/><div class="header">BibTeX entry:</div>';
-      $this->displayEntryUnformatted($entry);
+      $this->displayEntryUnformatted($this->result);
     }
   }
 
@@ -1208,13 +1187,13 @@ pre {
 </style>
 
 <? 
-$result = $dispmgr->mainVC();
+$result = $_SESSION['main']->mainVC();
 ?>
 
 <title>
 <?
 if ($result != null) echo $result->header.' in '.$filename;
-else echo 'bibtexbrowser: dynamic bibtex to HTML';
+else echo 'You are browsing '.$filename;
 ?>
 </title>
 
@@ -1224,16 +1203,14 @@ else echo 'bibtexbrowser: dynamic bibtex to HTML';
 if (isset($_GET['menu']))
 {
   echo '<body>';
-  echo $dispmgr->searchView(); 
-  echo $dispmgr->typeVC().'<br/>';
-  echo $dispmgr->yearVC().'<br/>';
-  echo $dispmgr->authorVC().'<br/>';
-  echo $dispmgr->tagVC().'<br/>';
+  echo $_SESSION['main']->searchView(); 
+  echo $_SESSION['main']->typeVC().'<br/>';
+  echo $_SESSION['main']->yearVC().'<br/>';
+  echo $_SESSION['main']->authorVC().'<br/>';
+  echo $_SESSION['main']->tagVC().'<br/>';
   echo '</body>';
 } // end isset($_GET['menu']
 else {
-  ?>
-  <?
   if ($result != null) {
     echo '<body>';
     $result->display();
