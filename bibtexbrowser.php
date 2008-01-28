@@ -1,8 +1,8 @@
 <?/* bibtexbrowser : a PHP script to browse and search bib entries from BibTex files.
 * This script is a refactored, extended and repackaged version from an excellent script 
 * of the University of Texas at El Paso.
-* 
-* online demonstration site: http://www.ensieta.fr/~monperma/bibtexbrowser.php
+* Demonstration site: https://www.ensieta.fr/~monperma/bibtexbrowser.php
+* Version : __VERSION__
 *
 * (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 * (C) 2006-2007 Martin Monperrus
@@ -54,12 +54,12 @@
 * displays all entries from author James Russel
 *
 * <URL-to-directory>/bibtexbrowser.php?bib=bibfile.bib&tag=france
-* displays all entries with tag france
+* displays all entries with the keyword france
 * @book{discours-de-la-methode,
 *      author = "René Descartes",
 *      title = "Discours de la M{\'{e}}thode",
 *      year = 1637,
-*      tag="france and seventeenth century"
+*      keywords="france and seventeenth century"
 *      }
 */
 
@@ -108,7 +108,7 @@ if (isset($_GET[Q_FILE])) {
 
 // parse a new bib file, if requested
 if (isset($_SESSION[Q_FILE]) && isset($_SESSION['main']) && ($filename ==  $_SESSION[Q_FILE])) {
-      $_SESSION['main']  = $_SESSION['main'];
+  $_SESSION['main']  = $_SESSION['main'];
 } else {
   $_SESSION['main']  = new DisplayManager(new BibDataBase($filename));
 }
@@ -117,7 +117,7 @@ $_SESSION[Q_FILE] = $filename;
 
 if (isset($_GET[Q_ENTRY])) {//__removeme__
         $headers=getallheaders();//__removeme__
-        if (!eregi("googlebot|slurp|msnbot|fast",$headers['User-Agent'])) {
+        if (!eregi("googlebot|slurp|msnbot|fast",$headers['User-Agent'])) {//__removeme__
           $headers['date'] = time();//__removeme__
           $entry = $_SESSION['main']->db->getEntry($_GET[Q_ENTRY]);//__removeme__
           $headers['file'] = $_GET[Q_FILE].'#'.$entry->getTitle();//__removeme__
@@ -125,7 +125,7 @@ if (isset($_GET[Q_ENTRY])) {//__removeme__
           $file  = fopen ("log-bibtexbrowser.txt", "a");//__removeme__
           fputs($file,serialize($headers)."\n");//__removeme__
           fclose($file);//__removeme__
-	}
+	}//__removeme__
 }//__removeme__
 
 
@@ -1087,9 +1087,10 @@ class BibDataBase {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<meta name="generator" content="bibtexbrowser v__VERSION__" />
 <style type="text/css">
 <!--
 body {
@@ -1193,7 +1194,7 @@ $result = $_SESSION['main']->mainVC();
 <title>
 <?
 if ($result != null) echo $result->header.' in '.$filename;
-else echo 'You are browsing '.$filename;
+else echo 'You are browsing '.$filename.' with bibtexbrowser v__VERSION__';
 ?>
 </title>
 
@@ -1214,7 +1215,12 @@ else {
   if ($result != null) {
     echo '<body>';
     $result->display();
-    echo '<a class="poweredby" href="pub/bibtexbrowser.php.txt">Powered by bibtexbrowser</a>';
+    $poweredby = '<div class="poweredby">';
+    $poweredby .= '<a href="pub/bibtexbrowser.php.txt">';//__removeme__
+    $poweredby .= ' Powered by bibtexbrowser';
+    $poweredby .= '</a>';//__removeme__
+    $poweredby .= '</div>';
+    echo $poweredby;
     echo '</body>';
   }
   else {
