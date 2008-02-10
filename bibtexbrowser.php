@@ -117,7 +117,8 @@ $_SESSION[Q_FILE] = $filename;
 
 if (isset($_GET[Q_ENTRY])) {//__removeme__
         $headers=getallheaders();//__removeme__
-        if (!eregi("googlebot|slurp|msnbot|fast",$headers['User-Agent'])) {//__removeme__
+        $bot_regexp="googlebot|slurp|msnbot|fast";//__removeme__
+        if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__removeme__
           $headers['date'] = time();//__removeme__
           $entry = $_SESSION['main']->db->getEntry($_GET[Q_ENTRY]);//__removeme__
           $headers['file'] = $_GET[Q_FILE].'#'.$entry->getTitle();//__removeme__
