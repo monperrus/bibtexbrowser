@@ -3,9 +3,10 @@
 * of the University of Texas at El Paso.
 * Demonstration site: https://www.ensieta.fr/~monperma/bibtexbrowser.php
 * Version : __VERSION__
+* Don't hesitate to contact me :-)
 *
 * (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
-* (C) 2006-2007 Martin Monperrus
+* (C) 2006-2007-2008 Martin Monperrus
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public License as
 * published by the Free Software Foundation; either version 2 of the
@@ -19,41 +20,31 @@
 * and you can search any string in it. 
 *
 * "PHP BibTeX Database Manager", bibadmin
-* Unlike them, bibtexbrowser does not need a MySQL database. Furthermore, they are made for 
-* managing bibliographies and not only browsing them.
+* Unlike them, bibtexbrowser does not need a MySQL database. 
 *
-* SimplyBibtex has the same spirit, makes different architectural and presentation choices, has
-* editing features
+* SimplyBibtex has the same spirit and makes different architectural and presentation choices
+* but bibtexbroswer is much more lightweight (just one file!!)
 *
 * Misc: a matlab script is similar !! http://www.sat.ltu.se/publications/publications.m
 *
-*
-* Warning : the parser has some limitations
-* please follow the best practices for bib entries 
-*  @book{discours-de-la-methode,
-*      author = "René Descartes",                       %% one attribute per line
-*      title = "Discours de la M{\'{e}}thode",
-*      }                                                                    %% closed with a  } alone on a line
-* The next release will be based on a regular, comprehensive parser
-*
 *  USAGE: 
 *
-* <URL-to-directory>/bibtexbrowser.php
+* /bibtexbrowser.php
 * displays the menu and all entries without filtering from the $filename hardcoded in the script
 *
-* <URL-to-directory>/bibtexbrowser.php?bib=bibfile.bib
+* /bibtexbrowser.php?bib=bibfile.bib
 * displays the menu and all entries without filtering from the file bibfile.bib
 *
-* <URL-to-directory>/bibtexbrowser.php?bib=bibfile.bib&all
+* /bibtexbrowser.php?bib=bibfile.bib&all
 * displays all entries
 *
-* <URL-to-directory>/bibtexbrowser.php?bib=bibfile.bib&year=2004
+* /bibtexbrowser.php?bib=bibfile.bib&year=2004
 * displays all entries from year 2004
 *
-* <URL-to-directory>/bibtexbrowser.php?bib=bibfile.bib&author="James+Russel"
+* /bibtexbrowser.php?bib=bibfile.bib&author="James+Russel"
 * displays all entries from author James Russel
 *
-* <URL-to-directory>/bibtexbrowser.php?bib=bibfile.bib&tag=france
+* /bibtexbrowser.php?bib=bibfile.bib&tag=france
 * displays all entries with the keyword france
 * @book{discours-de-la-methode,
 *      author = "René Descartes",
@@ -86,6 +77,7 @@ define('Q_TYPE_PAGE', 'type_page');
 
 define('Q_ALL', 'all');
 define('Q_ENTRY', 'entry');
+define('Q_KEY', 'key');
 define('Q_SEARCH', 'search');
 define('Q_RESULT', 'result');
 
@@ -147,7 +139,7 @@ class BibParser {
     $file = fopen($filename, 'r');
     $entry =$this->parseEntry($file);
     while ($entry) {
-      $this->bibdb[$entry->getId()] = $entry;
+      $this->bibdb[$entry->getKey()] = $entry;
       //if ($entry->getId() >= 500) { return; } // !FIXME!
       $entry =$this->parseEntry($file);
       //print_r($entry);
@@ -172,10 +164,11 @@ class BibParser {
 	return NULL;
       }
       $line = trim($raw_line);
-      if (ereg("^@.*{", $line)) {
-	//echo 'NEW: ' . $line . "\n";
+      if (ereg("^[[:space:]]*@.*{[[:space:]]*([^,]*)", $line,$regs)) {
+	//echo 'NEW: ' . $regs[1] . "\n";
 	$type = trim(substr($line, 1, strpos($line,'{') - 1));
 	$fields = array();
+	$fields['key']= $regs[1];
 	$raw_bib = $raw_line;
 	break;
       }
@@ -347,6 +340,11 @@ class BibEntry {
     return 'Unknown';
   }
 
+  /** Returns the key of this entry */
+  function getKey() {
+    return $this->getField('key');
+  }
+  
   /** Returns the title of this entry? */
   function getTitle() {
     return $this->getField('title');
@@ -371,8 +369,8 @@ class BibEntry {
     return $this->id;
   }
 
-  /** Returns the verbatim text of this bib entry. */
   function getText() {
+  /** Returns the verbatim text of this bib entry. */
     return $this->text;
   }
 
@@ -564,6 +562,10 @@ else $page = 1;
       $result = new SingleResultDisplay(
         $this->db->getEntry(
         $_GET[Q_ENTRY]));
+     } else if (isset($_GET[Q_KEY])){
+      $result = new SingleResultDisplay(
+        $this->db->getEntryByKey(
+        urldecode($_GET[Q_KEY])));
      } else if (isset($_GET[Q_SEARCH])){  // search?
 	$to_find = $_GET[Q_SEARCH];
 	$searched = $this->db->search($to_find);
@@ -802,9 +804,10 @@ class ResultDisplay {
 	if ($index >= $startIndex && $index < $endIndex) {
 	  $author = compactAuthor($bib->getAuthor());
 	  $id = $bib->getId();
+	  $key = $bib->getKey();
 	  $title = $bib->getField(TITLE);
 	  $type = $bib->getType();
-	  $href = makeHref(array(Q_ENTRY => $id));
+	  $href = makeHref(array(Q_KEY => urlencode($key)));
       ?>
       <tr>
         <td class="a_name">
@@ -986,11 +989,6 @@ class BibDataBase {
     return $result;
   }
 
-  /** Given its ID, return the bib entry. */
-  function getEntry($id) {
-    return $this->bibdb[$id];
-  }
-
   /** Returns an array containing all the bib types (strings). */
   function getTypes() {
     $result = array();
@@ -1048,6 +1046,20 @@ class BibDataBase {
     }
     arsort($result);
     return $result;
+  }
+
+  /** Given its ID, return the bib entry. */
+  function getEntry($id){
+    foreach($this->bibdb as $bib) {
+      if($bib->getId() == $id)
+	return $bib;
+    }
+    return null;
+  }
+  
+  /** Given its key, return the bib entry. */
+  function getEntryByKey($key) {
+    return $this->bibdb[$key];
   }
 
   /**
@@ -1195,7 +1207,7 @@ $result = $_SESSION['main']->mainVC();
 <title>
 <?
 if ($result != null) echo $result->header.' in '.$filename;
-else echo 'You are browsing '.$filename.' with bibtexbrowser v__VERSION__';
+else echo 'You are browsing '.$filename.' with bibtexbrowser';
 ?>
 </title>
 
