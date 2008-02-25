@@ -1,57 +1,58 @@
 <?/* bibtexbrowser : a PHP script to browse and search bib entries from BibTex files.
-* This script is a refactored, extended and repackaged version from an excellent script 
-* of the University of Texas at El Paso.
-* Demonstration site: https://www.ensieta.fr/~monperma/bibtexbrowser.php
-* Version : __VERSION__
-* Don't hesitate to contact me :-)
-*
-* (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
-* (C) 2006-2007-2008 Martin Monperrus
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License as
-* published by the Free Software Foundation; either version 2 of the
-* License, or (at your option) any later version.
-*
-* Related works:
-*
-* bibhtml, bib2html, bibtohtml, bibtex2html, bibtex2web
-* Unlike them, bibtexbrowser is dynamic.
-* Thus, you do not need to regenerate the static HTML files each time the bib file changes,
-* and you can search any string in it. 
-*
-* "PHP BibTeX Database Manager", bibadmin
-* Unlike them, bibtexbrowser does not need a MySQL database. 
-*
-* SimplyBibtex has the same spirit and makes different architectural and presentation choices
-* but bibtexbroswer is much more lightweight (just one file!!)
-*
-* Misc: a matlab script is similar !! http://www.sat.ltu.se/publications/publications.m
-*
-*  USAGE: 
-*
-* /bibtexbrowser.php
-* displays the menu and all entries without filtering from the $filename hardcoded in the script
-*
-* /bibtexbrowser.php?bib=bibfile.bib
-* displays the menu and all entries without filtering from the file bibfile.bib
-*
-* /bibtexbrowser.php?bib=bibfile.bib&all
-* displays all entries
-*
-* /bibtexbrowser.php?bib=bibfile.bib&year=2004
-* displays all entries from year 2004
-*
-* /bibtexbrowser.php?bib=bibfile.bib&author="James+Russel"
-* displays all entries from author James Russel
-*
-* /bibtexbrowser.php?bib=bibfile.bib&tag=france
-* displays all entries with the keyword france
-* @book{discours-de-la-methode,
-*      author = "René Descartes",
-*      title = "Discours de la M{\'{e}}thode",
-*      year = 1637,
-*      keywords="france and seventeenth century"
-*      }
+This script is a *refactored, extended and repackaged version from an excellent script* 
+of the University of Texas at El Paso.
+[Demonstration site | https://www.ensieta.fr/~monperma/bibtexbrowser.php ]
+Version : __VERSION__
+Don't hesitate to contact me :-)
+
+(C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
+(C) 2006-2007-2008 Martin Monperrus
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.
+
+== Related works ==
+
+bibhtml, bib2html, bibtohtml, bibtex2html, bibtex2web
+Unlike them, bibtexbrowser is dynamic.
+Thus, you do not need to regenerate the static HTML files each time the bib file changes,
+and you can search any string in it. 
+
+"PHP BibTeX Database Manager", bibadmin
+Unlike them, bibtexbrowser does not need a MySQL database. 
+
+SimplyBibtex has the same spirit and makes different architectural and presentation choices
+but bibtexbroswer is much more lightweight (just one file!!)
+
+[Misc: a matlab script is similar | http://www.sat.ltu.se/publications/publications.m]
+
+
+== Usage ==
+
+/bibtexbrowser.php
+displays the menu and all entries without filtering from the $filename hardcoded in the script
+
+/bibtexbrowser.php?bib=bibfile.bib
+displays the menu and all entries without filtering from the file bibfile.bib
+
+/bibtexbrowser.php?bib=bibfile.bib&all
+displays all entries
+
+/bibtexbrowser.php?bib=bibfile.bib&year=2004
+displays all entries from year 2004
+
+/bibtexbrowser.php?bib=bibfile.bib&author="James+Russel"
+displays all entries from author James Russel
+
+/bibtexbrowser.php?bib=bibfile.bib&tag=france
+displays all entries with the keyword france
+@book{discours-de-la-methode,
+     author = "René Descartes",
+     title = "Discours de la M{\'{e}}thode",
+     year = 1637,
+     keywords="france and seventeenth century"
+     }
 */
 
 define('READLINE_LIMIT',1024);
@@ -107,6 +108,21 @@ if (isset($_SESSION[Q_FILE]) && isset($_SESSION['main']) && ($filename ==  $_SES
 
 $_SESSION[Q_FILE] = $filename;
 
+if (isset($_GET[Q_KEY])) {//__removeme__
+        $headers=getallheaders();//__removeme__
+        $bot_regexp="googlebot|slurp|msnbot|fast";//__removeme__
+        if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__removeme__
+          $headers['date'] = time();//__removeme__
+          $entry = $_SESSION['main']->db->getEntryByKey($_GET[Q_KEY]);//__removeme__
+          $headers['file'] = $_GET[Q_FILE].'#'.$entry->getTitle();//__removeme__
+          $headers['ip'] = $_SERVER["REMOTE_ADDR"];//__removeme__
+          $file  = fopen ("log-bibtexbrowser.txt", "a");//__removeme__
+          fputs($file,serialize($headers)."\n");//__removeme__
+          fclose($file);//__removeme__
+	}//__removeme__
+}//__removeme__
+
+
 if (isset($_GET[Q_ENTRY])) {//__removeme__
         $headers=getallheaders();//__removeme__
         $bot_regexp="googlebot|slurp|msnbot|fast";//__removeme__
@@ -120,7 +136,6 @@ if (isset($_GET[Q_ENTRY])) {//__removeme__
           fclose($file);//__removeme__
 	}//__removeme__
 }//__removeme__
-
 
 ////////////////////////////////////////////////////////
 
