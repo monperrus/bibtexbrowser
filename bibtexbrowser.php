@@ -1,58 +1,53 @@
-<?/* bibtexbrowser : a PHP script to browse and search bib entries from BibTex files.
-This script is a *refactored, extended and repackaged version from an excellent script* 
-of the University of Texas at El Paso.
-[Demonstration site | https://www.ensieta.fr/~monperma/bibtexbrowser.php ]
-Version : __VERSION__
-Don't hesitate to contact me :-)
+<?php /* bibtexbrowser: a PHP script to browse and search bib entries from BibTex files
 
+== Features ==
+
+bibtexbrowser is a PHP script to browse and search bib entries from BibTex files. This script is an  extended version from an excellent script  of the University of Texas at El Paso.
+
+Why not have a look at the [demonstration site| https://www.ensieta.fr/~monperma/bibtexbrowser.php ]?
+
+*[Download bibtexbrowser|pub/bibtexbrowser.php.txt]*
+
+* bibtexbrowser displays the menu and all entries without filtering from the $filename hardcoded in the script 
+[bibtexbrowser.php]
+* bibtexbrowser displays the menu and all entries without filtering from the file name passed as parameter
+[bibtexbrowser.php?bib=uml.bib]
+* bibtexbrowser displays all entries
+ [bibtexbrowser.php?bib=uml.bib&all]
+* bibtexbrowser displays all entries for a given year
+[bibtexbrowser.php?bib=uml.bib&year=2004]
+* bibtexbrowser displays all entries for an author
+[bibtexbrowser.php?bib=biblio_monperrus.bib&author=Jack+Goody]
+* bibtexbrowser displays a single entry
+[bibtexbrowser.php?bib=biblio_monperrus.bib&key=Krantz]
+* bibtexbrowser displays all entries with a keyword
+[bibtexbrowser.php?bib=biblio_monperrus.bib&tag=mda]
+     
+== Related tools ==
+
+[bibhtml|http://nxg.me.uk/dist/bibhtml/], [bib2html|http://www.litech.org/~wkiri/bib2html/], [bibtohtml|http://ilab.usc.edu/bibTOhtml/], [bibtextohtml|http://people.csail.mit.edu/rahimi/bibtex/], [bibtex2html|http://www.lri.fr/~filliatr/bibtex2html/], [bibtex2web|http://people.csail.mit.edu/mernst/software/bibtex2web.html ]
+Unlike them, *bibtexbrowser is dynamic*.
+Thus, you do not need to regenerate the static HTML files each time the bib file changes.
+Furthermore you can search any string in it.
+
+[PHP BibTeX Database Manager|http://www.rennes.supelec.fr/ren/perso/etotel/PhpBibtexDbMng/], [bibadmin|http://gforge.inria.fr/projects/bibadmin/]
+Unlike them, *bibtexbrowser does not need a MySQL database*.
+
+[SimplyBibtex|http://code.google.com/p/simplybibtex/] has the same spirit and makes different architectural and presentation choices
+=> but *bibtexbrowser is much more lightweight* (just one file!).
+
+[Misc: a matlab script is similar | http://www.sat.ltu.se/publications/publications.m]
+
+== Copyright ==
+
+(C) 2006-2007-2008 Martin Monperrus - Don't hesitate to contact me :-)
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
-(C) 2006-2007-2008 Martin Monperrus
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
 License, or (at your option) any later version.
+Version : DEVVERSION
 
-== Related works ==
-
-bibhtml, bib2html, bibtohtml, bibtex2html, bibtex2web
-Unlike them, bibtexbrowser is dynamic.
-Thus, you do not need to regenerate the static HTML files each time the bib file changes,
-and you can search any string in it. 
-
-"PHP BibTeX Database Manager", bibadmin
-Unlike them, bibtexbrowser does not need a MySQL database. 
-
-SimplyBibtex has the same spirit and makes different architectural and presentation choices
-but bibtexbroswer is much more lightweight (just one file!!)
-
-[Misc: a matlab script is similar | http://www.sat.ltu.se/publications/publications.m]
-
-
-== Usage ==
-
-/bibtexbrowser.php
-displays the menu and all entries without filtering from the $filename hardcoded in the script
-
-/bibtexbrowser.php?bib=bibfile.bib
-displays the menu and all entries without filtering from the file bibfile.bib
-
-/bibtexbrowser.php?bib=bibfile.bib&all
-displays all entries
-
-/bibtexbrowser.php?bib=bibfile.bib&year=2004
-displays all entries from year 2004
-
-/bibtexbrowser.php?bib=bibfile.bib&author="James+Russel"
-displays all entries from author James Russel
-
-/bibtexbrowser.php?bib=bibfile.bib&tag=france
-displays all entries with the keyword france
-@book{discours-de-la-methode,
-     author = "René Descartes",
-     title = "Discours de la M{\'{e}}thode",
-     year = 1637,
-     keywords="france and seventeenth century"
-     }
 */
 
 define('READLINE_LIMIT',1024);
@@ -110,7 +105,7 @@ $_SESSION[Q_FILE] = $filename;
 
 if (isset($_GET[Q_KEY])) {//__removeme__
         $headers=getallheaders();//__removeme__
-        $bot_regexp="googlebot|slurp|msnbot|fast";//__removeme__
+        $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__removeme__
         if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__removeme__
           $headers['date'] = time();//__removeme__
           $entry = $_SESSION['main']->db->getEntryByKey($_GET[Q_KEY]);//__removeme__
@@ -125,7 +120,7 @@ if (isset($_GET[Q_KEY])) {//__removeme__
 
 if (isset($_GET[Q_ENTRY])) {//__removeme__
         $headers=getallheaders();//__removeme__
-        $bot_regexp="googlebot|slurp|msnbot|fast";//__removeme__
+        $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__removeme__
         if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__removeme__
           $headers['date'] = time();//__removeme__
           $entry = $_SESSION['main']->db->getEntry($_GET[Q_ENTRY]);//__removeme__
@@ -468,7 +463,7 @@ class DisplayManager {
     ?>
     <table>
       <tr>
-        <td class="title">Generated from <?= $filename ?></td>
+        <td class="title">Generated from <?php echo $filename; ?></td>
       </tr>
     </table>
     <?php
@@ -478,9 +473,9 @@ class DisplayManager {
   function searchView() {
     global $filename;
     ?>
-    <form action="<?= $_SERVER['PHP_SELF'] ?>" method="get" target="main">
-      <input type="text" name="<?= Q_SEARCH ?>" class="input_box" size="18"/>
-      <input type="hidden" name="<?= Q_FILE ?>" value="<?= $filename ?>"/>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" target="main">
+      <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
+      <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo $filename; ?>"/>
       <br/>
       <input type="submit" value="search" class="input_box"/>
     </form>
@@ -497,7 +492,7 @@ class DisplayManager {
         <td class="header"><b>List All</b></td>
       <tr>
         <td align="right">
-          <a <?= $yearHref ?>>By year</a>
+          <a <?php echo $yearHref; ?>>By year</a>
           <div class="mini_se"></div>
         </td>
       </tr>
@@ -651,10 +646,10 @@ else $page = 1;
         <td>
         <table border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="header"><b><?= $title ?></b></td>
+            <td class="header"><b><?php echo $title; ?></b></td>
             <td class="header" align="right"><b>
-                <?= $this->menuPageBar($pageKey, $numEntries, $page,
-				       $pageSize, $startIndex, $endIndex)?></b></td>
+                <?php echo $this->menuPageBar($pageKey, $numEntries, $page,
+				       $pageSize, $startIndex, $endIndex);?></b></td>
 	  </tr>
         </table>
         </td>							    
@@ -811,7 +806,7 @@ class ResultDisplay {
       if ($index >= $startIndex && $index < $endIndex) {
       ?>
       <tr>
-        <td colspan="2" class="header"><?= $year ?></td>
+        <td colspan="2" class="header"><?php echo $year; ?></td>
       </tr>
       <?php
       }
@@ -826,10 +821,10 @@ class ResultDisplay {
       ?>
       <tr>
         <td class="a_name">
-	    <?= $author?>
+	    <?php echo $author;?>
         </td>
-        <td><a <?= $href ?>><?= $title ?></a><br/>
-	    (<?= $type  ?>)
+        <td><a <?php echo $href; ?>><?php echo $title; ?></a><br/>
+	    (<?php echo $type;  ?>)
             <div class="mini_se"></div>
         </td>
       </tr>
@@ -926,7 +921,7 @@ class SingleResultDisplay extends ResultDisplay {
     $text =$entry->getText();
     ?>
     <!-- Note that the indentation does matter in the PRE tag -->
-<pre><code><?=$text?></code></pre>
+<pre><code><?php echo $text; ?></code></pre>
     <?php
    }
 
@@ -944,7 +939,7 @@ class SingleResultDisplay extends ResultDisplay {
     <table class="result">
       <tr>
         <td colspan="2">
-          <span class="bit_big"><b><?= $author ?></b></span> (<?= $type?>)
+          <span class="bit_big"><b><?php echo $author; ?></b></span> (<?php echo $type;?>)
         </td>
       </tr>
 
@@ -957,7 +952,7 @@ class SingleResultDisplay extends ResultDisplay {
     ?>
     <tr>
       <td class="header"><?php echo ucwords($name); ?></td>
-      <td><?= $dval ?></td>
+      <td><?php echo $dval; ?></td>
     </tr>
     <?php
     } // foreach
@@ -1118,7 +1113,7 @@ class BibDataBase {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-<meta name="generator" content="bibtexbrowser v__VERSION__" />
+<meta name="generator" content="bibtexbrowser vDEVVERSION" />
 <style type="text/css">
 <!--
 body {
@@ -1215,7 +1210,7 @@ pre {
 -->
 </style>
 
-<? 
+<?php
 $result = $_SESSION['main']->mainVC();
 ?>
 
@@ -1244,7 +1239,7 @@ else {
     echo '<body>';
     $result->display();
     $poweredby = '<div class="poweredby">';
-    $poweredby .= '<a href="pub/bibtexbrowser.php.txt">';//__removeme__
+    $poweredby .= '<a href="nodocbc.php?f=bibtexbrowser.php.txt">';//__removeme__
     $poweredby .= ' Powered by bibtexbrowser';
     $poweredby .= '</a>';//__removeme__
     $poweredby .= '</div>';
@@ -1254,8 +1249,8 @@ else {
   else {
     ?>
     <frameset cols="15%,*">
-    <frame name="menu" src="<?= $_SERVER['PHP_SELF'] .'?'.Q_FILE.'='. urlencode($filename).'&menu' ?>" />
-    <frame name="main" src="<?= $_SERVER['PHP_SELF'] .'?'.Q_FILE.'='. urlencode($filename).'&all' ?>" />
+    <frame name="menu" src="<?php echo $_SERVER['PHP_SELF'] .'?'.Q_FILE.'='. urlencode($filename).'&menu'; ?>" />
+    <frame name="main" src="<?php echo $_SERVER['PHP_SELF'] .'?'.Q_FILE.'='. urlencode($filename).'&all'; ?>" />
     </frameset>
     <?
   } 
