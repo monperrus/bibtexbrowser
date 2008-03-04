@@ -20,8 +20,10 @@ Why not have a look at the [demonstration site| https://www.ensieta.fr/~monperma
 [bibtexbrowser.php?bib=biblio_monperrus.bib&author=Jack+Goody]
 * bibtexbrowser displays a single entry
 [bibtexbrowser.php?bib=biblio_monperrus.bib&key=Krantz]
-* bibtexbrowser displays all entries with a keyword
+* bibtexbrowser displays all entries with a bib keyword
 [bibtexbrowser.php?bib=biblio_monperrus.bib&tag=mda]
+* bibtexbrowser displays found entries with a search word (it can be in any bib field)
+[bibtexbrowser.php?bib=biblio_monperrus.bib&search=ocl]
      
 == Related tools ==
 
