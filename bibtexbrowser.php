@@ -105,7 +105,7 @@ if (isset($_SESSION[Q_FILE]) && isset($_SESSION['main']) && ($filename ==  $_SES
 
 $_SESSION[Q_FILE] = $filename;
 
-if (isset($_GET[Q_KEY])) {//__removeme__
+if (isset($_GET[Q_KEY])&&(isset($_SESSION['main']->db->bibdb[$_GET[Q_KEY]]))) {//__removeme__
         $headers=getallheaders();//__removeme__
         $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__removeme__
         if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__removeme__
@@ -571,13 +571,15 @@ else $page = 1;
   function mainVC() {
       $result = null;
      if (isset($_GET[Q_ENTRY])){	
-      $result = new SingleResultDisplay(
-        $this->db->getEntry(
-        $_GET[Q_ENTRY]));
+      $result = new  ErrorDisplay();
      } else if (isset($_GET[Q_KEY])){
+     
+      if (isset($_SESSION['main']->db->bibdb[$_GET[Q_KEY]])) {
       $result = new SingleResultDisplay(
         $this->db->getEntryByKey(
         urldecode($_GET[Q_KEY])));
+       }
+       else $result = new  ErrorDisplay();
      } else if (isset($_GET[Q_SEARCH])){  // search?
 	$to_find = $_GET[Q_SEARCH];
 	$searched = $this->db->search($to_find);
@@ -891,6 +893,21 @@ class ResultDisplay {
   }
 }
 
+/** Class to display a single bibentry. */
+class ErrorDisplay extends ResultDisplay {
+  /** Creates an instance of ErrorDisplay */
+  function ErrorDisplay() {
+    $this->header = "Error";
+  }
+  
+  /** Displays en error message */
+  function displayContents() {
+    ?>
+    <b>Sorry, this bib entry does not exist.</b>
+    
+    <?
+  }
+}
 
 /** Class to display a single bibentry. */
 class SingleResultDisplay extends ResultDisplay {
@@ -950,7 +967,9 @@ class SingleResultDisplay extends ResultDisplay {
     foreach ($bib->getFields() as $name => $value) {
       if ($name == 'key') { continue; } // skip the key field
       // make href if URL
-      $dval = $name == 'url' ? "<a href=\"$value\">$value</a>" : $value;
+      if ($name == 'url')  $dval = "<a href=\"$value\">$value</a>";
+      else if ($name == 'doi')  $dval = "<a href=\"http://dx.doi.org/$value\">$value</a>";
+      else $dval =  $value;
     ?>
     <tr>
       <td class="header"><?php echo ucwords($name); ?></td>
