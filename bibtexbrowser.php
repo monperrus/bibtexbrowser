@@ -32,7 +32,7 @@ Unlike them, *bibtexbrowser is dynamic*.
 Thus, you do not need to regenerate the static HTML files each time the bib file changes.
 Furthermore you can search any string in it.
 
-[PHP BibTeX Database Manager|http://www.rennes.supelec.fr/ren/perso/etotel/PhpBibtexDbMng/], [bibadmin|http://gforge.inria.fr/projects/bibadmin/],[basilic|http://artis.imag.fr/Software/Basilic/]
+[PHP BibTeX Database Manager|http://www.rennes.supelec.fr/ren/perso/etotel/PhpBibtexDbMng/], [bibadmin|http://gforge.inria.fr/projects/bibadmin/],[basilic|http://artis.imag.fr/Software/Basilic/], [phpbibman|http://phpbibman.sourceforge.net/]
 Unlike them, *bibtexbrowser does not need a MySQL database*.
 
 [SimplyBibtex|http://code.google.com/p/simplybibtex/] has the same spirit and makes different architectural and presentation choices
