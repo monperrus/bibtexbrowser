@@ -42,7 +42,7 @@ Unlike them, *bibtexbrowser does not need a MySQL database*.
 
 == Copyright ==
 
-(C) 2006-2007-2008 Martin Monperrus - Don't hesitate to contact me :-)
+(C) 2006-2007-2008 [Martin Monperrus|https://www.ensieta.fr/~monperma/] - Don't hesitate to contact me :-)
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -105,34 +105,34 @@ if (isset($_SESSION[Q_FILE]) && isset($_SESSION['main']) && ($filename ==  $_SES
 
 $_SESSION[Q_FILE] = $filename;
 
-if (isset($_GET[Q_KEY])&&(isset($_SESSION['main']->db->bibdb[$_GET[Q_KEY]]))) {//__removeme__
-        $headers=getallheaders();//__removeme__
-        $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__removeme__
-        if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__removeme__
-          $headers['date'] = time();//__removeme__
-          $entry = $_SESSION['main']->db->getEntryByKey($_GET[Q_KEY]);//__removeme__
-          $headers['file'] = $_GET[Q_FILE].'#'.$entry->getTitle();//__removeme__
-          $headers['ip'] = $_SERVER["REMOTE_ADDR"];//__removeme__
-          $file  = fopen ("log-bibtexbrowser.txt", "a");//__removeme__
-          fputs($file,serialize($headers)."\n");//__removeme__
-          fclose($file);//__removeme__
-	}//__removeme__
-}//__removeme__
+if (isset($_GET[Q_KEY])&&(isset($_SESSION['main']->db->bibdb[$_GET[Q_KEY]]))) {//__devonly__
+        $headers=getallheaders();//__devonly__
+        $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__devonly__
+        if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__devonly__
+          $headers['date'] = time();//__devonly__
+          $entry = $_SESSION['main']->db->getEntryByKey($_GET[Q_KEY]);//__devonly__
+          $headers['file'] = $_GET[Q_FILE].'#'.$entry->getTitle();//__devonly__
+          $headers['ip'] = $_SERVER["REMOTE_ADDR"];//__devonly__
+          $file  = fopen ("logs-bibtexbrowser.txt", "a");//__devonly__
+          fputs($file,serialize($headers)."\n");//__devonly__
+          fclose($file);//__devonly__
+	}//__devonly__
+}//__devonly__
 
 
-if (isset($_GET[Q_ENTRY])) {//__removeme__
-        $headers=getallheaders();//__removeme__
-        $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__removeme__
-        if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__removeme__
-          $headers['date'] = time();//__removeme__
-          $entry = $_SESSION['main']->db->getEntry($_GET[Q_ENTRY]);//__removeme__
-          $headers['file'] = $_GET[Q_FILE].'#'.$entry->getTitle();//__removeme__
-          $headers['ip'] = $_SERVER["REMOTE_ADDR"];//__removeme__
-          $file  = fopen ("log-bibtexbrowser.txt", "a");//__removeme__
-          fputs($file,serialize($headers)."\n");//__removeme__
-          fclose($file);//__removeme__
-	}//__removeme__
-}//__removeme__
+if (isset($_GET[Q_ENTRY])) {//__devonly__
+        $headers=getallheaders();//__devonly__
+        $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__devonly__
+        if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__devonly__
+          $headers['date'] = time();//__devonly__
+          $entry = $_SESSION['main']->db->getEntry($_GET[Q_ENTRY]);//__devonly__
+          $headers['file'] = $_GET[Q_FILE].'#'.$entry->getTitle();//__devonly__
+          $headers['ip'] = $_SERVER["REMOTE_ADDR"];//__devonly__
+          $file  = fopen ("logs-bibtexbrowser.txt", "a");//__devonly__
+          fputs($file,serialize($headers)."\n");//__devonly__
+          fclose($file);//__devonly__
+	}//__devonly__
+}//__devonly__
 
 ////////////////////////////////////////////////////////
 
@@ -1260,9 +1260,9 @@ else {
     echo '<body>';
     $result->display();
     $poweredby = '<div class="poweredby">';
-    $poweredby .= '<a href="nodocbc.php?f=bibtexbrowser.php.txt">';//__removeme__
+    $poweredby .= '<a href="nodocbc.php?f=bibtexbrowser.php.txt">';//__devonly__
     $poweredby .= ' Powered by bibtexbrowser';
-    $poweredby .= '</a>';//__removeme__
+    $poweredby .= '</a>';//__devonly__
     $poweredby .= '</div>';
     echo $poweredby;
     echo '</body>';
