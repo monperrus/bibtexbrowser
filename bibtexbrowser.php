@@ -106,31 +106,11 @@ if (isset($_SESSION[Q_FILE]) && isset($_SESSION['main']) && ($filename ==  $_SES
 $_SESSION[Q_FILE] = $filename;
 
 if (isset($_GET[Q_KEY])&&(isset($_SESSION['main']->db->bibdb[$_GET[Q_KEY]]))) {//__devonly__
-        $headers=getallheaders();//__devonly__
         $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__devonly__
-        if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__devonly__
-          $headers['date'] = time();//__devonly__
-          $entry = $_SESSION['main']->db->getEntryByKey($_GET[Q_KEY]);//__devonly__
-          $headers['file'] = $_GET[Q_FILE].'#'.$entry->getTitle();//__devonly__
-          $headers['ip'] = $_SERVER["REMOTE_ADDR"];//__devonly__
-          $file  = fopen ("logs-bibtexbrowser.txt", "a");//__devonly__
-          fputs($file,serialize($headers)."\n");//__devonly__
-          fclose($file);//__devonly__
-	}//__devonly__
-}//__devonly__
-
-
-if (isset($_GET[Q_ENTRY])) {//__devonly__
-        $headers=getallheaders();//__devonly__
-        $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__devonly__
-        if (!eregi($bot_regexp,$headers['User-Agent'])&&!eregi($bot_regexp,$headers['User-agent'])) {//__devonly__
-          $headers['date'] = time();//__devonly__
-          $entry = $_SESSION['main']->db->getEntry($_GET[Q_ENTRY]);//__devonly__
-          $headers['file'] = $_GET[Q_FILE].'#'.$entry->getTitle();//__devonly__
-          $headers['ip'] = $_SERVER["REMOTE_ADDR"];//__devonly__
-          $file  = fopen ("logs-bibtexbrowser.txt", "a");//__devonly__
-          fputs($file,serialize($headers)."\n");//__devonly__
-          fclose($file);//__devonly__
+        if (!eregi($bot_regexp,$_SERVER['HTTP_USER_AGENT'])) {//__devonly__
+	include('tpl_probe.php');//__devonly__
+	$entry = $_SESSION['main']->db->getEntryByKey($_GET[Q_KEY]);//__devonly__
+        tinyphplog_log($_GET[Q_FILE].'#'.$entry->getTitle(),"logs-bibtexbrowser.txt");//__devonly__
 	}//__devonly__
 }//__devonly__
 
@@ -918,7 +898,7 @@ class SingleResultDisplay extends ResultDisplay {
    */
   function SingleResultDisplay(&$bibentry) {
     $this->result = $bibentry;
-    $this->header = $this->result->getTitle();
+    $this->header = 'Bibtex entry: '.$this->result->getTitle();
   }
 
   /** Displays the bib entry, both in the formatted and raw text. 
@@ -928,6 +908,8 @@ class SingleResultDisplay extends ResultDisplay {
       $this->displayEntryFormatted($this->result);
       echo '<br/><div class="header">BibTeX entry:</div>';
       $this->displayEntryUnformatted($this->result);
+      global $filename;
+      //echo '<a target="_top" "'.makeHref().'">Continue to browse '.$filename.'</a>';
     }
   }
 
@@ -1237,7 +1219,7 @@ $result = $_SESSION['main']->mainVC();
 
 <title>
 <?
-if ($result != null) echo $result->header.' in '.$filename;
+if ($result != null) echo $result->header;
 else echo 'You are browsing '.$filename.' with bibtexbrowser';
 ?>
 </title>
