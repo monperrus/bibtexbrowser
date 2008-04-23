@@ -29,11 +29,11 @@ Why not have a look at the [demonstration site| https://www.ensieta.fr/~monperma
 
 [bibhtml|http://nxg.me.uk/dist/bibhtml/], [bib2html|http://www.litech.org/~wkiri/bib2html/], [bibtohtml|http://ilab.usc.edu/bibTOhtml/], [bibtextohtml|http://people.csail.mit.edu/rahimi/bibtex/], [bibtex2html|http://www.lri.fr/~filliatr/bibtex2html/], [bibtex2web|http://people.csail.mit.edu/mernst/software/bibtex2web.html ]
 Unlike them, *bibtexbrowser is dynamic*.
-Thus, you do not need to regenerate the static HTML files each time the bib file changes.
+Thus, you do not need to regenerate the static HTML files each time the bib file is changed.
 Furthermore you can search any string in it.
 
-[PHP BibTeX Database Manager|http://www.rennes.supelec.fr/ren/perso/etotel/PhpBibtexDbMng/], [bibadmin|http://gforge.inria.fr/projects/bibadmin/],[basilic|http://artis.imag.fr/Software/Basilic/], [phpbibman|http://phpbibman.sourceforge.net/]
-Unlike them, *bibtexbrowser does not need a MySQL database*.
+[PHP BibTeX Database Manager|http://www.rennes.supelec.fr/ren/perso/etotel/PhpBibtexDbMng/], [bibadmin|http://gforge.inria.fr/projects/bibadmin/], [basilic|http://artis.imag.fr/Software/Basilic/], [phpbibman|http://phpbibman.sourceforge.net/]
+Unlike them, *bibtexbrowser does not need a MySQL database* and does not need a tedious import step each time the bib file is changed.
 
 [SimplyBibtex|http://code.google.com/p/simplybibtex/] has the same spirit and makes different architectural and presentation choices
 => but *bibtexbrowser is much more lightweight* (just one file!).
