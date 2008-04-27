@@ -108,9 +108,9 @@ $_SESSION[Q_FILE] = $filename;
 if (isset($_GET[Q_KEY])&&(isset($_SESSION['main']->db->bibdb[$_GET[Q_KEY]]))) {//__devonly__
         $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__devonly__
         if (!eregi($bot_regexp,$_SERVER['HTTP_USER_AGENT'])) {//__devonly__
-	include('tpl_probe.php');//__devonly__
+	//include('tpl_probe.php');//__devonly__
 	$entry = $_SESSION['main']->db->getEntryByKey($_GET[Q_KEY]);//__devonly__
-        tinyphplog_log($_GET[Q_FILE].'#'.$entry->getTitle(),"logs-bibtexbrowser.txt");//__devonly__
+        //tinyphplog_log($_GET[Q_FILE].'#'.$entry->getTitle(),"logs-bibtexbrowser.txt");//__devonly__
 	}//__devonly__
 }//__devonly__
 
@@ -400,7 +400,7 @@ function makeHref($query = NULL) {
       $qstring .= '&amp;'. $key .'='. $val;
     }
   }
-  return 'href="'. $_SERVER['PHP_SELF'] .'?'. $qstring .'"';
+  return 'href="'. $_SERVER['SCRIPT_NAME'] .'?'. $qstring .'"';
 }
 
 /**
@@ -455,7 +455,7 @@ class DisplayManager {
   function searchView() {
     global $filename;
     ?>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" target="main">
+    <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="get" target="main">
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
       <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo $filename; ?>"/>
       <br/>
@@ -1252,8 +1252,8 @@ else {
   else {
     ?>
     <frameset cols="15%,*">
-    <frame name="menu" src="<?php echo $_SERVER['PHP_SELF'] .'?'.Q_FILE.'='. urlencode($filename).'&menu'; ?>" />
-    <frame name="main" src="<?php echo $_SERVER['PHP_SELF'] .'?'.Q_FILE.'='. urlencode($filename).'&all'; ?>" />
+    <frame name="menu" src="<?php echo $_SERVER['SCRIPT_NAME'] .'?'.Q_FILE.'='. urlencode($filename).'&menu'; ?>" />
+    <frame name="main" src="<?php echo $_SERVER['SCRIPT_NAME'] .'?'.Q_FILE.'='. urlencode($filename).'&all'; ?>" />
     </frameset>
     <?
   } 
