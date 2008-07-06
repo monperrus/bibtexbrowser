@@ -6,7 +6,7 @@ bibtexbrowser is a PHP script to browse and search bib entries from BibTex files
 
 *[Download bibtexbrowser|pub/bibtexbrowser.php.txt]*
 
-<img height="500" src="bibtexbrowser-screenshot.png"/><br/>
+<a href="bibtexbrowser-screenshot.png"><img height="500" src="bibtexbrowser-screenshot.png"/><br/></a>
 
 * [bibtexbrowser can display the menu and all entries without filtering from the $filename hardcoded in the script |bibtexbrowser.php]
 * [bibtexbrowser can display the menu and all entries without filtering from the file name passed as parameter|bibtexbrowser.php?bib=uml.bib]
@@ -16,7 +16,37 @@ bibtexbrowser is a PHP script to browse and search bib entries from BibTex files
 * [bibtexbrowser can display a single entry|bibtexbrowser.php?bib=biblio_monperrus.bib&key=Krantz]
 * [bibtexbrowser can display all entries with a bib keyword|bibtexbrowser.php?bib=biblio_monperrus.bib&tag=mda]
 * [bibtexbrowser can display found entries with a search word (it can be in any bib field)|bibtexbrowser.php?bib=biblio_monperrus.bib&search=ocl]
-     
+
+
+You can also include your publications list into your home page:
+&#60;?php
+$_GET&#91;'bib'&#93;='mybib.bib';
+$_GET&#91;'author'&#93;='Martin+Monperrus';
+// used for the generated links
+$&#95;SERVER&#91;'SCRIPT&#95;NAME'&#93;='bibtexbrowser.php';
+include('bibtexbrowser.php');
+?>
+And tailor it with a CSS style!
+&#60;style>
+.date {
+   background-color: blue;
+   }
+
+.rheader {
+   font-size: large
+   }
+   
+.poweredby {
+   visibility: collapse;
+}
+   
+.bibline {
+  padding:3px;
+  padding-left:15px;
+  vertical-align:top;
+}
+&#60;/style>
+
 == Related tools ==
 
 Old-fashioned:
@@ -428,6 +458,11 @@ class BibEntry {
 	    if ($this->hasField('url')) { 
                 echo ' <a href="'.$this->getField("url").'">[pdf]</a>';
 	    }
+	    
+	    if ($this->hasField('doi')) {
+                echo ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
+	    }
+	    
             echo '</td></tr>';
  
    }
@@ -478,9 +513,11 @@ class BibEntry {
 	    echo '<br/>';
 	    
 	    echo " <a {$href}>[bib]</a>";
-	    if ($this->hasField('url')) { 
+	    
+	    if ($this->hasField('url')) {
                 echo ' <a href="'.$this->getField("url").'">[pdf]</a>';
 	    }
+
 
 
             echo '</td></tr>';
@@ -838,6 +875,9 @@ class ResultDisplay {
   /** the page number to display. */
   var $page;
 
+  /** the total number of pages to display. */
+  var $noPages;
+  
   /** the start index to display. */
   var $startIndex;
   
@@ -886,9 +926,9 @@ class ResultDisplay {
       return;
     }
 
-    $noPages = ceil(count($this->result) / PAGE_SIZE);
+    $this->noPages = ceil(count($this->result) / PAGE_SIZE);
     
-    if ($noPages>1) $this->displayPageBar($noPages, $page);
+    if ($this->noPages>1) $this->displayPageBar($this->noPages, $page);
 
     $this->startIndex = ($page - 1) * PAGE_SIZE;
     $this->endIndex =$this->startIndex + PAGE_SIZE;
@@ -898,7 +938,7 @@ class ResultDisplay {
   
     $this->contentStrategy->display($this);
     echo '<br/>';
-     if ($noPages>1) $this->displayPageBar($noPages, $page);
+     if ($this->noPages>1) $this->displayPageBar($this->noPages, $page);
 
      echo $this->poweredby();
 
@@ -986,7 +1026,7 @@ class DefaultContentStrategy  {
     <?php
     
     $index = 0;
-    $refnum = count($display->result);
+    $refnum = count($display->result)-(($display->page-1)*PAGE_SIZE);
     foreach ($years as $year => $entries) {
 
 
@@ -1024,7 +1064,7 @@ class ErrorDisplay  {
     <b>Sorry, this bib entry does not exist.</b>
     <a href="?">Back to bibtexbrowser</a>
     
-    <?
+    <?php
   }
 }
 
@@ -1312,7 +1352,7 @@ pre {
 
 </head>
 <body>
-<?
+<?php
 
 }
 
@@ -1351,6 +1391,8 @@ else if (!$included) {
     </frameset>
     </html>
 
-    <?
+    <?php
 } 
 // if we are included; do nothing bibtexbrowser.php is used as a library
+
+?>
