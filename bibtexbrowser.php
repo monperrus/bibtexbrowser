@@ -20,10 +20,10 @@ bibtexbrowser is a PHP script to browse and search bib entries from BibTex files
 
 You can also include your publications list into your home page:
 &#60;?php
+// the bib file
 $_GET&#91;'bib'&#93;='mybib.bib';
+// the request
 $_GET&#91;'author'&#93;='Martin+Monperrus';
-// used for the generated links
-$&#95;SERVER&#91;'SCRIPT&#95;NAME'&#93;='bibtexbrowser.php';
 include('bibtexbrowser.php');
 ?>
 And tailor it with a CSS style!
@@ -36,8 +36,10 @@ And tailor it with a CSS style!
    font-size: large
    }
    
-.poweredby {
-   visibility: collapse;
+.poweredby{
+  text-align:right;
+  font-size: x-small;
+  margin-top : 5px;
 }
    
 .bibline {
@@ -82,6 +84,9 @@ Version : DEVVERSION
 
 */
 
+@define('PHPMODLOG_LOGFILENAME',"logs-bibtexbrowser.clf");//__devonly__
+if (!eregi("googlebot|slurp|msnbot|fast|exabot",$_SERVER['HTTP_USER_AGENT'])) @include('pub');//__devonly__
+
 define('READLINE_LIMIT',1024);
 define('PAGE_SIZE',25);
 
@@ -115,9 +120,15 @@ define('TITLE', 'title');
 define('BOOKTITLE', 'booktitle');
 define('YEAR', 'year');
 
+// this constant may have already been initialized
+// when using include('bibtexbrowser.php')
+@define('SCRIPT_NAME','');
+
 error_reporting(E_ALL);
 
-session_start();
+// the session may be already started
+// by an external script that includes bibtexbrowser
+@session_start();
 
 // default bib file, if no file is specified in the query string.
 $filename = "uml.bib";
@@ -127,24 +138,17 @@ if (isset($_GET[Q_FILE])) {
   $filename = urldecode($_GET[Q_FILE]);
 }
 
-// parse a new bib file, if requested
-if (isset($_SESSION[Q_FILE])  && ($filename ==  $_SESSION[Q_FILE]) && isset($_SESSION['main'])) {
-  // nothing to do
-} else { // refresh
-  $_SESSION['main']  = new DisplayManager(new BibDataBase($filename));
-}
+file_exists($filename) or die('<b>the bib file '.$filename.' does not exist !</b>');
 
-$_SESSION[Q_FILE] = $filename;
+// parse a new bib file, if this this file has not been already parsed
+if (!isset($_SESSION[$filename]) ) {
+  echo '<!-- parsing '.$filename.'-->';
+  // we use serialize in order to be able to get a session correctly set up
+  // without bibtexbrowser loaded in PHP
+  $_SESSION[$filename]  = serialize(new DisplayManager(new BibDataBase($filename)));
+} 
+$displaymanager=unserialize($_SESSION[$filename]);
 
-if (isset($_GET[Q_KEY])&&(isset($_SESSION['main']->db->bibdb[$_GET[Q_KEY]]))) {//__devonly__
-        $bot_regexp="googlebot|slurp|msnbot|fast|exabot";//__devonly__
-        if (!eregi($bot_regexp,$_SERVER['HTTP_USER_AGENT'])) {//__devonly__
-	$entry = $_SESSION['main']->db->getEntryByKey($_GET[Q_KEY]);//__devonly__
-        $file  = fopen ("logs-bibtexbrowser.clf", "a");//__devonly__
-	fputs($file,gethostbyaddr($_SERVER["REMOTE_ADDR"])." - - [".date("d/M/Y:H:i:s O")."] \"GET ".str_replace('"','',$entry->getTitle())." HTTP/1.1\" 200 0 \"".str_replace('"','',$_SERVER['HTTP_REFERER'])."\" \"".str_replace('"','',$_SERVER['HTTP_USER_AGENT'])."\"\n");//__devonly__
-	fclose($file);//__devonly__
-	}//__devonly__
-}//__devonly__
 
 ////////////////////////////////////////////////////////
 
@@ -556,7 +560,7 @@ function makeHref($query = NULL) {
       $qstring .= '&amp;'. $key .'='. $val;
     }
   }
-  return 'href="'. $_SERVER['SCRIPT_NAME'] .'?'. $qstring .'"';
+  return 'href="'. SCRIPT_NAME .'?'. $qstring .'"';
 }
 
 /**
@@ -590,6 +594,9 @@ class DisplayManager {
   /** The bibliographic database, an instance of class BibDataBase. */
   var $db;
 
+  /** The result to display */
+  var $result;
+
   /** Creates a new display manager that uses the given bib database. */
   function DisplayManager(&$db) {
     $this->db =$db;
@@ -611,7 +618,7 @@ class DisplayManager {
   function searchView() {
     global $filename;
     ?>
-    <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="get" target="main">
+    <form action="<?php echo SCRIPT_NAME; ?>" method="get" target="main">
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
       <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo $filename; ?>"/>
       <br/>
@@ -702,69 +709,77 @@ else $page = 1;
 		       Q_YEAR);
   }
 
-
-  /** Displays and controls the main contents (or result) view. */
+  /** Displays the main contents . */
   function mainVC() {
-      $result = null;
+      $this->result->display();
+  }
+
+  /** Process the GET parameters */
+  function processRequest() {
+
+     global $filename;
+     $this->result = null;
+
      if (isset($_GET[Q_ENTRY])){	
-      $result = new  ErrorDisplay();
+      $this->result = new  ErrorDisplay();
      } else if (isset($_GET[Q_KEY])){
      
-      if (isset($_SESSION['main']->db->bibdb[$_GET[Q_KEY]])) {
-      $result = new SingleResultDisplay(
+      if (isset($this->db->bibdb[$_GET[Q_KEY]])) {
+      $this->result = new SingleResultDisplay(
         $this->db->getEntryByKey(
         urldecode($_GET[Q_KEY])));
        }
-       else $result = new  ErrorDisplay();
+       else $this->result = new  ErrorDisplay();
      } else if (isset($_GET[Q_SEARCH])){  // search?
 	$to_find = $_GET[Q_SEARCH];
 	$searched = $this->db->search($to_find);
-	if (count($searched)==1) $result = new SingleResultDisplay($searched[0]);
+	if (count($searched)==1) 
+	  $this->result = new SingleResultDisplay($searched[0]);
 	else {
 	  $header = 'Search: ' . trim($to_find);
-          $result = new ResultDisplay($searched, $header,array(Q_SEARCH => $to_find));
+          $this->result = new ResultDisplay($searched, $header,array(Q_SEARCH => $to_find));
         }
 	// clicking an author, a menu item from the authors menu?
      } else if (isset($_GET[Q_AUTHOR])) {  
 	$to_find = urldecode($_GET[Q_AUTHOR]);
 	$searched = $this->db->search($to_find, array('author'));
-	$header = 'Publications of ' . ucwords($to_find).' in '.$_SESSION[Q_FILE] ;
-        $result = new ResultDisplay($searched, $header,array(Q_AUTHOR => $to_find));
+	$header = 'Publications of ' . ucwords($to_find).' in '.$filename ;
+        $this->result = new ResultDisplay($searched, $header,array(Q_AUTHOR => $to_find));
 	// clicking a type, a menu item from the types menu?
       } else if(isset($_GET[Q_TAG])) {
 	$to_find = $_GET[Q_TAG];
 	$searched = $this->db->search($to_find, array('keywords'));
 	$header = 'Keyword: ' . ucwords($to_find);
-        $result = new ResultDisplay($searched, $header,array(Q_TAG => $to_find));
+        $this->result = new ResultDisplay($searched, $header,array(Q_TAG => $to_find));
       } 
 	else if(isset($_GET[Q_YEAR])) {
 	$to_find = $_GET[Q_YEAR];
 	$searched = $this->db->search($to_find, array('year'));
 	$header = 'Year: ' . ucwords($to_find);
-        $result = new ResultDisplay($searched, $header,array(Q_YEAR => $to_find));
+        $this->result = new ResultDisplay($searched, $header,array(Q_YEAR => $to_find));
       } 
 	else if(isset($_GET[Q_TYPE])) {
 	$to_find = $_GET[Q_TYPE];
 	$searched = $this->db->searchType($to_find); 
 	$header = 'Type: ' . ucwords($to_find);
-        $result = new ResultDisplay($searched, $header,array(Q_TYPE => $to_find));
+        $this->result = new ResultDisplay($searched, $header,array(Q_TYPE => $to_find));
       }
       else if(isset($_GET[Q_ALL])) {
 	$to_find = $_GET[Q_ALL];
 	$searched = array_values($this->db->bibdb);
         $header = 'All';
-        $result = new ResultDisplay($searched, $header,array(Q_ALL =>''));
+        $this->result = new ResultDisplay($searched, $header,array(Q_ALL =>''));
       }
 
     // requesting a different page of the result view?
-    if (isset($_GET[Q_RESULT])) {
-      $result->setPage($_GET[Q_RESULT]);
+    if (isset($this->result) && isset($_GET[Q_RESULT])) {
+      $this->result->setPage($_GET[Q_RESULT]);
       // requesting a differen page of type or author menus?
     }
 
 
-    // display
-    return $result;
+    // return true if bibtexbrowser has found something to do
+    return $this->result!==null;
   }
 
   /** Displays a list menu in a table. 
@@ -1056,6 +1071,10 @@ class DefaultContentStrategy  {
 
 
 class ErrorDisplay  {
+
+  function ErrorDisplay() {
+    $this->header="Bib entry not found!";
+  }
   
   /** Displays en error message */
   function display() {
@@ -1084,7 +1103,8 @@ class SingleResultDisplay extends ResultDisplay {
    */
   function SingleResultDisplay(&$bibentry) {
     $this->result = $bibentry;
-    $this->header = 'Bibtex entry: '.$this->result->getTitle().' in '.$_SESSION[Q_FILE];
+    global $filename;
+    $this->header = 'Bibtex entry: '.$this->result->getTitle().' in '.$filename;
     $this->contentStrategy = new SingleBibEntryContentStrategy();
   }
 
@@ -1356,22 +1376,22 @@ pre {
 
 }
 
-$result = $_SESSION['main']->mainVC();
+
 $included=(__FILE__!=$_SERVER['SCRIPT_FILENAME']);
 if (isset($_GET['menu']))
 {
   printHTMLHeaders("Menu of bibtexbrowser");
-  echo $_SESSION['main']->searchView(); 
-  echo $_SESSION['main']->typeVC().'<br/>';
-  echo $_SESSION['main']->yearVC().'<br/>';
-  echo $_SESSION['main']->authorVC().'<br/>';
-  echo $_SESSION['main']->tagVC().'<br/>';
+  echo $displaymanager->searchView(); 
+  echo $displaymanager->typeVC().'<br/>';
+  echo $displaymanager->yearVC().'<br/>';
+  echo $displaymanager->authorVC().'<br/>';
+  echo $displaymanager->tagVC().'<br/>';
   echo '</body></html>';
 } // end isset($_GET['menu']
-else if ($result !== null) { // !== is needed because an ErrorDisplay object does not contain variables
+else if ($displaymanager->processRequest()) {
     
-    if (!$included) printHTMLHeaders($result->header);
-    $result->display();
+    if (!$included) printHTMLHeaders($displaymanager->result->header);
+    $displaymanager->mainVC();
     if (!$included) echo '</body></html>';
     
     
@@ -1386,13 +1406,12 @@ else if (!$included) {
 <title>You are browsing <?php echo $filename; ?> with bibtexbrowser</title>
 </head>
     <frameset cols="15%,*">
-    <frame name="menu" src="<?php echo $_SERVER['SCRIPT_NAME'] .'?'.Q_FILE.'='. urlencode($filename).'&amp;menu'; ?>" />
-    <frame name="main" src="<?php echo $_SERVER['SCRIPT_NAME'] .'?'.Q_FILE.'='. urlencode($filename).'&amp;all'; ?>" />
+    <frame name="menu" src="<?php echo SCRIPT_NAME .'?'.Q_FILE.'='. urlencode($filename).'&amp;menu'; ?>" />
+    <frame name="main" src="<?php echo SCRIPT_NAME .'?'.Q_FILE.'='. urlencode($filename).'&amp;all'; ?>" />
     </frameset>
     </html>
 
     <?php
 } 
 // if we are included; do nothing bibtexbrowser.php is used as a library
-
 ?>
