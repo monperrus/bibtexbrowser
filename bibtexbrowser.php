@@ -20,6 +20,10 @@ bibtexbrowser is a PHP script to browse and search bib entries from BibTex files
 
 You can also include your publications list into your home page:
 &#60;?php
+session_start(); //should be at the very top of the script
+// => avoid reparsing the bib file for each request;
+// => run faster;
+
 // the bib file
 $_GET&#91;'bib'&#93;='mybib.bib';
 // the request
