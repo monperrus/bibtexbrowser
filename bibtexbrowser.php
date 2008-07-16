@@ -57,7 +57,7 @@ And tailor it with a CSS style!
 
 Old-fashioned:
 [bibhtml|http://nxg.me.uk/dist/bibhtml/], [bib2html|http://www.litech.org/~wkiri/bib2html/], [bibtohtml|http://ilab.usc.edu/bibTOhtml/], [bibtextohtml|http://people.csail.mit.edu/rahimi/bibtex/], [bibtex2html|http://www.lri.fr/~filliatr/bibtex2html/], [bibtex2web|http://people.csail.mit.edu/mernst/software/bibtex2web.html ]
-Unlike them, *bibtexbrowser is dynamic*.i.e.; generates the HTML pages on the files
+Unlike them, *bibtexbrowser is dynamic*.i.e.; generates the HTML pages on the fly. 
 Thus, you do not need to regenerate the static HTML files each time the bib file is changed.
 Furthermore you can search any string in it.
 
@@ -126,7 +126,7 @@ define('YEAR', 'year');
 
 // this constant may have already been initialized
 // when using include('bibtexbrowser.php')
-@define('SCRIPT_NAME','');
+@define('SCRIPT_NAME','bibtexbrowser.php');
 
 error_reporting(E_ALL);
 
