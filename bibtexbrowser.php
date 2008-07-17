@@ -1057,7 +1057,7 @@ class DefaultContentStrategy  {
       <?php
       }
       // sort by keys, enable a nice sorting as Dupont2008a, Dupont2008b, Dupont2008c
-      ksort($entries);
+      krsort($entries);
       foreach ($entries as $bib) {
 	  if ($display->isDisplayed($index)) {
 	       $bib->id = $refnum--;
