@@ -1,29 +1,28 @@
 <?php /* bibtexbrowser: a PHP script to browse and search bib entries from BibTex files
 
-== Features ==
+[[#Features]]
 
-bibtexbrowser is a PHP script to browse and search bib entries from BibTex files. Why not have a look at the [demonstration site| https://www.ensieta.fr/~monperma/bibtexbrowser.php ]?
+===== Features =====
 
-*[Download bibtexbrowser|pub/bibtexbrowser.php.txt]*
+bibtexbrowser is a PHP script to browse and search bib entries from BibTex files. For instance, on the [[http://www.monperrus.net/martin/bibtexbrowser.php|bibtexbrowser demonstration site]], you can browse my main bibtex file.
 
-<a href="bibtexbrowser-screenshot.png"><img height="500" src="bibtexbrowser-screenshot.png"/><br/></a>
+**[[http://www.monperrus.net/martin/bibtexbrowser.php.txt|Download bibtexbrowser]]**
 
-* [bibtexbrowser can display the menu and all entries without filtering from the $filename hardcoded in the script |bibtexbrowser.php]
-* [bibtexbrowser can display the menu and all entries without filtering from the file name passed as parameter|bibtexbrowser.php?bib=uml.bib]
-* [bibtexbrowser can display all entries|bibtexbrowser.php?bib=uml.bib&all]
-* [bibtexbrowser can display all entries for a given year|bibtexbrowser.php?bib=uml.bib&year=2004]
-* [bibtexbrowser can display all entries for an author|bibtexbrowser.php?bib=biblio_monperrus.bib&author=Jack+Goody]
-* [bibtexbrowser can display a single entry|bibtexbrowser.php?bib=biblio_monperrus.bib&key=Krantz]
-* [bibtexbrowser can display all entries with a bib keyword|bibtexbrowser.php?bib=biblio_monperrus.bib&tag=mda]
-* [bibtexbrowser can display found entries with a search word (it can be in any bib field)|bibtexbrowser.php?bib=biblio_monperrus.bib&search=ocl]
+<a href="bibtexbrowser-screenshot.png"><img height="500" src="bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/><br/></a>
 
-
-You can also include your publications list into your home page:
+* [[http://www.monperrus.net/martin/bibtexbrowser.php|bibtexbrowser can display the menu and all entries without filtering from the $filename hardcoded in the script ]]
+* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib|bibtexbrowser can display the menu and all entries without filtering from the file name passed as parameter]]
+* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;all|bibtexbrowser can display all entries  out of a bibtex file]]
+* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;year=2004|bibtexbrowser can display all entries for a given year]]
+* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&author=Barbara+A.+Kitchenham|bibtexbrowser can display all entries for an author]]
+* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;key=monperrus08phd|bibtexbrowser can display a single entry]]
+* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;tag=mda|bibtexbrowser can display all entries with a bib keyword]]
+* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;search=ocl|bibtexbrowser can display found entries with a search word (it can be in any bib field)]]
+* bibtexbrowser outputs valid XHTML 1.0 Transitional
+* bibtexbrowser in designed to be search engine friendly.
+* You can include your publications list into your home page:
 &#60;?php
-session_start(); //should be at the very top of the script
-// => avoid reparsing the bib file for each request;
-// => run faster;
-
+session_start(); //to avoid reparsing the bib file; should be at the very top of the script
 // the bib file
 $_GET&#91;'bib'&#93;='mybib.bib';
 // the request
@@ -40,11 +39,6 @@ And tailor it with a CSS style!
    font-size: large
    }
    
-.poweredby{
-  text-align:right;
-  font-size: x-small;
-  margin-top : 5px;
-}
    
 .bibline {
   padding:3px;
@@ -53,43 +47,47 @@ And tailor it with a CSS style!
 }
 &#60;/style>
 
-== Related tools ==
+Warning: you may change the default iso-8859-1 encoding if your bib file is in utf-8
+
+
+===== Related tools =====
 
 Old-fashioned:
-[bibhtml|http://nxg.me.uk/dist/bibhtml/], [bib2html|http://www.litech.org/~wkiri/bib2html/], [bibtohtml|http://ilab.usc.edu/bibTOhtml/], [bibtextohtml|http://people.csail.mit.edu/rahimi/bibtex/], [bibtex2html|http://www.lri.fr/~filliatr/bibtex2html/], [bibtex2web|http://people.csail.mit.edu/mernst/software/bibtex2web.html ]
-Unlike them, *bibtexbrowser is dynamic*.i.e.; generates the HTML pages on the fly. 
+[[http://nxg.me.uk/dist/bibhtml/|bibhtml]], [[http://www.litech.org/~wkiri/bib2html/|bib2html]], [[http://ilab.usc.edu/bibTOhtml/|bibtohtml]], [[http://people.csail.mit.edu/rahimi/bibtex/|bibtextohtml]], [[http://www.lri.fr/~filliatr/bibtex2html/|bibtex2html]], [[http://people.csail.mit.edu/mernst/software/bibtex2web.html |bibtex2web]], [[http://strategoxt.org/Stratego/BibtexTools|stratego bibtex module]]
+Unlike them, **bibtexbrowser is dynamic**.i.e.; generates the HTML pages on the fly. 
 Thus, you do not need to regenerate the static HTML files each time the bib file is changed.
 Furthermore you can search any string in it.
 
 Heavyweight:
-[PHP BibTeX Database Manager|http://www.rennes.supelec.fr/ren/perso/etotel/PhpBibtexDbMng/], [bibadmin|http://gforge.inria.fr/projects/bibadmin/], [basilic|http://artis.imag.fr/Software/Basilic/], [phpbibman|http://phpbibman.sourceforge.net/]
-Unlike them, *bibtexbrowser does not need a MySQL database* and does not need a tedious import step each time the bib file is changed.
+[[http://www.rennes.supelec.fr/ren/perso/etotel/PhpBibtexDbMng/|PHP BibTeX Database Manager]], [[http://gforge.inria.fr/projects/bibadmin/|bibadmin]], [[http://artis.imag.fr/Software/Basilic/|basilic]], [[http://phpbibman.sourceforge.net/|phpbibman]], [[http://www.aigaion.nl/|aigaion]], [[http://www.refbase.net/|refbase]], [[http://wikindx.sourceforge.net/|wikindx]]
+Unlike them, **bibtexbrowser does not need a MySQL database** and does not need a tedious import step each time the bib file is changed.
 
 Main competitors:
-[SimplyBibtex|http://code.google.com/p/simplybibtex/] has the same spirit and makes different architectural and presentation choices
-=> *bibtexbrowser is much more lightweight* (just one file!).
-[BibBase|http://www.cs.toronto.edu/~fritz/bibbase/] is a nice and very similar script, but written in Perl
-=> *bibtexbrowser does not require a CGI/Perl compliant webserver* .
+[[http://code.google.com/p/simplybibtex/|SimplyBibtex]] has the same spirit and makes different architectural and presentation choices
+=> **bibtexbrowser is much more lightweight** (just one file!).
+[[http://www.cs.toronto.edu/~fritz/bibbase/|BibBase]] is a nice and very similar script, but written in Perl
+=> **bibtexbrowser does not require a CGI/Perl compliant webserver** .
 
 Misc:
-[This matlab ;-) script is similar | http://www.sat.ltu.se/publications/publications.m]
+[[http://www.sat.ltu.se/publications/publications.m|This matlab ;-) script is similar ]]
 
-== Copyright ==
+===== Copyright =====
 
 This script is a fork from an excellent script  of the University of Texas at El Paso.
 
-(C) 2006-2007-2008 [Martin Monperrus|https://www.ensieta.fr/~monperma/] - Don't hesitate to contact me :-)
+(C) 2006-2007-2008 [[http://www.monperrus.net/martin/|Martin Monperrus]] - Don't hesitate to contact me :-)
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
 License, or (at your option) any later version.
-Version : DEVVERSION
+Current version: v20081111
+Past deprecated versions: v20080111, v20080229, v20080303, v20080515, v20080709, v20081027
 
 */
 
-@define('PHPMODLOG_LOGFILENAME',"logs-bibtexbrowser.clf");//__devonly__
-if (!eregi("googlebot|slurp|msnbot|fast|exabot",$_SERVER['HTTP_USER_AGENT'])) @include('pub');//__devonly__
+define('ENCODING','iso-8859-1');
+//define('ENCODING','utf-8');
 
 define('READLINE_LIMIT',1024);
 define('PAGE_SIZE',25);
@@ -120,29 +118,51 @@ define('Q_RESULT', 'result');
 
 define('AUTHOR', 'author');
 define('EDITOR', 'editor');
+define('SCHOOL', 'school');
 define('TITLE', 'title');
 define('BOOKTITLE', 'booktitle');
 define('YEAR', 'year');
 
 // this constant may have already been initialized
-// when using include('bibtexbrowser.php')
+// when using include('')
 @define('SCRIPT_NAME','bibtexbrowser.php');
 
-error_reporting(E_ALL);
+// for clean search engine links
+// we disable url rewriting 
+// ... and hope that your php configuration will accept one of these
+@ini_set("session.use_only_cookies",1);
+@ini_set("session.use_trans_sid",0);
+@ini_set("url_rewriter.tags","");
 
+// we ensure that the pages won't get polluted 
+// if future versions of PHP change warning mechanisms... 
+@error_reporting(E_ERROR);
+
+// we use sessions to avoid reparsing the bib file for each request
 // the session may be already started
 // by an external script that includes bibtexbrowser
 @session_start();
 
 // default bib file, if no file is specified in the query string.
-$filename = "uml.bib";
-
+global $filename;
+$filename = "biblio_monperrus.bib";
 // retrieve the filename sent as query or hidden data, if exists.
 if (isset($_GET[Q_FILE])) {
   $filename = urldecode($_GET[Q_FILE]);
 }
 
-file_exists($filename) or die('<b>the bib file '.$filename.' does not exist !</b>');
+if (!file_exists($filename)) {
+ // to automate dectection of faulty links with tools such as webcheck
+ header('HTTP/1.1 404 Not found');
+ die('<b>the bib file '.$filename.' does not exist !</b>');
+}
+
+// save bandwidth and server cpu
+// (imagine the number of requests from search engine bots...)
+if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && (strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])>filemtime($filename))) {
+  header("HTTP/1.1 304 Not Modified");
+  exit;
+}
 
 // parse a new bib file, if this this file has not been already parsed
 if (!isset($_SESSION[$filename]) ) {
@@ -196,7 +216,7 @@ class BibParser {
 	return NULL;
       }
       $line = trim($raw_line);
-      if (ereg("^[[:space:]]*@.*{[[:space:]]*([^,]*)", $line,$regs)) {
+      if (ereg('^[[:space:]]*@.*\{[[:space:]]*([^,]*)', $line,$regs)) {
 	//echo 'NEW: ' . $regs[1] . "\n";
 	$type = trim(substr($line, 1, strpos($line,'{') - 1));
 	$fields = array();
@@ -433,105 +453,70 @@ class BibEntry {
   }
 
 
-  /** Outputs a default string 
-  * You may use a toStringX as alternative
+  /** Outputs an HTML string 
   */
   function toString() {
-	$author = compactAuthor($this->getAuthor());
 	$id = $this->getId();
 	$key = $this->getKey();
 	$title = $this->getField(TITLE);
 	$type = $this->getType();
 	$href = makeHref(array(Q_KEY => urlencode($key)));
-            echo '<tr>';
-            echo '<td  class="bibline"><a name="'.$id.'"></a>['.$id.']</td> '; 
-            
-            
-            echo '<td>';             
-            echo '<b>'.$title.'</b>'; 
-            
-             if ($type=="proceedings") echo ' ('.str_replace(' and ',', ',$this->getField("editor")).')';
-            else echo ' ('.str_replace(' and ',', ',$this->getAuthors()).')';
-	    
-	    
-	    if (($type=="inproceedings") || ($type=="incollection")) { 
-                echo " In <i>".$this->getField(BOOKTITLE)."</i>";
-	    }
-	    if ($type=="article") { 
-                echo " In <i>".$this->getField("journal")."</i>";
-                echo ", volume ".$this->getField("volume");
-	    }
-            echo ", ".$this->getYear().".";
-            echo " <a {$href}>[bib]</a>";
-	    if ($this->hasField('url')) { 
-                echo ' <a href="'.$this->getField("url").'">[pdf]</a>';
-	    }
-	    
-	    if ($this->hasField('doi')) {
-                echo ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
-	    }
-	    
-            echo '</td></tr>';
+        echo '<tr>';
+        echo '<td  class="bibline"><a name="'.$id.'"></a>['.$id.']</td> '; 
+        
+        
+        echo '<td>';             
+        if ($this->hasField('url')) echo ' <a href="'.$this->getField("url").'">';
+        echo '<b>'.$title.'</b>'; 
+        if ($this->hasField('url')) echo '</a>';
+        
+        if ($this->hasField('author')) { 
+          $authors = array();        
+          foreach (explode(" and ", $this->getAuthors()) as $author) {
+            $authors[]=formatAuthor($author);
+          }
+          echo ' ('.implode(', ',$authors).')';
+        }
+                
+        
+        if (($type=="phdthesis") ) { 
+            echo " <i>PhD thesis, ".$this->getField(SCHOOL)."</i>";
+        }
+        
+        if (($type=="mastersthesis") ) { 
+            echo " <i>Master's thesis, ".$this->getField(SCHOOL)."</i>";
+        }
+        
+        if (($type=="inproceedings") || ($type=="incollection")) { 
+            echo " In <i>".$this->getField(BOOKTITLE)."</i>";
+        }
+        if ($type=="article") { 
+            echo " In <i>".$this->getField("journal")."</i>";
+            echo ", volume ".$this->getField("volume");
+        }
+        
+        if ($this->hasField('editor')) {
+          $editors = array();        
+          foreach (explode(" and ", $this->getField("editor")) as $editor) {
+            $editors[]=formatAuthor($editor);
+          }
+          echo ' <i>('.implode(', ',$editors).', '.(count($editors)>1?'eds.':'ed.').')</i>';
+        }
+        echo ", ".$this->getYear().".";
+        echo " <a {$href}>[bib]</a>";
+        
+        if ($this->hasField('url')) { 
+            echo ' <a href="'.$this->getField("url").'">[pdf]</a>';
+        }
+        
+        if ($this->hasField('doi')) {
+            echo ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
+        }
+        
+        echo '</td></tr>';
  
    }
  
-   /** Alternative */
-  function toString2() {
-	$author = compactAuthor($this->getAuthor());
-	$id = $this->getId();
-	$key = $this->getKey();
-	$title = $this->getField(TITLE);
-	$type = $this->getType();
-	$href = makeHref(array(Q_KEY => urlencode($key)));
-      ?>
-      <tr>
-        <td class="a_name">
-	    <?php echo $author;?>
-        </td>
-        <td><a <?php echo $href; ?>><?php echo $title; ?></a></td>
-      </tr>
-      <?php
-   }
-   
-   /** Alternative */
-   function toString3() {
-	$author = compactAuthor($this->getAuthor());
-	$id = $this->getId();
-	$key = $this->getKey();
-	$title = $this->getField(TITLE);
-	$type = $this->getType();
-	$href = makeHref(array(Q_KEY => urlencode($key)));
-            
-           echo '<tr><td colspan="2">';
-
-            if ($type=="proceedings") echo str_replace(' and ',', ',$this->getField("editor"));
-            else echo str_replace(' and ',', ',$this->getAuthors());
-	    echo '<br/>';
-	    
-            echo '<b>'.$title.'</b>'; 
-	    echo '<br/>';
-	    
-	    
-	    if (($type=="inproceedings") || ($type=="incollection")) { 
-                echo " In <i>".$this->getField(BOOKTITLE)."</i>";
-	    }
-	    if ($type=="article") { 
-                echo " In <i>".$this->getField("journal")."</i>";
-	    }
-	    echo '<br/>';
-	    
-	    echo " <a {$href}>[bib]</a>";
-	    
-	    if ($this->hasField('url')) {
-                echo ' <a href="'.$this->getField("url").'">[pdf]</a>';
-	    }
-
-
-
-            echo '</td></tr>';
- 
-   }
-
    /** 
    * Displays a unformated (verbatim) text of the given bib entry.
    * The text is displayed in <pre><code></code></pre> tag. 
@@ -572,11 +557,11 @@ function makeHref($query = NULL) {
  * <FirstName LastName>, and the return value is <LastName, FirstName>.
  */
 function formatAuthor($author){
-  $author = trim($author);
-  return trim(!strrchr($author, ' ') ? 
+  return trim($author);
+  /*return trim(!strrchr($author, ' ') ? 
 	      $author :
 	      strrchr($author, ' ') . ', ' 
-	      .substr($author, 0, strrpos($author, " ")));
+	      .substr($author, 0, strrpos($author, " ")));*/
 }
 	
 /**
@@ -724,16 +709,14 @@ else $page = 1;
      global $filename;
      $this->result = null;
 
-     if (isset($_GET[Q_ENTRY])){	
-      $this->result = new  ErrorDisplay();
-     } else if (isset($_GET[Q_KEY])){
+     if (isset($_GET[Q_KEY])){
      
       if (isset($this->db->bibdb[$_GET[Q_KEY]])) {
       $this->result = new SingleResultDisplay(
         $this->db->getEntryByKey(
         urldecode($_GET[Q_KEY])));
        }
-       else $this->result = new  ErrorDisplay();
+       else { header('HTTP/1.1 404 Not found'); $this->result = new  ErrorDisplay(); }
      } else if (isset($_GET[Q_SEARCH])){  // search?
 	$to_find = $_GET[Q_SEARCH];
 	$searched = $this->db->search($to_find);
@@ -771,13 +754,17 @@ else $page = 1;
       else if(isset($_GET[Q_ALL])) {
 	$to_find = $_GET[Q_ALL];
 	$searched = array_values($this->db->bibdb);
-        $header = 'All';
+        $header = 'Bibtex entries in '.$filename ;
         $this->result = new ResultDisplay($searched, $header,array(Q_ALL =>''));
       }
 
     // requesting a different page of the result view?
     if (isset($this->result) && isset($_GET[Q_RESULT])) {
       $this->result->setPage($_GET[Q_RESULT]);
+      // we had the page number to the title
+      // in order to have unique titles
+      // google prefers that
+      $this->result->header.=' - page '.$_GET[Q_RESULT];
       // requesting a differen page of type or author menus?
     }
 
@@ -925,11 +912,10 @@ class ResultDisplay {
   
   /** Returns the powered by part */
   function poweredby() {
-    $poweredby = '<div class="poweredby">';
-    $poweredby .= '<a href="nodocbc.php?f=bibtexbrowser.php.txt">';//__devonly__
-    $poweredby .= ' Powered by bibtexbrowser';
-    $poweredby .= '</a>';//__devonly__
-    $poweredby .= '</div>';
+    $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
+    $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
+    $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a>';
+    $poweredby .= '</div>'."\n";
     return $poweredby;
    }
 
@@ -992,10 +978,13 @@ class ResultDisplay {
 
     // page numbers
     foreach (range($start, $end) as $i) {
-      $this->filter[Q_RESULT] = $i;
+      // default page is #1
+      // we don't duplicate URLs
+      if ($i > 1) $this->filter[Q_RESULT] = $i;
       $href = makeHref($this->filter);
       if ($i == $page) {
-	echo '<a '. $href .'><b>['. $i .']</b></a>';
+        // don't make links for current page
+	echo '<b>['. $i .']</b>';
       } else {
 	echo '<a '. $href .'>['. $i .']</a>';
       }
@@ -1171,13 +1160,19 @@ class BibDataBase {
       $authors =explode(' and ', $bib->getAuthor());
       foreach($authors as $a){
 	$ta = trim($a);
-	if (!array_key_exists($ta, $result)) {
-	  $result[$ta] = formatAuthor($ta);
-	}
+	$parts=explode(' ', $ta);
+	// get the last name
+	$key = array_pop($parts);
+	$result[$key] = $ta;
       }	 	       
     }
-    asort($result);
-    return $result;
+    ksort($result);
+    // now authors are sorted by last name
+    // we rebuild a new array for having good keys in author page 
+    $realresult = array();
+    foreach($result as $v) $realresult[$v] = formatAuthor($v);
+    
+    return $realresult;
   }
 
   /** Generates and returns an array consisting of all tags.
@@ -1258,14 +1253,15 @@ class BibDataBase {
 }
 
 
-function printHTMLHeaders($title) {
+function printHTMLHeaders($title,$noindex_metatag=false) {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-<meta name="generator" content="bibtexbrowser vDEVVERSION" />
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
+<meta name="generator" content="bibtexbrowser v20081111" />
+<?php if ($noindex_metatag) echo '<meta name="robots" content="noindex"/>' ?>
 <title><?php echo $title; ?></title>
 <style type="text/css">
 <!--
@@ -1365,11 +1361,6 @@ pre {
   font-size: small;
 }
 
-.poweredby{
-  text-align:right;
-  font-size: x-small;
-  margin-top : 5px;
-}
 -->
 </style>
 
@@ -1384,7 +1375,9 @@ pre {
 $included=(__FILE__!=$_SERVER['SCRIPT_FILENAME']);
 if (isset($_GET['menu']))
 {
-  printHTMLHeaders("Menu of bibtexbrowser");
+  // menu pages don't need to be indexed by search engines
+  // we don't set the title and set noindex_metatag to true
+  printHTMLHeaders("",true);
   echo $displaymanager->searchView(); 
   echo $displaymanager->typeVC().'<br/>';
   echo $displaymanager->yearVC().'<br/>';
@@ -1400,13 +1393,16 @@ else if ($displaymanager->processRequest()) {
     
     
 }
-else if (!$included) {  
+else if (!$included) {
+
+// this is a frameset definition
     ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html  xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta name="generator" content="bibtexbrowser vDEVVERSION" />
+<meta name="generator" content="bibtexbrowser v20081111" />
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
 <title>You are browsing <?php echo $filename; ?> with bibtexbrowser</title>
 </head>
     <frameset cols="15%,*">
