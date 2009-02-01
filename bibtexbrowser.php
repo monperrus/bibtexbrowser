@@ -1,23 +1,32 @@
 <?php /* bibtexbrowser: a PHP script to browse and search bib entries from BibTex files
 
-[[#Features]]
-
-===== Features =====
+[[#Download]] | [[#Screenshot]] | [[#Features]] | [[#Related_tools]] | [[#Users]] | [[#Copyright]]
 
 bibtexbrowser is a PHP script to browse and search bib entries from BibTex files. For instance, on the [[http://www.monperrus.net/martin/bibtexbrowser.php|bibtexbrowser demonstration site]], you can browse my main bibtex file.
 
+For feature requests or bug reports, [[http://www.monperrus.net/martin/|please drop me an email ]].
+
+Thanks to all [[#Users]] of bibtexbrowser :-)
+
+=====Download=====
+
 **[[http://www.monperrus.net/martin/bibtexbrowser.php.txt|Download bibtexbrowser]]**
 
+=====Screenshot=====
+
 <a href="bibtexbrowser-screenshot.png"><img height="500" src="bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/><br/></a>
+
+=====Features=====
 
 * [[http://www.monperrus.net/martin/bibtexbrowser.php|bibtexbrowser can display the menu and all entries without filtering from the $filename hardcoded in the script ]]
 * [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib|bibtexbrowser can display the menu and all entries without filtering from the file name passed as parameter]]
 * [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;all|bibtexbrowser can display all entries  out of a bibtex file]]
 * [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;year=2004|bibtexbrowser can display all entries for a given year]]
-* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&author=Barbara+A.+Kitchenham|bibtexbrowser can display all entries for an author]]
+* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;author=Barbara+A.+Kitchenham|bibtexbrowser can display all entries for an author]]
 * [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;key=monperrus08phd|bibtexbrowser can display a single entry]]
-* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;tag=mda|bibtexbrowser can display all entries with a bib keyword]]
+* [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;keywords=mda|bibtexbrowser can display all entries with a bib keyword]]
 * [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;search=ocl|bibtexbrowser can display found entries with a search word (it can be in any bib field)]]
+* bibtexbrowser allows multi criteria search, e.g. ?type=inproceedings&amp;year=2004
 * bibtexbrowser outputs valid XHTML 1.0 Transitional
 * bibtexbrowser in designed to be search engine friendly.
 * You can include your publications list into your home page:
@@ -26,7 +35,7 @@ session_start(); //to avoid reparsing the bib file; should be at the very top of
 // the bib file
 $_GET&#91;'bib'&#93;='mybib.bib';
 // the request
-$_GET&#91;'author'&#93;='Martin+Monperrus';
+$_GET&#91;'author'&#93;='Martin Monperrus';
 include('bibtexbrowser.php');
 ?>
 And tailor it with a CSS style!
@@ -38,8 +47,8 @@ And tailor it with a CSS style!
 .rheader {
    font-size: large
    }
-   
-   
+
+
 .bibline {
   padding:3px;
   padding-left:15px;
@@ -47,14 +56,25 @@ And tailor it with a CSS style!
 }
 &#60;/style>
 
-Warning: you may change the default iso-8859-1 encoding if your bib file is in utf-8
+Warning: you may change the default iso-8859-1 encoding if your bib file is in utf-8 (define('ENCODING','iso-8859-1') below);
 
+=====Users=====
+Don't hesitate to [[http://www.monperrus.net/martin/|contact me]] to be added in the list!
 
-===== Related tools =====
+* [[http://telecom.inescporto.pt/~jsc/bibtexbrowser.php|Jaime dos Santos Cardoso, INESC, Portugal]]
+* [[http://ccm.uma.pt/bibtexbrowser.php|Centro de Ciências Matemáticas, Portugal]]
+* [[http://bioinfo.lri.fr/publi/bibtexbrowser.php|Bioinformatics Group of LRI, Paris, France]]
+* [[http://grapple.dcs.warwick.ac.uk/bibtexbrowser/bibtexbrowser.php|M. Hendrix, University of Warwick, UK]]
+* [[http://www.cs.usask.ca/home/eramian/bib/Refereed_Journal_Articles.php|Mark Eramian, University of Saskatchewan, Canada]]
+* [[https://www.cs.tcd.ie/~marined/publications.php|Dan Marinescu, Trinity College Dublin, Ireland]]
+* [[http://kom.aau.dk/~gpp/publications.php?l=EN|Gian Paolo Perrucci, University of Aalborg, Denmark]]
+* [[http://dme.uma.pt/luis/page5/bibtexbrowser.php?bib=jluisbib.bib|José Luís da Silva, Universidade da madeira, Portugal]]
+
+=====Related_tools=====
 
 Old-fashioned:
 [[http://nxg.me.uk/dist/bibhtml/|bibhtml]], [[http://www.litech.org/~wkiri/bib2html/|bib2html]], [[http://ilab.usc.edu/bibTOhtml/|bibtohtml]], [[http://people.csail.mit.edu/rahimi/bibtex/|bibtextohtml]], [[http://www.lri.fr/~filliatr/bibtex2html/|bibtex2html]], [[http://people.csail.mit.edu/mernst/software/bibtex2web.html |bibtex2web]], [[http://strategoxt.org/Stratego/BibtexTools|stratego bibtex module]]
-Unlike them, **bibtexbrowser is dynamic**.i.e.; generates the HTML pages on the fly. 
+Unlike them, **bibtexbrowser is dynamic**.i.e.; generates the HTML pages on the fly.
 Thus, you do not need to regenerate the static HTML files each time the bib file is changed.
 Furthermore you can search any string in it.
 
@@ -71,18 +91,17 @@ Main competitors:
 Misc:
 [[http://www.sat.ltu.se/publications/publications.m|This matlab ;-) script is similar ]]
 
-===== Copyright =====
+=====Copyright=====
 
-This script is a fork from an excellent script  of the University of Texas at El Paso.
+This script is a fork from an excellent script of the University of Texas at El Paso.
 
-(C) 2006-2007-2008 [[http://www.monperrus.net/martin/|Martin Monperrus]] - Don't hesitate to contact me :-)
+(C) 2006-2007-2008-2009 Martin Monperrus
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
 License, or (at your option) any later version.
-Current version: v20081111
-Past deprecated versions: v20080111, v20080229, v20080303, v20080515, v20080709, v20081027
+Current version: v__DATE__
 
 */
 
@@ -103,8 +122,8 @@ define('Q_AUTHOR', 'author');
 define('Q_AUTHOR_PAGE', 'author_page');
 
 define('TAGS_SIZE',20);
-define('Q_TAG', 'tag');
-define('Q_TAG_PAGE', 'tag_page');
+define('Q_TAG', 'keywords');
+define('Q_TAG_PAGE', 'keywords_page');
 
 define('Q_TYPE', 'type');
 define('Q_TYPE_PAGE', 'type_page');
@@ -128,14 +147,14 @@ define('YEAR', 'year');
 @define('SCRIPT_NAME','bibtexbrowser.php');
 
 // for clean search engine links
-// we disable url rewriting 
+// we disable url rewriting
 // ... and hope that your php configuration will accept one of these
 @ini_set("session.use_only_cookies",1);
 @ini_set("session.use_trans_sid",0);
 @ini_set("url_rewriter.tags","");
 
-// we ensure that the pages won't get polluted 
-// if future versions of PHP change warning mechanisms... 
+// we ensure that the pages won't get polluted
+// if future versions of PHP change warning mechanisms...
 @error_reporting(E_ERROR);
 
 // we use sessions to avoid reparsing the bib file for each request
@@ -164,13 +183,13 @@ if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && (strtotime($_SERVER['HTTP_IF_MO
   exit;
 }
 
-// parse a new bib file, if this this file has not been already parsed
+// parse a new bib file, if this file has not been already parsed
 if (!isset($_SESSION[$filename]) ) {
   echo '<!-- parsing '.$filename.'-->';
   // we use serialize in order to be able to get a session correctly set up
   // without bibtexbrowser loaded in PHP
   $_SESSION[$filename]  = serialize(new DisplayManager(new BibDataBase($filename)));
-} 
+}
 $displaymanager=unserialize($_SESSION[$filename]);
 
 
@@ -178,13 +197,13 @@ $displaymanager=unserialize($_SESSION[$filename]);
 
 
 /**
- * Class to parse a bibtex file. 
+ * Class to parse a bibtex file.
  */
 class BibParser {
 
   /** A hashtable from IDs (number) to bib entries (BibEntry). */
   var $bibdb;
-	
+
   /** Parses the given bibtex file and stores all entries to $bibdb. */
   //@ assignable $bibdb;
   function BibParser($filename) {
@@ -195,10 +214,11 @@ class BibParser {
       //if ($entry->getId() >= 500) { return; } // !FIXME!
       $entry =$this->parseEntry($file);
       //print_r($entry);
-    } 
+    }
     fclose($file);
     //print_r($this->bibdb);
   }
+
 
   /** Returns the array of parsed bib entires. */
   function getEntries() {
@@ -213,19 +233,19 @@ class BibParser {
       $raw_line = $this->nextLine($file);
       //echo 'RAW: ' . $raw_line;
       if (!$raw_line) { // EOF?
-	return NULL;
+ return NULL;
       }
       $line = trim($raw_line);
       if (ereg('^[[:space:]]*@.*\{[[:space:]]*([^,]*)', $line,$regs)) {
-	//echo 'NEW: ' . $regs[1] . "\n";
-	$type = trim(substr($line, 1, strpos($line,'{') - 1));
-	$fields = array();
-	$fields['key']= $regs[1];
-	$raw_bib = $raw_line;
-	break;
+ //echo 'NEW: ' . $regs[1] . "\n";
+ $type = trim(substr($line, 1, strpos($line,'{') - 1));
+ $fields = array();
+ $fields['key']= $regs[1];
+ $raw_bib = $raw_line;
+ break;
       }
     }
-    
+
     // parse fields, if any
     $raw_line = $this->nextLine($file);
     while ($raw_line) {
@@ -233,45 +253,45 @@ class BibParser {
 
       $line = trim($raw_line);
       if (ereg("^.*=", $line)) { // new field?
-	//echo 'FIELD: ' . $line . "\n";
-	//get the field type
-	$ps = strpos($line, '=');	
-	$fkey = strtolower(trim(substr($line,0,$ps)));	
-	$fval = $this->extractFieldValue($line);
-	if (strlen($fval)) {
-	  $fields[$fkey] = $fval;
-	}
+ //echo 'FIELD: ' . $line . "\n";
+ //get the field type
+ $ps = strpos($line, '=');
+ $fkey = strtolower(trim(substr($line,0,$ps)));
+ $fval = $this->extractFieldValue($line);
+ if (strlen($fval)) {
+   $fields[$fkey] = $fval;
+ }
          if (ereg(",[:space:]*}$",$line)) return $this->makeBibEntry($type, $fields, $raw_bib);
          if (ereg("=[^{]*}$",$line))  return $this->makeBibEntry($type, $fields, $raw_bib);
       } else if ($line == "}") { // end of entry?
-	//echo 'END: ' . $line . "\n";
-	return $this->makeBibEntry($type, $fields, $raw_bib);
+ //echo 'END: ' . $line . "\n";
+ return $this->makeBibEntry($type, $fields, $raw_bib);
       } else { // continued field?
-	$fval = $this->extractFieldValue($line);
-	if (strlen($fval) > 0) {
-	  if (!isset($fields[$fkey])) { // no value seen so far?
-	    // remove starting " if exists
-	    if ($fval[0] == '"') {
-	      $fval = ltrim(substr($fval, 1));
-	    }
-	  }
-	  if (strlen($fval)) {
-	    if (isset($fields[$fkey])) {
-	      $fields[$fkey] = $fields[$fkey].' '.$fval;
-	    } else {
-	      $fields[$fkey] = $fval;
-	    }
-	  }
-	} 
+ $fval = $this->extractFieldValue($line);
+ if (strlen($fval) > 0) {
+   if (!isset($fields[$fkey])) { // no value seen so far?
+     // remove starting " if exists
+     if ($fval[0] == '"') {
+       $fval = ltrim(substr($fval, 1));
+     }
+   }
+   if (strlen($fval)) {
+     if (isset($fields[$fkey])) {
+       $fields[$fkey] = $fields[$fkey].' '.$fval;
+     } else {
+       $fields[$fkey] = $fval;
+     }
+   }
+ }
       }
 
       $raw_line = $this->nextLine($file);
     }
-    
+
     // entry ended without a closing brace
-    return $this->makeBibEntry($type, $fields, $raw_bib);  
+    return $this->makeBibEntry($type, $fields, $raw_bib);
   }
-  
+
   /** Creates and return a bib entry by doing any postprogessing to
    * the arguments. E.g., canonical rep. of type names. */
   function makeBibEntry($type, &$fields, $raw_bib) {
@@ -287,38 +307,39 @@ class BibParser {
     static $types = array();
     foreach ($types as $t) {
       if (strcasecmp($t, $type) == 0) {
-	return $t;
+ return $t;
       }
     }
     $type = ucfirst($type);
     $types[] = $type;
-    return $type;    
+    return $type;
   }
 
   /** Extracts and returns a field value from the given line. */
   function extractFieldValue($line) {
 
-    $result = ereg_replace("^[^=]*=[ :space:]*", '', $line); 
+    $result = ereg_replace("^[^=]*=[ :space:]*", '', $line);
     // clean out tex stuff
     $result = str_replace('}','', $result);
     $result = str_replace('{','', $result);
-    $result = str_replace(',','', $result);
+    // comas are important to recognize the author name format
+    //$result = str_replace(',','', $result);
     $result = str_replace("\'", '', $result); // e.g., \'{e}
-    $result = str_replace('\`', '', $result); 
-    $result = str_replace('\^', '', $result); 
-    $result = str_replace('"', '', $result); 
-    $result = str_replace('\~', '', $result); 
-    $result = str_replace('\.', '', $result); 
-    $result = str_replace('\u', '', $result); 
-    $result = str_replace('\v', '', $result); 
-    $result = str_replace('\H', '', $result); 
-    $result = str_replace('\t', '', $result); 
-    $result = str_replace('\c', '', $result); 
-    $result = str_replace('\d', '', $result); 
-    $result = str_replace('\b', '', $result); 
-    $result = str_replace('\i', 'i', $result); 
-    $result = str_replace('\j`', 'j', $result); 
-    $result = str_replace('\j`', 'j', $result); 
+    $result = str_replace('\`', '', $result);
+    $result = str_replace('\^', '', $result);
+    $result = str_replace('"', '', $result);
+    $result = str_replace('\~', '', $result);
+    $result = str_replace('\.', '', $result);
+    $result = str_replace('\u', '', $result);
+    $result = str_replace('\v', '', $result);
+    $result = str_replace('\H', '', $result);
+    $result = str_replace('\t', '', $result);
+    $result = str_replace('\c', '', $result);
+    $result = str_replace('\d', '', $result);
+    $result = str_replace('\b', '', $result);
+    $result = str_replace('\i', 'i', $result);
+    $result = str_replace('\j`', 'j', $result);
+    $result = str_replace('\j`', 'j', $result);
     $result = str_replace('\ ', ' ',$result); // space
 
     return trim($result);
@@ -331,8 +352,8 @@ class BibParser {
       //echo "RAW: " . $rawline;
       $line = trim($rawline);
       if (strpos($line, '@string') === false // !FIXME!@string ignored!
-	  && strlen($line) != 0 && $line[0] != '%') {
-	return $rawline;
+   && strlen($line) != 0 && $line[0] != '%') {
+ return $rawline;
       }
       $rawline = fgets($file, READLINE_LIMIT);
     }
@@ -359,7 +380,7 @@ class BibEntry {
   /** The verbatim copy (i.e., whole text) of this bib entry. */
   var $text;
 
-  /** Creates a new bib entry. Each bib entry is assigned a unique 
+  /** Creates a new bib entry. Each bib entry is assigned a unique
    * identification number. */
   function BibEntry($type, &$fields, &$text) {
     static $id = 0;
@@ -396,7 +417,7 @@ class BibEntry {
   function getKey() {
     return $this->getField('key');
   }
-  
+
   /** Returns the title of this entry? */
   function getTitle() {
     return $this->getField('title');
@@ -414,8 +435,8 @@ class BibEntry {
 
   /** Returns the value of the given field? */
   function getField($name) {
-    if ($this->hasField($name)) 
-	{return $this->fields[$name];}
+    if ($this->hasField($name))
+ {return $this->fields[$name];}
     else return 'missing '.$name;
   }
 
@@ -445,58 +466,58 @@ class BibEntry {
     }
     foreach ($fields as $f) {
       if ($this->hasField($f) &&
-	  strpos(strtolower($this->getField($f)), $phrase) !== false) {
-	return true;
+   strpos(strtolower($this->getField($f)), $phrase) !== false) {
+ return true;
       }
     }
     return false;
   }
 
 
-  /** Outputs an HTML string 
+  /** Outputs an HTML string
   */
   function toString() {
-	$id = $this->getId();
-	$key = $this->getKey();
-	$title = $this->getField(TITLE);
-	$type = $this->getType();
-	$href = makeHref(array(Q_KEY => urlencode($key)));
+ $id = $this->getId();
+ $key = $this->getKey();
+ $title = $this->getField(TITLE);
+ $type = $this->getType();
+ $href = makeHref(array(Q_KEY => urlencode($key)));
         echo '<tr>';
-        echo '<td  class="bibline"><a name="'.$id.'"></a>['.$id.']</td> '; 
-        
-        
-        echo '<td>';             
+        echo '<td  class="bibline"><a name="'.$id.'"></a>['.$id.']</td> ';
+
+
+        echo '<td>';
         if ($this->hasField('url')) echo ' <a href="'.$this->getField("url").'">';
-        echo '<b>'.$title.'</b>'; 
+        echo '<b>'.$title.'</b>';
         if ($this->hasField('url')) echo '</a>';
-        
-        if ($this->hasField('author')) { 
-          $authors = array();        
+
+        if ($this->hasField('author')) {
+          $authors = array();
           foreach (explode(" and ", $this->getAuthors()) as $author) {
             $authors[]=formatAuthor($author);
           }
           echo ' ('.implode(', ',$authors).')';
         }
-                
-        
-        if (($type=="phdthesis") ) { 
+
+
+        if (($type=="phdthesis") ) {
             echo " <i>PhD thesis, ".$this->getField(SCHOOL)."</i>";
         }
-        
-        if (($type=="mastersthesis") ) { 
+
+        if (($type=="mastersthesis") ) {
             echo " <i>Master's thesis, ".$this->getField(SCHOOL)."</i>";
         }
-        
-        if (($type=="inproceedings") || ($type=="incollection")) { 
+
+        if (($type=="inproceedings") || ($type=="incollection")) {
             echo " In <i>".$this->getField(BOOKTITLE)."</i>";
         }
-        if ($type=="article") { 
+        if ($type=="article") {
             echo " In <i>".$this->getField("journal")."</i>";
             echo ", volume ".$this->getField("volume");
         }
-        
+
         if ($this->hasField('editor')) {
-          $editors = array();        
+          $editors = array();
           foreach (explode(" and ", $this->getField("editor")) as $editor) {
             $editors[]=formatAuthor($editor);
           }
@@ -504,23 +525,23 @@ class BibEntry {
         }
         echo ", ".$this->getYear().".";
         echo " <a {$href}>[bib]</a>";
-        
-        if ($this->hasField('url')) { 
+
+        if ($this->hasField('url')) {
             echo ' <a href="'.$this->getField("url").'">[pdf]</a>';
         }
-        
+
         if ($this->hasField('doi')) {
             echo ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
         }
-        
+
         echo '</td></tr>';
- 
+
    }
- 
-   /** 
+
+   /**
    * Displays a unformated (verbatim) text of the given bib entry.
-   * The text is displayed in <pre><code></code></pre> tag. 
-   * The object may be mutated to read the rest of the fields. 
+   * The text is displayed in <pre><code></code></pre> tag.
+   * The object may be mutated to read the rest of the fields.
    */
   function toEntryUnformatted() {
     $text =$this->getText();
@@ -535,8 +556,8 @@ class BibEntry {
 // ----------------------------------------------------------------------
 // DISPLAY MANAGEMENT
 // ----------------------------------------------------------------------
-	
-/** 
+
+/**
  * Given a query, an array of key value pairs, returns a href string
  * of the form: href="bibtex.php?bib=testing.bib&search=JML.
  */
@@ -553,17 +574,32 @@ function makeHref($query = NULL) {
 }
 
 /**
- * Returns the formated author name. The argument is assumed to be
- * <FirstName LastName>, and the return value is <LastName, FirstName>.
+ * Returns the last name of an author name. The argument is assumed to be
+ * <FirstName LastName> or <LastName, FirstName>.
+ */
+function getLastName($author){
+    $author = trim($author);
+    // the author format is "Joe Dupont"
+    if (strpos($author,',')===false) {
+ $parts=explode(' ', $author);
+ // get the last name
+ return array_pop($parts);
+    }
+    // the author format is "Dupont, J."
+    else {
+ $parts=explode(',', $author);
+ // get the last name
+ return array_shift($parts);
+    }
+}
+
+/**
+ * Returns the formated author name.
  */
 function formatAuthor($author){
   return trim($author);
-  /*return trim(!strrchr($author, ' ') ? 
-	      $author :
-	      strrchr($author, ' ') . ', ' 
-	      .substr($author, 0, strrpos($author, " ")));*/
 }
-	
+
 /**
  * Returns a compacted string form of author names by throwing away
  * all author names except for the first one and appending ", et al."
@@ -574,7 +610,7 @@ function compactAuthor($author){
   return formatAuthor($authors[0]) . $etal;
 }
 
-/** 
+/**
  * A class providing GUI views and controllers. In general, the views
  * are tables that can be incorporated into bigger GUI tables.
  */
@@ -631,7 +667,7 @@ class DisplayManager {
         </td>
       </tr>
     </table>
-    <?php  
+    <?php
   }
 
   /** Displays and controls the types menu in a table. */
@@ -639,13 +675,13 @@ class DisplayManager {
 
       $types = array();
       foreach ($this->db->getTypes() as $type) {
-	$types[$type] = $type;
+ $types[$type] = $type;
       }
 
     // retreive or calculate page number to display
     if (isset($_GET[Q_TYPE_PAGE])) {
       $page = $_GET[Q_TYPE_PAGE];
-    } 
+    }
     else $page = 1;
 
     $this->displayMenu('Types', $types, $page, 10, Q_TYPE_PAGE, Q_TYPE);
@@ -659,12 +695,12 @@ class DisplayManager {
     // determine the authors page to display
     if (isset($_GET[Q_AUTHOR_PAGE])) {
       $page = $_GET[Q_AUTHOR_PAGE];
-    } 
+    }
     else $page = 1;
-    
 
-    $this->displayMenu('Authors', $authors, $page, AUTHORS_SIZE, Q_AUTHOR_PAGE, 
-		       Q_AUTHOR);
+
+    $this->displayMenu('Authors', $authors, $page, AUTHORS_SIZE, Q_AUTHOR_PAGE,
+         Q_AUTHOR);
   }
 
   /** Displays and controls the tag menu in a table. */
@@ -676,10 +712,10 @@ class DisplayManager {
     if (isset($_GET[Q_TAG_PAGE])) {
       $page = $_GET[Q_TAG_PAGE];
     }  else $page = 1;
-    
 
-    $this->displayMenu('Keywords', $tags, $page, TAGS_SIZE, Q_TAG_PAGE, 
-		       Q_TAG);
+
+    $this->displayMenu('Keywords', $tags, $page, TAGS_SIZE, Q_TAG_PAGE,
+         Q_TAG);
   }
 
   /** Displays and controls the tag menu in a table. */
@@ -690,12 +726,12 @@ class DisplayManager {
     // determine the authors page to display
     if (isset($_GET[Q_YEAR_PAGE])) {
       $page = $_GET[Q_YEAR_PAGE];
-    } 
+    }
 else $page = 1;
-    
 
-    $this->displayMenu('Years', $years, $page, YEAR_SIZE, Q_YEAR_PAGE, 
-		       Q_YEAR);
+
+    $this->displayMenu('Years', $years, $page, YEAR_SIZE, Q_YEAR_PAGE,
+         Q_YEAR);
   }
 
   /** Displays the main contents . */
@@ -706,66 +742,59 @@ else $page = 1;
   /** Process the GET parameters */
   function processRequest() {
 
-     global $filename;
-     $this->result = null;
+    global $filename;
+    $this->result = null;
 
-     if (isset($_GET[Q_KEY])){
+    if ($_GET[Q_KEY]!=''){
+
+    if (isset($this->db->bibdb[$_GET[Q_KEY]])) {
+    $this->result = new SingleResultDisplay(
+      $this->db->getEntryByKey(
+      urldecode($_GET[Q_KEY])));
+      }
+      else { header('HTTP/1.1 404 Not found'); $this->result = new  ErrorDisplay(); }
+    } else if ($_GET[Q_SEARCH]!=''){  // search?
+      $to_find = $_GET[Q_SEARCH];
+      $searched = $this->db->search($to_find);
+      if (count($searched)==1)
+        $this->result = new SingleResultDisplay($searched[0]);
+      else {
+        $header = 'Search: ' . trim($to_find);
+        $this->result = new ResultDisplay($searched, $header,array(Q_SEARCH => $to_find));
+              }
+    // clicking an author, a menu item from the authors menu?
+      }  else if(isset($_GET[Q_ALL])) {
+    $to_find = $_GET[Q_ALL];
+    $searched = array_values($this->db->bibdb);
+          $header = 'Bibtex entries';
+          $this->result = new ResultDisplay($searched, $header,array(Q_ALL =>''));
+      }
+    else {
+      $query = array();
+      if ($_GET[Q_AUTHOR]!='') { $query[Q_AUTHOR]=$_GET[Q_AUTHOR]; }
+      if ($_GET[Q_TAG]!='') { $query[Q_TAG]=$_GET[Q_TAG]; }
+      if ($_GET[Q_YEAR]!='') { $query[Q_YEAR]=$_GET[Q_YEAR]; }
+      if ($_GET[Q_TYPE]!='') { $query[Q_TYPE]=$_GET[Q_TYPE]; }
+      //print_r($query); 
+      if (count($query)<1) return false;
+      $searched = $this->db->multisearch($query);
+      $headers = array();
+      foreach($query as $k=>$v) $headers[] = ucwords($k).': '.ucwords($v);
+      $header = join(' &amp; ',$headers); 
+      $this->result = new ResultDisplay($searched, $header, $query);
+     }
+
      
-      if (isset($this->db->bibdb[$_GET[Q_KEY]])) {
-      $this->result = new SingleResultDisplay(
-        $this->db->getEntryByKey(
-        urldecode($_GET[Q_KEY])));
-       }
-       else { header('HTTP/1.1 404 Not found'); $this->result = new  ErrorDisplay(); }
-     } else if (isset($_GET[Q_SEARCH])){  // search?
-	$to_find = $_GET[Q_SEARCH];
-	$searched = $this->db->search($to_find);
-	if (count($searched)==1) 
-	  $this->result = new SingleResultDisplay($searched[0]);
-	else {
-	  $header = 'Search: ' . trim($to_find);
-          $this->result = new ResultDisplay($searched, $header,array(Q_SEARCH => $to_find));
-        }
-	// clicking an author, a menu item from the authors menu?
-     } else if (isset($_GET[Q_AUTHOR])) {  
-	$to_find = urldecode($_GET[Q_AUTHOR]);
-	$searched = $this->db->search($to_find, array('author'));
-	$header = 'Publications of ' . ucwords($to_find).' in '.$filename ;
-        $this->result = new ResultDisplay($searched, $header,array(Q_AUTHOR => $to_find));
-	// clicking a type, a menu item from the types menu?
-      } else if(isset($_GET[Q_TAG])) {
-	$to_find = $_GET[Q_TAG];
-	$searched = $this->db->search($to_find, array('keywords'));
-	$header = 'Keyword: ' . ucwords($to_find);
-        $this->result = new ResultDisplay($searched, $header,array(Q_TAG => $to_find));
-      } 
-	else if(isset($_GET[Q_YEAR])) {
-	$to_find = $_GET[Q_YEAR];
-	$searched = $this->db->search($to_find, array('year'));
-	$header = 'Year: ' . ucwords($to_find);
-        $this->result = new ResultDisplay($searched, $header,array(Q_YEAR => $to_find));
-      } 
-	else if(isset($_GET[Q_TYPE])) {
-	$to_find = $_GET[Q_TYPE];
-	$searched = $this->db->searchType($to_find); 
-	$header = 'Type: ' . ucwords($to_find);
-        $this->result = new ResultDisplay($searched, $header,array(Q_TYPE => $to_find));
-      }
-      else if(isset($_GET[Q_ALL])) {
-	$to_find = $_GET[Q_ALL];
-	$searched = array_values($this->db->bibdb);
-        $header = 'Bibtex entries in '.$filename ;
-        $this->result = new ResultDisplay($searched, $header,array(Q_ALL =>''));
-      }
+    // adding the bibtex filename
+    if (isset($this->result)) $this->result->header.=' in '.$filename;
 
     // requesting a different page of the result view?
     if (isset($this->result) && isset($_GET[Q_RESULT])) {
       $this->result->setPage($_GET[Q_RESULT]);
-      // we had the page number to the title
+      // we add the page number to the title
       // in order to have unique titles
       // google prefers that
       $this->result->header.=' - page '.$_GET[Q_RESULT];
-      // requesting a differen page of type or author menus?
     }
 
 
@@ -773,7 +802,7 @@ else $page = 1;
     return $this->result!==null;
   }
 
-  /** Displays a list menu in a table. 
+  /** Displays a list menu in a table.
    *
    * $title: title of the menu (string)
    * $list: list of menu items (string)
@@ -782,8 +811,8 @@ else $page = 1;
    * $pageKey: URL query name to send the page number to the server
    * $targetKey: URL query name to send the target of the menu item
    */
-  function displayMenu($title, $list, $page, $pageSize, $pageKey, 
-		       $targetKey) {
+  function displayMenu($title, $list, $page, $pageSize, $pageKey,
+         $targetKey) {
     $numEntries = count($list);
     $startIndex = ($page - 1) * $pageSize;
     $endIndex = $startIndex + $pageSize;
@@ -796,15 +825,15 @@ else $page = 1;
             <td class="header"><b><?php echo $title; ?></b></td>
             <td class="header" align="right"><b>
                 <?php echo $this->menuPageBar($pageKey, $numEntries, $page,
-				       $pageSize, $startIndex, $endIndex);?></b></td>
-	  </tr>
+           $pageSize, $startIndex, $endIndex);?></b></td>
+   </tr>
         </table>
-        </td>							    
+        </td>
       </tr>
       <tr>
         <td align="right">
           <?php $this->displayMenuItems($list, $startIndex, $endIndex,
-					$targetKey); ?>
+     $targetKey); ?>
         </td>
       </tr>
     </table>
@@ -819,31 +848,31 @@ else $page = 1;
    * $start: start index of the current page
    * $end: end index of the current page
    */
-  function menuPageBar($queryKey, $numEntries, $page, $pageSize, 
-		       $start, $end) {
+  function menuPageBar($queryKey, $numEntries, $page, $pageSize,
+         $start, $end) {
     // fast (2 pages) reverse (<<)
     $result = '';
     if ($start - $pageSize > 0) {
       $href = makeHref(array($queryKey => $page - 2,'menu'=>''));
-      $result .= '<a '. $href ."><b>&#171;</b></a>\n";      
+      $result .= '<a '. $href ."><b>&#171;</b></a>\n";
     }
 
     // (1 page) reverse (<)
     if ($start > 0) {
       $href = makeHref(array($queryKey => $page - 1,'menu'=>''));
-      $result .= '<a '. $href ."><b>&lt;</b></a>\n";      
+      $result .= '<a '. $href ."><b>&lt;</b></a>\n";
     }
-    
+
     // (1 page) forward (>)
     if ($end < $numEntries) {
       $href = makeHref(array($queryKey => $page + 1,'menu'=>''));
-      $result .= '<a '. $href ."><b>&gt;</b></a>\n";      
+      $result .= '<a '. $href ."><b>&gt;</b></a>\n";
     }
 
     // fast (2 pages) forward (>>)
     if (($end + $pageSize) < $numEntries) {
       $href = makeHref(array($queryKey => $page + 2,'menu'=>''));
-      $result .= '<a '. $href ."><b>&#187;</b></a>\n";            
+      $result .= '<a '. $href ."><b>&#187;</b></a>\n";
     }
     return $result;
   }
@@ -861,9 +890,9 @@ else $page = 1;
     $index = 0;
     foreach ($items as $key => $item) {
       if ($index >= $startIndex && $index < $endIndex) {
-	$href = makeHref(array($queryKey => urlencode($key)));
-	echo '<a '. $href .' target="main">'. $item ."</a>\n";
-	echo "<div class=\"mini_se\"></div>\n";
+ $href = makeHref(array($queryKey => urlencode($key)));
+ echo '<a '. $href .' target="main">'. $item ."</a>\n";
+ echo "<div class=\"mini_se\"></div>\n";
       }
       $index++;
     }
@@ -883,10 +912,10 @@ class ResultDisplay {
 
   /** the total number of pages to display. */
   var $noPages;
-  
+
   /** the start index to display. */
   var $startIndex;
-  
+
     /** the end index to display. */
   var $endIndex;
 
@@ -902,14 +931,14 @@ class ResultDisplay {
     $this->header = $header;
     $this->page = 1;
     $this->filter = $filter;
-    $this->contentStrategy = new DefaultContentStrategy(); 
+    $this->contentStrategy = new DefaultContentStrategy();
   }
 
   /** Sets the page number to display. */
   function setPage($page) {
     $this->page = $page;
   }
-  
+
   /** Returns the powered by part */
   function poweredby() {
     $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
@@ -932,15 +961,15 @@ class ResultDisplay {
     }
 
     $this->noPages = ceil(count($this->result) / PAGE_SIZE);
-    
+
     if ($this->noPages>1) $this->displayPageBar($this->noPages, $page);
 
     $this->startIndex = ($page - 1) * PAGE_SIZE;
     $this->endIndex =$this->startIndex + PAGE_SIZE;
-    
+
       /** Displays the header stringg. */
      if ($this->header!="")  echo "<div class=\"rheader\">{$this->header}</div>\n";
-  
+
     $this->contentStrategy->display($this);
     echo '<br/>';
      if ($this->noPages>1) $this->displayPageBar($this->noPages, $page);
@@ -966,14 +995,14 @@ class ResultDisplay {
     if ($start - $barSize*2 > 0) {
       $this->filter[Q_RESULT] = $page - $barSize * 2;
       $href = makeHref($this->filter);
-      echo '<a '. $href .">[&#171;]</a>";      
+      echo '<a '. $href .">[&#171;]</a>";
     }
 
     // reverse (<)
     if ($start > 1) {
       $this->filter[Q_RESULT] =$start - 1;
       $href = makeHref($this->filter);
-      echo '<a '. $href .">[&lt;]</a>";      
+      echo '<a '. $href .">[&lt;]</a>";
     }
 
     // page numbers
@@ -984,9 +1013,9 @@ class ResultDisplay {
       $href = makeHref($this->filter);
       if ($i == $page) {
         // don't make links for current page
-	echo '<b>['. $i .']</b>';
+ echo '<b>['. $i .']</b>';
       } else {
-	echo '<a '. $href .'>['. $i .']</a>';
+ echo '<a '. $href .'>['. $i .']</a>';
       }
     }
 
@@ -994,14 +1023,14 @@ class ResultDisplay {
     if ($end < $noPages) {
       $this->filter[Q_RESULT] = $end + 1;
       $href = makeHref($this->filter);
-      echo '<a '. $href .">[&gt;]</a>";      
+      echo '<a '. $href .">[&gt;]</a>";
     }
 
     // fast forward (>>)
     if (($end + $barSize*2) <= $noPages) {
       $this->filter[Q_RESULT] =$end + $barSize * 2;
       $href = makeHref($this->filter);
-      echo '<a '. $href .">[&#187;]</a>\n";      
+      echo '<a '. $href .">[&#187;]</a>\n";
     }
     //print_r($this->filter);
     echo '</center></div><br/>';
@@ -1010,13 +1039,13 @@ class ResultDisplay {
 
 
 
-  /** 
-   * Displays the summary information of each bib entries of the
-   * current page. For each entry, this method displays the author,
-   * title; the bib entries are displayed grouped by the
-   * publication years. If the bib list is empty, an error message is
-   * displayed.
-   */
+/**
+  * Displays the summary information of each bib entries of the
+  * current page. For each entry, this method displays the author,
+  * title; the bib entries are displayed grouped by the
+  * publication years. If the bib list is empty, an error message is
+  * displayed.
+  */
 class DefaultContentStrategy  {
 
   function display($display) {
@@ -1032,7 +1061,7 @@ class DefaultContentStrategy  {
 
     <table class="result" >
     <?php
-    
+
     $index = 0;
     $refnum = count($display->result)-(($display->page-1)*PAGE_SIZE);
     foreach ($years as $year => $entries) {
@@ -1048,11 +1077,11 @@ class DefaultContentStrategy  {
       // sort by keys, enable a nice sorting as Dupont2008a, Dupont2008b, Dupont2008c
       krsort($entries);
       foreach ($entries as $bib) {
-	  if ($display->isDisplayed($index)) {
-	       $bib->id = $refnum--;
-	       $bib->toString();
+   if ($display->isDisplayed($index)) {
+        $bib->id = $refnum--;
+        $bib->toString();
           }
-	  $index++;
+   $index++;
 
       }
     }
@@ -1068,14 +1097,14 @@ class ErrorDisplay  {
   function ErrorDisplay() {
     $this->header="Bib entry not found!";
   }
-  
+
   /** Displays en error message */
   function display() {
-    
+
     ?>
     <b>Sorry, this bib entry does not exist.</b>
     <a href="?">Back to bibtexbrowser</a>
-    
+
     <?php
   }
 }
@@ -1112,15 +1141,15 @@ class SingleResultDisplay extends ResultDisplay {
  * bibliographic entries and maintain them.
  */
 class BibDataBase {
-  /** A hash table from IDs (number) to bib entries (BibEntry). */
+  /** A hash table from keys (e.g. Goody1994) to bib entries (BibEntry instances). */
   var $bibdb;
 
   /** Creates a new database by parsing bib entries from the given
    * file. */
   function BibDataBase($filename) {
-	$parser = new BibParser($filename);
-	//print_r($parser);
- 	$this->bibdb =$parser->getEntries();
+ $parser = new BibParser($filename);
+ //print_r($parser);
+  $this->bibdb =$parser->getEntries();
   }
 
   /** Returns all entries as an array. Each entry is an instance of
@@ -1152,26 +1181,27 @@ class BibDataBase {
 
   /** Generates and returns an array consisting of all authors.
    * The returned array is a hash table with keys <FirstName LastName>
-   * and values <LastName, FirstName>. 
+   * and values <LastName, FirstName>.
    */
   function authorIndex(){
     $result = array();
     foreach ($this->bibdb as $bib) {
       $authors =explode(' and ', $bib->getAuthor());
       foreach($authors as $a){
-	$ta = trim($a);
-	$parts=explode(' ', $ta);
-	// get the last name
-	$key = array_pop($parts);
-	$result[$key] = $ta;
-      }	 	       
+        //we use an array because several authors can have the same lastname
+ @$result[getLastName($a)][$a]++;
+      }
     }
     ksort($result);
+
     // now authors are sorted by last name
-    // we rebuild a new array for having good keys in author page 
+    // we rebuild a new array for having good keys in author page
     $realresult = array();
-    foreach($result as $v) $realresult[$v] = formatAuthor($v);
-    
+    foreach($result as $x) {
+        ksort($x);
+        foreach($x as $v => $tmp) $realresult[$v] = formatAuthor($v);
+    }
+
     return $realresult;
   }
 
@@ -1182,9 +1212,9 @@ class BibDataBase {
     foreach ($this->bibdb as $bib) {
       $tags =explode(' and ', $bib->getField("keywords"));
       foreach($tags as $a){
-	$ta = trim($a);
-	  $result[$ta] = $ta;
-      }	 	       
+ $ta = trim($a);
+   $result[$ta] = $ta;
+      }
     }
     asort($result);
     return $result;
@@ -1197,9 +1227,9 @@ class BibDataBase {
     foreach ($this->bibdb as $bib) {
       $tags =explode(' and ', $bib->getField("year"));
       foreach($tags as $a){
-	$ta = trim($a);
-	  $result[$ta] = $ta;
-      }	 	       
+ $ta = trim($a);
+   $result[$ta] = $ta;
+      }
     }
     arsort($result);
     return $result;
@@ -1209,11 +1239,11 @@ class BibDataBase {
   function getEntry($id){
     foreach($this->bibdb as $bib) {
       if($bib->getId() == $id)
-	return $bib;
+ return $bib;
     }
     return null;
   }
-  
+
   /** Given its key, return the bib entry. */
   function getEntryByKey($key) {
     return $this->bibdb[$key];
@@ -1227,30 +1257,51 @@ class BibDataBase {
     $result = array();
     foreach($this->bibdb as $bib) {
       if($bib->getType() == $type)
-	$result[] = $bib;
+ $result[] = $bib;
+    }
+    return $result;
+  }
+
+  /** Returns an array of bib entries (BibEntry) that 
+   * satisfy the query
+   * $query is an hash with entry type as key and searched fragment as value
+   */
+
+  function multisearch($query) {
+    if (count($query)<1) {return array();}
+    $result = array();
+
+    foreach ($this->bibdb as $bib) {
+        $entryisselected = true;
+        foreach ($query as $field => $fragment) {
+          if (($field!='type' && !$bib->hasPhrase(strtolower($fragment), array($field))) || ($field=='type' && $bib->getType()!=$fragment)) {
+              $entryisselected = false;
+          }
+        }
+        if ($entryisselected)  $result[] = $bib;
     }
     return $result;
   }
 
   /** Returns an array of bib entries (BibEntry) that contains the
-   * given phrase in the given fields. If the fields are empty, all
-   * fields are searched. */
-  function search($phrase, $fields = NULL) {
+   * given phrase.
+   */
+  function search($phrase) {
     $phrase = strtolower(trim($phrase));
     if (empty($phrase)) {
       return array();
     }
-    
+
     $result = array();
     foreach ($this->bibdb as $bib) {
-      if ($bib->hasPhrase($phrase, $fields)) {
-	$result[] = $bib;
+      if ($bib->hasPhrase(strtolower($phrase))) {
+ $result[] = $bib;
       }
     }
     //print_r($result);
     return $result;
   }
-}
+} // end class
 
 
 function printHTMLHeaders($title,$noindex_metatag=false) {
@@ -1260,7 +1311,7 @@ function printHTMLHeaders($title,$noindex_metatag=false) {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
-<meta name="generator" content="bibtexbrowser v20081111" />
+<meta name="generator" content="bibtexbrowser v__DATE__" />
 <?php if ($noindex_metatag) echo '<meta name="robots" content="noindex"/>' ?>
 <title><?php echo $title; ?></title>
 <style type="text/css">
@@ -1275,7 +1326,7 @@ body {
 
 
 .title {
-  color: #003366; 
+  color: #003366;
   font-size: 20pt;
   font-weight: bold;
   text-align: right;
@@ -1283,9 +1334,9 @@ body {
 .header {
   background-color: #995124;
   color: #FFFFFF;
-  padding: 1px 2px 1px 2px; 
+  padding: 1px 2px 1px 2px;
 }
-.rheader { 
+.rheader {
   font-weight: bold;
   background-color: #003366;
   color: #ffffff;
@@ -1349,13 +1400,14 @@ pre {
   margin-bottom : 2px;
 }
 .mini_se {
-  border: none 0; 
-  border-top: 1px dashed #717171; 
+  border: none 0;
+  border-top: 1px dashed #717171;
   height: 1px;
 }
 .a_name a {
   color:#469AF8;
   width:130px;
+
 }
 .bit_big{
   font-size: small;
@@ -1376,9 +1428,9 @@ $included=(__FILE__!=$_SERVER['SCRIPT_FILENAME']);
 if (isset($_GET['menu']))
 {
   // menu pages don't need to be indexed by search engines
-  // we don't set the title and set noindex_metatag to true
+  // we don't set the title and set noindex metatag to true
   printHTMLHeaders("",true);
-  echo $displaymanager->searchView(); 
+  echo $displaymanager->searchView();
   echo $displaymanager->typeVC().'<br/>';
   echo $displaymanager->yearVC().'<br/>';
   echo $displaymanager->authorVC().'<br/>';
@@ -1386,12 +1438,12 @@ if (isset($_GET['menu']))
   echo '</body></html>';
 } // end isset($_GET['menu']
 else if ($displaymanager->processRequest()) {
-    
+
     if (!$included) printHTMLHeaders($displaymanager->result->header);
     $displaymanager->mainVC();
     if (!$included) echo '</body></html>';
-    
-    
+
+
 }
 else if (!$included) {
 
@@ -1401,7 +1453,7 @@ else if (!$included) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html  xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta name="generator" content="bibtexbrowser v20081111" />
+<meta name="generator" content="bibtexbrowser v__DATE__" />
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
 <title>You are browsing <?php echo $filename; ?> with bibtexbrowser</title>
 </head>
@@ -1412,6 +1464,6 @@ else if (!$included) {
     </html>
 
     <?php
-} 
+}
 // if we are included; do nothing bibtexbrowser.php is used as a library
 ?>
