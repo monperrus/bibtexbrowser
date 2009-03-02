@@ -18,6 +18,9 @@ Thanks to all [[#Users]] of bibtexbrowser :-)
 
 =====Features=====
 
+* **New (02/2009)** bibtexbrowser can display all entries for an author with an academic style [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;academic=Martin+Monperrus|demo]]
+* **New (01/2009)** bibtexbrowser allows multi criteria search, e.g. ?type=inproceedings&amp;year=2004
+* **HOT: bibtexbrowser can be used to include your publication list into your home page** [[http://www.monperrus.net/martin/|demo]]
 * bibtexbrowser can display the menu and all entries without filtering from the $filename hardcoded in the script [[http://www.monperrus.net/martin/bibtexbrowser.php|demo]]
 * bibtexbrowser can display the menu and all entries without filtering from the file name passed as parameter [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib|demo]]
 * bibtexbrowser can display all entries  out of a bibtex file [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;all|demo]]
@@ -25,19 +28,16 @@ Thanks to all [[#Users]] of bibtexbrowser :-)
 * bibtexbrowser can display a single entry [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;key=monperrus08phd|demo]]
 * bibtexbrowser can display all entries with a bib keyword [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;keywords=mda|demo]]
 * bibtexbrowser can display found entries with a search word (it can be in any bib field) [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;search=ocl|demo]]
-* bibtexbrowser allows multi criteria search, e.g. ?type=inproceedings&amp;year=2004
 * bibtexbrowser outputs valid XHTML 1.0 Transitional
 * bibtexbrowser in designed to be search engine friendly.
 * bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;author=Barbara+A.+Kitchenham|demo]]
-* bibtexbrowser can display all entries for an author with an academic style [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;academic=Martin+Monperrus|demo]]
-* bibtexbrowser can be used to include your publication list into your home page [[http://www.monperrus.net/martin/|demo]]
 * bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in utf-8 ''define('ENCODING','utf-8')'' )
 
 =====How to include your publication list in your home page=====
 
 Use this PHP snippet:
 &#60;?php
-$_GET&#91;'bib'&#93;='mybib.bib'; 
+$_GET&#91;'bib'&#93;='mybib.bib';
 $_GET&#91;'academic'&#93;='Martin Monperrus';
 include('bibtexbrowser.php');
 ?>
@@ -152,11 +152,6 @@ define('YEAR', 'year');
 // if future versions of PHP change warning mechanisms...
 @error_reporting(E_ERROR);
 
-// we use sessions to avoid reparsing the bib file for each request
-// the session may be already started
-// by an external script that includes bibtexbrowser
-@session_start();
-
 // default bib file, if no file is specified in the query string.
 global $filename;
 $filename = "biblio_monperrus.bib";
@@ -179,15 +174,41 @@ if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && (strtotime($_SERVER['HTTP_IF_MO
 }
 
 
-// parse a new bib file, if this file has not been already parsed
-if (!isset($_SESSION[$filename]) ) {
-  // for sake of performance, once the bibtex file is parsed
-  // the object that represents the database is stored in  $_SESSION
-  // we use serialize in order to be able to get a session correctly set up
-  // without bibtexbrowser loaded in PHP
-  $_SESSION[$filename]  = serialize(new BibDataBase($filename));
+// for sake of performance, once the bibtex file is parsed
+// we try to save a "compiled" in a txt file
+$compiledbib = $filename.'.txt';
+// do we have a compiled version ?
+if (is_file($compiledbib) && is_readable($compiledbib)) {
+    // is it up to date ?
+    if (filemtime($filename)>filemtime($compiledbib)) {
+        // no, then reparse
+        $bibdb = new BibDataBase($filename);
+    }
+    else {
+        // yes then take it
+        $bibdb = unserialize(file_get_contents($compiledbib));
+    }
 }
-$displaymanager=new DisplayManager(unserialize($_SESSION[$filename]));
+// we don't have a compiled version
+else {
+    // then parsing the file
+    $bibdb = new BibDataBase($filename);
+
+    // are we able to save the compiled version ?
+    if ((!is_file($compiledbib) && is_writable(dirname($compiledbib))) || (is_file($compiledbib) && is_writable($compiledbib)) ) {
+        // we can use file_put_contents
+        // but don't do it for compatibility with PHP 4.3
+        $f = fopen($compiledbib,'w');
+        fwrite($f,serialize(new BibDataBase($filename)));
+        fclose($f);
+    }
+}
+
+$displaymanager=new DisplayManager($bibdb);
+
+
+
+
 
 
 ////////////////////////////////////////////////////////
@@ -236,43 +257,43 @@ $isinentry = false;
 $delegate->beginFile();
 
 foreach($f as $s) {
- 
+
  if ($isinentry) $entrysource.=$s;
- 
+
  if ($state==NOTHING) {
   // this is the beginning of an entry
-  if ($s=='@') { 
+  if ($s=='@') {
    $delegate->beginEntry();
    $state = GETTYPE;
    $isinentry = true;
    $entrysource='@';
   }
  }
- 
+
  else if ($state==GETTYPE) {
   // this is the beginning of a key
-  if ($s=='{') { 
+  if ($s=='{') {
    $state = GETKEY;
    $delegate->setEntryType($entrytype);
    $entrytype='';
    }
   else   $entrytype=$entrytype.$s;
  }
- 
+
  else if ($state==GETKEY) {
   // now we get the value
-  if ($s=='=') { 
+  if ($s=='=') {
    $state = GETVALUE;
    $finalkey=$entrykey;
    $entrykey='';}
   // oups we only have the key :-) anyway
-  else if ($s=='}') { 
+  else if ($s=='}') {
    $state = NOTHING;$isinentry = false;$delegate->endEntry($entrysource);
    $delegate->setEntryKey($entrykey);
    $entrykey='';
    }
    // OK now we look for values
-  else if ($s==',') { 
+  else if ($s==',') {
    $state=GETKEY;
    $delegate->setEntryKey($entrykey);
    $entrykey='';}
@@ -281,13 +302,13 @@ foreach($f as $s) {
   // we just got a =, we can now receive the value, but we don't now whether the value
   // is delimited by curly brackets, double quotes or nothing
   else if ($state==GETVALUE) {
-  
+
     // the value is delimited by double quotes
-    if ($s=='"') { 
+    if ($s=='"') {
     $state = GETVALUEDELIMITEDBYQUOTES;
     $entryvalue='';}
     // the value is delimited by curly brackets
-    else if ($s=='{') { 
+    else if ($s=='{') {
     $state = GETVALUEDELIMITEDBYCURLYBRACKETS;
     $entryvalue='';}
     // the end of the key and no value found: it is the bibtex key e.g. \cite{Descartes1637}
@@ -296,7 +317,7 @@ foreach($f as $s) {
     $delegate->setEntryField(trim($finalkey),$entryvalue);
     $entryvalue='';}
     // this is the end of the value AND of the entry
-    else if ($s=='}') { 
+    else if ($s=='}') {
     $state = NOTHING;$isinentry = false;
     $delegate->setEntryField(trim($finalkey),$entryvalue);
     $delegate->endEntry($entrysource);
@@ -307,13 +328,13 @@ foreach($f as $s) {
 
 /* GETVALUEDELIMITEDBYCURLYBRACKETS* handle entries delimited by curly brackets and the possible nested curly brackets */
  else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS) {
-    
-  if ($s=='\\') { 
+
+  if ($s=='\\') {
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_ESCAPED;
    $entryvalue=$entryvalue.$s;}
-  else if ($s=='{') { 
+  else if ($s=='{') {
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;}
-  else if ($s=='}') { 
+  else if ($s=='}') {
    $state = GETVALUE;}
   else { $entryvalue=$entryvalue.$s;}
  }
@@ -324,12 +345,12 @@ foreach($f as $s) {
     }
  // in first level of curly bracket
  else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL) {
-  if ($s=='\\') { 
+  if ($s=='\\') {
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL_ESCAPED;
    $entryvalue=$entryvalue.$s;}
-  else if ($s=='{') { 
+  else if ($s=='{') {
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL;}
-  else if ($s=='}') { 
+  else if ($s=='}') {
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS;}
   else { $entryvalue=$entryvalue.$s;}
  }
@@ -338,15 +359,15 @@ foreach($f as $s) {
     $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;
     $entryvalue=$entryvalue.$s;
     }
- 
+
  // in second level of curly bracket
  else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL) {
-  if ($s=='\\') { 
+  if ($s=='\\') {
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL_ESCAPED;
    $entryvalue=$entryvalue.$s;}
-  else if ($s=='{') { 
+  else if ($s=='{') {
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL;}
-  else if ($s=='}') { 
+  else if ($s=='}') {
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;}
   else { $entryvalue=$entryvalue.$s;}
   }
@@ -358,10 +379,10 @@ foreach($f as $s) {
 
  // in third level of curly bracket
  else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL) {
-  if ($s=='\\') { 
+  if ($s=='\\') {
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL_ESCAPED;
    $entryvalue=$entryvalue.$s;}
-  else if ($s=='}') { 
+  else if ($s=='}') {
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL;}
   else { $entryvalue=$entryvalue.$s;}
  }
@@ -373,10 +394,10 @@ foreach($f as $s) {
 
 /* handles entries delimited by double quotes */
  else if ($state==GETVALUEDELIMITEDBYQUOTES) {
-  if ($s=='\\') { 
+  if ($s=='\\') {
    $state = GETVALUEDELIMITEDBYQUOTES_ESCAPED;
    $inentryvaluedelimitedB=$inentryvaluedelimitedB.$s;}
-  else if ($s=='"') { 
+  else if ($s=='"') {
    $state = GETVALUE;
    $entryvalue=$entryvalue.$inentryvaluedelimitedB;
    $inentryvaluedelimitedB='';}
@@ -396,30 +417,31 @@ $delegate->endFile();
 /** This class can be used together with StateBasedBibParser */
 class XMLPrettyPrinter {
   function beginFile() {
-    header('Content-type: text/xml;'); 
+    header('Content-type: text/xml;');
     print '<?xml version="1.0" encoding="'.ENCODING.'"?>';
     print '<bibfile>';
   }
-  
-  function endFile() { 
+
+
+  function endFile() {
     print '</bibfile>';
   }
   function setEntryField($finalkey,$entryvalue) {
     print "<data>\n<key>".$finalkey."</key>\n<value>".$entryvalue."</value>\n</data>\n";
   }
-  
+
   function setEntryType($entrytype) {
     print '<type>'.$entrytype.'</type>';
   }
-  
+
   function setEntryKey($entrykey) {
     print '<keyonly>'.$entrykey.'</keyonly>';
   }
-  
+
   function beginEntry() {
     print "<entry>\n";
   }
-  
+
   function endEntry($entrysource) {
     print "</entry>\n";
   }
@@ -427,39 +449,39 @@ class XMLPrettyPrinter {
 
 /** This class can be used together with StateBasedBibParser */
 class BibtexbrowserBibDB {
-  
+
   /** A hashtable from keys to bib entries (BibEntry). */
   var $bibdb;
-  
+
   var $currentEntry;
-  
+
   function beginFile() {
     $bibdb = array();
   }
-  
+
   function endFile() { //nothing
   }
-  
+
   function setEntryField($finalkey,$entryvalue) {
-    
+
     if ($finalkey!='url') $formatedvalue = xtrim(latex2html($entryvalue));
     else $formatedvalue = $entryvalue;
     $this->currentEntry->setField($finalkey,$formatedvalue);
   }
-  
+
   function setEntryType($entrytype) {
     $this->currentEntry->setType($entrytype);
   }
-  
+
   function setEntryKey($entrykey) {
     //echo "new entry:".$entrykey."\n";
     $this->currentEntry->setField('key',$entrykey);
   }
-  
+
   function beginEntry() {
     $this->currentEntry = new BibEntry();
   }
-  
+
   function endEntry($entrysource) {
     $this->currentEntry->text = $entrysource;
     $this->bibdb[$this->currentEntry->getKey()] = $this->currentEntry;
@@ -469,7 +491,7 @@ class BibtexbrowserBibDB {
 
 
 
-/** extended version of the trim function 
+/** extended version of the trim function
  * removes linebreks, tabs, etc.
  */
 function xtrim($line) {
@@ -485,8 +507,8 @@ function xtrim($line) {
   return $line;
 }
 
-/** encapsulates the conversion of a single latex chars to the corresponding HTML entity 
- * this works thanks to the regularity of html entities 
+/** encapsulates the conversion of a single latex chars to the corresponding HTML entity
+ * this works thanks to the regularity of html entities
  * it expects a **lower** char
  */
 function char2html($line,$latexmodifier,$char,$entitiyfragment) {
@@ -497,7 +519,7 @@ function char2html($line,$latexmodifier,$char,$entitiyfragment) {
   return $line;
 }
 
-/** converts latex chars to HTML entities 
+/** converts latex chars to HTML entities
  * it uses a naive algortihm
  * I still look for a comprehensive translation table from late chars to html
  * just have this http://isdc.unige.ch/Newsletter/help.html
@@ -505,7 +527,7 @@ function char2html($line,$latexmodifier,$char,$entitiyfragment) {
 function latex2html($line) {
   // performance increases with this test
   if (strpos($line,'\\')===false) return $line;
-  
+
   foreach(str_split("abcdefghijklmnopqrstuvwxyz") as $letter) {
     $line = char2html($line,"'",$letter,"acute");
     $line = char2html($line,"`",$letter,"grave");
@@ -513,19 +535,19 @@ function latex2html($line) {
     $line = char2html($line,'"',$letter,"uml");
     $line = char2html($line,'^',$letter,"circ");
   }
-  
+
   // special things
   $line = str_replace('\\\c{c}','&ccedil;', $line);
   $line = str_replace('\\\c{C}','&Ccedil;', $line);
-  
+
   $line = str_replace('\\o','&oslash;', $line);
   $line = str_replace('\\O','&Oslash;', $line);
-  
+
   // clean out extra tex curly brackets, usually used for preserving capitals
   $line = str_replace('}','', $line);
   $line = str_replace('{','', $line);
-  
-  
+
+
   // and some spaces
   return trim($line);
 }
@@ -541,6 +563,8 @@ function latex2html($line) {
 class BibEntry {
 
   /** The fields (fieldName -> value) of this bib entry. */
+
+
   var $fields;
 
   /** The verbatim copy (i.e., whole text) of this bib entry. */
@@ -599,7 +623,7 @@ class BibEntry {
   function getTitle() {
     return $this->getField('title');
   }
-  
+
   /** Returns the authors of this entry as an arry */
   function getAuthors() {
     $authors = array();
@@ -617,7 +641,7 @@ class BibEntry {
     }
     return $editors;
   }
-  
+
   /**
   * Returns a compacted string form of author names by throwing away
   * all author names except for the first one and appending ", et al."
@@ -670,7 +694,7 @@ class BibEntry {
     //if ($this->hasField($field) &&  (stripos($this->getField($field), $phrase) !== false) ) {
       return true;
     }
-    
+
     return false;
   }
 
@@ -712,15 +736,15 @@ class BibEntry {
         if (($type=="techreport") ) {
             echo " <i>Technical report, ".$this->getField("institution")."</i>";
         }
-        
+
         if (($type=="inproceedings") ) {
             echo " In <i>".$this->getField(BOOKTITLE)."</i>";
         }
-        
+
         if (($type=="incollection")) {
             echo " Chapter in <i>".$this->getField(BOOKTITLE)."</i>";
         }
-        
+
         if ($type=="article") {
             echo " In <i>".$this->getField("journal")."</i>";
             echo ", volume ".$this->getField("volume");
@@ -966,16 +990,16 @@ else $page = 1;
       if (@$_GET[Q_TAG]!='') { $query[Q_TAG]=$_GET[Q_TAG]; }
       if (@$_GET[Q_YEAR]!='') { $query[Q_YEAR]=$_GET[Q_YEAR]; }
       if (@$_GET[Q_TYPE]!='') { $query[Q_TYPE]=$_GET[Q_TYPE]; }
-      //print_r($query); 
+      //print_r($query);
       if (count($query)<1) return false;
       $searched = $this->db->multisearch($query);
       $headers = array();
       foreach($query as $k=>$v) $headers[] = ucwords($k).': '.ucwords($v);
-      $header = join(' &amp; ',$headers); 
+      $header = join(' &amp; ',$headers);
       $this->display = new PagedDisplay($searched, $header, $query);
      }
 
-     
+
     // adding the bibtex filename
     if (isset($this->display)) $this->display->header.=' in '.$filename;
 
@@ -983,6 +1007,7 @@ else $page = 1;
     if (isset($this->display) && isset($_GET[Q_RESULT])) {
       $this->display->setPage($_GET[Q_RESULT]);
       // we add the page number to the title
+
       // in order to have unique titles
       // google prefers that
       $this->display->header.=' - page '.$_GET[Q_RESULT];
@@ -1096,7 +1121,7 @@ class Display {
   var $header;
 
   function setPage($page) { /* unimplemented */ }
-  
+
   function display() { /* unimplemented */ }
 
   /** Returns the powered by part */
@@ -1107,9 +1132,9 @@ class Display {
     $poweredby .= '</div>'."\n";
     return $poweredby;
    }
-   
+
   function  formatedHeader() { return "<div class=\"rheader\">{$this->header}</div>\n";}
-   
+
 
 }
 
@@ -1315,13 +1340,13 @@ class AcademicDisplay extends Display {
     $this->db=$db;
     $this->header = 'Publications of '.$authorName;
   }
-  
+
   function display() {
     echo $this->formatedHeader();
-    
+
     // Books
     $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'book'));
-    if (count($entries)>0) { 
+    if (count($entries)>0) {
     echo '<div class="header">Books</div>';
     echo '<table class="result" >';
     foreach ($entries as $bib) {
@@ -1330,10 +1355,10 @@ class AcademicDisplay extends Display {
     } // end foreach
     echo '</table>';
     }
-        
+
         // Journal / Bookchapters
     $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'article|incollection'));
-    if (count($entries)>0) { 
+    if (count($entries)>0) {
     echo '<div class="header">Articles and Book Chapters</div>';
     echo '<table class="result" >';
     foreach ($entries as $bib) {
@@ -1342,10 +1367,10 @@ class AcademicDisplay extends Display {
     } // end foreach
     echo '</table>';
     }
-    
+
     // conference papers
     $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'inproceedings',Q_EXCLUDE=>'workshop'));
-    if (count($entries)>0) { 
+    if (count($entries)>0) {
     echo '<div class="header">Conference Papers</div>';
     echo '<table class="result" >';
     foreach ($entries as $bib) {
@@ -1357,7 +1382,7 @@ class AcademicDisplay extends Display {
 
     // workshop papers
     $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'inproceedings',Q_SEARCH=>'workshop'));
-    if (count($entries)>0) { 
+    if (count($entries)>0) {
     echo '<div class="header">Workshop Papers</div>';
     echo '<table class="result" >';
     foreach ($entries as $bib) {
@@ -1366,10 +1391,22 @@ class AcademicDisplay extends Display {
     } // end foreach
     echo '</table>';
     }
-    
-    
+
+    // misc and thesis
+    $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'misc|phdthesis|mastersthesis'));
+    if (count($entries)>0) {
+    echo '<div class="header">Other Publications</div>';
+    echo '<table class="result" >';
+    foreach ($entries as $bib) {
+        $bib->id = $bib->getYear();
+        $bib->toString();
+    } // end foreach
+    echo '</table>';
+    }
+
+
     echo $this->poweredby();
-  
+
   }
 
 }
@@ -1380,8 +1417,8 @@ class AcademicDisplay extends Display {
 class BibEntryDisplay extends Display {
 
   /** the bib entry to display */
-  
   var $bib;
+
   /** Creates an instance with the given bib entry and header.
    * It the object is an instance of BibIndexEntry, it may be
    * mutated to read the rest of the fields.
@@ -1391,12 +1428,12 @@ class BibEntryDisplay extends Display {
     global $filename;
     $this->header = 'Bibtex entry: '.$this->bib->getTitle();
   }
-  
+
   function display() {
     echo $this->formatedHeader();
     echo $this->bib->toEntryUnformatted();
     echo $this->poweredby();
-  
+
   }
 
 }
@@ -1555,7 +1592,7 @@ class BibDataBase {
               $entryisselected = false;
             }
           }
-          
+
         }
         if ($entryisselected)  $result[$bib->getYear().$bib->getKey()] = $bib;
       }
@@ -1700,7 +1737,7 @@ if (isset($_GET['menu']))
 } // end isset($_GET['menu']
 else if ($displaymanager->processRequest()) {
 
-    if (!$included) printHTMLHeaders($displaymanager->result->header);
+    if (!$included) printHTMLHeaders($displaymanager->display->header);
     $displaymanager->mainVC();
     if (!$included) echo '</body></html>';
 
