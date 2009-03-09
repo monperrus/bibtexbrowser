@@ -33,6 +33,13 @@ Thanks to all [[#Users]] of bibtexbrowser :-)
 * bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;author=Barbara+A.+Kitchenham|demo]]
 * bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in utf-8 ''define('ENCODING','utf-8')'' )
 
+=====How to make a publication list for a research group/team/lab=====
+
+1) Create a bib file with the publication records (e.g. csgroup2008.bib)
+2) Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&academic'' (sorted by publication type)
+or
+2) Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&all'' (sorted by year)
+
 =====How to include your publication list in your home page=====
 
 Use this PHP snippet:
@@ -1393,7 +1400,7 @@ class AcademicDisplay extends Display {
     }
 
     // misc and thesis
-    $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'misc|phdthesis|mastersthesis'));
+    $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'misc|phdthesis|mastersthesis|techreport'));
     if (count($entries)>0) {
     echo '<div class="header">Other Publications</div>';
     echo '<table class="result" >';
@@ -1757,7 +1764,7 @@ else if (!$included) {
 </head>
     <frameset cols="15%,*">
     <frame name="menu" src="<?php echo SCRIPT_NAME .'?'.Q_FILE.'='. urlencode($filename).'&amp;menu'; ?>" />
-    <frame name="main" src="<?php echo SCRIPT_NAME .'?'.Q_FILE.'='. urlencode($filename).'&amp;all'; ?>" />
+    <frame name="main" src="<?php echo SCRIPT_NAME .'?'.Q_FILE.'='. urlencode($filename).'&amp;'.Q_ALL; ?>" />
     </frameset>
     </html>
 
