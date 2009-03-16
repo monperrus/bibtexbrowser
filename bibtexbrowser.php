@@ -157,6 +157,7 @@ define('YEAR', 'year');
 
 // we ensure that the pages won't get polluted
 // if future versions of PHP change warning mechanisms...
+
 @error_reporting(E_ERROR);
 
 // default bib file, if no file is specified in the query string.
@@ -764,7 +765,14 @@ class BibEntry {
           }
           echo ' <i>('.implode(', ',$editors).', '.(count($editors)>1?'eds.':'ed.').')</i>';
         }
-        echo ", ".$this->getYear().".";
+        echo ", ".$this->getYear();
+
+        if ($this->hasField('comment')) {
+            echo " (".$this->getField("comment").")";
+        }
+
+        echo ".";
+
         echo " <a {$href}>[bib]</a>";
 
         if ($this->hasField('url')) {
