@@ -4,7 +4,7 @@
 
 bibtexbrowser is a PHP script to browse and search bib entries from BibTex files. For instance, on the [[http://www.monperrus.net/martin/bibtexbrowser.php|bibtexbrowser demonstration site]], you can browse my main bibtex file.
 
-For feature requests or bug reports, [[http://www.monperrus.net/martin/|please drop me an email ]].
+For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]].
 
 Thanks to all [[#Users]] of bibtexbrowser :-)
 
@@ -36,9 +36,9 @@ Thanks to all [[#Users]] of bibtexbrowser :-)
 =====How to make a publication list for a research group/team/lab=====
 
 1) Create a bib file with the publication records (e.g. csgroup2008.bib)
-2) Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&academic'' (sorted by publication type)
+2a) Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;academic'' (sorted by publication type, then by year)
 or
-2) Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&all'' (sorted by year)
+2b) Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all'' (sorted by year)
 
 =====How to include your publication list in your home page=====
 
@@ -50,13 +50,19 @@ include('bibtexbrowser.php');
 ?>
 
 
-Tailor it with a CSS style, for example:
+And tailor it with a CSS style, for example:
 &#60;style>
 .date {   background-color: blue; }
 .rheader {  font-size: large }
 .bibline {  padding:3px; padding-left:15px;  vertical-align:top;}
+.bibtitle { font-weight:bold; }
 &#60;/style>
 
+=====Tailoring=====
+
+There are two ways to tailor bibtexbrowser:
+    1/ change the CSS style in function printHTMLHeaders(), ~ line 1650
+    2/ change the parameters ENCODING, PAGE_SIZE and co at the end of this documentation ~ line 120
 
 =====Users=====
 Don't hesitate to [[http://www.monperrus.net/martin/|contact me]] to be added in the list!
@@ -104,23 +110,34 @@ License, or (at your option) any later version.
 
 */
 
-define('ENCODING','iso-8859-1');
-//define('ENCODING','utf-8');
-
-define('READLINE_LIMIT',1024);
+// *************** CONFIGURATION
+// there is no encoding transformation from the bibtex file to the html file
+// if your bibtex file contains 8 bits characters in utf-8
+// change the following parameter
+define('ENCODING','iso-8859-1');//define('ENCODING','utf-8');
+// number of bib items per page
 define('PAGE_SIZE',25);
 
-define('YEAR_SIZE',10);
+// do we transform names like "Dupont, Joe" in "Joe Dupont"
+define('FLIP_NAMES',true);
+
+// for the menu frame
+define('YEAR_SIZE',10); // number of years per table
+define('TAGS_SIZE',20); // number of keywords per table
+define('AUTHORS_SIZE',20); // number of authors per table
+
+// *************** END CONFIGURATION
+
+define('READLINE_LIMIT',1024);
+
 define('Q_YEAR', 'year');
 define('Q_YEAR_PAGE', 'year_page');
 
 define('Q_FILE', 'bib');
 
-define('AUTHORS_SIZE',20);
 define('Q_AUTHOR', 'author');
 define('Q_AUTHOR_PAGE', 'author_page');
 
-define('TAGS_SIZE',20);
 define('Q_TAG', 'keywords');
 define('Q_TAG_PAGE', 'keywords_page');
 
@@ -473,7 +490,7 @@ class BibtexbrowserBibDB {
   function setEntryField($finalkey,$entryvalue) {
 
     if ($finalkey!='url') $formatedvalue = xtrim(latex2html($entryvalue));
-    else $formatedvalue = $entryvalue;
+    else $formatedvalue = trim($entryvalue);
     $this->currentEntry->setField($finalkey,$formatedvalue);
   }
 
@@ -717,45 +734,53 @@ class BibEntry {
         $href = makeHref(array(Q_KEY => urlencode($key)));
         echo '<tr>';
         echo '<td  class="bibline"><a name="'.$id.'"></a>['.$id.']</td> ';
-
-
         echo '<td>';
-        if ($this->hasField('url')) echo ' <a href="'.$this->getField("url").'">';
-        echo '<b>'.$title.'</b>';
-        if ($this->hasField('url')) echo '</a>';
 
+        $entry=array();
+
+        // title
+        $title = '<span class="bibtitle">'.$title.'</span>';
+        if ($this->hasField('url')) $title = ' <a href="'.$this->getField("url").'">'.$title.'</a>';
+        $entry[] = $title;
+
+
+        // author
         if ($this->hasField('author')) {
           $authors = array();
           foreach ($this->getAuthors() as $author) {
             $authors[]=formatAuthor($author);
           }
-          echo ' ('.implode(', ',$authors).')';
+          $entry[0] .= ' <span class="bibauthor">('.implode(', ',$authors).')</span>';
         }
 
+        // now the origin of the publication is in italic
 
-        if (($type=="phdthesis") ) {
-            echo " <i>PhD thesis, ".$this->getField(SCHOOL)."</i>";
+        if ($type=="phdthesis") {
+            $publication = "PhD thesis, ".$this->getField(SCHOOL);
         }
 
-        if (($type=="mastersthesis") ) {
-            echo " <i>Master's thesis, ".$this->getField(SCHOOL)."</i>";
+        if ($type=="mastersthesis") {
+            $publication = "Master's thesis, ".$this->getField(SCHOOL);
         }
 
-        if (($type=="techreport") ) {
-            echo " <i>Technical report, ".$this->getField("institution")."</i>";
+        if ($type=="techreport") {
+            $publication = "Technical report, ".$this->getField("institution");
         }
 
-        if (($type=="inproceedings") ) {
-            echo " In <i>".$this->getField(BOOKTITLE)."</i>";
+        if ($type=="inproceedings") {
+            $publication = "In ".$this->getField(BOOKTITLE);
         }
 
-        if (($type=="incollection")) {
-            echo " Chapter in <i>".$this->getField(BOOKTITLE)."</i>";
+        if ($type=="incollection") {
+            $publication = "Chapter in ".$this->getField(BOOKTITLE);
         }
 
         if ($type=="article") {
-            echo " In <i>".$this->getField("journal")."</i>";
-            echo ", volume ".$this->getField("volume");
+            $publication = "In ".$this->getField("journal");
+        }
+
+        if (($type=="misc") && $this->hasField("note")) {
+          $publication = $this->getField("note");
         }
 
         if ($this->hasField(EDITOR)) {
@@ -763,15 +788,23 @@ class BibEntry {
           foreach ($this->getEditors() as $editor) {
             $editors[]=formatAuthor($editor);
           }
-          echo ' <i>('.implode(', ',$editors).', '.(count($editors)>1?'eds.':'ed.').')</i>';
+          $publication = $publication .' ('.implode(', ',$editors).', '.(count($editors)>1?'eds.':'ed.').')';
         }
-        echo ", ".$this->getYear();
 
+        if (isset($publication)) $entry[] = '<i>'.$publication.'</i>';
+
+        if ($this->hasField('volume')) $entry[] =  "volume ".$this->getField("volume");
+
+
+        if ($this->hasField(YEAR)) $entry[] = $this->getYear();
+
+
+        echo implode(", ",$entry).'.';
+
+        // some comments (e.g. acceptance rate)?
         if ($this->hasField('comment')) {
-            echo " (".$this->getField("comment").")";
+            echo  " (".$this->getField("comment").")";
         }
-
-        echo ".";
 
         echo " <a {$href}>[bib]</a>";
 
@@ -783,7 +816,7 @@ class BibEntry {
             echo ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
         }
 
-        echo '</td></tr>';
+        echo "</td></tr>\n";
 
    }
 
@@ -823,30 +856,49 @@ function makeHref($query = NULL) {
 }
 
 /**
- * Returns the last name of an author name. The argument is assumed to be
- * <FirstName LastName> or <LastName, FirstName>.
+ * Returns the last name of an author name.
  */
 function getLastName($author){
+    list($firstname, $lastname) = splitFullName($author);
+    return $lastname;
+}
+
+/**
+ * Returns the splitted name of an author name. The argument is assumed to be
+ * <FirstName LastName> or <LastName, FirstName>.
+ */
+function splitFullName($author){
     $author = trim($author);
     // the author format is "Joe Dupont"
     if (strpos($author,',')===false) {
- $parts=explode(' ', $author);
- // get the last name
- return array_pop($parts);
+      $parts=explode(' ', $author);
+      // get the last name
+      $lastname = array_pop($parts);
+      $firstname = implode(" ", $parts);
     }
     // the author format is "Dupont, J."
     else {
- $parts=explode(',', $author);
- // get the last name
- return array_shift($parts);
+      $parts=explode(',', $author);
+      // get the last name
+      $lastname = array_shift($parts);
+      $firstname = implode(" ", $parts);
     }
+  return array(trim($firstname), trim($lastname));
 }
+
+
 
 /**
  * Returns the formated author name.
  */
 function formatAuthor($author){
-  return trim($author);
+  if (FLIP_NAMES) {
+    list($firstname, $lastname) = splitFullName($author);
+    if ($firstname!='') return $firstname.' '.$lastname;
+    else return $lastname;
+
+  }
+  else return trim($author);
 }
 
 
@@ -1362,8 +1414,8 @@ class AcademicDisplay extends Display {
     // Books
     $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'book'));
     if (count($entries)>0) {
-    echo '<div class="header">Books</div>';
-    echo '<table class="result" >';
+    echo "\n".'<div class="header">Books</div>'."\n";
+    echo '<table class="result">'."\n";
     foreach ($entries as $bib) {
         $bib->id = $bib->getYear();
         $bib->toString();
@@ -1374,8 +1426,8 @@ class AcademicDisplay extends Display {
         // Journal / Bookchapters
     $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'article|incollection'));
     if (count($entries)>0) {
-    echo '<div class="header">Articles and Book Chapters</div>';
-    echo '<table class="result" >';
+    echo "\n".'<div class="header">Refereed Articles and Book Chapters</div>'."\n";
+    echo '<table class="result" >'."\n";
     foreach ($entries as $bib) {
         $bib->id = $bib->getYear();
         $bib->toString();
@@ -1386,8 +1438,8 @@ class AcademicDisplay extends Display {
     // conference papers
     $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'inproceedings',Q_EXCLUDE=>'workshop'));
     if (count($entries)>0) {
-    echo '<div class="header">Conference Papers</div>';
-    echo '<table class="result" >';
+    echo "\n".'<div class="header">Refereed Conference Papers</div>'."\n";
+    echo '<table class="result" >'."\n";
     foreach ($entries as $bib) {
         $bib->id = $bib->getYear();
         $bib->toString();
@@ -1398,8 +1450,8 @@ class AcademicDisplay extends Display {
     // workshop papers
     $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'inproceedings',Q_SEARCH=>'workshop'));
     if (count($entries)>0) {
-    echo '<div class="header">Workshop Papers</div>';
-    echo '<table class="result" >';
+    echo "\n".'<div class="header">Refereed Workshop Papers</div>'."\n";
+    echo '<table class="result" >'."\n";
     foreach ($entries as $bib) {
         $bib->id = $bib->getYear();
         $bib->toString();
@@ -1410,8 +1462,8 @@ class AcademicDisplay extends Display {
     // misc and thesis
     $entries = $this->db->multisearch(array(Q_AUTHOR=>$this->author, Q_TYPE=>'misc|phdthesis|mastersthesis|techreport'));
     if (count($entries)>0) {
-    echo '<div class="header">Other Publications</div>';
-    echo '<table class="result" >';
+    echo "\n".'<div class="header">Other Publications</div>'."\n";
+    echo '<table class="result" >'."\n";
     foreach ($entries as $bib) {
         $bib->id = $bib->getYear();
         $bib->toString();
@@ -1682,6 +1734,7 @@ body {
   padding-left:15px;
   font-size: small;
 }
+.bibtitle { font-weight:bold; }
 
 TD {   vertical-align:text-top; }
 
