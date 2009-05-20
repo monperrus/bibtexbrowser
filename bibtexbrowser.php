@@ -6,7 +6,7 @@ bibtexbrowser is a PHP script to browse and search bib entries from BibTex files
 
 For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]].
 
-Thanks to all [[#Users]] of bibtexbrowser :-)
+Thanks to all [[users]] of bibtexbrowser :-)
 
 =====Download=====
 
@@ -63,18 +63,6 @@ And tailor it with a CSS style, for example:
 There are two ways to tailor bibtexbrowser:
     1/ change the CSS style in function printHTMLHeaders(), ~ line 1650
     2/ change the parameters ENCODING, PAGE_SIZE and co at the end of this documentation ~ line 120
-
-=====Users=====
-Don't hesitate to [[http://www.monperrus.net/martin/|contact me]] to be added in the list!
-
-* [[http://telecom.inescporto.pt/~jsc/bibtexbrowser.php|Jaime dos Santos Cardoso, INESC, Portugal]]
-* [[http://ccm.uma.pt/bibtexbrowser.php|Centro de Ciências Matemáticas, Portugal]]
-* [[http://bioinfo.lri.fr/publi/bibtexbrowser.php|Bioinformatics Group of LRI, Paris, France]]
-* [[http://grapple.dcs.warwick.ac.uk/bibtexbrowser/bibtexbrowser.php|M. Hendrix, University of Warwick, UK]]
-* [[http://www.cs.usask.ca/home/eramian/bib/Refereed_Journal_Articles.php|Mark Eramian, University of Saskatchewan, Canada]]
-* [[https://www.cs.tcd.ie/~marined/publications.php|Dan Marinescu, Trinity College Dublin, Ireland]]
-* [[http://kom.aau.dk/~gpp/publications.php?l=EN|Gian Paolo Perrucci, University of Aalborg, Denmark]]
-* [[http://dme.uma.pt/luis/page5/bibtexbrowser.php?bib=jluisbib.bib|José Luís da Silva, Universidade da madeira, Portugal]]
 
 =====Related_tools=====
 
@@ -314,7 +302,6 @@ foreach($f as $s) {
   // oups we only have the key :-) anyway
   else if ($s=='}') {
    $state = NOTHING;$isinentry = false;$delegate->endEntry($entrysource);
-   $delegate->setEntryKey($entrykey);
    $entrykey='';
    }
    // OK now we look for values
