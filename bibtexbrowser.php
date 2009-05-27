@@ -1,8 +1,8 @@
-<?php /* bibtexbrowser: a PHP script to browse and search bib entries from BibTex files
+<?php /* bibtexbrowser: a PHP script that creates searchable publication lists from bib entries of BibTex files
 
 [[#Download]] | [[#Screenshot]] | [[#Features]] | [[#Related_tools]] | [[#Users]] | [[#Copyright]]
 
-bibtexbrowser is a PHP script to browse and search bib entries from BibTex files. For instance, on the [[http://www.monperrus.net/martin/bibtexbrowser.php|bibtexbrowser demonstration site]], you can browse my main bibtex file.
+bibtexbrowser is a PHP script to browse and search bib entries from BibTex files. For instance, on the [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|bibtexbrowser demonstration site]], you can browse a bibtex file dedicated to software metrics.
 
 For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]].
 
@@ -18,19 +18,18 @@ Thanks to all [[users]] of bibtexbrowser :-)
 
 =====Features=====
 
-* **New (02/2009)** bibtexbrowser can display all entries for an author with an academic style [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;academic=Martin+Monperrus|demo]]
-* **New (01/2009)** bibtexbrowser allows multi criteria search, e.g. ?type=inproceedings&amp;year=2004
+* **New (02/2009)** bibtexbrowser can display all entries for an author with an academic style [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;academic=Ducasse|demo]]
+* **New (01/2009)** bibtexbrowser allows multi criteria search, e.g.  [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;type=inproceedings&amp;year=2004|demo]]
 * **HOT: bibtexbrowser can be used to include your publication list into your home page** [[http://www.monperrus.net/martin/|demo]]
-* bibtexbrowser can display the menu and all entries without filtering from the $filename hardcoded in the script [[http://www.monperrus.net/martin/bibtexbrowser.php|demo]]
-* bibtexbrowser can display the menu and all entries without filtering from the file name passed as parameter [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib|demo]]
-* bibtexbrowser can display all entries  out of a bibtex file [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;all|demo]]
-* bibtexbrowser can display all entries for a given year [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;year=2004|demo]]
-* bibtexbrowser can display a single entry [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;key=monperrus08phd|demo]]
-* bibtexbrowser can display all entries with a bib keyword [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;keywords=mda|demo]]
-* bibtexbrowser can display found entries with a search word (it can be in any bib field) [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;search=ocl|demo]]
+* bibtexbrowser can display the menu and all entries without filtering from the file name passed as parameter [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|demo]]
+* bibtexbrowser can display all entries  out of a bibtex file [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;all|demo]]
+* bibtexbrowser can display all entries for a given year [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;year=2004|demo]]
+* bibtexbrowser can display a single entry [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;key=monperrus08d|demo]]
+* bibtexbrowser can display found entries with a search word (it can be in any bib field) [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;search=ocl|demo]]
+* bibtexbrowser can display all entries with a bib keyword
 * bibtexbrowser outputs valid XHTML 1.0 Transitional
 * bibtexbrowser in designed to be search engine friendly.
-* bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=biblio_monperrus.bib&amp;author=Barbara+A.+Kitchenham|demo]]
+* bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;author=Barbara+A.+Kitchenham|demo]]
 * bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in utf-8 ''define('ENCODING','utf-8')'' )
 
 =====How to make a publication list for a research group/team/lab=====
@@ -65,6 +64,8 @@ There are two ways to tailor bibtexbrowser:
     2/ change the parameters ENCODING, PAGE_SIZE and co at the end of this documentation ~ line 120
 
 =====Related_tools=====
+
+[[http://www.monperrus.net/martin/bibtex2latex|bibtex2latex is a layer on top of bibtexbrowser that generates publication lists in latex.]]
 
 Old-fashioned:
 [[http://nxg.me.uk/dist/bibhtml/|bibhtml]], [[http://www.litech.org/~wkiri/bib2html/|bib2html]], [[http://ilab.usc.edu/bibTOhtml/|bibtohtml]], [[http://people.csail.mit.edu/rahimi/bibtex/|bibtextohtml]], [[http://www.lri.fr/~filliatr/bibtex2html/|bibtex2html]], [[http://people.csail.mit.edu/mernst/software/bibtex2web.html |bibtex2web]], [[http://strategoxt.org/Stratego/BibtexTools|stratego bibtex module]]
@@ -104,7 +105,7 @@ License, or (at your option) any later version.
 // change the following parameter
 define('ENCODING','iso-8859-1');//define('ENCODING','utf-8');
 // number of bib items per page
-define('PAGE_SIZE',25);
+define('PAGE_SIZE',isset($_GET['nopage'])?10000:25);
 
 // do we transform names like "Dupont, Joe" in "Joe Dupont"
 define('FLIP_NAMES',true);
@@ -167,11 +168,9 @@ define('YEAR', 'year');
 
 // default bib file, if no file is specified in the query string.
 global $filename;
-$filename = "biblio_monperrus.bib";
-// retrieve the filename sent as query or hidden data, if exists.
 if (isset($_GET[Q_FILE])) {
   $filename = $_GET[Q_FILE];
-}
+} else die('No bibtex file passed as parameter '.Q_FILE);
 
 if (!file_exists($filename)) {
  // to automate dectection of faulty links with tools such as webcheck
@@ -496,7 +495,11 @@ class BibtexbrowserBibDB {
 
   function endEntry($entrysource) {
     $this->currentEntry->text = $entrysource;
-    $this->bibdb[$this->currentEntry->getKey()] = $this->currentEntry;
+
+    // ignoring string entries and jabref comments
+    if (($this->currentEntry->getType()!='comment') && ($this->currentEntry->getType()!='string')) {
+      $this->bibdb[$this->currentEntry->getKey()] = $this->currentEntry;
+    }
   }
 } // end class BibtexbrowserBibDB
 
@@ -770,6 +773,10 @@ class BibEntry {
           $publication = $this->getField("note");
         }
 
+        if ($this->hasField("publisher")) {
+          $publication = $publication .', '.$this->getField("publisher");
+        }
+
         if ($this->hasField(EDITOR)) {
           $editors = array();
           foreach ($this->getEditors() as $editor) {
@@ -1030,7 +1037,7 @@ else $page = 1;
     } else if(isset($_GET[Q_ALL])) {
       $to_find = $_GET[Q_ALL];
       $searched = array_values($this->db->bibdb);
-      $header = 'Bibtex entries';
+      $header = 'Publications'; // nothing special to display as header
       $this->display = new PagedDisplay($searched, $header, array(Q_ALL =>''));
     }
     else if(isset($_GET[Q_ACADEMIC])) {
