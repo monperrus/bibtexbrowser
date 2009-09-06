@@ -477,7 +477,7 @@ class BibtexbrowserBibDB {
 
     if ($finalkey!='url') $formatedvalue = xtrim(latex2html($entryvalue));
     else $formatedvalue = trim($entryvalue);
-    $this->currentEntry->setField($finalkey,$formatedvalue);
+    $this->currentEntry->setField(strtolower($finalkey),$formatedvalue);
   }
 
   function setEntryType($entrytype) {
