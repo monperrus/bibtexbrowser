@@ -148,12 +148,6 @@ define('TITLE', 'title');
 define('BOOKTITLE', 'booktitle');
 define('YEAR', 'year');
 
-// SCRIPT_NAME is used to create correct links when oncluding a publication list
-// in another page
-// this constant may have already been initialized
-// when using include('')
-@define('SCRIPT_NAME',basename(__FILE__));
-
 // for clean search engine links
 // we disable url rewriting
 // ... and hope that your php configuration will accept one of these
@@ -235,11 +229,8 @@ class StateBasedBibtexParser {
 
 function StateBasedBibtexParser($bibfilename, $delegate) {
 
-$f=str_split(file_get_contents($bibfilename));
-
 
 // STATE DEFINITIONS
-
 define('NOTHING',1);
 define('GETTYPE',2);
 define('GETKEY',3);
@@ -268,6 +259,13 @@ $isinentry = false;
 
 $delegate->beginFile();
 
+
+$handle = fopen($bibfilename, "r");
+// if you encounter this errir "Allowed memory size of xxxxx bytes exhausted"
+// then decrease the size of the temp buffer below
+$bufsize=min(filesize($bibfilename),100000);
+while (!feof($handle)) {
+$f=str_split(fread($handle,$bufsize));
 foreach($f as $s) {
 
  if ($isinentry) $entrysource.=$s;
@@ -420,8 +418,10 @@ foreach($f as $s) {
   $inentryvaluedelimitedB=$inentryvaluedelimitedB.$s;
  }
 
-}
+} // end for
+} // end while
 $delegate->endFile();
+fclose($handle);
 } // end function
 } // end class
 
@@ -721,7 +721,7 @@ class BibEntry {
         $key = $this->getKey();
         $title = $this->getField(TITLE);
         $type = $this->getType();
-        $href = makeHref(array(Q_KEY => urlencode($key)));
+        $href = 'href="'.basename(__FILE__).'?'.createQueryString(array(Q_KEY => urlencode($key))).'"';
         echo '<tr>';
         echo '<td  class="bibline"><a name="'.$id.'"></a>['.$id.']</td> ';
         echo '<td>';
@@ -833,20 +833,29 @@ class BibEntry {
 // DISPLAY MANAGEMENT
 // ----------------------------------------------------------------------
 
+
+/**
+ * Given an array of parameter, creates a query string
+ */
+function createQueryString($array_param) {
+ // first we add the name of the bib file
+ global $filename;
+ $array_param[Q_FILE] = urlencode($filename);
+
+ // then a simple transformation and implode
+ $qstring="";
+ foreach ($array_param as $key => $val) {
+      $array_param[$key]=$key .'='. $val;
+ }
+ return $qstring.implode("&amp;",$array_param);
+}
+
 /**
  * Given a query, an array of key value pairs, returns a href string
- * of the form: href="bibtex.php?bib=testing.bib&search=JML.
+ * of the form: href="?bib=testing.bib&search=JML.
  */
 function makeHref($query = NULL) {
-  global $filename;
-
-  $qstring = Q_FILE .'='. urlencode($filename);
-  if ($query) {
-    foreach ($query as $key => $val) {
-      $qstring .= '&amp;'. $key .'='. $val;
-    }
-  }
-  return 'href="'. SCRIPT_NAME .'?'. $qstring .'"';
+  return 'href="?'. createQueryString($query) .'"';
 }
 
 /**
@@ -929,29 +938,12 @@ class DisplayManager {
   function searchView() {
     global $filename;
     ?>
-    <form action="<?php echo SCRIPT_NAME; ?>" method="get" target="main">
+    <form action="?" method="get" target="main">
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
       <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo $filename; ?>"/>
       <br/>
       <input type="submit" value="search" class="input_box"/>
     </form>
-    <?php
-  }
-
-  /** Displays the main menu in a table. */
-  function tocView() {
-    $yearHref = makeHref();
-    ?>
-    <table class="menu">
-      <tr>
-        <td class="header"><b>List All</b></td>
-      <tr>
-        <td align="right">
-          <a <?php echo $yearHref; ?>>By year</a>
-          <div class="mini_se"></div>
-        </td>
-      </tr>
-    </table>
     <?php
   }
 
@@ -1818,8 +1810,8 @@ else if (!$included) {
 <title>You are browsing <?php echo $filename; ?> with bibtexbrowser</title>
 </head>
     <frameset cols="15%,*">
-    <frame name="menu" src="<?php echo SCRIPT_NAME .'?'.Q_FILE.'='. urlencode($filename).'&amp;menu'; ?>" />
-    <frame name="main" src="<?php echo SCRIPT_NAME .'?'.Q_FILE.'='. urlencode($filename).'&amp;'.Q_ALL; ?>" />
+    <frame name="menu" src="<?php echo '?'.Q_FILE.'='. urlencode($filename).'&amp;menu'; ?>" />
+    <frame name="main" src="<?php echo '?'.Q_FILE.'='. urlencode($filename).'&amp;'.Q_ALL; ?>" />
     </frameset>
     </html>
 
