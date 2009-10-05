@@ -32,7 +32,7 @@ Thanks to all [[users]] of bibtexbrowser :-)
 * bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;author=Barbara+A.+Kitchenham|demo]]
 * bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in utf-8 ''define('ENCODING','utf-8')'' )
 
-=====How to make a publication list for a research group/team/lab=====
+=====Standalone publication lists=====
 
 1) Create a bib file with the publication records (e.g. csgroup2008.bib)
 2a) Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;academic'' (sorted by publication type, then by year)
@@ -41,7 +41,14 @@ or
 
 =====How to include your publication list in your home page=====
 
-Use this PHP snippet:
+For a group/team/lab:
+&#60;?php
+$_GET&#91;'bib'&#93;='csgroup2008.bib';
+$_GET&#91;'all'&#93;=1;
+include('bibtexbrowser.php');
+?>
+
+For an individual
 &#60;?php
 $_GET&#91;'bib'&#93;='mybib.bib';
 $_GET&#91;'academic'&#93;='Martin Monperrus';
@@ -1181,7 +1188,7 @@ class Display {
   function poweredby() {
     $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
     $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
-    $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a>';
+    $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v__DATE__-->';
     $poweredby .= '</div>'."\n";
     return $poweredby;
    }
