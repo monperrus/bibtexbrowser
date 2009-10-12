@@ -10,7 +10,8 @@ Thanks to all [[users]] of bibtexbrowser :-)
 
 =====Download=====
 
-**[[http://www.monperrus.net/martin/bibtexbrowser.php.txt|Download bibtexbrowser]]**
+**[[http://www.monperrus.net/martin/bibtexbrowser.php.txt|Download bibtexbrowser (latest stable version)]]**
+2009/10/9: [[http://www.monperrus.net/martin/bibtexbrowser-dev.php.txt|A new version is available for testing]]. It generates RSS feeds. End of the testing phase in ~ 2 weeks.
 
 =====Screenshot=====
 
