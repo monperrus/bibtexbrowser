@@ -89,8 +89,6 @@ And tailor it with a CSS style, for example:
 .date {   background-color: blue; }
 .rheader {  font-size: large }
 .bibline {  padding:3px; padding-left:15px;  vertical-align:top;}
-.bibtitle { font-weight:bold; }
-.bibbooktitle { font-style:italic; }
 &#60;/style>
 
 =====Adding links to the slides =====
@@ -212,6 +210,7 @@ define('YEAR', 'year');
 // default bib file, if no file is specified in the query string.
 if (!isset($_GET[Q_FILE])) {
   header('HTTP/1.1 404 Not found');
+  header('Content-type: text/plain');// to be validated by W3
   die('No bibtex file passed as parameter (e.g. bibtexbrowser.php?bib=mybib.php)');
 }
 
@@ -643,6 +642,8 @@ function latex2html($line) {
   return trim($line);
 }
 
+/** Note that & are encoded as %26 and not as &amp; so it does not break the Z3988 URL */
+function s3988($s) {return urlencode(utf8_encode($s));}
 
 // ----------------------------------------------------------------------
 // BIB ENTRIES
@@ -883,46 +884,104 @@ class BibEntry {
 
   }
 
+  /** Outputs an coins URL: see http://ocoins.info/cobg.html
+   * Used by Zotero, mendeley, etc.
+  */
+  function toCoins() {
+    $url_parts=array();
+    $url_parts[]='ctx_ver=Z39.88-2004';
+
+    $type = $this->getType();
+    if ($type=="book") {
+      $url_parts[]='rft_val_fmt='.s3988('info:ofi/fmt:kev:mtx:book');
+      $url_parts[]='rft.btitle='.s3988($this->getTitle());
+      $url_parts[]='rft.genre=book';
+    } else if ($type=="inproceedings") {
+      $url_parts[]='rft_val_fmt='.s3988('info:ofi/fmt:kev:mtx:book');
+      $url_parts[]='rft.atitle='.s3988($this->getTitle());
+      $url_parts[]='rft.btitle='.s3988($this->getField(BOOKTITLE));
+
+      // zotero does not support with this proceeding and conference
+      // they give the wrong title
+      //$url_parts[]='rft.genre=proceeding';
+      //$url_parts[]='rft.genre=conference';
+      $url_parts[]='rft.genre=bookitem';
+    } else if ($type=="incollection" ) {
+      $url_parts[]='rft_val_fmt='.s3988('info:ofi/fmt:kev:mtx:book');
+      $url_parts[]='rft.btitle='.s3988($this->getField(BOOKTITLE));
+      $url_parts[]='rft.atitle='.s3988($this->getTitle());
+      $url_parts[]='rft.genre=bookitem';
+    } else if ($type=="article") {
+      $url_parts[]='rft_val_fmt='.s3988('info:ofi/fmt:kev:mtx:journal');
+      $url_parts[]='rft.atitle='.s3988($this->getTitle());
+      $url_parts[]='rft.jtitle='.s3988($this->getField("journal"));
+      $url_parts[]='rft.volume='.s3988($this->getField("volume"));
+      $url_parts[]='rft.issue='.s3988($this->getField("issue"));
+    } else { // techreport, phdthesis
+      $url_parts[]='rft_val_fmt='.s3988('info:ofi/fmt:kev:mtx:book');
+      $url_parts[]='rft.btitle='.s3988($this->getTitle());
+      $url_parts[]='rft.genre=report';
+    }
+
+    $url_parts[]='rft.pub='.s3988($this->getPublisher());
+
+    // referent
+    if ($this->hasField('url')) {
+      $url_parts[]='rft_id='.s3988($this->getField("url"));
+    } else if ($this->hasField('doi')) {
+      $url_parts[]='rft_id='.s3988('info:doi/'.$this->getField("doi"));
+    }
+
+    // referrer, the id pf a collection of objects
+    // see also http://www.openurl.info/registry/docs/pdf/info-sid.pdf
+    $url_parts[]='rfr_id='.s3988('info:sid/'.$_SERVER['HTTP_HOST'].':'.$_GET[Q_FILE]);
+
+    $url_parts[]='rft.date='.s3988($this->getYear());
+
+    foreach ($this->getFormattedAuthors() as $au) $url_parts[]='rft.au='.s3988($au);
 
 
+    return implode('&amp;',$url_parts);
+
+  }
 
 
   /** Outputs an HTML string
   */
   function toString() {
-        $title = $this->getField(TITLE);
+        $title = $this->getTitle();
         $type = $this->getType();
 
         $entry=array();
 
         // title
-        $title = '<span class="bibtitle">'.$title.'</span>';
+        $title = '<b>'.$title.'</b>';
         if ($this->hasField('url')) $title = ' <a href="'.$this->getField("url").'">'.$title.'</a>';
         $entry[] = $title;
 
 
         // author
         if ($this->hasField('author')) {
-          $entry[0] .= ' (<span class="bibauthor">'.$this->formattedAuthors().'</span>)';
+          $entry[0] .= ' ('.$this->formattedAuthors().')';
         }
 
         // now the origin of the publication is in italic
         $booktitle = '';
 
         if (($type=="misc") && $this->hasField("note")) {
-          $booktitle = '<span class="bibbooktitle">'.$this->getField("note").'</span>';
+          $booktitle = $this->getField("note");
         }
 
         if ($type=="inproceedings") {
-            $booktitle = 'In <span class="bibbooktitle">'.$this->getField(BOOKTITLE).'</span>';
+            $booktitle = 'In '.$this->getField(BOOKTITLE);
         }
 
         if ($type=="incollection") {
-            $booktitle = 'Chapter in <span class="bibbooktitle">'.$this->getField(BOOKTITLE).'</span>';
+            $booktitle = 'Chapter in '.$this->getField(BOOKTITLE);
         }
 
         if ($type=="article") {
-            $booktitle = 'In <span class="bibbooktitle">'.$this->getField("journal").'</span>';
+            $booktitle = 'In '.$this->getField("journal");
         }
 
 
@@ -934,37 +993,37 @@ class BibEntry {
           foreach ($this->getEditors() as $ed) {
             $editors[]=formatAuthor($ed);
           }
-          $editor = '<span class="bibeditor">'.implode(', ',$editors).'</span>, '.(count($editors)>1?'eds.':'ed.');
+          $editor = implode(', ',$editors).', '.(count($editors)>1?'eds.':'ed.');
         }
 
         if ($booktitle!='') {
-          if ($editor!='') $entry[] = $booktitle.' ('.$editor.')';
-          else $entry[] = $booktitle;
+          if ($editor!='') $booktitle .=' ('.$editor.')';
+          $entry[] = '<i>'.$booktitle.'</i>';
         }
 
 
         $publisher='';
         if ($type=="phdthesis") {
-            $publisher = 'PhD thesis, <span class="bibpublisher">'.$this->getField(SCHOOL).'</span>';
+            $publisher = 'PhD thesis, '.$this->getField(SCHOOL);
         }
 
         if ($type=="mastersthesis") {
-            $publisher = 'Master\'s thesis, <span class="bibpublisher">'.$this->getField(SCHOOL).'</span>';
+            $publisher = 'Master\'s thesis, '.$this->getField(SCHOOL);
         }
         if ($type=="techreport") {
-            $publisher = 'Technical report, <span class="bibpublisher">'.$this->getField("institution").'</span>';
+            $publisher = 'Technical report, '.$this->getField("institution");
         }
         if ($this->hasField("publisher")) {
-          $publisher = '<span class="bibpublisher">'.$this->getField("publisher").'</span>';
+          $publisher = $this->getField("publisher");
         }
 
         if ($publisher!='') $entry[] = $publisher;
 
 
-        if ($this->hasField('volume')) $entry[] =  "volume ".'<span class="bibvolume">'.$this->getField("volume").'</span>';
+        if ($this->hasField('volume')) $entry[] =  "volume ".$this->getField("volume");
 
 
-        if ($this->hasField(YEAR)) $entry[] = '<span class="bibyear">'.$this->getYear().'</span>';
+        if ($this->hasField(YEAR)) $entry[] = $this->getYear();
 
         $result = implode(", ",$entry).'.';
 
@@ -973,7 +1032,10 @@ class BibEntry {
             $result .=  " (".$this->getField("comment").")";
         }
 
-        return '<span class="bibentry">'.$result.'</span>';
+        // add the Coin URL
+        $result .=  "\n".'<span class="Z3988" title="'.$this->toCoins().'"></span>';
+
+        return $result;
    }
 
    /**
@@ -983,8 +1045,8 @@ class BibEntry {
    */
   function toEntryUnformatted() {
     $text =$this->getText();
+    //     Note this is exactly the initial formatting thanks to the PRE tag
     ?>
-    <!-- Note that the indentation does matter in the PRE tag -->
 <pre><code><?php echo $text; ?></code></pre>
     <?php
    }
@@ -1642,11 +1704,12 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
    */
   function BibEntryDisplay(&$bibentry) {
     $this->bib = $bibentry;
-    $this->title = $this->bib->getTitle().' (bibliographic bibtex entry)';
+    $this->title = $this->bib->getTitle().' (bibtex bibliographic entry)';
   }
 
   function display() {
     echo $this->formatedHeader();
+    echo '<span class="Z3988" title="'.$this->bib->toCoins().'"></span>';
     echo $this->bib->toEntryUnformatted();
     //echo $this->bib->toString();
     echo $this->poweredby();
@@ -1943,8 +2006,6 @@ body {
   padding-left:15px;
   font-size: small;
 }
-.bibtitle { font-weight:bold; }
-.bibbooktitle { font-style:italic; }
 
 
 TD {   vertical-align:text-top; }
@@ -2028,7 +2089,7 @@ class BibtexDisplay {
   }
 
   function display() {
-    header('Content-type: text/plain');
+    header('Content-type: text/plain; charset='.ENCODING);
     echo '% '.query2title($this->query)."\n";
     echo '% Encoding: '.ENCODING."\n";
     foreach($this->results as $bibentry) { echo $bibentry->getText()."\n"; }
