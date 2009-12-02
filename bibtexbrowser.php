@@ -58,7 +58,7 @@ Demo: [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|Here, 
 &#60;?php
 $_GET&#91;'bib'&#93;='csgroup2008.bib';
 $_GET&#91;'all'&#93;=1;
-include('bibtexbrowser.php');
+include( 'bibtexbrowser.php' );
 ?>
 </td>
 <td>
@@ -66,7 +66,7 @@ include('bibtexbrowser.php');
 $_GET&#91;'bib'&#93;='csgroup2008.bib';
 $_GET&#91;'all'&#93;=1;
 $_GET&#91;'academic'&#93;='';
-include('bibtexbrowser.php');
+include( 'bibtexbrowser.php' );
 ?>
 </td>
 </tr><!-- end group -->
@@ -75,7 +75,7 @@ include('bibtexbrowser.php');
   &#60;?php
 $_GET&#91;'bib'&#93;='mybib.bib';
 $_GET&#91;'author'&#93;='Martin Monperrus';
-include('bibtexbrowser.php');
+include( 'bibtexbrowser.php' );
 ?>
 </td>
 <td>
@@ -83,7 +83,7 @@ include('bibtexbrowser.php');
 $_GET&#91;'bib'&#93;='mybib.bib';
 $_GET&#91;'author'&#93;='Martin Monperrus';
 $_GET&#91;'academic'&#93;='';
-include('bibtexbrowser.php');
+include( 'bibtexbrowser.php' );
 ?>
 
 
@@ -214,7 +214,7 @@ define('YEAR', 'year');
 // we ensure that the pages won't get polluted
 // if future versions of PHP change warning mechanisms...
 
-@error_reporting(E_ALL);
+@error_reporting(/*pp4php:serl*/E_ALL/*lres*/);
 
 // default bib file, if no file is specified in the query string.
 if (!isset($_GET[Q_FILE])) {
@@ -1447,7 +1447,7 @@ class BibtexBrowserDisplay {
   function poweredby() {
     $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
     $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
-    $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v__DATE__-->';
+    $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v__MTIME__-->';
     $poweredby .= '</div>'."\n";
     return $poweredby;
    }
@@ -2047,7 +2047,7 @@ function HTMLWrapper(&$content,$metatags=array()/* an array name=>value*/) {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
-<meta name="generator" content="bibtexbrowser v__DATE__" />
+<meta name="generator" content="bibtexbrowser v__MTIME__" />
 <?php if ($content->getRSS()!='') echo '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.$content->getRSS().'&amp;rss" />'; ?>
 <?php foreach($metatags as $name=>$value) echo '<meta name="'.$name.'" content="'.$value.'"/>'."\n"; ?>
 <title><?php echo strip_tags($content->getTitle()); ?></title>
@@ -2222,7 +2222,7 @@ class RSSDisplay {
       <link>http://<?php echo $_SERVER['HTTP_HOST'].htmlentities($_SERVER['REQUEST_URI']);?></link>
       <atom:link href="http://<?php echo $_SERVER['HTTP_HOST'].htmlentities($_SERVER['REQUEST_URI']);?>" rel="self" type="application/rss+xml" />
       <description></description>
-      <generator>bibtexbrowser v__DATE__</generator>
+      <generator>bibtexbrowser v__MTIME__</generator>
 
 <?php
       foreach($this->results as $bibentry) {
@@ -2345,7 +2345,7 @@ class Dispatcher {
   function diagnosis() {
     header('Content-type: text/plain');
     echo "php version: ".phpversion()."\n";
-    echo "bibtexbrowser version: __DATE__\n";
+    echo "bibtexbrowser version: __MTIME__\n";
     echo "dir: ".decoct(fileperms(dirname(__FILE__)))."\n";
     echo "bibtex file: ".decoct(fileperms($_GET[Q_FILE]))."\n";
     exit;
@@ -2357,7 +2357,7 @@ class Dispatcher {
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
     <html  xmlns="http://www.w3.org/1999/xhtml">
     <head>
-    <meta name="generator" content="bibtexbrowser v__DATE__" />
+    <meta name="generator" content="bibtexbrowser v__MTIME__" />
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
     <title>You are browsing <?php echo $_GET[Q_FILE]; ?> with bibtexbrowser</title>
     </head>
