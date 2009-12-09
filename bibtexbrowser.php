@@ -1,7 +1,8 @@
 <?php /* bibtexbrowser: publication lists with bibtex and PHP
+<!-- __ID__ -->
 
-
-bibtexbrowser is a PHP script that creates publication lists from Bibtex files. [[#Download]]
+bibtexbrowser is a PHP script that creates publication lists from Bibtex files. For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]] or comment this page.
+[[#Download|Download section]]
 
 =====Major features=====
 * **(11/2009)** Optimize your presence on Google Scholar: bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]]
@@ -30,10 +31,8 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files. 
 
 
 =====Download=====
-
-For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]].
-
-**[[http://www.monperrus.net/martin/bibtexbrowser.php.txt|Download bibtexbrowser]]** (Thanks to all [[users]] of bibtexbrowser :-)
+**[[http://www.monperrus.net/martin/bibtexbrowser.php.txt|Download bibtexbrowser]]**
+Contact me to be added in the [[users|lists of bibtexbrowser users]] :-)
 
 =====Demo and Screenshot=====
 
@@ -166,9 +165,10 @@ define('PAGE_SIZE',isset($_GET['nopage'])?10000:25);
 define('COMMA_NAMES',false);
 
 // for the menu frame
-define('YEAR_SIZE',10); // number of years per table
-define('TAGS_SIZE',20); // number of keywords per table
-define('AUTHORS_SIZE',20); // number of authors per table
+define('TYPES_SIZE',10); // number of entry types per table
+define('YEAR_SIZE',20); // number of years per table
+define('AUTHORS_SIZE',30); // number of authors per table
+define('TAGS_SIZE',30); // number of keywords per table
 
 // *************** END CONFIGURATION
 
@@ -1276,7 +1276,7 @@ class MenuManager extends BibtexBrowserDisplay {
     }
     else $page = 1;
 
-    $this->displayMenu('Types', $types, $page, 10, Q_TYPE_PAGE, Q_TYPE);
+    $this->displayMenu('Types', $types, $page, TYPES_SIZE, Q_TYPE_PAGE, Q_TYPE);
   }
 
   /** Displays and controls the authors menu in a table. */
@@ -1306,7 +1306,7 @@ class MenuManager extends BibtexBrowserDisplay {
     }  else $page = 1;
 
 
-    $this->displayMenu('Keywords', $tags, $page, TAGS_SIZE, Q_TAG_PAGE,
+    if (count($tags)>0) $this->displayMenu('Keywords', $tags, $page, TAGS_SIZE, Q_TAG_PAGE,
          Q_TAG);
   }
 
@@ -1379,30 +1379,33 @@ else $page = 1;
    */
   function menuPageBar($queryKey, $numEntries, $page, $pageSize,
          $start, $end) {
-    // fast (2 pages) reverse (<<)
+
     $result = '';
+    /* // commented after the usability remarks of Benoit Combemale
+    // fast (2 pages) reverse (<<)
     if ($start - $pageSize > 0) {
       $href = makeHref(array($queryKey => $page - 2,'menu'=>''));
       $result .= '<a '. $href ."><b>&#171;</b></a>\n";
-    }
+    }*/
 
     // (1 page) reverse (<)
     if ($start > 0) {
       $href = makeHref(array($queryKey => $page - 1,'menu'=>''));
-      $result .= '<a '. $href ."><b>&lt;</b></a>\n";
+      $result .= '<a '. $href ."><b>[pred]</b></a>\n";
     }
 
     // (1 page) forward (>)
     if ($end < $numEntries) {
       $href = makeHref(array($queryKey => $page + 1,'menu'=>''));
-      $result .= '<a '. $href ."><b>&gt;</b></a>\n";
+      $result .= '<a '. $href ."><b>[next]</b></a>\n";
     }
 
+    /*// commented after the usability remarks of Benoit Combemale
     // fast (2 pages) forward (>>)
     if (($end + $pageSize) < $numEntries) {
       $href = makeHref(array($queryKey => $page + 2,'menu'=>''));
       $result .= '<a '. $href ."><b>&#187;</b></a>\n";
-    }
+    }*/
     return $result;
   }
 
@@ -1559,6 +1562,10 @@ class PagedDisplay extends BibtexBrowserDisplay {
 
   /** Displays a page bar consisting of clickable page numbers. */
   function displayPageBar($noPages, $page) {
+
+    // bug found by benoit, first we have to reset the q_result
+    $this->filter[Q_RESULT] = 1;
+
     $barSize = 10; // *2
     $start = ($page - $barSize) > 0 ? $page - $barSize : 1;
     $end = min($noPages, $start + $barSize * 2);
@@ -1945,7 +1952,7 @@ class BibDataBase {
     $result = array();
     foreach ($this->bibdb as $bib) {
       if (!$bib->hasField("keywords")) continue;
-      $tags =explode(' and ', $bib->getField("keywords"));
+      $tags =preg_split('/[,;]/', $bib->getField("keywords"));
       foreach($tags as $a){
  $ta = trim($a);
    $result[$ta] = $ta;
@@ -2232,10 +2239,21 @@ class RSSDisplay {
          <link><?php echo htmlentities($bibentry->getURL());?></link>
          <description>
           <?php
-          $desc= strip_tags($bibentry->toString()).htmlentities($bibentry->getAbstract());
+            // first strip tags
+            $desc= strip_tags($bibentry->toString()."\n".$bibentry->getAbstract());
+
+            // then decode characters encoded by latex2html
+            $desc= html_entity_decode($desc);
+
+            // bullet proofing
+            $desc = preg_replace('/&\w+;/','',$desc);
+
+            // be careful of <
+            $desc= str_replace('<','&#60;',$desc);
+
             // we are in XML, so we cannot have HTML entitites
             // however the encoding is specified in preamble
-            echo html_entity_decode($desc);
+            echo $desc;
           ?>
           </description>
          <guid isPermaLink="false"><?php echo urlencode($_GET[Q_FILE].'::'.$bibentry->getKey());?></guid>
