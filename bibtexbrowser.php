@@ -193,7 +193,7 @@ License, or (at your option) any later version.
 // there is no encoding transformation from the bibtex file to the html file
 // if your bibtex file contains 8 bits characters in utf-8
 // change the following parameter
-@define('ENCODING','iso-8859-1');//define('ENCODING','utf-8');
+@define('ENCODING','iso-8859-1');//define('ENCODING','utf-8');//define('ENCODING','windows-1252');
 // number of bib items per page
 @define('PAGE_SIZE',isset($_GET['nopage'])?10000:25);
 @define('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');// this is the name of a function
@@ -2189,6 +2189,36 @@ class RSSDisplay {
     $this->title = query2title($query);
   }
 
+  /** tries to always output a valid XML/RSS string 
+    * based on ENCODING, HTML tags, and the transformations 
+    * that happened in latex2html */
+  function text2rss($desc) {
+    // first strip HTML tags 
+    $desc = strip_tags($desc);
+  
+    // then decode characters encoded by latex2html
+    $desc= html_entity_decode($desc);
+
+    // some entities may still be here, we remove them
+    // we replace html entities e.g. &eacute; by nothing
+    // however XML entities are kept (e.g. &#53;)
+    $desc = preg_replace('/&\w+;/','',$desc);
+            
+    // bullet proofing ampersand
+    $desc = preg_replace('/&([^#])/','&#38;$1',$desc);
+
+    // be careful of < 
+    $desc = str_replace('<','&#60;',$desc);
+    
+    // final test with encoding:
+    if (!mb_check_encoding($desc,ENCODING)) { 
+      return 'encoding error: please check the content of ENCODING';
+    }
+    
+    return $desc;
+  }
+  
+  
   function display() {
     header('Content-type: application/rss+xml');
     echo '<?xml version="1.0" encoding="'.ENCODING.'"?>';
@@ -2207,30 +2237,13 @@ class RSSDisplay {
       foreach($this->results as $bibentry) {
          ?>
          <item>
-         <title><?php echo $bibentry->getTitle();?></title>
+         <title><?php echo $this->text2rss($bibentry->getTitle());?></title>
          <link><?php echo htmlentities($bibentry->getURL());?></link>
          <description>
           <?php
-            // first strip tags
-            $desc= strip_tags(bib2html($bibentry)."\n".$bibentry->getAbstract());
-
-            // then decode characters encoded by latex2html
-            $desc= html_entity_decode($desc);
-
-            // bullet proofing
-            // we replace html entities e.g. &eacute; by nothing
-            // however XML entities are kept (e.g. &#53;)
-            $desc = preg_replace('/&\w+;/','',$desc);
-            
-            // bullet proofing ampersand
-            $desc = preg_replace('/&([^#])/','&#38;$1',$desc);
-
-            // be careful of <
-            $desc= str_replace('<','&#60;',$desc);
-
             // we are in XML, so we cannot have HTML entitites
             // however the encoding is specified in preamble
-            echo $desc;
+            echo $this->text2rss(bib2html($bibentry)."\n".$bibentry->getAbstract());
           ?>
           </description>
          <guid isPermaLink="false"><?php echo urlencode($_GET[Q_FILE].'::'.$bibentry->getKey());?></guid>
