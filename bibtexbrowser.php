@@ -3,7 +3,7 @@
 
 bibtexbrowser is a PHP script that creates publication lists from Bibtex files. For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]] or comment this page.
 [[#Download|Download section]]
-11
+
 =====Major features=====
 * **(11/2009)** Optimize your presence on Google Scholar: bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]]
 * **(11/2009)** More and more academics use bibliographic software like [[http://www.zotero.org/|Zotero]] or [[http://www.mendeley.com/|Mendeley]]. bibtexbrowser generates [[http://ocoins.info/|COinS]] for automatic import of bibliographic entries.
@@ -13,6 +13,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files. 
 * **(04/2007)**: bibtexbrowser is easy to install: just a single file.
 
 =====Other features=====
+* **(05/2010)** bibtexbrowser adds links to your co-author pages if you define the corresponding @string (@see function addHomepageLink)
 * **(01/2010)** bibtexbrowser can handle user-defined bibliographic styles
 * **(10/2009)** bibtexbrowser is able to generate a bibtex file containing only the selected entries (simply add &#38;astext at the end of the link)
 * **(10/2009)** bibtexbrowser is now independent of the configuration of register_globals
@@ -42,13 +43,14 @@ Demo: [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|Here, 
 
 <a href="bibtexbrowser-screenshot.png"><img height="500" src="bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/></a>
 
-=====How to create standalone publication lists=====
+=====Basic Installation=====
 
-1) Create a bib file with the publication records (e.g. csgroup2008.bib)
+Create a bib file with the publication records (e.g. csgroup2008.bib)
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib'' (frameset based view)
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all'' (pub list sorted by year)
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all&amp;academic'' (pub list  sorted by publication type, then by year)
 
+** Warning **: bibtexbrowser maintains a cached version of the parsed bibtex, for high performance, check that PHP can write in the directory containing the bibtex file.
 
 =====How to include your publication list in your home page=====
 
@@ -65,8 +67,8 @@ include( 'bibtexbrowser.php' );
 <td>
 &#60;?php
 $_GET&#91;'bib'&#93;='csgroup2008.bib';
-$_GET&#91;'all'&#93;=true;
-$_GET&#91;'academic'&#93;=true;
+$_GET&#91;'all'&#93;=1;
+$_GET&#91;'academic'&#93;=1;
 include( 'bibtexbrowser.php' );
 ?>
 </td>
@@ -121,15 +123,22 @@ If bibtexbrowser.css exists, it will be used, otherwise bibtexbrowser uses the e
 
 All configuration parameters are of the form ''define("PARAMETER_NAME","PARAMER_VALUE")'' at the beginning of the script. You can modify them by creating a file named "bibtexbrowser.local.php" containing the modified value. For instance:
 
-''@define("ENCODING","utf-8");'' if your bibtex file is utf-8 encoded
+<code>
+&#60;?php
+@define("ENCODING","utf-8");// if your bibtex file is utf-8 encoded
+?>
+</code>
+
 
 <a name="modify-bibstyle"/>
 ====By modifying the bibliography style ====
 The bibliography style is encapsulated in a function. If you want to modify the bibliography style, you can copy the default style ([[bibtexbrowser-style-default.php.txt|source]]) in a new file, say ''bibtexbrowser-yourstyle.php'', and rename the function ''DefaultBibliographyStyle'' in say ''MyFancyBibliographyStyle''.
 Then, add in the file ''bibtexbrowser.local.php'':
 <code>
+&#60;?php
 include( 'bibtexbrowser-yourstyle.php' );
 define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
+?>
 </code>
 
 [[http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt|János Tapolcai contributed with this style, which looks like IEEE references]].
@@ -175,15 +184,20 @@ License, or (at your option) any later version.
 
 */
 
-/** Release 2009-01-05
+/** Release 2009-05-19
+* Added support for links to author home pages
+* Improvement of documentation (cf Benoit Combemale "bug")
+* Bug of Serge Barral solved (curly braces)
+* encapsulated parsing/caching code of bibtex in function setDB()
+*/
 
+/** Release 2009-01-05
 * Added support for new bibliographic styles (users just have to create a function and change a configuration parameter, see documentation)
 * Packaged the IEEE-like bibliographic style of János Tapolcai (many thanks János), see http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt
 * Added support for external CSS (if bibtexbrowser.css exists, it is used instead of the embedded one)
 * Added support for local configuration parameters in bibtexbrowser.local.php
 * Bug in RSS fixed (handling of &)
 * Bug found by Nelson fixed (the link to all bib entries)
-
 */
 
 // *************** CONFIGURATION
@@ -226,6 +240,7 @@ License, or (at your option) any later version.
 @define('TITLE', 'title');
 @define('BOOKTITLE', 'booktitle');
 @define('YEAR', 'year');
+@define('BUFFERSIZE',100000);
 // *************** END CONFIGURATION
 
 // for clean search engine links
@@ -240,55 +255,45 @@ License, or (at your option) any later version.
 
 @error_reporting(/*pp4php:serl*/E_ALL/*lres*/);
 
-// default bib file, if no file is specified in the query string.
-if (!isset($_GET[Q_FILE])) {
-?>
-Congratulations! bibtexbrowser is correctly installed!<br/>
-Now you have to pass the name of the bibtex file as parameter (e.g. bibtexbrowser.php?bib=mybib.php)<br/>
-You may browse:<br/>
-<?php
-foreach (glob("*.bib") as $bibfile) {
-  $url="?bib=".$bibfile; echo '<a href="'.$url.'">'.$bibfile.'</a><br/>';
-}
-exit;
+/** sets the database of bibtex entries (object of type BibDataBase)
+  * in $_GET[Q_DB]
+  * Uses a caching mechanism on disk for sake of performance
+  */
+function setDB() {
 
-}
-
-if (!file_exists($_GET[Q_FILE])) {
- // to automate dectection of faulty links with tools such as webcheck
- header('HTTP/1.1 404 Not found');
- die('<b>the bib file '.$_GET[Q_FILE].' does not exist !</b>');
-}
-
-// PHP version
-// 20091010: bibtexbrowser is again PHP4 compatible :-)
-/*if (ereg('^4',phpversion())) {
+  // default bib file, if no file is specified in the query string.
+  if (!isset($_GET[Q_FILE])) {
   ?>
-  You are using PHP v<?php echo phpversion();?><br/>
-  <b>bibtexbrowser requires a version of PHP >= 5 (PHP5)</b><br/>
-  QuickFix: you can try to add in .htaccess of the containing directory:
-    <code>
-    SetEnv PHP_VER 5
-    </code>
-
+  Congratulations! bibtexbrowser is correctly installed!<br/>
+  Now you have to pass the name of the bibtex file as parameter (e.g. bibtexbrowser.php?bib=mybib.php)<br/>
+  You may browse:<br/>
   <?php
-  exit;
-}*/
+  foreach (glob("*.bib") as $bibfile) {
+    $url="?bib=".$bibfile; echo '<a href="'.$url.'">'.$bibfile.'</a><br/>';
+  }
+  exit; // we cannot set the db wtihout a bibfile
 
-// save bandwidth and server cpu
-// (imagine the number of requests from search engine bots...)
-if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && (strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])>filemtime($_GET[Q_FILE]))) {
-  header("HTTP/1.1 304 Not Modified");
-  exit;
-}
+  }
 
+  if (!file_exists($_GET[Q_FILE])) {
+   // to automate dectection of faulty links with tools such as webcheck
+   header('HTTP/1.1 404 Not found');
+   die('<b>the bib file '.$_GET[Q_FILE].' does not exist !</b>');
+  }
 
-// for sake of performance, once the bibtex file is parsed
-// we try to save a "compiled" in a txt file
-$compiledbib = $_GET[Q_FILE].'.txt';
-$parse=true;
-// do we have a compiled version ?
-if (is_file($compiledbib) && is_readable($compiledbib)) {
+  // save bandwidth and server cpu
+  // (imagine the number of requests from search engine bots...)
+  if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&   (strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])>filemtime($_GET[Q_FILE]))) {
+    header("HTTP/1.1 304 Not Modified");
+    exit; 
+  }
+
+  // for sake of performance, once the bibtex file is parsed
+  // we try to save a "compiled" in a txt file
+  $compiledbib = $_GET[Q_FILE].'.txt';
+  $parse=true;
+  // do we have a compiled version ?
+  if (is_file($compiledbib) && is_readable($compiledbib)) {
     // is it up to date ? wrt to the bib file and the script
     // then upgrading with a new version of bibtexbrowser triggers a new compilation of the bib file
     if (filemtime($_GET[Q_FILE])<filemtime($compiledbib) && filemtime(__FILE__)<filemtime($compiledbib)) {
@@ -300,27 +305,27 @@ if (is_file($compiledbib) && is_readable($compiledbib)) {
         $parse=false;
       }
     }
-}
-// we don't have a compiled version
-if ($parse) {
-  //echo '<!-- parsing -->';
-  // then parsing the file
-  $db = new BibDataBase();
-  $db->load($_GET[Q_FILE]);
-  $_GET[Q_DB]=$db;
-
-  // are we able to save the compiled version ?
-  if ((!is_file($compiledbib) && is_writable(dirname($compiledbib))) || (is_file($compiledbib) && is_writable($compiledbib)) ) {
-    // we can use file_put_contents
-    // but don't do it for compatibility with PHP 4.3
-    $f = fopen($compiledbib,'w');
-    //we use a lock to avoid that a call to bbtexbrowser made while we write the object loads an incorrect object
-    if (flock($f,LOCK_EX)) fwrite($f,serialize($_GET[Q_DB]));
-    fclose($f);
   }
-  //else echo '<!-- please chmod the directory containing the bibtex file to be able to keep a compiled version (much faster requests for large bibtex files) -->';
-} // end parsing and saving
+  // we don't have a compiled version
+  if ($parse) {
+    //echo '<!-- parsing -->';
+    // then parsing the file
+    $db = new BibDataBase();
+    $db->load($_GET[Q_FILE]);
+    $_GET[Q_DB]=$db;
 
+    // are we able to save the compiled version ?
+    if ((!is_file($compiledbib) && is_writable(dirname($compiledbib))) || (is_file($compiledbib) && is_writable($compiledbib)) ) {
+      // we can use file_put_contents
+      // but don't do it for compatibility with PHP 4.3
+      $f = fopen($compiledbib,'w');
+      //we use a lock to avoid that a call to bbtexbrowser made while we write the object loads an incorrect object
+      if (flock($f,LOCK_EX)) fwrite($f,serialize($_GET[Q_DB]));
+      fclose($f);
+    }
+    //else echo '<!-- please chmod the directory containing the bibtex file to be able to keep a compiled version (much faster requests for large bibtex files) -->';
+  } // end parsing and saving
+} // end function setDB
 
 
 
@@ -372,7 +377,7 @@ $delegate->beginFile();
 $handle = fopen($bibfilename, "r");
 // if you encounter this errir "Allowed memory size of xxxxx bytes exhausted"
 // then decrease the size of the temp buffer below
-$bufsize=min(filesize($bibfilename),100000);
+$bufsize=min(filesize($bibfilename),BUFFERSIZE);
 
 while (!feof($handle)) {
 $sread=fread($handle,$bufsize);
@@ -598,6 +603,7 @@ class BibDBBuilder {
     // first we set the key to lowercase
     $finalkey=strtolower($finalkey);
 
+    
     // is it a constant? then we replace the value
     // we support advanced features of bibtexbrowser
     // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
@@ -615,9 +621,11 @@ class BibDBBuilder {
       }
     }
     $entryvalue=implode('',$entryvalue_array);
+    
 
     if ($finalkey!='url') $formatedvalue = xtrim(latex2html($entryvalue));
     else $formatedvalue = trim($entryvalue);
+    
     $this->currentEntry->setField($finalkey,$formatedvalue);
   }
 
@@ -692,7 +700,10 @@ function latex2html($line) {
 
 
   // performance increases with this test
-  if (strpos($line,'\\')===false) return $line;
+  // bug found by Serge Barral: what happens if we have curly braces only (typically to ensure case in Latex)
+  // added && strpos($line,'{')===false
+  if (strpos($line,'\\')===false && strpos($line,'{')===false) return $line;
+  
   $chars="abcdefghijklmnopqrstuvwxyz";
   for($i=0;$i<strlen($chars);$i++) {
     $letter=$chars[$i];
@@ -705,7 +716,9 @@ function latex2html($line) {
 
   // special things
   $line = str_replace('\\c{c}','&ccedil;', $line);
-  $line = str_replace('\\c{C}','&Ccedil;', $line);
+  $line = str_replace('\\c{C}','&Ccedil;', $line);  
+  $line = str_replace('\\cc','&ccedil;', $line);
+  $line = str_replace('\\cC','&Ccedil;', $line);
 
   $line = str_replace('\\o','&oslash;', $line);
   $line = str_replace('\\O','&Oslash;', $line);
@@ -878,11 +891,32 @@ class BibEntry {
     return $authors;
   }
 
-  /** Returns the authors of a string separated by a comma */
-  function formattedAuthors() {
-    if (COMMA_NAMES) return implode('; ',$this->getFormattedAuthors());
-    else return implode(', ',$this->getFormattedAuthors());
+  /** add the link to the homepage if it is defined in a string
+   *  e.g. @string{hp_MartinMonperrus="http://www.monperrus.net/martin"}
+   *  The string is a concatenation of firstname, lastname, prefixed by hp_ 
+   * @thanks Eric Bodden for the idea
+   */
+  function addHomepageLink($author) {
+    // hp as home page
+    // accents are handled normally
+    // e.g. @STRING{hp_Jean-MarcJézéquel="http://www.irisa.fr/prive/jezequel/"}
+    $homepage = strtolower('hp_'.preg_replace('/ /', '', $author));
+    //echo $homepage;
+    if (isset($_GET[Q_DB]->stringdb[$homepage]))
+      $author='<a href="'.$_GET[Q_DB]->stringdb[$homepage].'">'.$author.'</a>';
+    return $author;
   }
+
+  /** Returns the authors as a string depending on the configuration parameter COMMA_NAMES */
+  function formattedAuthors() {
+    $array_authors = $this->getFormattedAuthors();
+    foreach ($array_authors as $k => $author) {
+      $array_authors[$k]=$this->addHomepageLink($author);
+    }
+    if (COMMA_NAMES) return implode('; ',$array_authors);
+    else return implode(', ',$array_authors);
+  }
+
 
 
   /** Returns the editors of this entry as an arry */
@@ -1181,12 +1215,14 @@ function formatAuthorCommaSeparated($author){
  * $_GET['bib']='metrics.bib';
  * $_GET['all']=1;
  * include( 'bibtexbrowser.php' );
+ * setDB();
  * new IndependentYearMenu();
  * new Dispatcher();
  *
  */
 class IndependentYearMenu  {
   function IndependentYearMenu() { 
+    if (!isset($_GET[Q_DB])) {die('Did you forget to call setDB() before instantiating this class?');}
     $yearIndex = $_GET[Q_DB]->yearIndex();
     echo '<div id="yearmenu">Year: ';
     $formatedYearIndex = array();
@@ -1837,12 +1873,17 @@ class BibDataBase {
   /** A hash table from keys (e.g. Goody1994) to bib entries (BibEntry instances). */
   var $bibdb;
 
+  /** A hashtable of constant strings */
+  var $stringdb;
+
   /** Creates a new database by parsing bib entries from the given
    * file. */
   function load($filename) {
-  $db = new BibDBBuilder($filename);
-  //print_r($parser);
-  $this->bibdb =$db->builtdb;
+    $db = new BibDBBuilder($filename);
+    //print_r($parser);
+    $this->bibdb =$db->builtdb;
+    $this->stringdb =$db->stringdb;
+    //print_r($this->stringdb);
   }
 
   /** Creates a new empty database */
@@ -2287,7 +2328,10 @@ class Dispatcher {
       unset($_GET['library']);
       return;
     }
-
+    
+    // first we set the database (load from disk or parse the bibtex file)
+    setDB();
+    
     // is the publication list included in another page?
     // strtr is used for Windows where __FILE__ contains C:\toto and SCRIPT_FILENAME contains C:/toto :-(
     if (strtr(__FILE__,"\\","/")!=$_SERVER['SCRIPT_FILENAME']) $this->wrapper='NoWrapper';
