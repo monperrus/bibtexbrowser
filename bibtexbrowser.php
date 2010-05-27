@@ -1,19 +1,21 @@
 <?php /* bibtexbrowser: publication lists with bibtex and PHP
 <!-- __ID__ -->
 
-bibtexbrowser is a PHP script that creates publication lists from Bibtex files. For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]] or comment this page.
-[[#Download|Download section]]
+bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
+ bibtexbrowser is stable, mature and easy to install. It is used in [[users|40+ different universities]] around the globe. 
+
++++TOC+++
 
 =====Major features=====
-* **(11/2009)** Optimize your presence on Google Scholar: bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]]
-* **(11/2009)** More and more academics use bibliographic software like [[http://www.zotero.org/|Zotero]] or [[http://www.mendeley.com/|Mendeley]]. bibtexbrowser generates [[http://ocoins.info/|COinS]] for automatic import of bibliographic entries.
+* **(11/2009)** bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar.
+* **(11/2009)** More and more academics use bibliographic software like [[http://www.zotero.org/|Zotero]] or [[http://www.mendeley.com/|Mendeley]]. bibtexbrowser generates [[http://ocoins.info/|COinS]] for automatic import of bibliographic entries with [[http://www.zotero.org/|Zotero]] and [[http://www.mendeley.com/|Mendeley]].
 * **(10/2009)** People can subscribe to the RSS publication feed of an individual or a group so as to being kept up-to-date: bibtexbrowser generates RSS feeds for all queries (simply add &#38;rss at the end of the URL)! [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;all&amp;rss|demo]]
 * **(02/2009)** bibtexbrowser can display all entries for an author with an academic style (i.e book, articles, conference, workshop): [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;academic=Ducasse|demo]]
 * **(05/2008)**: bibtexbrowser can be used to embed a publication list into another page: [[http://www.monperrus.net/martin/|demo]]
 * **(04/2007)**: bibtexbrowser is easy to install: just a single file.
 
 =====Other features=====
-* **(05/2010)** bibtexbrowser adds links to your co-author pages if you define the corresponding @string (@see function addHomepageLink)
+* **(05/2010)** bibtexbrowser adds links to your co-author pages if you define the corresponding @string (see function addHomepageLink)
 * **(01/2010)** bibtexbrowser can handle user-defined bibliographic styles
 * **(10/2009)** bibtexbrowser is able to generate a bibtex file containing only the selected entries (simply add &#38;astext at the end of the link)
 * **(10/2009)** bibtexbrowser is now independent of the configuration of register_globals
@@ -33,19 +35,21 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files. 
 
 
 =====Download=====
+For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]] or comment this page. Don't hesitate to contact me to be added in the [[users|lists of bibtexbrowser users]] :-)
+
+
 **[[http://www.monperrus.net/martin/bibtexbrowser.php.txt|Download bibtexbrowser]]** <?php if (is_readable('bibtexbrowser-rc.php')) {echo '<a href="http://www.monperrus.net/martin/bibtexbrowser-rc.php.txt">(Try the release candidate!)</a>';} ?>
 
-Contact me to be added in the [[users|lists of bibtexbrowser users]] :-)
 
-=====Demo and Screenshot=====
+=====Demo and screenshot=====
 
 Demo: [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|Here, you can browse a bibtex file dedicated to software metrics]]
 
 <a href="bibtexbrowser-screenshot.png"><img height="500" src="bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/></a>
 
-=====Basic Installation=====
+=====Basic installation=====
 
-Create a bib file with the publication records (e.g. csgroup2008.bib)
+Create a bib file with the publication records (e.g. csgroup2008.bib) and upload it to your server.
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib'' (frameset based view)
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all'' (pub list sorted by year)
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all&amp;academic'' (pub list  sorted by publication type, then by year)
@@ -92,6 +96,8 @@ include( 'bibtexbrowser.php' );
 </td>
 </tr><!-- end individual -->
 </table>
+
+
 And tailor it with a CSS style, for example:
 &#60;style>
 .date {   background-color: blue; }
@@ -101,25 +107,13 @@ And tailor it with a CSS style, for example:
 .bibbooktitle { font-style:italic; }
 &#60;/style>
 
-=====How to add links to the slides of a conference/workshop paper?=====
-
-You can simply fill the ''comment'' field of the bib entry with an HTML link:
-<code>
-@inproceedings{foo,
-author="Jean Dupont",
-title="Bibtexbrowser",
-year=2009,
-booktitle="Proceedings of the BIB conference",
-comment={&lt;a href="myslides.pdf">slides&lt;/a>}
-}
-</code>
 =====How to tailor bibtexbrowser?=====
 
-====By modiyfing the CSS====
+====By modifying the CSS====
 
-If bibtexbrowser.css exists, it will be used, otherwise bibtexbrowser uses the embedded CSS style (search for "embedded CSS", ~line 2060).
+If bibtexbrowser.css exists, it will be used, otherwise bibtexbrowser uses its own embedded CSS style (see function bibtexbrowserDefaultCSS).
 
-====By modiyfing the configuration parameters====
+====By modifying the configuration parameters====
 
 All configuration parameters are of the form ''define("PARAMETER_NAME","PARAMER_VALUE")'' at the beginning of the script. You can modify them by creating a file named "bibtexbrowser.local.php" containing the modified value. For instance:
 
@@ -144,32 +138,38 @@ define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
 [[http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt|János Tapolcai contributed with this style, which looks like IEEE references]].
 For contributing with a new style, [[http://www.monperrus.net/martin/|please drop me an email ]]
 
+=====How to add links to the slides of a conference/workshop paper?=====
+
+You can simply fill the ''comment'' field of the bib entry with an HTML link:
+<code>
+@inproceedings{foo,
+author="Jean Dupont",
+title="Bibtexbrowser",
+year=2009,
+booktitle="Proceedings of the BIB conference",
+comment={&lt;a href="myslides.pdf">[slides]&lt;/a>}
+}
+</code>
 
 
 
-=====Related_tools=====
 
-[[http://www.monperrus.net/martin/bibtex2latex|bibtex2latex is a layer on top of bibtexbrowser that generates publication lists in latex.]]
+=====Related tools=====
 
 Old-fashioned:
 [[http://nxg.me.uk/dist/bibhtml/|bibhtml]], [[http://www.litech.org/~wkiri/bib2html/|bib2html]], [[http://ilab.usc.edu/bibTOhtml/|bibtohtml]], [[http://people.csail.mit.edu/rahimi/bibtex/|bibtextohtml]], [[http://www.lri.fr/~filliatr/bibtex2html/|bibtex2html]], [[http://people.csail.mit.edu/mernst/software/bibtex2web.html |bibtex2web]], [[http://strategoxt.org/Stratego/BibtexTools|stratego bibtex module]]
-Unlike them, **bibtexbrowser is dynamic**.i.e.; generates the HTML pages on the fly.
-Thus, you do not need to regenerate the static HTML files each time the bib file is changed.
-Furthermore you can search any string in it.
+Unlike them, **bibtexbrowser is dynamic**.i.e.; generates the HTML pages on the fly. Thus, you do not need to regenerate the static HTML files each time the bib file is changed.
 
 Heavyweight:
 [[http://www.rennes.supelec.fr/ren/perso/etotel/PhpBibtexDbMng/|PHP BibTeX Database Manager]], [[http://gforge.inria.fr/projects/bibadmin/|bibadmin]], [[http://artis.imag.fr/Software/Basilic/|basilic]], [[http://phpbibman.sourceforge.net/|phpbibman]], [[http://www.aigaion.nl/|aigaion]], [[http://www.refbase.net/|refbase]], [[http://wikindx.sourceforge.net/|wikindx]], [[http://refdb.sourceforge.net/|refdb]]
 Unlike them, **bibtexbrowser does not need a MySQL database**
 
 
-Main competitors:
-[[http://code.google.com/p/simplybibtex/|SimplyBibtex]] has the same spirit and makes different architectural and presentation choices
-=> **bibtexbrowser is much more lightweight** (just one file!).
-[[http://www.cs.toronto.edu/~fritz/bibbase/|BibBase]] is a nice and very similar script, but written in Perl
-=> **bibtexbrowser does not require a CGI/Perl compliant webserver** .
+Main competitor:
+[[http://code.google.com/p/simplybibtex/|SimplyBibtex]] has the same spirit, but the project seems dead since 2006
 
 Misc:
-[[http://www.sat.ltu.se/publications/publications.m|This matlab ;-) script is similar ]]
+[[http://www.sat.ltu.se/publications/publications.m|This matlab script is similar]]
 
 =====Copyright=====
 
