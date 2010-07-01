@@ -629,7 +629,7 @@ class BibDBBuilder {
     $entryvalue=implode('',$entryvalue_array);
     
 
-    if ($finalkey!='url') $formatedvalue = xtrim(latex2html($entryvalue));
+    if ($finalkey!='url') $formatedvalue = latex2html(xtrim($entryvalue));
     else $formatedvalue = trim($entryvalue);
     
     $this->currentEntry->setField($finalkey,$formatedvalue);
@@ -669,7 +669,7 @@ class BibDBBuilder {
 
 
 /** extended version of the trim function
- * removes linebreks, tabs, etc.
+ * removes linebreaks, tabs, etc.
  */
 function xtrim($line) {
   $line = trim($line);
@@ -737,9 +737,7 @@ function latex2html($line) {
   $line = str_replace('}','', $line);
   $line = str_replace('{','', $line);
 
-
-  // and some spaces
-  return trim($line);
+  return $line;
 }
 
 /** Note that & are encoded as %26 and not as &amp; so it does not break the Z3988 URL */
@@ -875,7 +873,7 @@ class BibEntry {
   /** Returns the authors of this entry as an array */
   function getFormattedAuthors() {
     $authors = array();
-    foreach (explode(' and ', $this->getAuthor()) as $author) {
+    foreach ($this->getRawAuthors() as $author) {
       $authors[]=formatAuthor($author);
     }
     return $authors;
@@ -885,7 +883,7 @@ class BibEntry {
   /** Returns the authors of this entry as an array in a canonical form */
   function getCanonicalAuthors() {
     $authors = array();
-    foreach (explode(' and ', $this->getAuthor()) as $author) {
+    foreach ($this->getRawAuthors() as $author) {
       $authors[]=formatAuthorCanonical($author);
     }
     return $authors;
@@ -894,7 +892,7 @@ class BibEntry {
   /** Returns the authors of this entry as an array in a comma-separated form */
   function getCommaSeparatedAuthors() {
     $authors = array();
-    foreach (explode(' and ', $this->getAuthor()) as $author) {
+    foreach ($this->getRawAuthors() as $author) {
       $authors[]=formatAuthorCommaSeparated($author);
     }
     return $authors;
