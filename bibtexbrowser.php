@@ -2,7 +2,7 @@
 <!-- __ID__ -->
 
 bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
- bibtexbrowser is stable, mature and easy to install. It is used in [[users|40+ different universities]] around the globe. 
+ bibtexbrowser is stable, mature and easy to install. It is used in [[users|40+ different universities]] around the globe and powers [[http://www.publications.li]].
 
 +++TOC+++
 
@@ -37,6 +37,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 =====Download=====
 For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]] or comment this page. Don't hesitate to contact me to be added in the [[users|lists of bibtexbrowser users]] :-)
 
+You may try bibtexbrowser without installation with [[http://www.publications.li]].
 
 **[[http://www.monperrus.net/martin/bibtexbrowser.php.txt|Download bibtexbrowser]]** <?php if (is_readable('bibtexbrowser-rc.php')) {echo '<a href="http://www.monperrus.net/martin/bibtexbrowser-rc.php.txt">(Try the release candidate!)</a>';} ?>
 
@@ -182,6 +183,11 @@ modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
 License, or (at your option) any later version.
 
+*/
+
+/** Release 2009-06-07
+* Improved performance thanks to profiling with xbug
+* Improved correctness of the interplay between HTMLWrapper and NoWrapper
 */
 
 /** Release 2009-05-19
@@ -806,7 +812,7 @@ class BibEntry {
 
   /** Has this entry the given field? */
   function hasField($name) {
-    return array_key_exists(strtolower($name), $this->fields);
+    return isset($this->fields[strtolower($name)]);
   }
 
   /** Returns the authors of this entry. If no author field exists,
@@ -946,9 +952,13 @@ class BibEntry {
 
   /** Returns the value of the given field? */
   function getField($name) {
-    if ($this->hasField($name))
- {return $this->fields[strtolower($name)];}
-    else return 'missing '.$name;
+    // 2010-06-07: profiling showed that this is very costly
+    // hence returning the value directly    
+    //if ($this->hasField($name))
+    //    {return $this->fields[strtolower($name)];}
+    //else return 'missing '.$name;
+    
+    return @$this->fields[strtolower($name)];
   }
 
 
@@ -980,7 +990,7 @@ class BibEntry {
     // i.e. added join(" ",$this->getFields())
     // and html_entity_decode
     if (!$field) {
-      return preg_match('/'.$phrase.'/i',$this->getConstants().' '.html_entity_decode(join(" ",$this->getFields()),ENT_NOQUOTES,ENCODING));
+      return preg_match('/'.$phrase.'/i',$this->getConstants().' '.@html_entity_decode(join(" ",$this->getFields()),ENT_NOQUOTES,ENCODING));
       //return stripos($this->getText(), $phrase) !== false;
     }
     if ($this->hasField($field) &&  (preg_match('/'.$phrase.'/i',$this->getField($field)) ) ) {
@@ -1156,7 +1166,7 @@ function getLastName($author){
 }
 
 /**
- * Returns the splitted name of an author name. The argument is assumed to be
+ * Returns the splitted name of an author name as an array. The argument is assumed to be
  * <FirstName LastName> or <LastName, FirstName>.
  */
 function splitFullName($author){
@@ -1940,7 +1950,7 @@ class BibDataBase {
     $realresult = array();
     foreach($result as $x) {
         ksort($x);
-        foreach($x as $v => $tmp) $realresult[$v] = formatAuthor($v);
+        foreach($x as $v => $tmp) $realresult[$v] = $v;
     }
 
     return $realresult;
@@ -2410,6 +2420,7 @@ class Dispatcher {
     if ($_GET[Q_DB]->contains($_GET[Q_KEY])) {
       $bibdisplay = new BibEntryDisplay($_GET[Q_DB]->getEntryByKey($_GET[Q_KEY]));
       new $this->wrapper($bibdisplay,$bibdisplay->metadata());
+      return 'END_DISPATCH';
     }
     else { new  NonExistentBibEntryError(); }
   }
