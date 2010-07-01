@@ -675,7 +675,10 @@ function xtrim($line) {
   $line = trim($line);
   // we remove the unneeded line breaks
   // this is *required* to correctly split author lists into names
-  $line = str_replace("\n\r",' ', $line);//windows like
+  // 2010-06-30
+  // bug found by Thomas
+  // windows new line is **\r\n"** and not the other way around!!
+  $line = str_replace("\r\n",' ', $line);//windows like
   $line = str_replace("\n",' ', $line);//unix-like
   // we also replace tabs
   $line = str_replace("\t",' ', $line);
