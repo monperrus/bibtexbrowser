@@ -89,7 +89,8 @@ include( 'bibtexbrowser.php' );
 <td>
 &#60;?php
 $_GET&#91;'bib'&#93;='mybib.bib';
-$_GET&#91;'academic'&#93;='Martin Monperrus';
+$_GET&#91;'author'&#93;='Martin Monperrus';
+$_GET&#91;'academic'&#93;=1;
 include( 'bibtexbrowser.php' );
 ?>
 
