@@ -7,7 +7,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 +++TOC+++
 
 =====Major features=====
-* **(11/2009)** bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar.
+* **(11/2009)** bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar. **Warning: ** Google has now [[http://scholar.google.com/intl/en/scholar/inclusion.html|documented this feature]]. As of version >=20100621, Google Scholar Metadata should be completely correct.
 * **(11/2009)** More and more academics use bibliographic software like [[http://www.zotero.org/|Zotero]] or [[http://www.mendeley.com/|Mendeley]]. bibtexbrowser generates [[http://ocoins.info/|COinS]] for automatic import of bibliographic entries with [[http://www.zotero.org/|Zotero]] and [[http://www.mendeley.com/|Mendeley]].
 * **(10/2009)** People can subscribe to the RSS publication feed of an individual or a group so as to being kept up-to-date: bibtexbrowser generates RSS feeds for all queries (simply add &#38;rss at the end of the URL)! [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;all&amp;rss|demo]]
 * **(02/2009)** bibtexbrowser can display all entries for an author with an academic style (i.e book, articles, conference, workshop): [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;academic=Ducasse|demo]]
@@ -1827,43 +1827,38 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
    * */
   function metadata() {
     $result=array();
-    $result['description']=trim(strip_tags(str_replace('"','',bib2html($this->bib))));
-    $result['citation_title']=$this->bib->getTitle();
-    $result['citation_authors']=implode('; ',$this->bib->getCommaSeparatedAuthors());
-    $result['citation_date']=$this->bib->getYear();
+    
+    // the description may mix with the Google Scholar tags
+    // we remove it
+    // $result[] = array('description',trim(strip_tags(str_replace('"','',bib2html($this->bib)))));
+    $result[] = array('citation_title',$this->bib->getTitle());
+    foreach($this->bib->getCommaSeparatedAuthors() as $author) {
+      $result[] = array('citation_author',$author);
+    }
+    $result[] = array('citation_date',$this->bib->getYear());
 
     // citation_publisher
-    $result['citation_publisher']=$this->bib->getPublisher();
+    // see http://scholar.google.com/intl/en/scholar/inclusion.html
+    $result[] = array('DC.publisher',$this->bib->getPublisher());
 
 
     // BOOKTITLE: JOURNAL NAME OR PROCEEDINGS
     if ($this->bib->getType()=="article") { // journal article
-      $result['citation_journal_title']=$this->bib->getField("journal");
-      $result['citation_volume']=$this->bib->getField("volume");
+      $result[] = array('citation_journal_title',$this->bib->getField("journal"));
+      $result[] = array('citation_volume',$this->bib->getField("volume"));
       if ($this->bib->hasField("issue"))
-        $result['citation_issue']=$this->bib->getField("issue");
+        $result[] = array('citation_issue',$this->bib->getField("issue"));
     } else if ($this->bib->hasField(BOOKTITLE)) {
-      // this is like cat.inist.fr
-      // but this is not at all documented on the web
-      //$result['citation_conference']=$this->bib->getField(BOOKTITLE);
-
-      // this is like bibtex
-      // but this is not at all documented on the web
-      // $result['citation_booktitle']=$this->bib->getField(BOOKTITLE);
-
-      // according to the advanced search view of Google Scholar
-      // There is a single metadata for the containing entity (journal or proceedings)
-      // that's why we use it
-      $result['citation_journal_title']=$this->bib->getField(BOOKTITLE);
+       $result[] = array('citation_conference_title',$this->bib->getField(BOOKTITLE));
     }
 
 
     // generic
     if ($this->bib->hasField("doi")) {
-      $result['citation_doi']=$this->bib->getField("doi");
+      $result[] = array('citation_doi',$this->bib->getField("doi"));
     }
     if ($this->bib->hasField("url")) {
-      $result['citation_pdf_url']=$this->bib->getField("url");
+      $result[] = array('citation_pdf_url',$this->bib->getField("url"));
     }
 
     return $result;
@@ -2169,10 +2164,19 @@ function HTMLWrapper(&$content,$metatags=array()/* an array name=>value*/) {
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
 <meta name="generator" content="bibtexbrowser v__MTIME__" />
 <?php if ($content->getRSS()!='') echo '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.$content->getRSS().'&amp;rss" />'; ?>
-<?php foreach($metatags as $name=>$value) echo '<meta name="'.$name.'" content="'.$value.'"/>'."\n"; ?>
-<title><?php echo strip_tags($content->getTitle()); ?></title>
+<?php 
 
-<?php
+foreach($metatags as $item) {
+  list($name,$value) = $item;
+  echo '<meta name="'.$name.'" content="'.$value.'"/>'."\n"; 
+} // end foreach  
+
+
+
+// now the title
+echo '<title>'.strip_tags($content->getTitle()).'</title>'; 
+  
+// now the CSS
 if (is_readable('bibtexbrowser.css')) {
   echo '<link href="bibtexbrowser.css" rel="stylesheet" type="text/css"/>';
 }
