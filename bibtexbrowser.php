@@ -2349,7 +2349,8 @@ class Dispatcher {
     
     // is the publication list included in another page?
     // strtr is used for Windows where __FILE__ contains C:\toto and SCRIPT_FILENAME contains C:/toto :-(
-    if (strtr(__FILE__,"\\","/")!=$_SERVER['SCRIPT_FILENAME']) $this->wrapper='NoWrapper';
+    // 2010-07-01: bug found by Marco: on some installation these two variables contain backslashes
+    if (strtr(__FILE__,"\\","/")!=strtr($_SERVER['SCRIPT_FILENAME'],"\\","/")) $this->wrapper='NoWrapper';
 
     // first pass, we will exit if we encounter key or menu or academic
     // other wise we just create the $this->query
