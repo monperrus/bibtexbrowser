@@ -137,7 +137,7 @@ define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
 ?>
 </code>
 
-[[http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt|János Tapolcai contributed with this style, which looks like IEEE references]].
+[[http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt|Jï¿½nos Tapolcai contributed with this style, which looks like IEEE references]].
 For contributing with a new style, [[http://www.monperrus.net/martin/|please drop me an email ]]
 
 =====How to add links to the slides of a conference/workshop paper?=====
@@ -200,7 +200,7 @@ License, or (at your option) any later version.
 
 /** Release 2009-01-05
 * Added support for new bibliographic styles (users just have to create a function and change a configuration parameter, see documentation)
-* Packaged the IEEE-like bibliographic style of János Tapolcai (many thanks János), see http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt
+* Packaged the IEEE-like bibliographic style of Jï¿½nos Tapolcai (many thanks Jï¿½nos), see http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt
 * Added support for external CSS (if bibtexbrowser.css exists, it is used instead of the embedded one)
 * Added support for local configuration parameters in bibtexbrowser.local.php
 * Bug in RSS fixed (handling of &)
@@ -281,6 +281,10 @@ function setDB() {
   exit; // we cannot set the db wtihout a bibfile
 
   }
+
+  // $_GET[Q_FILE] can be urlencoded
+  // so we decode it
+  $_GET[Q_FILE] = urldecode($_GET[Q_FILE]);
 
   if (!file_exists($_GET[Q_FILE])) {
    // to automate dectection of faulty links with tools such as webcheck
@@ -907,7 +911,7 @@ class BibEntry {
   function addHomepageLink($author) {
     // hp as home page
     // accents are handled normally
-    // e.g. @STRING{hp_Jean-MarcJézéquel="http://www.irisa.fr/prive/jezequel/"}
+    // e.g. @STRING{hp_Jean-MarcJï¿½zï¿½quel="http://www.irisa.fr/prive/jezequel/"}
     $homepage = strtolower('hp_'.preg_replace('/ /', '', $author));
     //echo $homepage;
     if (isset($_GET[Q_DB]->stringdb[$homepage]))
