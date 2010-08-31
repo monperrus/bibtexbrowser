@@ -248,6 +248,13 @@ License, or (at your option) any later version.
 @define('BOOKTITLE', 'booktitle');
 @define('YEAR', 'year');
 @define('BUFFERSIZE',100000);
+
+// in embedded mode, we still need a URL for displaying bibtex entries alone
+// this is usually resolved to bibtexbrowser.php
+// but can be overridden in bibtexbrowser.local.php 
+// this is useful if a symlink is used for bibtexbrowser.php
+@define('BIBTEXBROWSER',basename(__FILE__));
+
 // *************** END CONFIGURATION
 
 // for clean search engine links
@@ -800,7 +807,7 @@ class BibEntry {
   /** Tries to build a good URL for this entry */
   function getURL() {
     if ($this->hasField('url')) return $this->getField('url');
-    else return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/'.basename(__FILE__).'?'.createQueryString(array('key'=>$this->getKey()));
+    else return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/'.BIBTEXBROWSER.'?'.createQueryString(array('key'=>$this->getKey()));
   }
 
   /** returns a "[pdf]" link if relevant */
@@ -1016,7 +1023,7 @@ class BibEntry {
         echo '<td class="bibitem">';
         echo bib2html($this);
 
-        $href = 'href="'.basename(__FILE__).'?'.createQueryString(array(Q_KEY => $this->getKey())).'"';
+        $href = 'href="'.BIBTEXBROWSER.'?'.createQueryString(array(Q_KEY => $this->getKey())).'"';
         echo " <a {$href}>[bib]</a>";
 
         // returns an empty string if no url present
@@ -1563,7 +1570,7 @@ class PagedDisplay extends BibtexBrowserDisplay {
   function getURL() { return '?'.createQueryString($this->filter);}
 
   /** overrides */
-  function getRSS() { return basename(__FILE__).'?'.createQueryString($this->filter).'&amp;rss';}
+  function getRSS() { return BIBTEXBROWSER.'?'.createQueryString($this->filter).'&amp;rss';}
 
   /** Displays the entries preceded with the header. */
   function display() {
@@ -1663,7 +1670,7 @@ class PagedDisplay extends BibtexBrowserDisplay {
     $label='[rss]';
     // auto adaptive code :-)
     //if (is_file('rss.png')) $label='<img src="rss.png"/>';
-    return '<a href="'.basename(__FILE__).'?'.createQueryString($filter).'&amp;rss" class="rsslink">'.$label.'</a>';
+    return '<a href="'.BIBTEXBROWSER.'?'.createQueryString($filter).'&amp;rss" class="rsslink">'.$label.'</a>';
 }
 
 
