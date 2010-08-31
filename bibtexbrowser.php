@@ -285,8 +285,7 @@ function setDB() {
   foreach (glob("*.bib") as $bibfile) {
     $url="?bib=".$bibfile; echo '<a href="'.$url.'">'.$bibfile.'</a><br/>';
   }
-  exit; // we cannot set the db wtihout a bibfile
-
+  return; // we cannot set the db wtihout a bibfile
   }
 
   // $_GET[Q_FILE] can be urlencoded
@@ -908,7 +907,7 @@ class BibEntry {
   }
 
   /** Returns the authors of this entry as an array in a comma-separated form */
-  function getCommaSeparatedAuthors() {
+  function getArrayOfCommaSeparatedAuthors() {
     $authors = array();
     foreach ($this->getRawAuthors() as $author) {
       $authors[]=formatAuthorCommaSeparated($author);
@@ -1851,31 +1850,56 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
     // we remove it
     // $result[] = array('description',trim(strip_tags(str_replace('"','',bib2html($this->bib)))));
     $result[] = array('citation_title',$this->bib->getTitle());
-    foreach($this->bib->getCommaSeparatedAuthors() as $author) {
+    $authors = $this->bib->getArrayOfCommaSeparatedAuthors();
+    $result[] = array('citation_authors',implode("; ",$authors));
+    foreach($authors as $author) {
       $result[] = array('citation_author',$author);
     }
     $result[] = array('citation_date',$this->bib->getYear());
 
     // citation_publisher
-    // see http://scholar.google.com/intl/en/scholar/inclusion.html
-    $result[] = array('DC.publisher',$this->bib->getPublisher());
-
+    $result[] = array('citation_publisher',$this->bib->getPublisher());
 
     // BOOKTITLE: JOURNAL NAME OR PROCEEDINGS
     if ($this->bib->getType()=="article") { // journal article
       $result[] = array('citation_journal_title',$this->bib->getField("journal"));
       $result[] = array('citation_volume',$this->bib->getField("volume"));
-      if ($this->bib->hasField("issue"))
-        $result[] = array('citation_issue',$this->bib->getField("issue"));
-    } else if ($this->bib->hasField(BOOKTITLE)) {
+      if ($this->bib->hasField("issue")) {
+        $result[] = array('citation_issue',$this->bib->getField("issue"));}
+    } 
+
+    if ($this->bib->getType()=="inproceedings") {
        $result[] = array('citation_conference_title',$this->bib->getField(BOOKTITLE));
+       $result[] = array('citation_conference',$this->bib->getField(BOOKTITLE));
     }
 
+    if ($this->bib->getType()=="phdthesis"
+         || $this->bib->getType()=="mastersthesis"
+         || $this->bib->getType()=="bachelorsthesis"
+       )
+    {
+       $result[] = array('citation_dissertation_institution',$this->bib->getField('school'));
+    }
+
+    if ($this->bib->getType()=="techreport"
+         && $this->bib->hasField("number")
+       )
+    {
+       $result[] = array('citation_technical_report_number',$this->bib->getField('number'));
+    }
+
+    if ($this->bib->getType()=="techreport"
+         && $this->bib->hasField("institution")
+       )
+    {
+       $result[] = array('citation_technical_report_institution',$this->bib->getField('institution'));
+    }
 
     // generic
     if ($this->bib->hasField("doi")) {
       $result[] = array('citation_doi',$this->bib->getField("doi"));
     }
+
     if ($this->bib->hasField("url")) {
       $result[] = array('citation_pdf_url',$this->bib->getField("url"));
     }
