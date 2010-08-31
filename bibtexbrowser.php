@@ -740,6 +740,10 @@ function latex2html($line) {
   $line = str_replace('\\c{C}','&Ccedil;', $line);  
   $line = str_replace('\\cc','&ccedil;', $line);
   $line = str_replace('\\cC','&Ccedil;', $line);
+  $line = str_replace('\\c c','&ccedil;', $line);
+  $line = str_replace('\\c C','&Ccedil;', $line);
+  $line = str_replace('\\ae','&aelig;', $line);
+  $line = str_replace('\\ss','&szlig;', $line);
 
   $line = str_replace('\\o','&oslash;', $line);
   $line = str_replace('\\O','&Oslash;', $line);
@@ -865,7 +869,9 @@ class BibEntry {
     if ($this->getType()=="mastersthesis") {
       return $this->getField(SCHOOL);
     }
-
+    if ($this->getType()=="bachelorsthesis") {
+      return $this->getField(SCHOOL);
+    }
     if ($this->getType()=="techreport") {
       return $this->getField("institution");
     }
@@ -1796,7 +1802,7 @@ class AcademicDisplay extends BibtexBrowserDisplay {
     $this->search2html(array(Q_TYPE=>'inproceedings',Q_SEARCH=>'workshop'),'Refereed Workshop Papers');
 
     // misc and thesis
-    $this->search2html(array(Q_TYPE=>'misc|phdthesis|mastersthesis|techreport'),'Other Publications');
+    $this->search2html(array(Q_TYPE=>'misc|phdthesis|mastersthesis|bachelorsthesis|techreport'),'Other Publications');
 
     echo $this->poweredby();
   }
