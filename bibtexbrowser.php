@@ -1,5 +1,5 @@
 <?php /* bibtexbrowser: publication lists with bibtex and PHP
-<!-- __ID__ -->
+<!--this is version v__MTIME__, see http://www.monperrus.net/martin/bibtexbrowser/ -->
 
 bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
  bibtexbrowser is stable, mature and easy to install. It is used in [[users|40+ different universities]] around the globe and powers [[http://www.publications.li]].
@@ -278,6 +278,7 @@ function setDB() {
   // default bib file, if no file is specified in the query string.
   if (!isset($_GET[Q_FILE])) {
   ?>
+  <div id="bibtexbrowser_message">
   Congratulations! bibtexbrowser is correctly installed!<br/>
   Now you have to pass the name of the bibtex file as parameter (e.g. bibtexbrowser.php?bib=mybib.php)<br/>
   You may browse:<br/>
@@ -285,6 +286,7 @@ function setDB() {
   foreach (glob("*.bib") as $bibfile) {
     $url="?bib=".$bibfile; echo '<a href="'.$url.'">'.$bibfile.'</a><br/>';
   }
+  echo "</div>";
   return; // we cannot set the db wtihout a bibfile
   }
 
@@ -2200,9 +2202,10 @@ class HTMLWrapper {
  * $title: title of the page
  */
 function HTMLWrapper(&$content,$metatags=array()/* an array name=>value*/) {
+
+echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'."\n";
+
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
@@ -2310,8 +2313,10 @@ class RSSDisplay {
     $desc = str_replace('<','&#60;',$desc);
     
     // final test with encoding:
-    if (!mb_check_encoding($desc,ENCODING)) { 
-      return 'encoding error: please check the content of ENCODING';
+    if (function_exists('mb_check_encoding')) { // (PHP 4 >= 4.4.3, PHP 5 >= 5.1.3)
+      if (!mb_check_encoding($desc,ENCODING)) { 
+        return 'encoding error: please check the content of ENCODING';
+      }
     }
     
     return $desc;
@@ -2420,7 +2425,14 @@ class Dispatcher {
        $x = new $this->displayer($this->selectedEntries,$this->query);
        new $this->wrapper($x);
     }
-    else $this->frameset();
+    else { 
+       // we send a redirection for having the frameset
+       // if some contents have already been sent, for instance if we are included
+       // this means doing nothing
+       if ( ! /* not */ headers_sent() ) {
+         header("Location: ".$_SERVER['SCRIPT_NAME']."?frameset&bib=".$_GET[Q_FILE]);
+       }
+     }
   }
 
   function all() {
