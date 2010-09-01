@@ -603,14 +603,14 @@ class BibDBBuilder {
 
   var $currentEntry;
 
-  function BibDBBuilder($filename) {
+  function BibDBBuilder($filename, $builtdb = array(), $stringdb = array()) {
+    $this->builtdb = $builtdb;
+    $this->stringdb = $stringdb;
     new StateBasedBibtexParser($filename, $this);
   }
 
 
   function beginFile() {
-    $builtdb = array();
-    $stringdb = array();
   }
 
   function endFile() { //nothing
@@ -1277,7 +1277,7 @@ class MenuManager extends BibtexBrowserDisplay {
   /** Creates a new display manager that uses the given bib database. */
   function MenuManager(&$db) {
     $this->db =$db;
-    new HTMLWrapper($this,array('robots'=>'noindex'));
+    new HTMLWrapper($this,array(array('robots','noindex')));
   }
 
   /** function called back by HTMLWrapper */
@@ -1927,16 +1927,17 @@ class BibDataBase {
   /** Creates a new database by parsing bib entries from the given
    * file. */
   function load($filename) {
-    $db = new BibDBBuilder($filename);
+    $db = new BibDBBuilder($filename, $this->bibdb, $this->stringdb);
     //print_r($parser);
-    $this->bibdb =$db->builtdb;
-    $this->stringdb =$db->stringdb;
+    $this->bibdb = $db->builtdb;
+    $this->stringdb = $db->stringdb;
     //print_r($this->stringdb);
   }
 
   /** Creates a new empty database */
   function BibDataBase() {
-  $this->bibdb = array();
+    $this->bibdb = array();
+    $this->stringdb = array();
   }
 
   /** Returns all entries as an array. Each entry is an instance of
