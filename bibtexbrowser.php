@@ -7,7 +7,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 +++TOC+++
 
 =====Major features=====
-* **(11/2009)** bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar. **Warning: ** Google has now [[http://scholar.google.com/intl/en/scholar/inclusion.html|documented this feature]]. As of version >=20100621, Google Scholar Metadata should be completely correct.
+* **(11/2009)** bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar. Since Google has now [[http://scholar.google.com/intl/en/scholar/inclusion.html|documented this feature]], as of version &#8805;20100621, Google Scholar Metadata should be completely correct.
 * **(11/2009)** More and more academics use bibliographic software like [[http://www.zotero.org/|Zotero]] or [[http://www.mendeley.com/|Mendeley]]. bibtexbrowser generates [[http://ocoins.info/|COinS]] for automatic import of bibliographic entries with [[http://www.zotero.org/|Zotero]] and [[http://www.mendeley.com/|Mendeley]].
 * **(10/2009)** People can subscribe to the RSS publication feed of an individual or a group so as to being kept up-to-date: bibtexbrowser generates RSS feeds for all queries (simply add &#38;rss at the end of the URL)! [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;all&amp;rss|demo]]
 * **(02/2009)** bibtexbrowser can display all entries for an author with an academic style (i.e book, articles, conference, workshop): [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;academic=Ducasse|demo]]
@@ -15,6 +15,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 * **(04/2007)**: bibtexbrowser is easy to install: just a single file.
 
 =====Other features=====
+* **(10/2010)** bibtexbrowser now supports multiple bibtex files (''bibtexbrowser.php?bib=file1.bib;file2.bib'')
 * **(05/2010)** bibtexbrowser adds links to your co-author pages if you define the corresponding @string (see function addHomepageLink)
 * **(01/2010)** bibtexbrowser can handle user-defined bibliographic styles
 * **(10/2009)** bibtexbrowser is able to generate a bibtex file containing only the selected entries (simply add &#38;astext at the end of the link)
@@ -55,7 +56,14 @@ Create a bib file with the publication records (e.g. csgroup2008.bib) and upload
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all'' (pub list sorted by year)
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all&amp;academic'' (pub list  sorted by publication type, then by year)
 
-** Warning **: bibtexbrowser maintains a cached version of the parsed bibtex, for high performance, check that PHP can write in the directory containing the bibtex file.
+** Warning **: bibtexbrowser maintains a cached version of the parsed bibtex, for high performance, check that PHP can write in the working directory of PHP.
+
+=====Handling mutliple bibtex files=====
+
+It is a common practice to create one file for the @string, and another one with the bib entries. In this case, just give bibtexbrowser the files separated by a semi-column e.g:
+
+''bibtexbrowser.php?bib=strings.bib;csgroup2008.bib''
+
 
 =====How to include your publication list in your home page=====
 
@@ -200,7 +208,7 @@ License, or (at your option) any later version.
 
 /** Release 2009-01-05
 * Added support for new bibliographic styles (users just have to create a function and change a configuration parameter, see documentation)
-* Packaged the IEEE-like bibliographic style of J�nos Tapolcai (many thanks J�nos), see http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt
+* Packaged the IEEE-like bibliographic style of Janos Tapolcai (many thanks Janos), see http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt
 * Added support for external CSS (if bibtexbrowser.css exists, it is used instead of the embedded one)
 * Added support for local configuration parameters in bibtexbrowser.local.php
 * Bug in RSS fixed (handling of &)
@@ -248,6 +256,7 @@ License, or (at your option) any later version.
 @define('BOOKTITLE', 'booktitle');
 @define('YEAR', 'year');
 @define('BUFFERSIZE',100000);
+@define('MULTIPLE_BIB_SEPARATOR',';');
 
 // in embedded mode, we still need a URL for displaying bibtex entries alone
 // this is usually resolved to bibtexbrowser.php
@@ -290,32 +299,51 @@ function setDB() {
   return; // we cannot set the db wtihout a bibfile
   }
 
-  // $_GET[Q_FILE] can be urlencoded
+  // first does the bibfiles exist:
+  // $_GET[Q_FILE] can be urlencoded for instance if they contain slashes
   // so we decode it
   $_GET[Q_FILE] = urldecode($_GET[Q_FILE]);
 
-  if (!file_exists($_GET[Q_FILE])) {
-   // to automate dectection of faulty links with tools such as webcheck
-   header('HTTP/1.1 404 Not found');
-   die('<b>the bib file '.$_GET[Q_FILE].' does not exist !</b>');
-  }
+  // ---------------------------- HANDLING unexistent files
+  foreach(explode(MULTIPLE_BIB_SEPARATOR, $_GET[Q_FILE]) as $bib) {
+    if (!file_exists($bib)) {
+     // to automate dectection of faulty links with tools such as webcheck
+     header('HTTP/1.1 404 Not found');
+     die('<b>the bib file '.$bib.' does not exist !</b>');
+    }
+  } // end for each
+
+  // ---------------------------- HANDLING HTTP If-modified-since
+  // testing with $ curl -v --header "If-Modified-Since: Fri, 23 Oct 2010 19:22:47 GMT" "... bibtexbrowser.php?key=wasylkowski07&bib=..%252Fstrings.bib%253B..%252Fentries.bib"
+  // and $ curl -v --header "If-Modified-Since: Fri, 23 Oct 2000 19:22:47 GMT" "... bibtexbrowser.php?key=wasylkowski07&bib=..%252Fstrings.bib%253B..%252Fentries.bib"
 
   // save bandwidth and server cpu
   // (imagine the number of requests from search engine bots...)
-  if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&   (strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])>filemtime($_GET[Q_FILE]))) {
+  $bib_is_unmodified = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ;
+  foreach(explode(MULTIPLE_BIB_SEPARATOR, $_GET[Q_FILE]) as $bib) {
+      $bib_is_unmodified = 
+                    $bib_is_unmodified                               
+                    &&  (strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])>filemtime($bib));
+  } // end for each
+  if ( $bib_is_unmodified ) { 
     header("HTTP/1.1 304 Not Modified");
     exit; 
   }
 
+
+
+  // ---------------------------- HANDLING caching of compiled bibtex files
   // for sake of performance, once the bibtex file is parsed
   // we try to save a "compiled" in a txt file
-  $compiledbib = $_GET[Q_FILE].'.txt';
+  $compiledbib = 'bibtexbrowser_'.md5($_GET[Q_FILE]).'.dat';
+
   $parse=true;
+  foreach(explode(MULTIPLE_BIB_SEPARATOR, $_GET[Q_FILE]) as $bib) {
   // do we have a compiled version ?
   if (is_file($compiledbib) && is_readable($compiledbib)) {
     // is it up to date ? wrt to the bib file and the script
     // then upgrading with a new version of bibtexbrowser triggers a new compilation of the bib file
-    if (filemtime($_GET[Q_FILE])<filemtime($compiledbib) && filemtime(__FILE__)<filemtime($compiledbib)) {
+    if (filemtime($bib)<filemtime($compiledbib) && filemtime(__FILE__)<filemtime($compiledbib)) {
       $_GET[Q_DB] = unserialize(file_get_contents($compiledbib));
       // basic test
       // do we have an correct version of the file
@@ -325,16 +353,21 @@ function setDB() {
       }
     }
   }
+  } // end for each
+
   // we don't have a compiled version
   if ($parse) {
     //echo '<!-- parsing -->';
     // then parsing the file
     $db = new BibDataBase();
-    $db->load($_GET[Q_FILE]);
+  foreach(explode(MULTIPLE_BIB_SEPARATOR, $_GET[Q_FILE]) as $bib) {
+      $db->load($bib);
+    }    
     $_GET[Q_DB]=$db;
 
     // are we able to save the compiled version ?
-    if ((!is_file($compiledbib) && is_writable(dirname($compiledbib))) || (is_file($compiledbib) && is_writable($compiledbib)) ) {
+    // note that the compiled version is saved in the current working directory
+    if ((!is_file($compiledbib) && is_writable(getcwd())) || (is_file($compiledbib) && is_writable($compiledbib)) ) {
       // we can use file_put_contents
       // but don't do it for compatibility with PHP 4.3
       $f = fopen($compiledbib,'w');
@@ -477,7 +510,7 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_ESCAPED;
    $entryvalue=$entryvalue.$s;}
   else if ($s=='{') {
-   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;}
+   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;$entryvalue=$entryvalue.$s;}
   else if ($s=='}') {
    $state = GETVALUE;}
   else { $entryvalue=$entryvalue.$s;}
@@ -493,9 +526,9 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL_ESCAPED;
    $entryvalue=$entryvalue.$s;}
   else if ($s=='{') {
-   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL;}
+   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL;$entryvalue=$entryvalue.$s;}
   else if ($s=='}') {
-   $state = GETVALUEDELIMITEDBYCURLYBRACKETS;}
+   $state = GETVALUEDELIMITEDBYCURLYBRACKETS;$entryvalue=$entryvalue.$s;}
   else { $entryvalue=$entryvalue.$s;}
  }
   // handle anti-slashed brackets
@@ -510,9 +543,9 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL_ESCAPED;
    $entryvalue=$entryvalue.$s;}
   else if ($s=='{') {
-   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL;}
+   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL;$entryvalue=$entryvalue.$s;}
   else if ($s=='}') {
-   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;}
+   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;$entryvalue=$entryvalue.$s;}
   else { $entryvalue=$entryvalue.$s;}
   }
   // handle anti-slashed brackets
@@ -527,7 +560,7 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
    $state = GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL_ESCAPED;
    $entryvalue=$entryvalue.$s;}
   else if ($s=='}') {
-   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL;}
+   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL;$entryvalue=$entryvalue.$s;}
   else { $entryvalue=$entryvalue.$s;}
  }
  // handle anti-slashed brackets
@@ -720,11 +753,14 @@ function char2html($line,$latexmodifier,$char,$entitiyfragment) {
 function latex2html($line) {
   $line = preg_replace('/([^\\\\])~/','\\1&nbsp;', $line);
 
-
   // performance increases with this test
   // bug found by Serge Barral: what happens if we have curly braces only (typically to ensure case in Latex)
   // added && strpos($line,'{')===false
   if (strpos($line,'\\')===false && strpos($line,'{')===false) return $line;
+
+  // handling \url{....}
+  // often used in howpublished for @misc
+  $line = preg_replace('/\\\\url\{(.*)\}/U','<a href="\\1">\\1</a>', $line);
   
   $chars="abcdefghijklmnopqrstuvwxyz";
   for($i=0;$i<strlen($chars);$i++) {
@@ -883,7 +919,7 @@ class BibEntry {
   /** Returns the authors of this entry as an array */
   function getRawAuthors() {
     $authors = array();
-    foreach (explode(' and ', $this->getAuthor()) as $author) {
+    foreach (preg_split('/ and /i', $this->getAuthor()) as $author) {
       $authors[]=$author;
     }
     return $authors;
@@ -948,7 +984,7 @@ class BibEntry {
   /** Returns the editors of this entry as an arry */
   function getEditors() {
     $editors = array();
-    foreach (explode(' and ', $this->getField(EDITOR)) as $editor) {
+    foreach (preg_split('/ and /i', $this->getField(EDITOR)) as $editor) {
       $editors[]=$editor;
     }
     return $editors;
@@ -1010,6 +1046,7 @@ class BibEntry {
     // i.e. added join(" ",$this->getFields())
     // and html_entity_decode
     if (!$field) {
+      // warning html_entity_decode supports encoding since PHP5
       return preg_match('/'.$phrase.'/i',$this->getConstants().' '.@html_entity_decode(join(" ",$this->getFields()),ENT_NOQUOTES,ENCODING));
       //return stripos($this->getText(), $phrase) !== false;
     }
@@ -1124,14 +1161,14 @@ class BibEntry {
    * The object may be mutated to read the rest of the fields.
    */
   function toEntryUnformatted() {
-    echo '<div class="purebibtex">';
+    echo '<pre class="purebibtex">'; // pre is nice when it is embedded with no CSS available
     echo $this->getConstants();
     if ($this->hasField('url')) {
       $url=$this->getField('url');
       // this is not a parsing but a simple replacement
       echo str_replace($url,'<a href="'.$url.'">'.$url.'</a>',$this->getText());
     } else echo $this->getText();
-    echo '</div>';
+    echo '</pre>';
    }
 
 }
@@ -1279,7 +1316,6 @@ class MenuManager extends BibtexBrowserDisplay {
   /** Creates a new display manager that uses the given bib database. */
   function MenuManager(&$db) {
     $this->db =$db;
-    new HTMLWrapper($this,array(array('robots','noindex')));
   }
 
   /** function called back by HTMLWrapper */
@@ -2429,7 +2465,7 @@ class Dispatcher {
        // we send a redirection for having the frameset
        // if some contents have already been sent, for instance if we are included
        // this means doing nothing
-       if ( ! /* not */ headers_sent() ) {
+       if ( headers_sent() == false ) { /* to avoid sending an unnecessary frameset */ 
          header("Location: ".$_SERVER['SCRIPT_NAME']."?frameset&bib=".$_GET[Q_FILE]);
        }
      }
@@ -2449,7 +2485,12 @@ class Dispatcher {
     $this->wrapper='NoWrapper';
   }
 
-  function search() { $this->query[Q_SEARCH]=$_GET[Q_SEARCH]; }
+  function search() {
+    if (preg_match('/utf-?8/i',ENCODING)) {
+      $_GET[Q_SEARCH] = urldecode($_GET[Q_SEARCH]);
+    }
+    $this->query[Q_SEARCH]=$_GET[Q_SEARCH];
+  }
 
   function exclude() { $this->query[Q_EXCLUDE]=$_GET[Q_EXCLUDE]; }
 
@@ -2464,7 +2505,9 @@ class Dispatcher {
   function type() { $this->query[Q_TYPE]=$_GET[Q_TYPE];  }
 
   function menu() {
-     new MenuManager($_GET[Q_DB]);
+    $menu = new MenuManager($_GET[Q_DB]);
+    new $this->wrapper($menu,array(array('robots','noindex')));
+    return 'END_DISPATCH';
   }
 
   /** the academic keyword in URLs switch from a year based viey to a publication type based view */
@@ -2513,7 +2556,7 @@ class Dispatcher {
     </html>
 
     <?php
-
+    return 'END_DISPATCH';
 }
 
 }
