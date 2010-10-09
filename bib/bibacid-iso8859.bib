@@ -1,0 +1,185 @@
+
+%% test the home page feature
+@string{hp_J.Abounader="http://www.google.com"}
+
+
+@ARTICLE{Petrov2009,
+  author = {Petrov, D. V. and Petrov, M. P. and Hilling, B. and Lemmer, M. and
+  Imlau, M.},
+  title = {Large scale magnetic field influence on trap recharging waves in
+  InP:Fe and GaAs:Cr},
+  journal = {Applied Physics B-lasers and Optics},
+  year = {2009},
+  volume = {95},
+  pages = {483--488},
+  number = {3},
+  abstract = {An impressive linear influence of a magnetic field on optically generated
+  trap-recharging waves (TRW) has been observed in InP:Fe and GaAs:Cr.
+  The phenomenon appears for the particular orientation of (B) over
+  right arrow parallel to the samples' surface and orthogonal to the
+  direction of the electric field (E) over right arrow and wave vector
+  of the TRW (K) over right arrow. The results are qualitatively explained
+  taking into account the Lorentz force and a pronounced inhomogeneity
+  of the charge transport and of the TRW parameters. },
+  doi = {10.1007/s00340-009-3435-x},
+  owner = {Thomas},
+  sn = {0946-2171},
+  tc = {1},
+  timestamp = {2010.06.16},
+  ut = {WOS:000266073000015}
+}
+@inproceedings{classical,
+  author = {J. Abounader and D. Tooj},
+  title = {This is  {classical}},
+  institution = {Queen's University, Kingston, ON.},
+  year = {1997}
+}
+
+%% using double quotes
+@TECHREPORT{dquotes,
+  author = {J. Abounader and D. Lamb},
+  title = "using double quotes ",
+  institution = {Queen's University, Kingston, ON.},
+  year = {1997}
+}
+
+
+%% using single value (year)
+@TECHREPORT{singlevalue,
+  author = {The },
+  title = "The year",
+  institution = {Queen's University, Kingston, ON.},
+  year = 1997
+}
+
+
+%% evrything
+@TECHREPORT{Abounader1997e,  author = {J. Abounader  and D. Lamb},  title = "using double quotes",  institution = {Queen's University, Kingston, ON.},  year = 1997 }
+
+
+
+%% intersting: bibtex does not allow \} in brackets enclosed entries and \" in quotes enclosed entries
+
+%% using double quotes
+@TECHREPORT{notallowed1,
+  author = {J. Abounader and D. Lamb},
+  title = "using double \" quotes",
+  institution = {Queen's University, Kingston, ON.},
+  year = {1997}
+}
+
+%% using double quotes
+@TECHREPORT{notallowed2,
+  author = {J. Abounader \} and D. Lamb},
+  title = "using double quotes",
+  institution = {Queen's University, Kingston, ON.},
+  year = {1997}
+}
+
+@article{testsearch1,
+  author = {Jacob G{\"o}del},
+  title = {using Banach Space},
+  year = {1997}
+}
+@article{testsearch2,
+  author = {Jacob {G}{\"{o}}del},
+  title = {using banach space},
+  year = {1997}
+}
+@article{testsearch3,
+  author = {Jacob {G\"{o}del}},
+  title = {using {Banach} Space},
+  year = {1997}
+}
+@article{testsearch4,
+  author = {Jacob Gödel},
+  title = {using {B}anach Space},
+  year = {1997}
+}
+@article{testsearch5,
+  author = {Jacob Gödel},
+  title = {using {Banach Space}},
+  year = {1997}
+}
+
+
+
+%% bug from Jakob Kellner
+%% copied from ams.org
+@article {MR1841330,
+    AUTHOR = {Lejay, Antoine},
+     TITLE = {Homogenization of divergence-form operators with lower-order
+              terms in random media},
+   JOURNAL = {Probab. Theory Related Fields},
+  FJOURNAL = {Probability Theory and Related Fields},
+    VOLUME = {120},
+      YEAR = {2001},
+    NUMBER = {2},
+     PAGES = {255--276},
+      ISSN = {0178-8051},
+     CODEN = {PTRFEU},
+   MRCLASS = {35B27 (31C25 35R60 60H30 60J60)},
+  MRNUMBER = {MR1841330 (2002g:35023)},
+MRREVIEWER = {Jean-Fran{\c{c}}ois Clouet},
+       DOI = {10.1007/PL00008783},
+       URL = {http://dx.doi.org/10.1007/PL00008783},
+}
+
+@article{serge,
+  author = "Serge Bug",
+  title = "curly {braces} in quote",
+  year = 2010
+}
+
+@article{cediltest,
+  author = "Serge Bug",
+  title = "\ccurly  \c{c}urly  {\c{c}}urly ",
+  year = 2010
+}
+
+
+%%%%% now testing the string concatenation
+@string{str1="toto"}
+@string{str2="titi"}
+
+@article{stgringconcat:test1,
+  author = {J. Abounader and D. Lamb},
+  title = str1#str2,
+  institution = {Queen's University, Kingston, ON.},
+  year = {1997}
+}
+
+% with space
+@article{stgringconcat:test2,
+  author = {J. Abounader and D. Lamb},
+  title = str1 # str2,
+  institution = {Queen's University, Kingston, ON.},
+  year = {1997}
+}
+
+% with another value
+@article{stgringconcat:test3,
+  author = {J. Abounader and D. Lamb},
+  title = str1 # {3344},
+  institution = {Queen's University, Kingston, ON.},
+  year = {1997}
+}
+
+
+%% Saturday, October 09 2010
+%% taken from http://en.wikipedia.org/wiki/BibTeX
+@PROCEEDINGS {conference:06,
+ editor    = {First Editor and Second Editor},
+ title     = {Proceedings of the Xth Conference on XYZ},
+ booktitle = {Proceedings of the Xth Conference on XYZ},
+ year      = {2006},
+ month     = oct,
+}
+
+@INPROCEEDINGS {author:06,
+ title    = {Some publication title},
+ author   = {First Author and Second Author},
+ crossref = {conference:06},
+ pages    = {330?331},
+}
+
