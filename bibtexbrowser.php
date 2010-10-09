@@ -2,7 +2,7 @@
 <!--this is version v__MTIME__, see http://www.monperrus.net/martin/bibtexbrowser/ -->
 
 bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
- bibtexbrowser is stable, mature and easy to install. It is used in [[users|40+ different universities]] around the globe and powers [[http://www.publications.li]].
+ bibtexbrowser is stable, mature and easy to install. It is used in [[users|50+ different universities]] around the globe.
 
 +++TOC+++
 
@@ -66,7 +66,7 @@ It is a common practice to create one file for the @string, and another one with
 ''bibtexbrowser.php?bib=strings.bib;csgroup2008.bib''
 
 
-=====How to include your publication list in your home page=====
+=====How to embed your publication list in your home page=====
 
 <table border="1">
 <tr><th></th><th>Sorted by year </th><th>Sorted by publication type</th></tr>
@@ -102,12 +102,9 @@ $_GET&#91;'author'&#93;='Martin Monperrus';
 $_GET&#91;'academic'&#93;=1;
 include( 'bibtexbrowser.php' );
 ?>
-
-
 </td>
 </tr><!-- end individual -->
 </table>
-
 
 And tailor it with a CSS style, for example:
 &#60;style>
@@ -241,7 +238,7 @@ License, or (at your option) any later version.
 // in embedded mode, we still need a URL for displaying bibtex entries alone
 // this is usually resolved to bibtexbrowser.php
 // but can be overridden in bibtexbrowser.local.php 
-// this is useful if a symlink is used for bibtexbrowser.php
+// for instance with @define('BIBTEXBROWSER',''); // links to the current page with ?
 @define('BIBTEXBROWSER',basename(__FILE__));
 
 // *************** END CONFIGURATION
