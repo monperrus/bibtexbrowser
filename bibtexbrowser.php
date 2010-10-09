@@ -15,7 +15,8 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 * **(04/2007)**: bibtexbrowser is easy to install: just a single file.
 
 =====Other features=====
-* **(10/2010)** bibtexbrowser now supports multiple bibtex files (''bibtexbrowser.php?bib=file1.bib;file2.bib'')
+* **(10/2010)** bibtexbrowser now supports cross-references (Bibtex crossref)
+* **(09/2010)** bibtexbrowser now supports multiple bibtex files (''bibtexbrowser.php?bib=file1.bib;file2.bib'')
 * **(05/2010)** bibtexbrowser adds links to your co-author pages if you define the corresponding @string (see function addHomepageLink)
 * **(01/2010)** bibtexbrowser can handle user-defined bibliographic styles
 * **(10/2009)** bibtexbrowser is able to generate a bibtex file containing only the selected entries (simply add &#38;astext at the end of the link)
@@ -192,27 +193,6 @@ modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
 License, or (at your option) any later version.
 
-*/
-
-/** Release 2009-06-07
-* Improved performance thanks to profiling with xbug
-* Improved correctness of the interplay between HTMLWrapper and NoWrapper
-*/
-
-/** Release 2009-05-19
-* Added support for links to author home pages
-* Improvement of documentation (cf Benoit Combemale "bug")
-* Bug of Serge Barral solved (curly braces)
-* encapsulated parsing/caching code of bibtex in function setDB()
-*/
-
-/** Release 2009-01-05
-* Added support for new bibliographic styles (users just have to create a function and change a configuration parameter, see documentation)
-* Packaged the IEEE-like bibliographic style of Janos Tapolcai (many thanks Janos), see http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt
-* Added support for external CSS (if bibtexbrowser.css exists, it is used instead of the embedded one)
-* Added support for local configuration parameters in bibtexbrowser.local.php
-* Bug in RSS fixed (handling of &)
-* Bug found by Nelson fixed (the link to all bib entries)
 */
 
 // *************** CONFIGURATION
