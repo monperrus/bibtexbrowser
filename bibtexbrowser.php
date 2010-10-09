@@ -650,12 +650,26 @@ class BibDBBuilder {
   function beginFile() {
   }
 
-  function endFile() { //nothing
+  function endFile() {
+    // resolving crossrefs
+    foreach ($this->builtdb as $bib) {
+      if ($bib->hasField('crossref')) {
+        if (isset($this->builtdb[$bib->getField('crossref')])) {
+          $crossrefEntry = $this->builtdb[$bib->getField('crossref')];
+          $bib->crossref = $crossrefEntry;
+          foreach($crossrefEntry->getFields() as $k => $v) {
+            // copying the fields of the cross ref
+            // only if they don't exist yet
+            if (!$bib->hasField($k)) {
+              $bib->setField($k,$v);
+            }
+          }
+        }
+      }
+    }
   }
 
   function setEntryField($finalkey,$entryvalue) {
-    // first we set the key to lowercase
-    $finalkey=strtolower($finalkey);
 
     // is it a constant? then we replace the value
     // we support advanced features of bibtexbrowser
@@ -665,7 +679,7 @@ class BibDBBuilder {
       // spaces are allowed when using #, they are not taken into account
       // however # is not istself replaced by a space
       // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
-      $stringKey=strtolower(trim($v));
+      $stringKey=trim($v);
       if (isset($this->stringdb[$stringKey]))
       {
         // this field will be formated later by xtrim and latex2html
@@ -680,7 +694,7 @@ class BibDBBuilder {
       }
     }
     $entryvalue=implode('',$entryvalue_array);
-    
+
     if ($finalkey!='url') $formatedvalue = latex2html(xtrim($entryvalue));
     else $formatedvalue = trim($entryvalue);
     
@@ -817,6 +831,9 @@ class BibEntry {
   /** The constants @STRINGS referred to by this entry */
   var $constants;
 
+  /** The crossref entry if there is one */
+  var $crossref;
+
   /** The verbatim copy (i.e., whole text) of this bib entry. */
   var $text;
 
@@ -838,8 +855,11 @@ class BibEntry {
 
   /** Sets a field of this bib entry. */
   function setField($name, $value) {
-    // bullet proofing with this strtolower
-    $this->fields[strtolower($name)] = $value;
+    // only @string keeps the cases
+    if ($this->getType()!='string') {
+      $name = strtolower($name);
+    }
+    $this->fields[$name] = $value;
   }
 
   /** Sets a type of this bib entry. */
@@ -962,14 +982,14 @@ class BibEntry {
   /** add the link to the homepage if it is defined in a string
    *  e.g. @string{hp_MartinMonperrus="http://www.monperrus.net/martin"}
    *  The string is a concatenation of firstname, lastname, prefixed by hp_ 
+   * Warning: by convention @string are case sensitive so please be keep the same case as author names
    * @thanks Eric Bodden for the idea
    */
   function addHomepageLink($author) {
     // hp as home page
     // accents are handled normally
     // e.g. @STRING{hp_Jean-MarcJézéquel="http://www.irisa.fr/prive/jezequel/"}
-    $homepage = strtolower('hp_'.preg_replace('/ /', '', $author));
-    //echo $homepage;
+    $homepage = 'hp_'.preg_replace('/ /', '', $author);
     if (isset($_GET[Q_DB]->stringdb[$homepage]))
       $author='<a href="'.$_GET[Q_DB]->stringdb[$homepage].'">'.$author.'</a>';
     return $author;
@@ -1163,20 +1183,30 @@ class BibEntry {
   }
 
    /**
-   * Displays a unformated (verbatim) text of the given bib entry.
-   * The object may be mutated to read the rest of the fields.
+   * Displays a <pre> text of the given bib entry.
+   * URLs are replaced by HTML links.
    */
   function toEntryUnformatted() {
     echo '<pre class="purebibtex">'; // pre is nice when it is embedded with no CSS available
-    echo $this->getConstants();
     if ($this->hasField('url')) {
       $url=$this->getField('url');
       // this is not a parsing but a simple replacement
-      echo str_replace($url,'<a href="'.$url.'">'.$url.'</a>',$this->getText());
-    } else echo $this->getText();
+      echo str_replace($url,'<a href="'.$url.'">'.$url.'</a>',getFullText());
+    } else echo $this->getFullText();
     echo '</pre>';
    }
 
+   /**
+   * Gets the raw text of the entry (crossref + strings + entry)
+   */
+  function getFullText() {
+    $s = '';
+    // adding the crossref if necessary
+    if ($this->crossref!=null) { $s .= $this->crossref->getFullText()."\n";}
+    $s.=$this->getConstants();
+    $s.=$this->getText();
+    return $s;
+  }
 }
 
 
