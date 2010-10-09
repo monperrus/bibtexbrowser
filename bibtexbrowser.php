@@ -145,7 +145,7 @@ define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
 ?>
 </code>
 
-[[http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt|J�nos Tapolcai contributed with this style, which looks like IEEE references]].
+[[http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt|Janos Tapolcai contributed with this style, which looks like IEEE references]].
 For contributing with a new style, [[http://www.monperrus.net/martin/|please drop me an email ]]
 
 =====How to add links to the slides of a conference/workshop paper?=====
@@ -483,22 +483,24 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
     // the value is delimited by double quotes
     if ($s=='"') {
     $state = GETVALUEDELIMITEDBYQUOTES;
-    $entryvalue='';}
+    }
     // the value is delimited by curly brackets
     else if ($s=='{') {
     $state = GETVALUEDELIMITEDBYCURLYBRACKETS;
-    $entryvalue='';}
+    }
     // the end of the key and no value found: it is the bibtex key e.g. \cite{Descartes1637}
     else if ($s==',') {
     $state = GETKEY;
     $delegate->setEntryField(trim($finalkey),trim($entryvalue));
-    $entryvalue='';}
+    $entryvalue=''; // resetting the value buffer
+    }
     // this is the end of the value AND of the entry
     else if ($s=='}') {
     $state = NOTHING;$isinentry = false;
     $delegate->setEntryField(trim($finalkey),trim($entryvalue));
     $delegate->endEntry($entrysource);
-    $entryvalue='';}
+    $entryvalue=''; // resetting the value buffer
+    }
     else { $entryvalue=$entryvalue.$s;}
   }
 
@@ -655,26 +657,30 @@ class BibDBBuilder {
     // first we set the key to lowercase
     $finalkey=strtolower($finalkey);
 
-    
     // is it a constant? then we replace the value
     // we support advanced features of bibtexbrowser
     // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
     $entryvalue_array=explode('#',$entryvalue);
     foreach ($entryvalue_array as $k=>$v) {
-      $v=strtolower($v);
-      if (isset($this->stringdb[$v]))
+      // spaces are allowed when using #, they are not taken into account
+      // however # is not istself replaced by a space
+      // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
+      $stringKey=strtolower(trim($v));
+      if (isset($this->stringdb[$stringKey]))
       {
         // this field will be formated later by xtrim and latex2html
-        $entryvalue_array[$k]=$this->stringdb[$v];
+        $entryvalue_array[$k]=$this->stringdb[$stringKey];
 
         // we keep a trace of this replacement
         // so as to produce correct bibtex snippets
-        $this->currentEntry->constants[$v]=$this->stringdb[$v];
+        $this->currentEntry->constants[$stringKey]=$this->stringdb[$stringKey];
+      } else {
+        // we simply trim the entry
+        $entryvalue_array[$k]=trim($v); // trimmed value
       }
     }
     $entryvalue=implode('',$entryvalue_array);
     
-
     if ($finalkey!='url') $formatedvalue = latex2html(xtrim($entryvalue));
     else $formatedvalue = trim($entryvalue);
     
@@ -961,7 +967,7 @@ class BibEntry {
   function addHomepageLink($author) {
     // hp as home page
     // accents are handled normally
-    // e.g. @STRING{hp_Jean-MarcJ�z�quel="http://www.irisa.fr/prive/jezequel/"}
+    // e.g. @STRING{hp_Jean-MarcJézéquel="http://www.irisa.fr/prive/jezequel/"}
     $homepage = strtolower('hp_'.preg_replace('/ /', '', $author));
     //echo $homepage;
     if (isset($_GET[Q_DB]->stringdb[$homepage]))
