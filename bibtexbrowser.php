@@ -759,23 +759,40 @@ function latex2html($line) {
   // often used in howpublished for @misc
   $line = preg_replace('/\\\\url\{(.*)\}/U','<a href="\\1">\\1</a>', $line);
   
-  $chars="abcdefghijklmnopqrstuvwxyz";
-  for($i=0;$i<strlen($chars);$i++) {
-    $letter=$chars[$i];
-    $line = char2html($line,"'",$letter,"acute");
-    $line = char2html($line,"`",$letter,"grave");
-    $line = char2html($line,"~",$letter,"tilde");
-    $line = char2html($line,'"',$letter,"uml");
-    $line = char2html($line,'^',$letter,"circ");
-  }
+  $line = char2html($line,"'",'a',"acute");
+  $line = char2html($line,"'",'e',"acute");
+  $line = char2html($line,"'",'i',"acute");
+  $line = char2html($line,"'",'o',"acute");
+  $line = char2html($line,"'",'u',"acute");
+  $line = char2html($line,"'",'y',"acute");
+  
+  $line = char2html($line,'`','a',"grave");
+  $line = char2html($line,'`','e',"grave");
+  $line = char2html($line,'`','i',"grave");
+  $line = char2html($line,'`','o',"grave");
+  $line = char2html($line,'`','u',"grave");
 
-  // special things
-  $line = str_replace('\\c{c}','&ccedil;', $line);
-  $line = str_replace('\\c{C}','&Ccedil;', $line);  
-  $line = str_replace('\\cc','&ccedil;', $line);
-  $line = str_replace('\\cC','&Ccedil;', $line);
-  $line = str_replace('\\c c','&ccedil;', $line);
-  $line = str_replace('\\c C','&Ccedil;', $line);
+  $line = char2html($line,'~','a',"tilde");
+  $line = char2html($line,'~','n',"tilde");
+  $line = char2html($line,'~','o',"tilde");
+
+  $line = char2html($line,'"','a',"uml");
+  $line = char2html($line,'"','e',"uml");
+  $line = char2html($line,'"','i',"uml");
+  $line = char2html($line,'"','o',"uml");
+  $line = char2html($line,'"','u',"uml");
+  $line = char2html($line,'"','y',"uml");
+
+  $line = char2html($line,'^','a',"circ");
+  $line = char2html($line,'^','e',"circ");
+  $line = char2html($line,'^','i',"circ");
+  $line = char2html($line,'^','o',"circ");
+  $line = char2html($line,'^','u',"circ");
+
+  $line = char2html($line,'.','a',"ring");
+
+  $line = char2html($line,'c','c',"cedil");
+
   $line = str_replace('\\ae','&aelig;', $line);
   $line = str_replace('\\ss','&szlig;', $line);
 
