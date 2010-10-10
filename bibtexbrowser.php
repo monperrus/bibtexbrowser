@@ -1180,7 +1180,7 @@ class BibEntry {
     if ($this->hasField('url')) {
       $url=$this->getField('url');
       // this is not a parsing but a simple replacement
-      echo str_replace($url,'<a href="'.$url.'">'.$url.'</a>',getFullText());
+      echo str_replace($url,'<a href="'.$url.'">'.$url.'</a>',$this->getFullText());
     } else echo $this->getFullText();
     echo '</pre>';
    }
