@@ -45,11 +45,15 @@ array (
 )
 array (
   'author' => 'First Author and Second Author',
+  'booktitle' => 'Proceedings of the Xth Conference on XYZ',
   'crossref' => 'conference:06',
+  'editor' => 'First Editor and Second Editor',
   'key' => 'author:06',
+  'month' => 'oct',
   'pages' => '330?331',
   'title' => 'Some publication title',
   'type' => 'INPROCEEDINGS',
+  'year' => '2006',
 )
 array (
   'author' => 'Serge Bug',
@@ -126,7 +130,7 @@ array (
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'stgringconcat:test2',
-  'title' => 'str1 str2',
+  'title' => 'tototiti',
   'type' => 'article',
   'year' => '1997',
 )
@@ -134,7 +138,7 @@ array (
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'stgringconcat:test3',
-  'title' => '3344',
+  'title' => 'toto 3344',
   'type' => 'article',
   'year' => '1997',
 )
