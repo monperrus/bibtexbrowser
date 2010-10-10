@@ -655,8 +655,9 @@ class BibDBBuilder {
     foreach ($entryvalue_array as $k=>$v) {
       // spaces are allowed when using #, they are not taken into account
       // however # is not istself replaced by a space
+      // warning: @strings are not case sensitive
       // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
-      $stringKey=trim($v);
+      $stringKey=strtolower(trim($v));
       if (isset($this->stringdb[$stringKey]))
       {
         // this field will be formated later by xtrim and latex2html
@@ -665,17 +666,11 @@ class BibDBBuilder {
         // we keep a trace of this replacement
         // so as to produce correct bibtex snippets
         $this->currentEntry->constants[$stringKey]=$this->stringdb[$stringKey];
-      } else {
-        // we simply trim the entry
-        $entryvalue_array[$k]=trim($v); // trimmed value
       }
     }
     $entryvalue=implode('',$entryvalue_array);
 
-    if ($finalkey!='url') $formatedvalue = latex2html(xtrim($entryvalue));
-    else $formatedvalue = trim($entryvalue);
-    
-    $this->currentEntry->setField($finalkey,$formatedvalue);
+    $this->currentEntry->setField($finalkey,$entryvalue);
   }
 
   function setEntryType($entrytype) {
@@ -765,6 +760,7 @@ function latex2html($line) {
   $line = char2html($line,"'",'o',"acute");
   $line = char2html($line,"'",'u',"acute");
   $line = char2html($line,"'",'y',"acute");
+  $line = char2html($line,"'",'n',"acute");
   
   $line = char2html($line,'`','a',"grave");
   $line = char2html($line,'`','e',"grave");
@@ -849,10 +845,9 @@ class BibEntry {
 
   /** Sets a field of this bib entry. */
   function setField($name, $value) {
-    // only @string keeps the cases
-    if ($this->getType()!='string') {
-      $name = strtolower($name);
-    }
+    $name = strtolower($name);
+    $value = xtrim($value);
+    if ($name!='url') $value = latex2html($value);
     $this->fields[$name] = $value;
   }
 
