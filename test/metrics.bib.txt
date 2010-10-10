@@ -1,0 +1,1522 @@
+array (
+  'author' => 'J. Abounader and D. Lamb',
+  'institution' => 'Queen\'s University, Kingston, ON.',
+  'key' => 'Abounader1997',
+  'title' => 'A Data Model for Object-Oriented Design Metrics',
+  'type' => 'TECHREPORT',
+  'year' => '1997',
+)
+array (
+  'author' => 'Jarallah S. Alghamdi and Raimi A. Rufai and Sohel M. Khan',
+  'booktitle' => 'Proceedings of the Ninth European Conference on Software Maintenance and Reengineering (CSMR\'05)',
+  'doi' => '10.1109/CSMR.2005.44',
+  'isbn' => '0-7695-2304-8',
+  'key' => 'Alghamdi2005',
+  'pages' => '190--191',
+  'title' => 'OOMeter: A Software Quality Assurance Tool',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2005',
+)
+array (
+  'author' => 'El Hachemi Alikacem and Houari Sahraoui',
+  'booktitle' => 'Proceedings of IWSM/MetriKon\'2006',
+  'key' => 'Alikacem2006',
+  'title' => 'Generic Metric Extraction Framework',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'El Hachemi Alikacem and Houari Sahraoui',
+  'booktitle' => 'Actes de la 12ème conférence Langage et Modèles à Objets',
+  'key' => 'Alikacem2006a',
+  'title' => 'Détection d\'anomalies utilisant un langage de description de règle de qualité',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'Jagdish Bansiya and Carl Davis',
+  'doi' => '10.1109/32.979986',
+  'journal' => 'IEEE Transactions on Software Engineering',
+  'key' => 'Bans02a',
+  'month' => 'jan',
+  'number' => '1',
+  'pages' => '4--17',
+  'title' => 'A Hierarchical Model for Object-Oriented Design Quality Assessment',
+  'type' => 'ARTICLE',
+  'volume' => '28',
+  'year' => '2002',
+)
+array (
+  'author' => 'Jagdish Bansiya',
+  'doi' => '10.1145/351936.351954',
+  'issn' => '0360-0300',
+  'journal' => 'ACM Comput. Surv.',
+  'key' => 'Bansiya00',
+  'number' => '1es',
+  'pages' => '18',
+  'publisher' => 'ACM Press',
+  'title' => 'Evaluating framework architecture structural stability',
+  'type' => 'ARTICLE',
+  'volume' => '32',
+  'year' => '2000',
+)
+array (
+  'author' => 'A. Baroni and F. Abreu',
+  'booktitle' => 'Proc. of the 16th Brazilian Symposium on Software Engineering',
+  'key' => 'Baroni2002',
+  'title' => 'Formalizing Object-Oriented Design Metrics upon the UML Meta-Model',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2002',
+)
+array (
+  'author' => 'Aline Lùcia Baroni',
+  'booktitle' => 'Proceedings of the doctoral symposium at the 10th European Software Engineering Conference held jointly with 13th International Symposium on Foundations of Software Engineering (ESEC-FSE\'05)',
+  'doi' => '10.1145/1081706.1081764',
+  'isbn' => '1-59593-014-0',
+  'key' => 'Baroni2005',
+  'pages' => '366--369',
+  'publisher' => 'ACM Press',
+  'title' => 'Quantitative assessment of UML dynamic models',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2005',
+)
+array (
+  'author' => 'Victor R. Basili and Lionel C. Briand and Walcélio L. Melo',
+  'doi' => '10.1109/32.544352',
+  'issn' => '0098-5589',
+  'journal' => 'IEEE Trans. Softw. Eng.',
+  'key' => 'Basili1996',
+  'number' => '10',
+  'pages' => '751--761',
+  'title' => 'A Validation of Object-Oriented Design Metrics as Quality Indicators',
+  'type' => 'ARTICLE',
+  'volume' => '22',
+  'year' => '1996',
+)
+array (
+  'author' => 'Victor R. Basili and David M. Weiss',
+  'journal' => 'IEEE Trans. Software Eng.',
+  'key' => 'BasiliW84',
+  'number' => '6',
+  'pages' => '728-738',
+  'title' => 'A Methodology for Collecting Valid Software Engineering Data.',
+  'type' => 'ARTICLE',
+  'volume' => '10',
+  'year' => '1984',
+)
+array (
+  'author' => 'John Baumert and Mark McWhinney',
+  'institution' => 'Software Engineering Institute, Carnegie Mellon University',
+  'key' => 'Baumert1992',
+  'title' => 'Software Measures and the Capability Maturity Model',
+  'type' => 'TECHREPORT',
+  'year' => '1992',
+)
+array (
+  'author' => 'Dirk Beyer and Andreas Noack and Claus Lewerentz',
+  'doi' => '10.1109/TSE.2005.23',
+  'issn' => '0098-5589',
+  'journal' => 'IEEE Trans. Softw. Eng.',
+  'key' => 'Beyer2005',
+  'number' => '2',
+  'pages' => '137--149',
+  'title' => 'Efficient Relational Calculation for Software Analysis',
+  'type' => 'ARTICLE',
+  'volume' => '31',
+  'year' => '2005',
+)
+array (
+  'author' => 'Barry W. Boehm and Kevin J. Sullivan',
+  'booktitle' => 'ICSE - Future of SE Track',
+  'doi' => '10.1145/336512.336584',
+  'key' => 'Boehm2000',
+  'pages' => '319-343',
+  'title' => 'Software economics: a roadmap',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2000',
+)
+array (
+  'author' => 'Lionel C. Briand and John W. Daly and Jürgen Wüst',
+  'doi' => '10.1023/A:1009783721306',
+  'issn' => '1382-3256',
+  'journal' => 'Empirical Softw. Eng.',
+  'key' => 'Briand1998',
+  'number' => '1',
+  'pages' => '65--117',
+  'publisher' => 'Kluwer Academic Publishers',
+  'title' => 'A Unified Framework for Cohesion Measurement in Object-Oriented Systems',
+  'type' => 'ARTICLE',
+  'volume' => '3',
+  'year' => '1998',
+)
+array (
+  'author' => 'Sjaak Brinkkemper and Motoshi Saeki and Frank Harmsen',
+  'booktitle' => 'CAiSE',
+  'key' => 'Brinkkemper2001',
+  'pages' => '473-476',
+  'title' => 'A Method Engineering Language for the Description of Systems Development Methods',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2001',
+)
+array (
+  'author' => 'CEI and ISO',
+  'isbn' => '92-67-01075-1',
+  'key' => 'CEI1993',
+  'publisher' => 'International Organisation for Standardization',
+  'title' => 'International vocabulary of basic and general terms in metrology = vocabulaire international des termes fondamentaux et généraux de métrologie',
+  'type' => 'BOOK',
+  'year' => '1993',
+)
+array (
+  'author' => 'S. R. Chidamber and C. F. Kemerer',
+  'journal' => 'IEEE Transactions on Software Engineering',
+  'key' => 'CK94',
+  'month' => 'June',
+  'number' => '6',
+  'pages' => '293--318',
+  'title' => 'A Metric Suite for Object-Oriented Design',
+  'type' => 'ARTICLE',
+  'volume' => '20',
+  'year' => '1994',
+)
+array (
+  'author' => 'Jordi Cabot and Ernest Teniente',
+  'booktitle' => 'Model Size Metrics Workshop co-located with MODELS\'06',
+  'key' => 'Cabot2006',
+  'title' => 'A metric for measuring the complexity of OCL expressions',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'David Card',
+  'journal' => 'American Programmer',
+  'key' => 'Card1991',
+  'pages' => '2--8',
+  'title' => 'What Makes a Software Measure Successful',
+  'type' => 'ARTICLE',
+  'volume' => '4',
+  'year' => '1991',
+)
+array (
+  'author' => 'David N. Card and Gerald T. Page and Frank E. McGarry',
+  'bibsource' => 'DBLP, http://dblp.uni-trier.de',
+  'booktitle' => 'ICSE',
+  'key' => 'CardPM85',
+  'pages' => '372-377',
+  'title' => 'Criteria for Software Modularization.',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1985',
+)
+array (
+  'author' => 'Shyam R. Chidamber and Chris F. Kemerer',
+  'booktitle' => 'Proceedings of OOPSLA\'91',
+  'key' => 'Chidamber:Kemerer:91',
+  'ordinal' => 'P422',
+  'pages' => '197--211',
+  'title' => 'Towards a Metrics Suite for Object-Oriented Design',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1991',
+)
+array (
+  'author' => 'Eun Sook Cho and Min Sun Kim and Soo Dong Kim',
+  'booktitle' => 'Proceedings of the 8th Asia-Pacific on Software Engineering Conference (APSEC\'01)',
+  'key' => 'Cho2001',
+  'keywords' => 'components',
+  'pages' => '419',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'Component Metrics to Measure Component Quality',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2001',
+)
+array (
+  'author' => 'Mariano P. Consens and Alberto O. Mendelzon',
+  'booktitle' => 'Proc. of the ACM Symp. on Principles of Database Systems',
+  'key' => 'Consens1990',
+  'pages' => '404--416',
+  'title' => 'GraphLog: a visual formalism for real life recursion',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1990',
+)
+array (
+  'author' => 'Rita J. Costello and Dar-Biau Liu',
+  'issn' => '0164-1212',
+  'journal' => 'J. Syst. Softw.',
+  'key' => 'Costello:1995:MRE',
+  'month' => 'apr',
+  'number' => '1',
+  'pages' => '39--63',
+  'title' => 'Metrics for Requirements Engineering',
+  'type' => 'ARTICLE',
+  'volume' => '29',
+  'year' => '1995',
+)
+array (
+  'author' => 'N. Debnath and D. Riesco and G. Montejano and R. Uzal and L. Baigorria and A. Dasso and A. Funes',
+  'booktitle' => 'Proceedings of the ACS/IEEE 2005 International Conference on Computer Systems and Applications (AICCSA\'05)',
+  'isbn' => '0-7803-8735-X',
+  'key' => 'Debnath2005',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'A technique based on the OMG metamodel and OCL for the definition of object-oriented metrics applied to UML models',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2005',
+)
+array (
+  'author' => 'Serge Demeyer and Stéphane Ducasse and Michele Lanza',
+  'booktitle' => 'Proceedings of the Sixth Working Conference on Reverse Engineering (WCRE\'99)',
+  'isbn' => '0-7695-0303-9',
+  'key' => 'Demeyer1999',
+  'pages' => '175',
+  'title' => 'A Hybrid Reverse Engineering Approach Combining Metrics and Program Visualization',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1999',
+)
+array (
+  'author' => 'Serge Demeyer and Stéphane Ducasse',
+  'booktitle' => 'Proceedings of LMO\'99',
+  'editor' => 'HERMES Science Publications',
+  'key' => 'Demeyer1999a',
+  'pages' => '69--82',
+  'title' => 'Metrics, Do They Really Help?',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1999',
+)
+array (
+  'author' => 'Bruce Powel Douglass',
+  'howpublished' => 'White paper, I-Logix',
+  'key' => 'Douglass2004',
+  'title' => 'Computing Model Complexity',
+  'type' => 'MISC',
+  'url' => 'http://www.ilogix.com/whitepapers/whitepapers.cfm',
+  'year' => '2004',
+)
+array (
+  'author' => 'Michael Eichberg and Daniel Germanus and Mira Mezini and Lukas Mrokon and Thorsten Schäfer',
+  'booktitle' => 'Proceedings of the 10th European Conference on Software Maintenance and Reengineering (CSMR\'06)',
+  'key' => 'Eichberg2006',
+  'title' => 'QScope: an Open, Extensible Framework for Measuring Software Projects.',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'Elaine Ferneley',
+  'ee' => '10.1016/S0950-5849(97)00034-7',
+  'journal' => 'Information and Software Technology',
+  'key' => 'Ferneley1997',
+  'number' => '13',
+  'pages' => '879-887',
+  'title' => 'An empirical study of coupling and control flow metrics',
+  'type' => 'ARTICLE',
+  'volume' => '39',
+  'year' => '1997',
+)
+array (
+  'author' => 'Xavier Franch and Gemma Grau and Carme Quer',
+  'booktitle' => 'Proceedings of the 2th IEEE International Requirements Engineering Conference (RE\'04)',
+  'doi' => '10.1109/RE.2004.2',
+  'isbn' => '0-7695-2174-6',
+  'key' => 'Franch2004',
+  'pages' => '348--349',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'A Framework for the Definition of Metrics for Actor-Dependency Models',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2004',
+)
+array (
+  'author' => 'Félix Garcia and Francisco Ruiz and Mario Piattini',
+  'booktitle' => 'Proceedings of the International Conference on Product Focused Software Process Improvement (PROFES\'2004)',
+  'key' => 'Garcia2004',
+  'title' => 'Definition and empirical validation of metrics for software process models',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2004',
+)
+array (
+  'author' => 'Félix Garcia and Manuel F. Bertoa and Coral Calero and Antonio Vallecillo and Francisco Ruiz and Mario Piattini and Marcela Genero',
+  'doi' => '10.1016/j.infsof.2005.07.001',
+  'journal' => 'Information and Software Technology',
+  'key' => 'Garcia2006',
+  'number' => '8',
+  'pages' => '631-644',
+  'title' => 'Towards a consistent terminology for software measurement',
+  'type' => 'ARTICLE',
+  'volume' => '48',
+  'year' => '2006',
+)
+array (
+  'author' => 'Félix Garcia and M. Serrano and J. Cruz-Lemus and F. Ruiz and M. Piattini',
+  'doi' => '10.1016/j.ins.2007.01.018',
+  'issn' => '0020-0255',
+  'journal' => 'Inf. Sci.',
+  'key' => 'Garcia2007',
+  'number' => '12',
+  'pages' => '2570--2586',
+  'publisher' => 'Elsevier Science Inc.',
+  'title' => 'Managing software process measurement: A metamodel-based approach',
+  'type' => 'ARTICLE',
+  'volume' => '177',
+  'year' => '2007',
+)
+array (
+  'author' => 'Félix García and Francisco Ruiz and Coral Calero and Manuel F. Bertoa and Antonio Vallecillo and Beatriz Mora and Mario Piattini',
+  'journal' => 'The Knowledge Engineering Review',
+  'key' => 'Garcia2009',
+  'pages' => '23-40',
+  'title' => 'Effective use of ontologies in software measurement',
+  'type' => 'ARTICLE',
+  'volume' => '24',
+  'year' => '2009',
+)
+array (
+  'author' => 'Marcela Genero and Mario Piattini and Coral Calero',
+  'journal' => 'L\'Objet',
+  'key' => 'Genero2000',
+  'number' => '4',
+  'pages' => '489--505',
+  'title' => 'Early measures for UML class diagrams',
+  'type' => 'ARTICLE',
+  'volume' => '6',
+  'year' => '2000',
+)
+array (
+  'author' => 'M. Genero and D. Miranda and M. Piattini',
+  'booktitle' => 'Proceedings of QAOOSE\'2002',
+  'key' => 'Genero2002',
+  'title' => 'Defining and Validating Metrics for UML Statechart Diagrams',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://alarcos.inf-cr.uclm.es/qaoose2002/docs/QAOOSE-Gen-Mir-Pia.pdf',
+  'year' => '2002',
+)
+array (
+  'author' => 'Marcela Genero and Mario Piattini and Coral Calero',
+  'booktitle' => 'Proceedings of the International Symposium on Empirical Software Engineering (ISESE\'02)',
+  'isbn' => '0-7695-1796-X',
+  'key' => 'Genero2002a',
+  'pages' => '195',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'Empirical Validation of Class Diagram Metrics',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2002',
+)
+array (
+  'author' => 'Marcela Genero and Mario Piattini and Coral Caleron',
+  'issue' => '9',
+  'journal' => 'Journal of Object Technology',
+  'key' => 'Genero2005',
+  'pages' => '59--92',
+  'title' => 'A survey of metrics for UML class diagrams',
+  'type' => 'ARTICLE',
+  'volume' => '4',
+  'year' => '2005',
+)
+array (
+  'author' => 'N. S. Gill and P. S. Grover',
+  'doi' => '10.1145/966221.966237',
+  'issn' => '0163-5948',
+  'journal' => 'SIGSOFT Softw. Eng. Notes',
+  'key' => 'Gill2003',
+  'keywords' => 'components',
+  'number' => '6',
+  'pages' => '4--4',
+  'publisher' => 'ACM',
+  'title' => 'Component-based measurement: few useful guidelines',
+  'type' => 'ARTICLE',
+  'volume' => '28',
+  'year' => '2003',
+)
+array (
+  'author' => 'Robert B. Grady and Deborah L. Caswell',
+  'isbn' => '0-13-821844-7',
+  'key' => 'Grady1987',
+  'publisher' => 'Prentice-Hall, Inc.',
+  'title' => 'Software metrics: establishing a company-wide program',
+  'type' => 'BOOK',
+  'year' => '1987',
+)
+array (
+  'author' => 'Robert B. Grady',
+  'isbn' => '0-13-720384-5',
+  'key' => 'Grady1992',
+  'publisher' => 'Prentice-Hall, Inc.',
+  'title' => 'Practical software metrics for project management and process improvement',
+  'type' => 'BOOK',
+  'year' => '1992',
+)
+array (
+  'author' => 'Esther Guerra and Juan de Lara and Paloma Díaz',
+  'doi' => '10.1016/j.jvlc.2007.09.002',
+  'journal' => 'Journal of Visual Languages and Computing',
+  'key' => 'Guerra2007',
+  'month' => 'nov',
+  'pages' => '1--27',
+  'title' => 'Visual specification of measurements and redesigns for domain specific visual languages',
+  'type' => 'ARTICLE',
+  'volume' => 'in Press',
+  'year' => '2007',
+)
+array (
+  'author' => 'Esther Guerra and Juan de Lara and Alessio Malizia and Paloma Díaz',
+  'journal' => 'Information and Software Technology',
+  'key' => 'Guerra2009',
+  'pages' => '769-784',
+  'title' => 'Supporting user-oriented analysis for multi-view domain-specific visual languages',
+  'type' => 'ARTICLE',
+  'volume' => '51',
+  'year' => '2009',
+)
+array (
+  'author' => 'T. Hammer and L. Rosenberg and L. Huffman and L. Hyatt',
+  'booktitle' => 'Proceedings of the 3rd IEEE International Symposium on Requirements Engineering (RE\'97)',
+  'isbn' => '0-8186-7740-6',
+  'key' => 'Hammer1997',
+  'pages' => '141.1',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'Requirements Metrics - Value Added',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1997',
+)
+array (
+  'author' => 'Brian Henderson-Sellers and Didar Zowghi and T. Klemola and S. Parasuram',
+  'booktitle' => 'Proceedings of the 8th International Conference on Object-Oriented Information Systems (OOIS \'02)',
+  'isbn' => '3-540-44087-9',
+  'key' => 'Henderson-Sellers2002',
+  'pages' => '409--421',
+  'publisher' => 'Springer-Verlag',
+  'title' => 'Sizing Use Cases: How to Create a Standard Metrical Approach',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2002',
+)
+array (
+  'author' => 'Brian Henderson-Sellers',
+  'key' => 'Henderson-Sellers:96',
+  'publisher' => 'Prentice Hall',
+  'title' => 'Object-Oriented Metrics, measures of complexity',
+  'type' => 'BOOK',
+  'year' => '1996',
+)
+array (
+  'author' => 'S. Henry and D. Kafura',
+  'doi' => '10.1109/TSE.1981.231113',
+  'issn' => '0098-5589',
+  'journal' => 'IEEE Trans. Softw. Eng.',
+  'key' => 'Henry1981',
+  'number' => '5',
+  'pages' => '510--518',
+  'publisher' => 'IEEE Press',
+  'title' => 'Software Structure Metrics Based on Information Flow',
+  'type' => 'ARTICLE',
+  'volume' => '7',
+  'year' => '1981',
+)
+array (
+  'author' => 'Martin Hitz and Behzad Montazeri',
+  'doi' => '10.1109/32.491650',
+  'issn' => '0098-5589',
+  'journal' => 'IEEE Trans. Softw. Eng.',
+  'key' => 'Hitz1996',
+  'number' => '4',
+  'pages' => '267--271',
+  'title' => 'Chidamber and Kemerer\'s Metrics Suite: A Measurement Theory Perspective',
+  'type' => 'ARTICLE',
+  'volume' => '22',
+  'year' => '1996',
+)
+array (
+  'author' => 'ISO/IEC',
+  'key' => 'ISOIEC9126',
+  'publisher' => 'ISO/IEC',
+  'title' => 'ISO/IEC 9126. Software engineering -- Product quality',
+  'type' => 'BOOK',
+  'year' => '2001',
+)
+array (
+  'author' => 'C. Jones',
+  'isbn' => '0-07-032813-7',
+  'key' => 'Jones1991',
+  'publisher' => 'McGraw-Hill',
+  'title' => 'Applied software measurement: assuring productivity and quality',
+  'type' => 'BOOK',
+  'year' => '1991',
+)
+array (
+  'address' => 'Reading, MA',
+  'author' => 'Stephen H. Kan',
+  'key' => 'Kan95a',
+  'publisher' => 'Addison Wesley',
+  'title' => 'Metrics and Models in Software Quality Engineering',
+  'type' => 'BOOK',
+  'year' => '1995',
+)
+array (
+  'author' => 'Harmen Kastenberg',
+  'key' => 'Kastenberg2004',
+  'month' => 'Jul',
+  'school' => 'University of Twente',
+  'title' => 'Software Metrics as Class Graph Properties',
+  'type' => 'MASTERSTHESIS',
+  'url' => 'http://www.cs.utwente.nl/~kastenbe/public/Master_Thesis.pdf',
+  'year' => '2004',
+)
+array (
+  'author' => 'T. Khoshgoftaar and J. Munson',
+  'booktitle' => 'Proceedings of the Computer Software and Applications Conference',
+  'key' => 'Khoshgoftaar1990',
+  'pages' => '408--413',
+  'title' => 'The lines of code metric as a predictor of program faults: A critical analysis',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1990',
+)
+array (
+  'author' => 'Hyoseob Kim and Cornelia Boldyreff',
+  'booktitle' => 'Proceedings of QAOOSE\'2002',
+  'key' => 'Kim2002',
+  'organization' => 'QAOOSE 2002',
+  'title' => 'Developing Software Metrics Applicable to UML Models',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://alarcos.inf-cr.uclm.es/qaoose2002/docs/QAOOSE-Kim-Bol.pdf',
+  'year' => '2002',
+)
+array (
+  'address' => 'Herts, UK, UK',
+  'author' => 'Barbara A. Kitchenham and Lesley M. Pickard and Susan J. Linkman',
+  'issn' => '0268-6961',
+  'journal' => 'Softw. Eng. J.',
+  'key' => 'Kitchenham1990',
+  'number' => '1',
+  'pages' => '50--58',
+  'publisher' => 'Michael Faraday House',
+  'title' => 'An evaluation of some design metrics',
+  'type' => 'ARTICLE',
+  'volume' => '5',
+  'year' => '1990',
+)
+array (
+  'author' => 'Barbara A. Kitchenham and Robert T. Hughes and Stephen G. Linkman',
+  'doi' => '10.1109/32.950316',
+  'issn' => '0098-5589',
+  'journal' => 'IEEE Trans. Softw. Eng.',
+  'key' => 'Kitchenham2001',
+  'number' => '9',
+  'pages' => '788--804',
+  'publisher' => 'IEEE Press',
+  'title' => 'Modeling Software Measurement Data',
+  'type' => 'ARTICLE',
+  'volume' => '27',
+  'year' => '2001',
+)
+array (
+  'address' => 'New York',
+  'author' => 'D.H. Krantz and R.D. Luce and P. Suppes and A. Tversky',
+  'key' => 'Krantz',
+  'publisher' => 'Academic Press',
+  'title' => 'Foundations of measurement',
+  'type' => 'BOOK',
+  'year' => '1971',
+)
+array (
+  'author' => 'Wilf R. LaLonde and John R. Pugh',
+  'bibsource' => 'DBLP, http://dblp.uni-trier.de',
+  'journal' => 'JOOP',
+  'key' => 'LaLonde1994',
+  'number' => '1',
+  'pages' => '33-37',
+  'title' => 'Gathering Metric Information Using Metalevel Facilities',
+  'type' => 'ARTICLE',
+  'volume' => '7',
+  'year' => '1994',
+)
+array (
+  'author' => 'Michele Lanza and Stéphane Ducasse',
+  'booktitle' => 'Proceedings of the 6th International Workshop on Quantitative Approaches in Object-Oriented Software Engineering',
+  'editor' => 'F. Abreu and Mario Piattini and Geert Poels and Houari A. Sahraoui',
+  'isbn' => '84-699-8696-1',
+  'key' => 'Lanza2002',
+  'pages' => '77-84',
+  'title' => 'Beyond Language Independent Object-Oriented Metrics: Model Independent Metrics',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://www.iam.unibe.ch/~scg/Archive/Papers/Lanz02bModelIndependentMetrics.pdf',
+  'year' => '2002',
+)
+array (
+  'author' => 'Michele Lanza and Stéphane Ducasse',
+  'journal' => 'Transactions on Software Engineering (TSE)',
+  'key' => 'Lanza2003',
+  'pages' => '782--795',
+  'title' => 'Polymetric Views - A Lightweight Visual Approach to Reverse Engineering',
+  'type' => 'ARTICLE',
+  'volume' => '29',
+  'year' => '2003',
+)
+array (
+  'author' => 'Luigi Lavazza and Alberto Agostini',
+  'journal' => 'Journal of Object Technology',
+  'key' => 'Lavazza2005',
+  'number' => '4',
+  'pages' => '115-134',
+  'title' => 'Automated Measurement of UML Models: an open toolset approach',
+  'type' => 'ARTICLE',
+  'url' => 'http://www.jot.fm/issues/issue_2005_05/article2',
+  'volume' => '4',
+  'year' => '2005',
+)
+array (
+  'author' => 'Claus Lewerentz and Frank Simon',
+  'booktitle' => 'Proceedings of the Workshop on Object-Oriented Technology at ECOOP\'98',
+  'key' => 'Lewerentz1998',
+  'title' => 'A Product Metrics Tool Integrated into a Software Development Environment',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1998',
+)
+array (
+  'author' => 'Claus Lewerentz and Frank Simon',
+  'institution' => 'BTU Cottbus',
+  'key' => 'Lewerentz1998a',
+  'title' => 'Integrating an object-oriented metrics tool into SNiFF+',
+  'type' => 'TECHREPORT',
+  'year' => '1998',
+)
+array (
+  'author' => 'Rüdiger Lincke and Welf Löwe',
+  'booktitle' => 'Proceedings of the 3rd International Workshop on Metamodels, Schemas, Grammars, and Ontologies for Reverse Engineering (ATEM)',
+  'key' => 'Lincke2006',
+  'title' => 'Foundations for Defining Software Metrics',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'Rüdiger Lincke and Jonas Lundberg and Welf Löwe',
+  'booktitle' => 'Proceedings of the 2008 international Symposium on Software Testing and Analysis (ISSTA\'2008)',
+  'key' => 'Lincke2008',
+  'title' => 'Comparing Software Metric Tools',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2008',
+)
+array (
+  'author' => 'Annabella Loconsole',
+  'booktitle' => 'Proceedings of the 12th European Software Control and Metrics Conference (ESCOM\'2001)',
+  'key' => 'Loconsole2001',
+  'title' => 'Measuring the Requirements Management Key Process Area',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://www.cs.umu.se/~jubo/Projects/QMSE/ESCOM2001.pdf',
+  'year' => '2001',
+)
+array (
+  'address' => 'Washington, DC, USA',
+  'author' => 'Sajjad Mahmood and Richard Lai',
+  'booktitle' => 'QSIC \'05: Proceedings of the Fifth International Conference on Quality Software',
+  'doi' => '10.1109/QSIC.2005.39',
+  'isbn' => '0-7695-2472-9',
+  'key' => 'Mahmood2005',
+  'keywords' => 'components',
+  'pages' => '150--160',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'Measuring the Complexity of a UML Component Specification',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2005',
+)
+array (
+  'author' => 'M. Marchesi',
+  'booktitle' => 'Proceedings of the 2nd Euromicro Conference on Software Maintenance and Reengineering (CSMR\'98)',
+  'isbn' => '0-8186-8421-6',
+  'key' => 'Marchesi1998',
+  'pages' => '67',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'OOA Metrics for the Unified Modeling Language',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1998',
+)
+array (
+  'author' => 'Jacqueline McQuillan and James Power',
+  'booktitle' => 'Proceedings of the ECOOP\'2006 Doctoral Symposium',
+  'key' => 'McQuillan2006b',
+  'title' => 'Towards the re-usability of software metrics definitions at the meta level',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'Jacqueline McQuillan and James Power',
+  'institution' => 'National University of Ireland',
+  'key' => 'McQuillan2006d',
+  'title' => 'A Definition of the Chidamber and Kemerer Metrics suite for UML',
+  'type' => 'TECHREPORT',
+  'year' => '2006',
+)
+array (
+  'author' => 'Jacqueline A. McQuillan and James F. Power',
+  'booktitle' => 'Proceedings of the 4th International Conference on Principles and Practices of Programming in Java',
+  'key' => 'Mcquillan2006a',
+  'title' => 'Experiences of using the Dagstuhl Middle Metamodel for defining software metrics',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'Jacqueline McQuillan and James Power',
+  'booktitle' => 'Proceedings of the Model Size Metrics workshop at Models\'2006',
+  'key' => 'Mcquillan2006c',
+  'title' => 'Some observations on the application of software metrics to UML models',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'Austin C. Melton and Albert L. Baker and James M. Bieman and David M Gustafson',
+  'issue' => '5',
+  'journal' => 'Software Engineering Journal',
+  'key' => 'Melton-etal90',
+  'pages' => '246--254',
+  'title' => 'A mathematical perspective for software measures research',
+  'type' => 'ARTICLE',
+  'volume' => '5',
+  'year' => '1990',
+)
+array (
+  'author' => 'Alberto Mendelzon and Johannes Sametinger',
+  'journal' => 'Software - Concepts and Tools',
+  'key' => 'Mendelzon1995',
+  'number' => '4',
+  'pages' => '170-182',
+  'title' => 'Reverse Engineering by Visualizing and Querying',
+  'type' => 'ARTICLE',
+  'volume' => '16',
+  'year' => '1995',
+)
+array (
+  'author' => 'Brian Berenbach and Gail Borotto',
+  'booktitle' => 'Proceeding of the 28th International Conference on Software Engineering (ICSE \'06)',
+  'doi' => '10.1145/1134285.1134348',
+  'isbn' => '1-59593-375-1',
+  'key' => 'Metrics_for_model_driven_requirements_development',
+  'location' => 'Shanghai, China',
+  'pages' => '445--451',
+  'publisher' => 'ACM Press',
+  'title' => 'Metrics for model driven requirements development',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'Metrotrade Project and Regmet Project',
+  'key' => 'Metrotrade2003',
+  'publisher' => 'European Association of National Metrology Institutes',
+  'title' => 'Metrology - in short',
+  'type' => 'BOOK',
+  'url' => 'http://www.euromet.org/docs/pubs/docs/Metrology_in_short_2nd_edition_may_2004.pdf',
+  'year' => '2003',
+)
+array (
+  'author' => 'Modelware Project',
+  'institution' => 'Framework Programme Information Society Technologies',
+  'key' => 'ModelwareD2.2',
+  'title' => 'D2.2 MDD Engineering Metrics Definition',
+  'type' => 'TECHREPORT',
+  'year' => '2006',
+)
+array (
+  'author' => 'Modelware Project',
+  'institution' => 'Framework Programme Information Society Technologies',
+  'key' => 'ModelwareD2.5',
+  'title' => 'D2.5 MDD Engineering Metrics Baseline',
+  'type' => 'TECHREPORT',
+  'year' => '2006',
+)
+array (
+  'author' => 'Modelware Project',
+  'institution' => 'Framework Programme Information Society Technologies',
+  'key' => 'ModelwareD2.7',
+  'title' => 'D2.7 MDD Business Metrics',
+  'type' => 'TECHREPORT',
+  'year' => '2006',
+)
+array (
+  'author' => 'Beatriz Mora and Félix Garcia and Francisco Ruiz and Mario Piattini and Artur Boronat and Abel Gómez and José Á. Carsí and Isidro Ramos',
+  'booktitle' => 'Proceedings of the International Conference on Enterprise Information Systems (ICEIS\'2008)',
+  'key' => 'Mora2008',
+  'title' => 'Software measurement by using QVT transformations in an MDA context',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2008',
+)
+array (
+  'author' => 'Beatriz Mora and Mario Piattini and Francisco Ruiz and Felix Garcia',
+  'booktitle' => 'Proceedings of the 8th Workshop on Domain-Specific Modeling (DSM\'2008)',
+  'key' => 'Mora2008a',
+  'title' => 'SMML: Software Measurement Modeling Language',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2008',
+)
+array (
+  'author' => 'V. L. Narasimhan and B. Hendradjaya',
+  'booktitle' => 'Proceedings of the International Conference on Software Engineering Research and Practice (SERP\'04)',
+  'key' => 'Narasimhan2004',
+  'keywords' => 'components',
+  'title' => 'Component Integration Metrics',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2004',
+)
+array (
+  'author' => 'G. Poels and G. Dedene',
+  'booktitle' => 'Proceedings of the Annual Oregon Workshop on Software Metrics (AOWSM\'97)',
+  'key' => 'Poels1997',
+  'text' => 'G. Poels and G. Dedene, `Complexity Metrics for Formally Specified Business Requirements\', Proceedings of the Annual Oregon Workshop on Software Metrics (AOWSM\'97), Coeur d\'Alene, Idaho, USA, May 1997.',
+  'title' => 'Complexity Metrics for Formally Specified Business Requirements',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1997',
+)
+array (
+  'author' => 'Geert Poels and Guido Dedene',
+  'journal' => 'Information and Software Technology',
+  'key' => 'Poels2000',
+  'number' => '1',
+  'pages' => '35-46',
+  'title' => 'Distance-based software measurement: necessary and sufficient properties for software measures',
+  'type' => 'ARTICLE',
+  'volume' => '42',
+  'year' => '2000',
+)
+array (
+  'author' => 'Luis Reynoso and Marcela Genero and Mario Piattini',
+  'booktitle' => 'Proceedings of QAOOSE\'2003',
+  'key' => 'Reynoso2003',
+  'title' => 'Measuring OCL expressions: a "tracing"-based approach',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://www-ctp.di.fct.unl.pt/QUASAR/QAOOSE2003/papers/OCLM-QAOOSE03.pdf',
+  'year' => '2003',
+)
+array (
+  'address' => 'Englewood Cliffs, NJ',
+  'author' => 'Barry W. Boehm',
+  'key' => 'SEeconomics',
+  'publisher' => 'Prentice Hall',
+  'title' => 'Software Engineering Economics',
+  'type' => 'BOOK',
+  'year' => '1981',
+)
+array (
+  'author' => 'Smacchia S.A.',
+  'institution' => 'Smacchia S.A.',
+  'key' => 'SMACCHIA.COM2006',
+  'title' => 'Code Query Language 1.5 Specification',
+  'type' => 'TECHREPORT',
+  'year' => '2006',
+)
+array (
+  'author' => 'Motoshi Saeki',
+  'booktitle' => 'CAiSE',
+  'key' => 'Saeki2003',
+  'pages' => '374-389',
+  'title' => 'Embedding Metrics into Information Systems Development Methods: An Application of Method Engineering Technique',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://link.springer.de/link/service/series/0558/bibs/2681/26810374.htm',
+  'year' => '2003',
+)
+array (
+  'author' => 'Motoshi Saeki and Haruhiko Kaiya',
+  'booktitle' => 'Proc. of 1st Workshop on Quality in Modeling',
+  'key' => 'Saeki2006',
+  'pages' => '31--45',
+  'title' => 'Model Metrics and Metrics of Model Transformation',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'Andreas Schmietendorf and Reiner Dumke and Erik Foltin',
+  'doi' => '10.1145/352342.352347',
+  'issn' => '0163-5948',
+  'journal' => 'SIGSOFT Softw. Eng. Notes',
+  'key' => 'Schmietendorf2000',
+  'number' => '4',
+  'pages' => '51--61',
+  'publisher' => 'ACM',
+  'title' => 'Metrics based asset assessment',
+  'type' => 'ARTICLE',
+  'volume' => '25',
+  'year' => '2000',
+)
+array (
+  'author' => 'Sahra Sedigh-Ali and Arif Ghafoor and Raymond A. Paul',
+  'booktitle' => 'Proceedings of the 25th International Computer Software and Applications Conference (COMPSAC\'01)',
+  'isbn' => '0-7695-1372-7',
+  'key' => 'Sedigh-Ali2001',
+  'pages' => '303',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'Metrics-Guided Quality Management for Component-Based Software Systems',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2001',
+)
+array (
+  'author' => 'Yogesh Singh and Sangeeta Sabharwal and Manu Sood',
+  'journal' => 'Information and Management Sciences',
+  'key' => 'Singh2004',
+  'pages' => '69--90',
+  'title' => 'A Systematic Approach to Measure the Problem Complexity of Software Requirement Specifications of an Information System',
+  'type' => 'ARTICLE',
+  'volume' => '15',
+  'year' => '2004',
+)
+array (
+  'author' => 'R. van Solingen and E. Berghout',
+  'booktitle' => 'Proceedings of the 7th Software Metrics Symposium (METRICS\'2001)',
+  'doi' => '10.1109/METRIC.2001.915533',
+  'key' => 'Solingen2001',
+  'pages' => '246-258',
+  'title' => 'Integrating goal-oriented measurement in industrial software engineering: industrial experiences with and additions to the Goal/Question/Metric method (GQM)',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2001',
+)
+array (
+  'author' => 'Miroslaw Staron and Wilhelm Meding and Christer Nilsson',
+  'journal' => 'Information and Software Technology',
+  'key' => 'Staron2009',
+  'pages' => '721-737',
+  'title' => 'A framework for developing measurement systems and its industrial evaluation',
+  'type' => 'ARTICLE',
+  'volume' => '51',
+  'year' => '2009',
+)
+array (
+  'author' => 'Mei-Huei Tang and Mei-Hwa Chen',
+  'booktitle' => 'Proceedings of MODELS/UML\'2002',
+  'key' => 'Tang2002',
+  'organization' => 'UML 2002',
+  'title' => 'Measuring OO Design Metrics from UML',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2002',
+)
+array (
+  'author' => 'Paul Temple and Geoffrey Williams',
+  'journal' => 'Information Economics and Policy',
+  'key' => 'Temple2002',
+  'month' => 'December',
+  'number' => '4',
+  'pages' => '435-452',
+  'title' => 'Infra-technology and economic performance: evidence from the United Kingdom measurement infrastructure',
+  'type' => 'ARTICLE',
+  'volume' => '14',
+  'year' => '2002',
+)
+array (
+  'author' => 'C. Tsalidis and D. Christodoulakis and D. Maritsas',
+  'doi' => '10.1002/smr.4360040202',
+  'issn' => '1040-550X',
+  'journal' => 'Journal of Software Maintenance',
+  'key' => 'Tsalidis1992',
+  'number' => '2',
+  'pages' => '61--81',
+  'title' => 'ATHENA: a software measurement and metrics environment',
+  'type' => 'ARTICLE',
+  'volume' => '4',
+  'year' => '1992',
+)
+array (
+  'author' => 'Eric Vépa and Jean Bézivin and Hugo Brunelière and Frédéric Jouault',
+  'booktitle' => 'Proceedings of the 1st Workshop on Model Size Metrics (MSM\'06) co-located with MoDELS\'2006',
+  'key' => 'Vepa2006',
+  'title' => 'Measuring Model Repositories',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'Hironori Washizaki and Hirokazu Yamamoto and Yoshiaki Fukazawa',
+  'booktitle' => 'METRICS \'03: Proceedings of the 9th International Symposium on Software Metrics',
+  'isbn' => '0-7695-1987-3',
+  'key' => 'Washizaki2003',
+  'pages' => '211',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'A Metrics Suite for Measuring Reusability of Software Components',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2003',
+)
+array (
+  'author' => 'E. J. Weyuker',
+  'journal' => 'IEEE Transactions on Software Engineering',
+  'key' => 'Weyum88',
+  'number' => '9',
+  'pages' => '1357--1365',
+  'title' => 'Evaluating Software Complexity Metrics',
+  'type' => 'ARTICLE',
+  'volume' => '14',
+  'year' => '1988',
+)
+array (
+  'author' => 'Carol Withrow',
+  'doi' => '10.1109/52.43046',
+  'issn' => '0740-7459',
+  'journal' => 'IEEE Softw.',
+  'key' => 'Withrow1990',
+  'number' => '1',
+  'pages' => '26--30',
+  'publisher' => 'IEEE Computer Society Press',
+  'title' => 'Error Density and Size in Ada Software',
+  'type' => 'ARTICLE',
+  'volume' => '7',
+  'year' => '1990',
+)
+array (
+  'author' => 'Wang Yu-ying and Li Qing-shan and Chen Ping and Ren Chun-de',
+  'doi' => '10.1007/s11741-007-0507-2',
+  'journal' => 'Journal of Shanghai University',
+  'key' => 'Yu-ying2007',
+  'number' => '5',
+  'pages' => '474-479',
+  'title' => 'Dynamic fan-in and fan-out metrics for program comprehension',
+  'type' => 'ARTICLE',
+  'volume' => '11',
+  'year' => '2007',
+)
+array (
+  'author' => 'J. A. Zachman',
+  'journal' => 'IBM Systems Journal',
+  'key' => 'Zachman1987',
+  'number' => '3',
+  'pages' => '276--292',
+  'title' => 'A framework for information systems architecture',
+  'type' => 'ARTICLE',
+  'volume' => '26',
+  'year' => '1987',
+)
+array (
+  'address' => 'Boston, MA, USA',
+  'author' => 'Kevin Pulford and Annie Kuntzmann-Combelles and Stephen Shirlaw',
+  'isbn' => '0-201-87746-5',
+  'key' => 'ami95',
+  'publisher' => 'Addison-Wesley Longman Publishing Co., Inc.',
+  'title' => 'A quantitative approach to software management: the AMI handbook',
+  'type' => 'BOOK',
+  'year' => '1995',
+)
+array (
+  'author' => 'S. Sarkar and G. M. Rama and A. C. Kak',
+  'issue' => '1',
+  'journal' => 'IEEE Transactions on Software Engineering',
+  'key' => 'apibased',
+  'pages' => '14-32',
+  'title' => 'API-Based and Information-Theoretic Metrics for Measuring the Quality of Software Modularization',
+  'type' => 'ARTICLE',
+  'volume' => '33',
+  'year' => '2007',
+)
+array (
+  'author' => 'NASA Software Assurance Technology Center',
+  'institution' => 'NASA',
+  'key' => 'arm-nasa',
+  'title' => 'Automated Requirement Measurement',
+  'type' => 'MISC',
+  'year' => '2000',
+)
+array (
+  'author' => 'A. Baroni and S. Braz and F. Abreu',
+  'booktitle' => 'ECOOP\'02 Workshop on Quantitative Approaches in OO Software Engineering',
+  'key' => 'baroni02',
+  'title' => 'Using OCL to Formalize Object-Oriented Design Metrics Definitions',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2002',
+)
+array (
+  'author' => 'Chris Kolde',
+  'howpublished' => 'White paper, Borland',
+  'key' => 'borlandrequirements',
+  'organization' => 'Borland',
+  'title' => 'Basic metrics for requirements management',
+  'type' => 'MISC',
+  'year' => '2004',
+)
+array (
+  'author' => 'L. Briand and S. Morasca and V. Basili',
+  'issue' => '12',
+  'journal' => 'IEEE Transactions on Software Engineering',
+  'key' => 'briand02operational',
+  'pages' => '1106--1125',
+  'title' => 'An operational process for goal-driven definition of measures',
+  'type' => 'ARTICLE',
+  'volume' => '28',
+  'year' => '2002',
+)
+array (
+  'author' => 'Lionel C. Briand and Sandro Morasca and Victor R. Basili',
+  'journal' => 'Software Engineering',
+  'key' => 'briand96propertybased',
+  'number' => '1',
+  'pages' => '68-86',
+  'title' => 'Property-Based Software Engineering Measurement',
+  'type' => 'ARTICLE',
+  'volume' => '22',
+  'year' => '1996',
+)
+array (
+  'author' => 'Betty H. C. Cheng and Ryan Stephenson and Brian Berenbach',
+  'bibsource' => 'DBLP, http://dblp.uni-trier.de',
+  'booktitle' => 'Proceedings of MODELS\' 2005',
+  'doi' => '10.1007/11557432_24',
+  'key' => 'cheng05',
+  'pages' => '324-338',
+  'title' => 'Lessons Learned from Automated Analysis of Industrial UML Class Models (An Experience Report).',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2005',
+)
+array (
+  'author' => 'Barry Boehm and Bradford Clark and Ellis Horowitz and Richard Shelby and Chris Westland',
+  'booktitle' => 'Software Technology Conference',
+  'key' => 'cocomo:95',
+  'month' => 'Apr',
+  'title' => 'An Overview of the COCOMO 2.0 Software Cost Model',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1995',
+)
+array (
+  'author' => 'A. Davis and S. Overmyer and K. Jordan and J. Caruso and F. Dandashi and A. Dinh and G. Kincaid and G. Ledeboer and P. Reynolds and P. Sitaram and A. Ta and M. Theofanos',
+  'booktitle' => 'Proceedings of the First International Software Metrics Symposium',
+  'key' => 'davis93',
+  'title' => 'Identifying and measuring quality in a software requirements specification',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1993',
+)
+array (
+  'author' => 'Bruno Dufour and Karel Driesen and Laurie Hendren and Clark Verbrugge',
+  'booktitle' => 'Proceedings of the ACM SIGPLAN 2003 Conference on Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA\'03)',
+  'isbn' => '1-58113-712-5',
+  'key' => 'dufour03',
+  'pages' => '149--168',
+  'publisher' => 'ACM Press',
+  'title' => 'Dynamic Metrics for Java',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://www.sable.mcgill.ca/publications/papers/2003-5/sable-paper-2003-5.pdf',
+  'year' => '2003',
+)
+array (
+  'author' => 'N. E. Fenton',
+  'key' => 'fenton:1991',
+  'publisher' => 'Chapman and Hall',
+  'title' => 'Software Metrics: A Rigorous Approach',
+  'type' => 'BOOK',
+  'year' => '1991',
+)
+array (
+  'author' => 'Tudor Gîrba and Michele Lanza and Stéphane Ducasse',
+  'booktitle' => 'Proceedings of the 9th European Conference on Software Maintenance and Reengineering (CSMR\'05)',
+  'doi' => '10.1109/CSMR.2005.15',
+  'key' => 'girba05a',
+  'pages' => '2--11',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'Characterizing the Evolution of Class Hierarchies',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://www.iam.unibe.ch/~scg/Archive/Papers/Girb05aHierarchiesEvolution.pdf',
+  'year' => '2005',
+)
+array (
+  'author' => 'Victor R. Basili and Gianluigi Caldiera and H. Dieter Rombach',
+  'booktitle' => 'Encyclopedia of Software Engineering',
+  'key' => 'gqm',
+  'publisher' => 'Wiley',
+  'title' => 'The Goal Question Metric Approach',
+  'type' => 'INCOLLECTION',
+  'year' => '1994',
+)
+array (
+  'author' => 'Esther Guerra and Paloma Diaz and Juan de Lara',
+  'booktitle' => 'Graph Transformation and Visual Modeling Techniques (GT-VMT 2006)',
+  'key' => 'guerra2006',
+  'title' => 'Visual Specification of Metrics for Domain Specific Visual Languages',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'NASA Software Program',
+  'institution' => 'National Aeronautics and Space Administration',
+  'key' => 'guidebook-software',
+  'title' => 'Software Measurement Guidebook',
+  'type' => 'TECHREPORT',
+  'year' => '1995',
+)
+array (
+  'author' => 'T. J. Harmer and F. G. Wilkie',
+  'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
+  'key' => 'harmer2002',
+  'title' => 'An Extensible Metrics Extraction Environment for Object-Oriented Programming Languages',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2002',
+)
+array (
+  'author' => 'B. Henderson-Sellers and J. M. Edwards',
+  'key' => 'henderson:edwards:94',
+  'publisher' => 'Prentice Hall',
+  'title' => 'BOOKTWO of Object-Oriented Knowledge: The Working Object',
+  'type' => 'BOOK',
+  'year' => '1994',
+)
+array (
+  'author' => 'The International Software Benchmarking Standards Group',
+  'key' => 'isbsg',
+  'title' => 'ISBSG Repositories',
+  'type' => 'MISC',
+  'year' => '2007',
+)
+array (
+  'author' => 'C. Jones',
+  'key' => 'jones1993',
+  'publisher' => 'Carlsbad, Calif.: IS Management Group',
+  'title' => 'Software Productivity and Quality Today: The Worldwide Perspective',
+  'type' => 'BOOK',
+  'year' => '1993',
+)
+array (
+  'author' => 'C. Jones',
+  'key' => 'jones86',
+  'publisher' => 'McGraw-Hill',
+  'title' => 'Programming Productivity',
+  'type' => 'BOOK',
+  'year' => '1986',
+)
+array (
+  'author' => 'Cristina Marinescu and Radu Marinescu and Tudor Gîrba',
+  'booktitle' => 'IEEE METRICS',
+  'doi' => '10.1109/METRICS.2005.48',
+  'key' => 'marinescuMG05',
+  'pages' => '11',
+  'title' => 'Towards a Simplified Implementation of Object-Oriented Design Metrics.',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2005',
+)
+array (
+  'author' => 'Michael Mattsson and Jan Bosch',
+  'booktitle' => 'TOOLS \'99: Proceedings of the Technology of Object-Oriented Languages and Systems',
+  'isbn' => '0-7695-0275-X',
+  'key' => 'mattson99',
+  'pages' => '118',
+  'publisher' => 'IEEE Computer Society',
+  'title' => 'Characterizing Stability in Evolving Frameworks',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1999',
+)
+array (
+  'author' => 'McCabe',
+  'journal' => 'IEEE Transactions on Software Engineering',
+  'key' => 'mccabe1976',
+  'pages' => '308-320',
+  'title' => 'A Complexity Measure',
+  'type' => 'ARTICLE',
+  'volume' => '2',
+  'year' => '1976',
+)
+array (
+  'author' => 'T. Mens and M. Lanza',
+  'doi' => '10.1016/S1571-0661(05)80529-8',
+  'issue' => '2',
+  'journal' => 'Electronic Notes in Theoretical Computer Science',
+  'key' => 'mens02graphbased',
+  'pages' => '57--68',
+  'title' => 'A graph-based metamodel for object-oriented software metrics',
+  'type' => 'ARTICLE',
+  'volume' => '72',
+  'year' => '2002',
+)
+array (
+  'author' => 'H. Ma and W. Shao and L.Zhang and Z.Ma and Y.Jiang',
+  'booktitle' => 'Proceedings of MODELS/UML\'2004',
+  'key' => 'metrics-uml-metamodel',
+  'organization' => 'UML 2004',
+  'title' => 'Applying OO Metrics to Assess UML Meta-Models',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2004',
+)
+array (
+  'author' => 'Vojislav B. Misic and Simon Moser',
+  'booktitle' => 'Proceedings of the Technology of Object-Oriented Languages and Systems Conference (TOOLS\'97)',
+  'isbn' => '0-8186-8551-4',
+  'key' => 'misic97',
+  'pages' => '330',
+  'title' => 'From Formal Metamodels to Metrics: An Object-Oriented Approach',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1997',
+)
+array (
+  'author' => 'Martin Monperrus and Joël Champeau and Brigitte Hoeltzener',
+  'booktitle' => 'Proceedings of the 2nd Workshop on Model Size Metrics (MSM\'07) co-located with MODELS\'2007',
+  'key' => 'monperrus07',
+  'title' => 'Counts Count',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://www.monperrus.net/martin/Counts_Count.pdf',
+  'year' => '2007',
+)
+array (
+  'author' => 'Martin Monperrus and Jean-Marc Jézéquel and Joël Champeau and Brigitte Hoeltzener',
+  'booktitle' => 'Proceedings of the 4th European Congress on Embedded Real Time Software (ERTS\'2008)',
+  'key' => 'monperrus08a',
+  'title' => 'Model-driven Engineering Metrics for Real Time Systems',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://www.monperrus.net/martin/Model-driven_Engineering_Metrics_for_Real_Time_Systems.pdf',
+  'year' => '2008',
+)
+array (
+  'abstract' => 'Model-Driven Engineering (MDE) is an approach to software development that uses models as primary artifacts, from which code, documentation and tests are derived. One way of assessing quality assurance in a given domain is to define domain metrics. As text documents, models can be considered from a syntactic point of view i.e., thought of as graphs. We can readily apply graph-based metrics to them, such as the number of nodes, the number of edges or the fan-in/fan-out distributions. However, these metrics cannot leverage the semantic structuring enforced by each specific metamodel to give domain specific information. Contrary to graph-based metrics, more specific metrics do exist for given domains (such as LOC for programs), but they lack genericity. Our contribution is to propose one metric that is generic over the domains and the metamodels and allows the easy specification of an open-ended wide range of model metrics.',
+  'author' => 'Martin Monperrus and Jean-Marc Jézéquel and Joël Champeau and Brigitte Hoeltzener',
+  'booktitle' => 'Model-Driven Software Development: Integrating Quality Assurance',
+  'editor' => 'Jörg Rech and Christian Bunse',
+  'isbn' => '978-1-60566-006-6',
+  'key' => 'monperrus08b',
+  'publisher' => 'IDEA Group',
+  'title' => 'Measuring Models',
+  'type' => 'INCOLLECTION',
+  'url' => 'http://www.monperrus.net/martin/Measuring-models-in-Model-Driven-Software-Development-Integrating-Quality-Assurance.pdf',
+  'year' => '2008',
+)
+array (
+  'author' => 'Martin Monperrus and Jean-Marc Jézéquel and Joël Champeau and Brigitte Hoeltzener',
+  'booktitle' => 'Proceedings of the ACM/IEEE 11th International Conference on Model Driven Engineering Languages and Systems (MODELS\'2008)',
+  'comment' => 'acceptance rate: 58/274',
+  'key' => 'monperrus08d',
+  'title' => 'A Model-driven Measurement Approach',
+  'type' => 'INPROCEEDINGS',
+  'url' => 'http://www.monperrus.net/martin/A-Model-Driven-Measurement-Approach.pdf',
+  'year' => '2008',
+)
+array (
+  'author' => 'Martin Monperrus',
+  'comment' => 'Advisor: JM. Jézéquel; Examiners: H. Sahraoui, S. Ducasse',
+  'key' => 'monperrus08phd',
+  'school' => 'Université de Rennes',
+  'title' => 'La mesure des modèles par les modèles : une approche générative',
+  'type' => 'PHDTHESIS',
+  'url' => 'http://www.monperrus.net/martin/la-mesure-des-modeles-par-les-modeles-une-approche-generative.pdf',
+  'year' => '2008',
+)
+array (
+  'author' => 'Ralf Reissing',
+  'booktitle' => 'ECOOP\'01 Workshop QAOOSE',
+  'key' => 'reissing2001',
+  'title' => 'Towards a Model for Object-Oriented Design Measurement',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2001',
+)
+array (
+  'author' => 'M. Medina Mora and C. Denger',
+  'institution' => 'Fraunhofer IESE',
+  'key' => 'remetricssurvey',
+  'title' => 'Requirements metrics: an initial literature survey on measurement approaches for requirements specifications',
+  'type' => 'TECHREPORT',
+  'year' => '2003',
+)
+array (
+  'author' => 'Ganesh Kandula and Vinay Kumar Sathrasala',
+  'key' => 'requirementsmetrics',
+  'school' => 'Umea University',
+  'title' => 'Product and Management Metrics for Requirements.',
+  'type' => 'MASTERSTHESIS',
+  'year' => '2005',
+)
+array (
+  'author' => 'Norman F. Schneidewind',
+  'doi' => '10.1109/32.135774',
+  'issn' => '0098-5589',
+  'journal' => 'IEEE Trans. Software Eng.',
+  'key' => 'schneidewind92',
+  'number' => '5',
+  'pages' => '410--422',
+  'title' => 'Methodology for Validating Software Metrics',
+  'type' => 'ARTICLE',
+  'volume' => '18',
+  'year' => '1992',
+)
+array (
+  'author' => 'SDMetrics',
+  'key' => 'sdmetrics',
+  'title' => 'The Software Design Metrics tool for the UML (http://www.sdmetrics.com/)',
+  'type' => 'MISC',
+  'url' => 'http://www.sdmetrics.com/',
+  'year' => '2006',
+)
+array (
+  'author' => 'A. Perlis and F. Sayward and M. Shaw',
+  'key' => 'software-metrics',
+  'publisher' => 'MIT',
+  'title' => 'Software Metrics',
+  'type' => 'BOOK',
+  'year' => '1981',
+)
+array (
+  'author' => 'Harald Störrle',
+  'booktitle' => 'Proceedings of the Model Size Metrics workshop at Models\'2006',
+  'key' => 'stoerrle2006',
+  'title' => 'On different notions of model size',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'Bruce Edmonds',
+  'key' => 'syntactic-measures',
+  'school' => 'University of Manchester',
+  'title' => 'Syntactic Measures of Complexity',
+  'type' => 'PHDTHESIS',
+  'year' => '1999',
+)
+array (
+  'author' => 'D. P. Tegarden and S. D. Sheetz',
+  'booktitle' => 'OOPSLA\'92 Workshop on Metrics for Object-Oriented Software Development',
+  'key' => 'tegarden:sheetz:92',
+  'title' => 'Object-oriented system complexity: an integrated model of structure and perceptions',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1992',
+)
+array (
+  'author' => 'Jean Paul Van Belle',
+  'booktitle' => 'Proceedings of SAICSIT 2002',
+  'key' => 'towards-a-syntactic',
+  'title' => 'Towards a Syntactic Signature for Domain Models: Proposed Descriptive Metrics for Visualizing the Entity Fan-out Frequency Distribution',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2002',
+)
+array (
+  'author' => 'M. El Wakil and A. El Bastawissi and M. Boshra and A. Fahmy',
+  'booktitle' => 'Proceedings of the 9th International Conference on Empirical Assessment in Software Engineering',
+  'key' => 'wakil2005',
+  'title' => 'A novel approach to formalize and collect Object-Oriented Design-Metrics',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2005',
+)
+array (
+  'author' => 'Frank Weil and Andrij Neczwid and Kent Farbelow',
+  'booktitle' => 'Proceedings of the Model Size Metrics workshop at Models\'2006',
+  'key' => 'weil2006',
+  'title' => 'Model Size Metrics Research in Motorola',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2006',
+)
+array (
+  'author' => 'W. M. Wilson and L. H. Rosenberg and L. E. Hyatt',
+  'booktitle' => 'Proceeding of the PNSQC Conference',
+  'key' => 'wilson96',
+  'title' => 'Automated quality analysis of Natural Language requirement specifications',
+  'type' => 'INPROCEEDINGS',
+  'year' => '1996',
+)
+array (
+  'author' => 'M. Xenos and D. Stavrinoudis and K. Zikouli and D. Christodoulakis',
+  'booktitle' => 'Proceedings of the FESMA Conference (FESMA\'2000)',
+  'key' => 'xenos00objectoriented',
+  'title' => 'Object-oriented metrics - a survey',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2000',
+)
+array (
+  'author' => 'L. M. Yap and B. Henderson-Sellers',
+  'institution' => 'University of New South Wales',
+  'key' => 'yap:henderson:93',
+  'number' => '93/3',
+  'title' => 'Consistency considerations of object-oriented class libraries',
+  'type' => 'TECHREPORT',
+  'year' => '1993',
+)
+array (
+  'author' => 'L. M. Yap and B. Henderson-Sellers',
+  'journal' => 'Australian Computer Journal',
+  'key' => 'yap:henderson:97',
+  'number' => '3',
+  'pages' => '81-94',
+  'title' => 'Class Hierarchies: Consistency Between Libraries',
+  'type' => 'ARTICLE',
+  'volume' => '29',
+  'year' => '1997',
+)
+array (
+  'address' => 'Berlin',
+  'author' => 'Horst Zuse',
+  'key' => 'zuse1991',
+  'publisher' => 'Walter de Gruyter',
+  'title' => 'Software Complexity',
+  'type' => 'BOOK',
+  'year' => '1991',
+)
