@@ -978,7 +978,7 @@ class BibEntry {
     // hp as home page
     // accents are handled normally
     // e.g. @STRING{hp_Jean-MarcJézéquel="http://www.irisa.fr/prive/jezequel/"}
-    $homepage = 'hp_'.preg_replace('/ /', '', $author);
+    $homepage = strtolower('hp_'.preg_replace('/ /', '', $author));
     if (isset($_GET[Q_DB]->stringdb[$homepage]))
       $author='<a href="'.$_GET[Q_DB]->stringdb[$homepage].'">'.$author.'</a>';
     return $author;
