@@ -617,7 +617,7 @@ class BibDBBuilder {
 
   var $currentEntry;
 
-  function BibDBBuilder($filename, $builtdb = array(), $stringdb = array()) {
+  function BibDBBuilder($filename, &$builtdb, &$stringdb) {
     $this->builtdb = $builtdb;
     $this->stringdb = $stringdb;
     new StateBasedBibtexParser($filename, $this);
@@ -629,7 +629,9 @@ class BibDBBuilder {
 
   function endFile() {
     // resolving crossrefs
-    foreach ($this->builtdb as $bib) {
+    // we are careful with PHP 4 semantics 
+    foreach (array_keys($this->builtdb) as $key) {
+      $bib = &$this->builtdb[$key];
       if ($bib->hasField('crossref')) {
         if (isset($this->builtdb[$bib->getField('crossref')])) {
           $crossrefEntry = $this->builtdb[$bib->getField('crossref')];
