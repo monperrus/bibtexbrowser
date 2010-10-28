@@ -563,6 +563,7 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
  // handle anti-double quotes
  else if ($state==GETVALUEDELIMITEDBYQUOTES_ESCAPED) {
   $state = GETVALUEDELIMITEDBYQUOTES;
+  $inentryvaluedelimitedB = substr($inentryvaluedelimitedB,0,strlen($inentryvaluedelimitedB)-1);
   $inentryvaluedelimitedB=$inentryvaluedelimitedB.$s;
  }
 
@@ -2068,8 +2069,8 @@ class BibDataBase {
       if (!$bib->hasField("keywords")) continue;
       $tags =preg_split('/[,;]/', $bib->getField("keywords"));
       foreach($tags as $a){
- $ta = trim($a);
-   $result[$ta] = $ta;
+        $ta = trim($a);
+        $result[$ta] = $ta;
       }
     }
     asort($result);
