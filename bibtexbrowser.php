@@ -203,6 +203,7 @@ License, or (at your option) any later version.
 // number of bib items per page
 @define('PAGE_SIZE',isset($_GET['nopage'])?10000:25);
 @define('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');// this is the name of a function
+@define('BIBLIOGRAPHYSECTIONS','DefaultBibliographySections');// this is the name of a function
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
 @define('TYPES_SIZE',10); // number of entry types per table
 @define('YEAR_SIZE',20); // number of years per table
@@ -1257,10 +1258,53 @@ class BibEntry {
 }
 
 
-/**bibtexbrowser uses this function which encapsulates the user-defined name*/
+/** this function encapsulates the user-defined name for bib to HTML*/
 function bib2html(&$bibentry) {
   $function = BIBLIOGRAPHYSTYLE;
   return $function($bibentry);
+}
+
+/**bibtexbrowser uses this function which encapsulates the user-defined sections*/
+function _DefaultBibliographySections() {
+  $function = BIBLIOGRAPHYSECTIONS;
+  return $function($bibentry);
+}
+
+/** the default sectins */
+function DefaultBibliographySections() {
+
+return  
+  array(
+    // Books
+    array(
+      'query' => array(Q_TYPE=>'book'),
+      'title' => 'Books'
+    ),
+
+    // Journal / Bookchapters
+    array(
+      'query' => array(Q_TYPE=>'article|incollection'),
+      'title' => 'Refereed Articles and Book Chapters'
+    ),
+
+    // conference papers
+    array(
+      'query' => array(Q_TYPE=>'inproceedings',Q_EXCLUDE=>'workshop'),
+      'title' => 'Refereed Conference Papers'
+    ),
+
+    // workshop papers
+    array(
+      'query' => array(Q_TYPE=>'inproceedings',Q_SEARCH=>'workshop'),
+      'title' => 'Refereed Workshop Papers'
+    ),
+
+    // misc and thesis
+    array(
+      'query' => array(Q_TYPE=>'misc|phdthesis|mastersthesis|bachelorsthesis|techreport'),
+      'title' => 'Other Publications'
+    )
+  );
 }
 
 
@@ -1883,21 +1927,9 @@ class AcademicDisplay extends BibtexBrowserDisplay {
   
   function display() {
     echo $this->formatedHeader();
-
-    // Books
-    $this->search2html(array(Q_TYPE=>'book'),'Books');
-
-    // Journal / Bookchapters
-    $this->search2html(array(Q_TYPE=>'article|incollection'),'Refereed Articles and Book Chapters');
-
-    // conference papers
-    $this->search2html(array(Q_TYPE=>'inproceedings',Q_EXCLUDE=>'workshop'),'Refereed Conference Papers');
-
-    // workshop papers
-    $this->search2html(array(Q_TYPE=>'inproceedings',Q_SEARCH=>'workshop'),'Refereed Workshop Papers');
-
-    // misc and thesis
-    $this->search2html(array(Q_TYPE=>'misc|phdthesis|mastersthesis|bachelorsthesis|techreport'),'Other Publications');
+    foreach (DefaultBibliographySections() as $section) {
+      $this->search2html($section['query'],$section['title']);
+    }
 
     echo $this->poweredby();
   }
