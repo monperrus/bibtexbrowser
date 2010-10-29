@@ -28,7 +28,7 @@ function DefaultBibliographyStyle(&$bibentry) {
 
   // author
   if ($bibentry->hasField('author')) {
-    $coreInfo = $title . ' <span class="bibauthor">('.$bibentry->formattedAuthors().')</span>';}
+    $coreInfo = $title . ' <span class="bibauthor">('.$bibentry->getFormattedAuthorsImproved().')</span>';}
   else $coreInfo = $title;
 
   // core info usually contains title + author
@@ -50,11 +50,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   //// we may add the editor names to the booktitle
   $editor='';
   if ($bibentry->hasField(EDITOR)) {
-    $editors = array();
-    foreach ($bibentry->getEditors() as $ed) {
-      $editors[]=formatAuthor($ed);
-    }
-    $editor = implode(', ',$editors).', '.(count($editors)>1?'eds.':'ed.');
+    $editor = $bibentry->getFormattedEditors();
   }
   if ($editor!='') $booktitle .=' ('.$editor.')';
   // end editor section
