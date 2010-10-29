@@ -468,14 +468,14 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
     // the end of the key and no value found: it is the bibtex key e.g. \cite{Descartes1637}
     else if ($s==',') {
     $state = GETKEY;
-    $delegate->setEntryField(trim($finalkey),trim($entryvalue));
+    $delegate->setEntryField(trim($finalkey),$entryvalue);
     $entryvalue=''; // resetting the value buffer
     }
     // this is the end of the value AND of the entry
     else if ($s=='}') {
-    $state = NOTHING;$isinentry = false;
-    $delegate->setEntryField(trim($finalkey),trim($entryvalue));
-    $delegate->endEntry($entrysource);
+    $state = NOTHING;
+    $delegate->setEntryField(trim($finalkey),$entryvalue);
+    $isinentry = false;$delegate->endEntry($entrysource);
     $entryvalue=''; // resetting the value buffer
     }
     else { $entryvalue=$entryvalue.$s;}
@@ -545,7 +545,7 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
  // handle anti-slashed brackets
  else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL_ESCAPED) {
   $state = GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL;
-  $entryvalue=$inentryvaluedelimitedA0.$s;
+  $entryvalue=$entryvalue.$s;
  }
 
 /* handles entries delimited by double quotes */
@@ -553,18 +553,16 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
 
   if ($s=='\\') {
    $state = GETVALUEDELIMITEDBYQUOTES_ESCAPED;
-   $inentryvaluedelimitedB=$inentryvaluedelimitedB.$s;}
+   $entryvalue=$entryvalue.$s;}
   else if ($s=='"') {
    $state = GETVALUE;
-   $entryvalue=$entryvalue.$inentryvaluedelimitedB;
-   $inentryvaluedelimitedB='';}
-  else {   $inentryvaluedelimitedB=@$inentryvaluedelimitedB.$s;}
+  }
+  else {  $entryvalue=$entryvalue.$s;}
  }
  // handle anti-double quotes
  else if ($state==GETVALUEDELIMITEDBYQUOTES_ESCAPED) {
   $state = GETVALUEDELIMITEDBYQUOTES;
-  $inentryvaluedelimitedB = substr($inentryvaluedelimitedB,0,strlen($inentryvaluedelimitedB)-1);
-  $inentryvaluedelimitedB=$inentryvaluedelimitedB.$s;
+  $entryvalue=$entryvalue.$s;
  }
 
 } // end for
@@ -650,7 +648,6 @@ class BibDBBuilder {
   }
 
   function setEntryField($finalkey,$entryvalue) {
-  
     // is it a constant? then we replace the value
     // we support advanced features of bibtexbrowser
     // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
