@@ -59,10 +59,7 @@ Create a bib file with the publication records (e.g. csgroup2008.bib) and upload
 
 ** Warning **: bibtexbrowser maintains a cached version of the parsed bibtex, for high performance, check that PHP can write in the working directory of PHP.
 
-=====Handling mutliple bibtex files=====
-
-It is a common practice to create one file for the @string, and another one with the bib entries. In this case, just give bibtexbrowser the files separated by a semi-column e.g:
-
+**Handling mutliple bibtex files**: It is a common practice to create one file for the @string, and another one with the bib entries. In this case, just give bibtexbrowser the files separated by a semi-column e.g:
 ''bibtexbrowser.php?bib=strings.bib;csgroup2008.bib''
 
 
@@ -106,7 +103,11 @@ include( 'bibtexbrowser.php' );
 </tr><!-- end individual -->
 </table>
 
-And tailor it with a CSS style, for example:
+=====How to tailor bibtexbrowser?=====
+
+====By modifying the CSS====
+
+If bibtexbrowser.css exists, it is used, otherwise bibtexbrowser uses its own embedded CSS style (see function bibtexbrowserDefaultCSS). An example of CSS tailoring is:
 &#60;style>
 .date {   background-color: blue; }
 .rheader {  font-size: large }
@@ -115,20 +116,48 @@ And tailor it with a CSS style, for example:
 .bibbooktitle { font-style:italic; }
 &#60;/style>
 
-=====How to tailor bibtexbrowser?=====
 
-====By modifying the CSS====
+====By creating a "bibtexbrowser.local.php"====
 
-If bibtexbrowser.css exists, it will be used, otherwise bibtexbrowser uses its own embedded CSS style (see function bibtexbrowserDefaultCSS).
-
-====By modifying the configuration parameters====
-
-All configuration parameters are of the form ''define("PARAMETER_NAME","PARAMER_VALUE")'' at the beginning of the script. You can modify them by creating a file named "bibtexbrowser.local.php" containing the modified value. For instance:
+All the variable parts of bibtexbrowser can be modified with a file called ''bibtexbrowser.local.php''.
 
 <code>
+<pre>
 &#60;?php
-@define("ENCODING","utf-8");// if your bibtex file is utf-8 encoded
+
+// if your bibtex file is utf-8 encodedd
+define("ENCODING","utf-8");
+
+// number of bib items per page
+define('PAGE_SIZE',50);
+
+// if you are not satisifed with the default style (see below)
+define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
+function MyFancyBibliographyStyle() {
+   // see function DefaultBibliographyStyle
+}
+
+// if you are not satisifed with the default sections
+define('BIBLIOGRAPHYSECTIONS','mySections');
+function mySections() {
+return  
+  array(
+  // Books
+    array(
+      'query' => array(Q_TYPE=>'book'),
+      'title' => 'Cool Books'
+    ),
+  // .. see function DefaultBibliographySections
+);
+}
+
+
+// Advanced
+// to get the individual bib pages embedded as well
+// define('BIBTEXBROWSER_URL','');
+
 ?>
+</pre>
 </code>
 
 
@@ -159,8 +188,7 @@ comment={&lt;a href="myslides.pdf">[slides]&lt;/a>}
 }
 </code>
 
-
-
+This comment field can also be used to add acceptance rates and impact factors.
 
 =====Related tools=====
 
@@ -239,8 +267,8 @@ License, or (at your option) any later version.
 // in embedded mode, we still need a URL for displaying bibtex entries alone
 // this is usually resolved to bibtexbrowser.php
 // but can be overridden in bibtexbrowser.local.php 
-// for instance with @define('BIBTEXBROWSER',''); // links to the current page with ?
-@define('BIBTEXBROWSER',basename(__FILE__));
+// for instance with @define('BIBTEXBROWSER_URL',''); // links to the current page with ?
+@define('BIBTEXBROWSER_URL',basename(__FILE__));
 
 // *************** END CONFIGURATION
 
@@ -877,7 +905,7 @@ class BibEntry {
   /** Tries to build a good URL for this entry */
   function getURL() {
     if ($this->hasField('url')) return $this->getField('url');
-    else return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/'.BIBTEXBROWSER.'?'.createQueryString(array('key'=>$this->getKey()));
+    else return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/'.BIBTEXBROWSER_URL.'?'.createQueryString(array('key'=>$this->getKey()));
   }
 
   /** returns a "[pdf]" link if relevant */
@@ -1141,7 +1169,7 @@ class BibEntry {
         echo '<td class="bibitem">';
         echo bib2html($this);
 
-        $href = 'href="'.BIBTEXBROWSER.'?'.createQueryString(array(Q_KEY => $this->getKey())).'"';
+        $href = 'href="'.BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY => $this->getKey())).'"';
         echo " <a {$href}>[bib]</a>";
 
         // returns an empty string if no url present
@@ -1270,36 +1298,31 @@ function _DefaultBibliographySections() {
   return $function($bibentry);
 }
 
-/** the default sectins */
+/** the default sections */
 function DefaultBibliographySections() {
-
 return  
   array(
-    // Books
+  // Books
     array(
       'query' => array(Q_TYPE=>'book'),
       'title' => 'Books'
     ),
-
-    // Journal / Bookchapters
+  // Journal / Bookchapters
     array(
       'query' => array(Q_TYPE=>'article|incollection'),
       'title' => 'Refereed Articles and Book Chapters'
     ),
-
-    // conference papers
+  // conference papers
     array(
       'query' => array(Q_TYPE=>'inproceedings',Q_EXCLUDE=>'workshop'),
       'title' => 'Refereed Conference Papers'
     ),
-
-    // workshop papers
+  // workshop papers
     array(
       'query' => array(Q_TYPE=>'inproceedings',Q_SEARCH=>'workshop'),
       'title' => 'Refereed Workshop Papers'
     ),
-
-    // misc and thesis
+  // misc and thesis
     array(
       'query' => array(Q_TYPE=>'misc|phdthesis|mastersthesis|bachelorsthesis|techreport'),
       'title' => 'Other Publications'
@@ -1715,7 +1738,7 @@ class PagedDisplay extends BibtexBrowserDisplay {
   function getURL() { return '?'.createQueryString($this->filter);}
 
   /** overrides */
-  function getRSS() { return BIBTEXBROWSER.'?'.createQueryString($this->filter).'&amp;rss';}
+  function getRSS() { return BIBTEXBROWSER_URL.'?'.createQueryString($this->filter).'&amp;rss';}
 
   /** Displays the entries preceded with the header. */
   function display() {
@@ -1815,7 +1838,7 @@ class PagedDisplay extends BibtexBrowserDisplay {
     $label='[rss]';
     // auto adaptive code :-)
     //if (is_file('rss.png')) $label='<img src="rss.png"/>';
-    return '<a href="'.BIBTEXBROWSER.'?'.createQueryString($filter).'&amp;rss" class="rsslink">'.$label.'</a>';
+    return '<a href="'.BIBTEXBROWSER_URL.'?'.createQueryString($filter).'&amp;rss" class="rsslink">'.$label.'</a>';
 }
 
 
@@ -1927,7 +1950,7 @@ class AcademicDisplay extends BibtexBrowserDisplay {
   
   function display() {
     echo $this->formatedHeader();
-    foreach (DefaultBibliographySections() as $section) {
+    foreach (_DefaultBibliographySections() as $section) {
       $this->search2html($section['query'],$section['title']);
     }
 
