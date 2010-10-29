@@ -1,4 +1,5 @@
 array (
+  '_author' => 'J. Abounader, D. Lamb',
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'Abounader1997',
@@ -7,6 +8,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Jarallah S. Alghamdi, Raimi A. Rufai, Sohel M. Khan',
   'author' => 'Jarallah S. Alghamdi and Raimi A. Rufai and Sohel M. Khan',
   'booktitle' => 'Proceedings of the Ninth European Conference on Software Maintenance and Reengineering (CSMR\'05)',
   'doi' => '10.1109/CSMR.2005.44',
@@ -18,6 +20,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'El Hachemi Alikacem, Houari Sahraoui',
   'author' => 'El Hachemi Alikacem and Houari Sahraoui',
   'booktitle' => 'Proceedings of IWSM/MetriKon\'2006',
   'key' => 'Alikacem2006',
@@ -26,6 +29,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'El Hachemi Alikacem, Houari Sahraoui',
   'author' => 'El Hachemi Alikacem and Houari Sahraoui',
   'booktitle' => 'Actes de la 12ème conférence Langage et Modèles à Objets',
   'key' => 'Alikacem2006a',
@@ -34,6 +38,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Jagdish Bansiya, Carl Davis',
   'author' => 'Jagdish Bansiya and Carl Davis',
   'doi' => '10.1109/32.979986',
   'journal' => 'IEEE Transactions on Software Engineering',
@@ -47,6 +52,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Jagdish Bansiya',
   'author' => 'Jagdish Bansiya',
   'doi' => '10.1145/351936.351954',
   'issn' => '0360-0300',
@@ -61,6 +67,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'A. Baroni, F. Abreu',
   'author' => 'A. Baroni and F. Abreu',
   'booktitle' => 'Proc. of the 16th Brazilian Symposium on Software Engineering',
   'key' => 'Baroni2002',
@@ -69,6 +76,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Aline Lùcia Baroni',
   'author' => 'Aline Lùcia Baroni',
   'booktitle' => 'Proceedings of the doctoral symposium at the 10th European Software Engineering Conference held jointly with 13th International Symposium on Foundations of Software Engineering (ESEC-FSE\'05)',
   'doi' => '10.1145/1081706.1081764',
@@ -81,6 +89,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Victor R. Basili, Lionel C. Briand, Walcélio L. Melo',
   'author' => 'Victor R. Basili and Lionel C. Briand and Walcélio L. Melo',
   'doi' => '10.1109/32.544352',
   'issn' => '0098-5589',
@@ -94,6 +103,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Victor R. Basili, David M. Weiss',
   'author' => 'Victor R. Basili and David M. Weiss',
   'journal' => 'IEEE Trans. Software Eng.',
   'key' => 'BasiliW84',
@@ -105,6 +115,7 @@ array (
   'year' => '1984',
 )
 array (
+  '_author' => 'John Baumert, Mark McWhinney',
   'author' => 'John Baumert and Mark McWhinney',
   'institution' => 'Software Engineering Institute, Carnegie Mellon University',
   'key' => 'Baumert1992',
@@ -113,6 +124,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Dirk Beyer, Andreas Noack, Claus Lewerentz',
   'author' => 'Dirk Beyer and Andreas Noack and Claus Lewerentz',
   'doi' => '10.1109/TSE.2005.23',
   'issn' => '0098-5589',
@@ -126,6 +138,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Barry W. Boehm, Kevin J. Sullivan',
   'author' => 'Barry W. Boehm and Kevin J. Sullivan',
   'booktitle' => 'ICSE - Future of SE Track',
   'doi' => '10.1145/336512.336584',
@@ -136,6 +149,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Lionel C. Briand, John W. Daly, Jürgen Wüst',
   'author' => 'Lionel C. Briand and John W. Daly and Jürgen Wüst',
   'doi' => '10.1023/A:1009783721306',
   'issn' => '1382-3256',
@@ -150,6 +164,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Sjaak Brinkkemper, Motoshi Saeki, Frank Harmsen',
   'author' => 'Sjaak Brinkkemper and Motoshi Saeki and Frank Harmsen',
   'booktitle' => 'CAiSE',
   'key' => 'Brinkkemper2001',
@@ -159,6 +174,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'CEI, ISO',
   'author' => 'CEI and ISO',
   'isbn' => '92-67-01075-1',
   'key' => 'CEI1993',
@@ -168,6 +184,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'S. R. Chidamber, C. F. Kemerer',
   'author' => 'S. R. Chidamber and C. F. Kemerer',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'CK94',
@@ -180,6 +197,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Jordi Cabot, Ernest Teniente',
   'author' => 'Jordi Cabot and Ernest Teniente',
   'booktitle' => 'Model Size Metrics Workshop co-located with MODELS\'06',
   'key' => 'Cabot2006',
@@ -188,6 +206,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'David Card',
   'author' => 'David Card',
   'journal' => 'American Programmer',
   'key' => 'Card1991',
@@ -198,6 +217,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'David N. Card, Gerald T. Page, Frank E. McGarry',
   'author' => 'David N. Card and Gerald T. Page and Frank E. McGarry',
   'bibsource' => 'DBLP, http://dblp.uni-trier.de',
   'booktitle' => 'ICSE',
@@ -208,6 +228,7 @@ array (
   'year' => '1985',
 )
 array (
+  '_author' => 'Shyam R. Chidamber, Chris F. Kemerer',
   'author' => 'Shyam R. Chidamber and Chris F. Kemerer',
   'booktitle' => 'Proceedings of OOPSLA\'91',
   'key' => 'Chidamber:Kemerer:91',
@@ -218,6 +239,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Eun Sook Cho, Min Sun Kim, Soo Dong Kim',
   'author' => 'Eun Sook Cho and Min Sun Kim and Soo Dong Kim',
   'booktitle' => 'Proceedings of the 8th Asia-Pacific on Software Engineering Conference (APSEC\'01)',
   'key' => 'Cho2001',
@@ -229,6 +251,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Mariano P. Consens, Alberto O. Mendelzon',
   'author' => 'Mariano P. Consens and Alberto O. Mendelzon',
   'booktitle' => 'Proc. of the ACM Symp. on Principles of Database Systems',
   'key' => 'Consens1990',
@@ -238,6 +261,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Rita J. Costello, Dar-Biau Liu',
   'author' => 'Rita J. Costello and Dar-Biau Liu',
   'issn' => '0164-1212',
   'journal' => 'J. Syst. Softw.',
@@ -251,6 +275,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'N. Debnath, D. Riesco, G. Montejano, R. Uzal, L. Baigorria, A. Dasso, A. Funes',
   'author' => 'N. Debnath and D. Riesco and G. Montejano and R. Uzal and L. Baigorria and A. Dasso and A. Funes',
   'booktitle' => 'Proceedings of the ACS/IEEE 2005 International Conference on Computer Systems and Applications (AICCSA\'05)',
   'isbn' => '0-7803-8735-X',
@@ -261,6 +286,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Serge Demeyer, Stéphane Ducasse, Michele Lanza',
   'author' => 'Serge Demeyer and Stéphane Ducasse and Michele Lanza',
   'booktitle' => 'Proceedings of the Sixth Working Conference on Reverse Engineering (WCRE\'99)',
   'isbn' => '0-7695-0303-9',
@@ -271,6 +297,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Serge Demeyer, Stéphane Ducasse',
   'author' => 'Serge Demeyer and Stéphane Ducasse',
   'booktitle' => 'Proceedings of LMO\'99',
   'editor' => 'HERMES Science Publications',
@@ -281,6 +308,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Bruce Powel Douglass',
   'author' => 'Bruce Powel Douglass',
   'howpublished' => 'White paper, I-Logix',
   'key' => 'Douglass2004',
@@ -290,6 +318,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Michael Eichberg, Daniel Germanus, Mira Mezini, Lukas Mrokon, Thorsten Schäfer',
   'author' => 'Michael Eichberg and Daniel Germanus and Mira Mezini and Lukas Mrokon and Thorsten Schäfer',
   'booktitle' => 'Proceedings of the 10th European Conference on Software Maintenance and Reengineering (CSMR\'06)',
   'key' => 'Eichberg2006',
@@ -298,6 +327,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Elaine Ferneley',
   'author' => 'Elaine Ferneley',
   'ee' => '10.1016/S0950-5849(97)00034-7',
   'journal' => 'Information and Software Technology',
@@ -310,6 +340,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Xavier Franch, Gemma Grau, Carme Quer',
   'author' => 'Xavier Franch and Gemma Grau and Carme Quer',
   'booktitle' => 'Proceedings of the 2th IEEE International Requirements Engineering Conference (RE\'04)',
   'doi' => '10.1109/RE.2004.2',
@@ -322,6 +353,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Félix Garcia, Francisco Ruiz, Mario Piattini',
   'author' => 'Félix Garcia and Francisco Ruiz and Mario Piattini',
   'booktitle' => 'Proceedings of the International Conference on Product Focused Software Process Improvement (PROFES\'2004)',
   'key' => 'Garcia2004',
@@ -330,6 +362,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Félix Garcia, Manuel F. Bertoa, Coral Calero, Antonio Vallecillo, Francisco Ruiz, Mario Piattini, Marcela Genero',
   'author' => 'Félix Garcia and Manuel F. Bertoa and Coral Calero and Antonio Vallecillo and Francisco Ruiz and Mario Piattini and Marcela Genero',
   'doi' => '10.1016/j.infsof.2005.07.001',
   'journal' => 'Information and Software Technology',
@@ -342,6 +375,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Félix Garcia, M. Serrano, J. Cruz-Lemus, F. Ruiz, M. Piattini',
   'author' => 'Félix Garcia and M. Serrano and J. Cruz-Lemus and F. Ruiz and M. Piattini',
   'doi' => '10.1016/j.ins.2007.01.018',
   'issn' => '0020-0255',
@@ -356,6 +390,7 @@ array (
   'year' => '2007',
 )
 array (
+  '_author' => 'Félix García, Francisco Ruiz, Coral Calero, Manuel F. Bertoa, Antonio Vallecillo, Beatriz Mora, Mario Piattini',
   'author' => 'Félix García and Francisco Ruiz and Coral Calero and Manuel F. Bertoa and Antonio Vallecillo and Beatriz Mora and Mario Piattini',
   'journal' => 'The Knowledge Engineering Review',
   'key' => 'Garcia2009',
@@ -366,6 +401,7 @@ array (
   'year' => '2009',
 )
 array (
+  '_author' => 'Marcela Genero, Mario Piattini, Coral Calero',
   'author' => 'Marcela Genero and Mario Piattini and Coral Calero',
   'journal' => 'L\'Objet',
   'key' => 'Genero2000',
@@ -377,6 +413,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'M. Genero, D. Miranda, M. Piattini',
   'author' => 'M. Genero and D. Miranda and M. Piattini',
   'booktitle' => 'Proceedings of QAOOSE\'2002',
   'key' => 'Genero2002',
@@ -386,6 +423,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Marcela Genero, Mario Piattini, Coral Calero',
   'author' => 'Marcela Genero and Mario Piattini and Coral Calero',
   'booktitle' => 'Proceedings of the International Symposium on Empirical Software Engineering (ISESE\'02)',
   'isbn' => '0-7695-1796-X',
@@ -397,6 +435,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Marcela Genero, Mario Piattini, Coral Caleron',
   'author' => 'Marcela Genero and Mario Piattini and Coral Caleron',
   'issue' => '9',
   'journal' => 'Journal of Object Technology',
@@ -408,6 +447,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'N. S. Gill, P. S. Grover',
   'author' => 'N. S. Gill and P. S. Grover',
   'doi' => '10.1145/966221.966237',
   'issn' => '0163-5948',
@@ -423,6 +463,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Robert B. Grady, Deborah L. Caswell',
   'author' => 'Robert B. Grady and Deborah L. Caswell',
   'isbn' => '0-13-821844-7',
   'key' => 'Grady1987',
@@ -432,6 +473,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Robert B. Grady',
   'author' => 'Robert B. Grady',
   'isbn' => '0-13-720384-5',
   'key' => 'Grady1992',
@@ -441,6 +483,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Esther Guerra, Juan de Lara, Paloma Díaz',
   'author' => 'Esther Guerra and Juan de Lara and Paloma Díaz',
   'doi' => '10.1016/j.jvlc.2007.09.002',
   'journal' => 'Journal of Visual Languages and Computing',
@@ -453,6 +496,7 @@ array (
   'year' => '2007',
 )
 array (
+  '_author' => 'Esther Guerra, Juan de Lara, Alessio Malizia, Paloma Díaz',
   'author' => 'Esther Guerra and Juan de Lara and Alessio Malizia and Paloma Díaz',
   'journal' => 'Information and Software Technology',
   'key' => 'Guerra2009',
@@ -463,6 +507,7 @@ array (
   'year' => '2009',
 )
 array (
+  '_author' => 'T. Hammer, L. Rosenberg, L. Huffman, L. Hyatt',
   'author' => 'T. Hammer and L. Rosenberg and L. Huffman and L. Hyatt',
   'booktitle' => 'Proceedings of the 3rd IEEE International Symposium on Requirements Engineering (RE\'97)',
   'isbn' => '0-8186-7740-6',
@@ -474,6 +519,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Brian Henderson-Sellers, Didar Zowghi, T. Klemola, S. Parasuram',
   'author' => 'Brian Henderson-Sellers and Didar Zowghi and T. Klemola and S. Parasuram',
   'booktitle' => 'Proceedings of the 8th International Conference on Object-Oriented Information Systems (OOIS \'02)',
   'isbn' => '3-540-44087-9',
@@ -485,6 +531,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Brian Henderson-Sellers',
   'author' => 'Brian Henderson-Sellers',
   'key' => 'Henderson-Sellers:96',
   'publisher' => 'Prentice Hall',
@@ -493,6 +540,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'S. Henry, D. Kafura',
   'author' => 'S. Henry and D. Kafura',
   'doi' => '10.1109/TSE.1981.231113',
   'issn' => '0098-5589',
@@ -507,6 +555,7 @@ array (
   'year' => '1981',
 )
 array (
+  '_author' => 'Martin Hitz, Behzad Montazeri',
   'author' => 'Martin Hitz and Behzad Montazeri',
   'doi' => '10.1109/32.491650',
   'issn' => '0098-5589',
@@ -520,6 +569,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'ISO/IEC',
   'author' => 'ISO/IEC',
   'key' => 'ISOIEC9126',
   'publisher' => 'ISO/IEC',
@@ -528,6 +578,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'C. Jones',
   'author' => 'C. Jones',
   'isbn' => '0-07-032813-7',
   'key' => 'Jones1991',
@@ -537,6 +588,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Stephen H. Kan',
   'address' => 'Reading, MA',
   'author' => 'Stephen H. Kan',
   'key' => 'Kan95a',
@@ -546,6 +598,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Harmen Kastenberg',
   'author' => 'Harmen Kastenberg',
   'key' => 'Kastenberg2004',
   'month' => 'Jul',
@@ -556,6 +609,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'T. Khoshgoftaar, J. Munson',
   'author' => 'T. Khoshgoftaar and J. Munson',
   'booktitle' => 'Proceedings of the Computer Software and Applications Conference',
   'key' => 'Khoshgoftaar1990',
@@ -565,6 +619,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Hyoseob Kim, Cornelia Boldyreff',
   'author' => 'Hyoseob Kim and Cornelia Boldyreff',
   'booktitle' => 'Proceedings of QAOOSE\'2002',
   'key' => 'Kim2002',
@@ -575,6 +630,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Barbara A. Kitchenham, Lesley M. Pickard, Susan J. Linkman',
   'address' => 'Herts, UK, UK',
   'author' => 'Barbara A. Kitchenham and Lesley M. Pickard and Susan J. Linkman',
   'issn' => '0268-6961',
@@ -589,6 +645,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Barbara A. Kitchenham, Robert T. Hughes, Stephen G. Linkman',
   'author' => 'Barbara A. Kitchenham and Robert T. Hughes and Stephen G. Linkman',
   'doi' => '10.1109/32.950316',
   'issn' => '0098-5589',
@@ -603,6 +660,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'D.H. Krantz, R.D. Luce, P. Suppes, A. Tversky',
   'address' => 'New York',
   'author' => 'D.H. Krantz and R.D. Luce and P. Suppes and A. Tversky',
   'key' => 'Krantz',
@@ -612,6 +670,7 @@ array (
   'year' => '1971',
 )
 array (
+  '_author' => 'Wilf R. LaLonde, John R. Pugh',
   'author' => 'Wilf R. LaLonde and John R. Pugh',
   'bibsource' => 'DBLP, http://dblp.uni-trier.de',
   'journal' => 'JOOP',
@@ -624,6 +683,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Michele Lanza, Stéphane Ducasse',
   'author' => 'Michele Lanza and Stéphane Ducasse',
   'booktitle' => 'Proceedings of the 6th International Workshop on Quantitative Approaches in Object-Oriented Software Engineering',
   'editor' => 'F. Abreu and Mario Piattini and Geert Poels and Houari A. Sahraoui',
@@ -636,6 +696,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Michele Lanza, Stéphane Ducasse',
   'author' => 'Michele Lanza and Stéphane Ducasse',
   'journal' => 'Transactions on Software Engineering (TSE)',
   'key' => 'Lanza2003',
@@ -646,6 +707,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Luigi Lavazza, Alberto Agostini',
   'author' => 'Luigi Lavazza and Alberto Agostini',
   'journal' => 'Journal of Object Technology',
   'key' => 'Lavazza2005',
@@ -658,6 +720,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Claus Lewerentz, Frank Simon',
   'author' => 'Claus Lewerentz and Frank Simon',
   'booktitle' => 'Proceedings of the Workshop on Object-Oriented Technology at ECOOP\'98',
   'key' => 'Lewerentz1998',
@@ -666,6 +729,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Claus Lewerentz, Frank Simon',
   'author' => 'Claus Lewerentz and Frank Simon',
   'institution' => 'BTU Cottbus',
   'key' => 'Lewerentz1998a',
@@ -674,6 +738,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Rüdiger Lincke, Welf Löwe',
   'author' => 'Rüdiger Lincke and Welf Löwe',
   'booktitle' => 'Proceedings of the 3rd International Workshop on Metamodels, Schemas, Grammars, and Ontologies for Reverse Engineering (ATEM)',
   'key' => 'Lincke2006',
@@ -682,6 +747,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Rüdiger Lincke, Jonas Lundberg, Welf Löwe',
   'author' => 'Rüdiger Lincke and Jonas Lundberg and Welf Löwe',
   'booktitle' => 'Proceedings of the 2008 international Symposium on Software Testing and Analysis (ISSTA\'2008)',
   'key' => 'Lincke2008',
@@ -690,6 +756,7 @@ array (
   'year' => '2008',
 )
 array (
+  '_author' => 'Annabella Loconsole',
   'author' => 'Annabella Loconsole',
   'booktitle' => 'Proceedings of the 12th European Software Control and Metrics Conference (ESCOM\'2001)',
   'key' => 'Loconsole2001',
@@ -699,6 +766,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Sajjad Mahmood, Richard Lai',
   'address' => 'Washington, DC, USA',
   'author' => 'Sajjad Mahmood and Richard Lai',
   'booktitle' => 'QSIC \'05: Proceedings of the Fifth International Conference on Quality Software',
@@ -713,6 +781,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'M. Marchesi',
   'author' => 'M. Marchesi',
   'booktitle' => 'Proceedings of the 2nd Euromicro Conference on Software Maintenance and Reengineering (CSMR\'98)',
   'isbn' => '0-8186-8421-6',
@@ -724,6 +793,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Jacqueline McQuillan, James Power',
   'author' => 'Jacqueline McQuillan and James Power',
   'booktitle' => 'Proceedings of the ECOOP\'2006 Doctoral Symposium',
   'key' => 'McQuillan2006b',
@@ -732,6 +802,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Jacqueline McQuillan, James Power',
   'author' => 'Jacqueline McQuillan and James Power',
   'institution' => 'National University of Ireland',
   'key' => 'McQuillan2006d',
@@ -740,6 +811,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Jacqueline A. McQuillan, James F. Power',
   'author' => 'Jacqueline A. McQuillan and James F. Power',
   'booktitle' => 'Proceedings of the 4th International Conference on Principles and Practices of Programming in Java',
   'key' => 'Mcquillan2006a',
@@ -748,6 +820,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Jacqueline McQuillan, James Power',
   'author' => 'Jacqueline McQuillan and James Power',
   'booktitle' => 'Proceedings of the Model Size Metrics workshop at Models\'2006',
   'key' => 'Mcquillan2006c',
@@ -756,6 +829,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Austin C. Melton, Albert L. Baker, James M. Bieman, David M Gustafson',
   'author' => 'Austin C. Melton and Albert L. Baker and James M. Bieman and David M Gustafson',
   'issue' => '5',
   'journal' => 'Software Engineering Journal',
@@ -767,6 +841,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Alberto Mendelzon, Johannes Sametinger',
   'author' => 'Alberto Mendelzon and Johannes Sametinger',
   'journal' => 'Software - Concepts and Tools',
   'key' => 'Mendelzon1995',
@@ -778,6 +853,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Brian Berenbach, Gail Borotto',
   'author' => 'Brian Berenbach and Gail Borotto',
   'booktitle' => 'Proceeding of the 28th International Conference on Software Engineering (ICSE \'06)',
   'doi' => '10.1145/1134285.1134348',
@@ -791,6 +867,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Metrotrade Project, Regmet Project',
   'author' => 'Metrotrade Project and Regmet Project',
   'key' => 'Metrotrade2003',
   'publisher' => 'European Association of National Metrology Institutes',
@@ -800,6 +877,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Modelware Project',
   'author' => 'Modelware Project',
   'institution' => 'Framework Programme Information Society Technologies',
   'key' => 'ModelwareD2.2',
@@ -808,6 +886,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Modelware Project',
   'author' => 'Modelware Project',
   'institution' => 'Framework Programme Information Society Technologies',
   'key' => 'ModelwareD2.5',
@@ -816,6 +895,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Modelware Project',
   'author' => 'Modelware Project',
   'institution' => 'Framework Programme Information Society Technologies',
   'key' => 'ModelwareD2.7',
@@ -824,6 +904,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Beatriz Mora, Félix Garcia, Francisco Ruiz, Mario Piattini, Artur Boronat, Abel Gómez, José Á. Carsí, Isidro Ramos',
   'author' => 'Beatriz Mora and Félix Garcia and Francisco Ruiz and Mario Piattini and Artur Boronat and Abel Gómez and José Á. Carsí and Isidro Ramos',
   'booktitle' => 'Proceedings of the International Conference on Enterprise Information Systems (ICEIS\'2008)',
   'key' => 'Mora2008',
@@ -832,6 +913,7 @@ array (
   'year' => '2008',
 )
 array (
+  '_author' => 'Beatriz Mora, Mario Piattini, Francisco Ruiz, Felix Garcia',
   'author' => 'Beatriz Mora and Mario Piattini and Francisco Ruiz and Felix Garcia',
   'booktitle' => 'Proceedings of the 8th Workshop on Domain-Specific Modeling (DSM\'2008)',
   'key' => 'Mora2008a',
@@ -840,6 +922,7 @@ array (
   'year' => '2008',
 )
 array (
+  '_author' => 'V. L. Narasimhan, B. Hendradjaya',
   'author' => 'V. L. Narasimhan and B. Hendradjaya',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering Research and Practice (SERP\'04)',
   'key' => 'Narasimhan2004',
@@ -849,6 +932,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'G. Poels, G. Dedene',
   'author' => 'G. Poels and G. Dedene',
   'booktitle' => 'Proceedings of the Annual Oregon Workshop on Software Metrics (AOWSM\'97)',
   'key' => 'Poels1997',
@@ -858,6 +942,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Geert Poels, Guido Dedene',
   'author' => 'Geert Poels and Guido Dedene',
   'journal' => 'Information and Software Technology',
   'key' => 'Poels2000',
@@ -869,6 +954,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Luis Reynoso, Marcela Genero, Mario Piattini',
   'author' => 'Luis Reynoso and Marcela Genero and Mario Piattini',
   'booktitle' => 'Proceedings of QAOOSE\'2003',
   'key' => 'Reynoso2003',
@@ -878,6 +964,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Barry W. Boehm',
   'address' => 'Englewood Cliffs, NJ',
   'author' => 'Barry W. Boehm',
   'key' => 'SEeconomics',
@@ -887,6 +974,7 @@ array (
   'year' => '1981',
 )
 array (
+  '_author' => 'Smacchia S.A.',
   'author' => 'Smacchia S.A.',
   'institution' => 'Smacchia S.A.',
   'key' => 'SMACCHIA.COM2006',
@@ -895,6 +983,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Motoshi Saeki',
   'author' => 'Motoshi Saeki',
   'booktitle' => 'CAiSE',
   'key' => 'Saeki2003',
@@ -905,6 +994,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Motoshi Saeki, Haruhiko Kaiya',
   'author' => 'Motoshi Saeki and Haruhiko Kaiya',
   'booktitle' => 'Proc. of 1st Workshop on Quality in Modeling',
   'key' => 'Saeki2006',
@@ -914,6 +1004,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Andreas Schmietendorf, Reiner Dumke, Erik Foltin',
   'author' => 'Andreas Schmietendorf and Reiner Dumke and Erik Foltin',
   'doi' => '10.1145/352342.352347',
   'issn' => '0163-5948',
@@ -928,6 +1019,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Sahra Sedigh-Ali, Arif Ghafoor, Raymond A. Paul',
   'author' => 'Sahra Sedigh-Ali and Arif Ghafoor and Raymond A. Paul',
   'booktitle' => 'Proceedings of the 25th International Computer Software and Applications Conference (COMPSAC\'01)',
   'isbn' => '0-7695-1372-7',
@@ -939,6 +1031,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Yogesh Singh, Sangeeta Sabharwal, Manu Sood',
   'author' => 'Yogesh Singh and Sangeeta Sabharwal and Manu Sood',
   'journal' => 'Information and Management Sciences',
   'key' => 'Singh2004',
@@ -949,6 +1042,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'R. van Solingen, E. Berghout',
   'author' => 'R. van Solingen and E. Berghout',
   'booktitle' => 'Proceedings of the 7th Software Metrics Symposium (METRICS\'2001)',
   'doi' => '10.1109/METRIC.2001.915533',
@@ -959,6 +1053,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Miroslaw Staron, Wilhelm Meding, Christer Nilsson',
   'author' => 'Miroslaw Staron and Wilhelm Meding and Christer Nilsson',
   'journal' => 'Information and Software Technology',
   'key' => 'Staron2009',
@@ -969,6 +1064,7 @@ array (
   'year' => '2009',
 )
 array (
+  '_author' => 'Mei-Huei Tang, Mei-Hwa Chen',
   'author' => 'Mei-Huei Tang and Mei-Hwa Chen',
   'booktitle' => 'Proceedings of MODELS/UML\'2002',
   'key' => 'Tang2002',
@@ -978,6 +1074,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Paul Temple, Geoffrey Williams',
   'author' => 'Paul Temple and Geoffrey Williams',
   'journal' => 'Information Economics and Policy',
   'key' => 'Temple2002',
@@ -990,6 +1087,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'C. Tsalidis, D. Christodoulakis, D. Maritsas',
   'author' => 'C. Tsalidis and D. Christodoulakis and D. Maritsas',
   'doi' => '10.1002/smr.4360040202',
   'issn' => '1040-550X',
@@ -1003,6 +1101,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Eric Vépa, Jean Bézivin, Hugo Brunelière, Frédéric Jouault',
   'author' => 'Eric Vépa and Jean Bézivin and Hugo Brunelière and Frédéric Jouault',
   'booktitle' => 'Proceedings of the 1st Workshop on Model Size Metrics (MSM\'06) co-located with MoDELS\'2006',
   'key' => 'Vepa2006',
@@ -1011,6 +1110,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Hironori Washizaki, Hirokazu Yamamoto, Yoshiaki Fukazawa',
   'author' => 'Hironori Washizaki and Hirokazu Yamamoto and Yoshiaki Fukazawa',
   'booktitle' => 'METRICS \'03: Proceedings of the 9th International Symposium on Software Metrics',
   'isbn' => '0-7695-1987-3',
@@ -1022,6 +1122,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'E. J. Weyuker',
   'author' => 'E. J. Weyuker',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'Weyum88',
@@ -1033,6 +1134,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Carol Withrow',
   'author' => 'Carol Withrow',
   'doi' => '10.1109/52.43046',
   'issn' => '0740-7459',
@@ -1047,6 +1149,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Wang Yu-ying, Li Qing-shan, Chen Ping, Ren Chun-de',
   'author' => 'Wang Yu-ying and Li Qing-shan and Chen Ping and Ren Chun-de',
   'doi' => '10.1007/s11741-007-0507-2',
   'journal' => 'Journal of Shanghai University',
@@ -1059,6 +1162,7 @@ array (
   'year' => '2007',
 )
 array (
+  '_author' => 'J. A. Zachman',
   'author' => 'J. A. Zachman',
   'journal' => 'IBM Systems Journal',
   'key' => 'Zachman1987',
@@ -1070,6 +1174,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Kevin Pulford, Annie Kuntzmann-Combelles, Stephen Shirlaw',
   'address' => 'Boston, MA, USA',
   'author' => 'Kevin Pulford and Annie Kuntzmann-Combelles and Stephen Shirlaw',
   'isbn' => '0-201-87746-5',
@@ -1080,6 +1185,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'S. Sarkar, G. M. Rama, A. C. Kak',
   'author' => 'S. Sarkar and G. M. Rama and A. C. Kak',
   'issue' => '1',
   'journal' => 'IEEE Transactions on Software Engineering',
@@ -1091,6 +1197,7 @@ array (
   'year' => '2007',
 )
 array (
+  '_author' => 'NASA Software Assurance Technology Center',
   'author' => 'NASA Software Assurance Technology Center',
   'institution' => 'NASA',
   'key' => 'arm-nasa',
@@ -1099,6 +1206,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'A. Baroni, S. Braz, F. Abreu',
   'author' => 'A. Baroni and S. Braz and F. Abreu',
   'booktitle' => 'ECOOP\'02 Workshop on Quantitative Approaches in OO Software Engineering',
   'key' => 'baroni02',
@@ -1107,6 +1215,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Chris Kolde',
   'author' => 'Chris Kolde',
   'howpublished' => 'White paper, Borland',
   'key' => 'borlandrequirements',
@@ -1116,6 +1225,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'L. Briand, S. Morasca, V. Basili',
   'author' => 'L. Briand and S. Morasca and V. Basili',
   'issue' => '12',
   'journal' => 'IEEE Transactions on Software Engineering',
@@ -1127,6 +1237,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Lionel C. Briand, Sandro Morasca, Victor R. Basili',
   'author' => 'Lionel C. Briand and Sandro Morasca and Victor R. Basili',
   'journal' => 'Software Engineering',
   'key' => 'briand96propertybased',
@@ -1138,6 +1249,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Betty H. C. Cheng, Ryan Stephenson, Brian Berenbach',
   'author' => 'Betty H. C. Cheng and Ryan Stephenson and Brian Berenbach',
   'bibsource' => 'DBLP, http://dblp.uni-trier.de',
   'booktitle' => 'Proceedings of MODELS\' 2005',
@@ -1149,6 +1261,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Barry Boehm, Bradford Clark, Ellis Horowitz, Richard Shelby, Chris Westland',
   'author' => 'Barry Boehm and Bradford Clark and Ellis Horowitz and Richard Shelby and Chris Westland',
   'booktitle' => 'Software Technology Conference',
   'key' => 'cocomo:95',
@@ -1158,6 +1271,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'A. Davis, S. Overmyer, K. Jordan, J. Caruso, F. Dandashi, A. Dinh, G. Kincaid, G. Ledeboer, P. Reynolds, P. Sitaram, A. Ta, M. Theofanos',
   'author' => 'A. Davis and S. Overmyer and K. Jordan and J. Caruso and F. Dandashi and A. Dinh and G. Kincaid and G. Ledeboer and P. Reynolds and P. Sitaram and A. Ta and M. Theofanos',
   'booktitle' => 'Proceedings of the First International Software Metrics Symposium',
   'key' => 'davis93',
@@ -1166,6 +1280,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Bruno Dufour, Karel Driesen, Laurie Hendren, Clark Verbrugge',
   'author' => 'Bruno Dufour and Karel Driesen and Laurie Hendren and Clark Verbrugge',
   'booktitle' => 'Proceedings of the ACM SIGPLAN 2003 Conference on Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA\'03)',
   'isbn' => '1-58113-712-5',
@@ -1178,6 +1293,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'N. E. Fenton',
   'author' => 'N. E. Fenton',
   'key' => 'fenton:1991',
   'publisher' => 'Chapman and Hall',
@@ -1186,6 +1302,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Tudor Gîrba, Michele Lanza, Stéphane Ducasse',
   'author' => 'Tudor Gîrba and Michele Lanza and Stéphane Ducasse',
   'booktitle' => 'Proceedings of the 9th European Conference on Software Maintenance and Reengineering (CSMR\'05)',
   'doi' => '10.1109/CSMR.2005.15',
@@ -1198,6 +1315,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Victor R. Basili, Gianluigi Caldiera, H. Dieter Rombach',
   'author' => 'Victor R. Basili and Gianluigi Caldiera and H. Dieter Rombach',
   'booktitle' => 'Encyclopedia of Software Engineering',
   'key' => 'gqm',
@@ -1207,6 +1325,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Esther Guerra, Paloma Diaz, Juan de Lara',
   'author' => 'Esther Guerra and Paloma Diaz and Juan de Lara',
   'booktitle' => 'Graph Transformation and Visual Modeling Techniques (GT-VMT 2006)',
   'key' => 'guerra2006',
@@ -1215,6 +1334,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'NASA Software Program',
   'author' => 'NASA Software Program',
   'institution' => 'National Aeronautics and Space Administration',
   'key' => 'guidebook-software',
@@ -1223,6 +1343,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'T. J. Harmer, F. G. Wilkie',
   'author' => 'T. J. Harmer and F. G. Wilkie',
   'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
   'key' => 'harmer2002',
@@ -1231,6 +1352,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'B. Henderson-Sellers, J. M. Edwards',
   'author' => 'B. Henderson-Sellers and J. M. Edwards',
   'key' => 'henderson:edwards:94',
   'publisher' => 'Prentice Hall',
@@ -1239,6 +1361,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'The International Software Benchmarking Standards Group',
   'author' => 'The International Software Benchmarking Standards Group',
   'key' => 'isbsg',
   'title' => 'ISBSG Repositories',
@@ -1246,6 +1369,7 @@ array (
   'year' => '2007',
 )
 array (
+  '_author' => 'C. Jones',
   'author' => 'C. Jones',
   'key' => 'jones1993',
   'publisher' => 'Carlsbad, Calif.: IS Management Group',
@@ -1254,6 +1378,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'C. Jones',
   'author' => 'C. Jones',
   'key' => 'jones86',
   'publisher' => 'McGraw-Hill',
@@ -1262,6 +1387,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Cristina Marinescu, Radu Marinescu, Tudor Gîrba',
   'author' => 'Cristina Marinescu and Radu Marinescu and Tudor Gîrba',
   'booktitle' => 'IEEE METRICS',
   'doi' => '10.1109/METRICS.2005.48',
@@ -1272,6 +1398,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Michael Mattsson, Jan Bosch',
   'author' => 'Michael Mattsson and Jan Bosch',
   'booktitle' => 'TOOLS \'99: Proceedings of the Technology of Object-Oriented Languages and Systems',
   'isbn' => '0-7695-0275-X',
@@ -1283,6 +1410,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'McCabe',
   'author' => 'McCabe',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'mccabe1976',
@@ -1293,6 +1421,7 @@ array (
   'year' => '1976',
 )
 array (
+  '_author' => 'T. Mens, M. Lanza',
   'author' => 'T. Mens and M. Lanza',
   'doi' => '10.1016/S1571-0661(05)80529-8',
   'issue' => '2',
@@ -1305,6 +1434,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'H. Ma, W. Shao, L.Zhang, Z.Ma, Y.Jiang',
   'author' => 'H. Ma and W. Shao and L.Zhang and Z.Ma and Y.Jiang',
   'booktitle' => 'Proceedings of MODELS/UML\'2004',
   'key' => 'metrics-uml-metamodel',
@@ -1314,6 +1444,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Vojislav B. Misic, Simon Moser',
   'author' => 'Vojislav B. Misic and Simon Moser',
   'booktitle' => 'Proceedings of the Technology of Object-Oriented Languages and Systems Conference (TOOLS\'97)',
   'isbn' => '0-8186-8551-4',
@@ -1324,6 +1455,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin Monperrus, Joël Champeau, Brigitte Hoeltzener',
   'author' => 'Martin Monperrus and Joël Champeau and Brigitte Hoeltzener',
   'booktitle' => 'Proceedings of the 2nd Workshop on Model Size Metrics (MSM\'07) co-located with MODELS\'2007',
   'key' => 'monperrus07',
@@ -1333,6 +1465,7 @@ array (
   'year' => '2007',
 )
 array (
+  '_author' => 'Martin Monperrus, Jean-Marc Jézéquel, Joël Champeau, Brigitte Hoeltzener',
   'author' => 'Martin Monperrus and Jean-Marc Jézéquel and Joël Champeau and Brigitte Hoeltzener',
   'booktitle' => 'Proceedings of the 4th European Congress on Embedded Real Time Software (ERTS\'2008)',
   'key' => 'monperrus08a',
@@ -1342,6 +1475,7 @@ array (
   'year' => '2008',
 )
 array (
+  '_author' => 'Martin Monperrus, Jean-Marc Jézéquel, Joël Champeau, Brigitte Hoeltzener',
   'abstract' => 'Model-Driven Engineering (MDE) is an approach to software development that uses models as primary artifacts, from which code, documentation and tests are derived. One way of assessing quality assurance in a given domain is to define domain metrics. As text documents, models can be considered from a syntactic point of view i.e., thought of as graphs. We can readily apply graph-based metrics to them, such as the number of nodes, the number of edges or the fan-in/fan-out distributions. However, these metrics cannot leverage the semantic structuring enforced by each specific metamodel to give domain specific information. Contrary to graph-based metrics, more specific metrics do exist for given domains (such as LOC for programs), but they lack genericity. Our contribution is to propose one metric that is generic over the domains and the metamodels and allows the easy specification of an open-ended wide range of model metrics.',
   'author' => 'Martin Monperrus and Jean-Marc Jézéquel and Joël Champeau and Brigitte Hoeltzener',
   'booktitle' => 'Model-Driven Software Development: Integrating Quality Assurance',
@@ -1355,6 +1489,7 @@ array (
   'year' => '2008',
 )
 array (
+  '_author' => 'Martin Monperrus, Jean-Marc Jézéquel, Joël Champeau, Brigitte Hoeltzener',
   'author' => 'Martin Monperrus and Jean-Marc Jézéquel and Joël Champeau and Brigitte Hoeltzener',
   'booktitle' => 'Proceedings of the ACM/IEEE 11th International Conference on Model Driven Engineering Languages and Systems (MODELS\'2008)',
   'comment' => 'acceptance rate: 58/274',
@@ -1365,6 +1500,7 @@ array (
   'year' => '2008',
 )
 array (
+  '_author' => 'Martin Monperrus',
   'author' => 'Martin Monperrus',
   'comment' => 'Advisor: JM. Jézéquel; Examiners: H. Sahraoui, S. Ducasse',
   'key' => 'monperrus08phd',
@@ -1375,6 +1511,7 @@ array (
   'year' => '2008',
 )
 array (
+  '_author' => 'Ralf Reissing',
   'author' => 'Ralf Reissing',
   'booktitle' => 'ECOOP\'01 Workshop QAOOSE',
   'key' => 'reissing2001',
@@ -1383,6 +1520,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'M. Medina Mora, C. Denger',
   'author' => 'M. Medina Mora and C. Denger',
   'institution' => 'Fraunhofer IESE',
   'key' => 'remetricssurvey',
@@ -1391,6 +1529,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Ganesh Kandula, Vinay Kumar Sathrasala',
   'author' => 'Ganesh Kandula and Vinay Kumar Sathrasala',
   'key' => 'requirementsmetrics',
   'school' => 'Umea University',
@@ -1399,6 +1538,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Norman F. Schneidewind',
   'author' => 'Norman F. Schneidewind',
   'doi' => '10.1109/32.135774',
   'issn' => '0098-5589',
@@ -1412,6 +1552,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'SDMetrics',
   'author' => 'SDMetrics',
   'key' => 'sdmetrics',
   'title' => 'The Software Design Metrics tool for the UML (http://www.sdmetrics.com/)',
@@ -1420,6 +1561,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'A. Perlis, F. Sayward, M. Shaw',
   'author' => 'A. Perlis and F. Sayward and M. Shaw',
   'key' => 'software-metrics',
   'publisher' => 'MIT',
@@ -1428,6 +1570,7 @@ array (
   'year' => '1981',
 )
 array (
+  '_author' => 'Harald Störrle',
   'author' => 'Harald Störrle',
   'booktitle' => 'Proceedings of the Model Size Metrics workshop at Models\'2006',
   'key' => 'stoerrle2006',
@@ -1436,6 +1579,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Bruce Edmonds',
   'author' => 'Bruce Edmonds',
   'key' => 'syntactic-measures',
   'school' => 'University of Manchester',
@@ -1444,6 +1588,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'D. P. Tegarden, S. D. Sheetz',
   'author' => 'D. P. Tegarden and S. D. Sheetz',
   'booktitle' => 'OOPSLA\'92 Workshop on Metrics for Object-Oriented Software Development',
   'key' => 'tegarden:sheetz:92',
@@ -1452,6 +1597,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Jean Paul Van Belle',
   'author' => 'Jean Paul Van Belle',
   'booktitle' => 'Proceedings of SAICSIT 2002',
   'key' => 'towards-a-syntactic',
@@ -1460,6 +1606,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'M. El Wakil, A. El Bastawissi, M. Boshra, A. Fahmy',
   'author' => 'M. El Wakil and A. El Bastawissi and M. Boshra and A. Fahmy',
   'booktitle' => 'Proceedings of the 9th International Conference on Empirical Assessment in Software Engineering',
   'key' => 'wakil2005',
@@ -1468,6 +1615,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Frank Weil, Andrij Neczwid, Kent Farbelow',
   'author' => 'Frank Weil and Andrij Neczwid and Kent Farbelow',
   'booktitle' => 'Proceedings of the Model Size Metrics workshop at Models\'2006',
   'key' => 'weil2006',
@@ -1476,6 +1624,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'W. M. Wilson, L. H. Rosenberg, L. E. Hyatt',
   'author' => 'W. M. Wilson and L. H. Rosenberg and L. E. Hyatt',
   'booktitle' => 'Proceeding of the PNSQC Conference',
   'key' => 'wilson96',
@@ -1484,6 +1633,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'M. Xenos, D. Stavrinoudis, K. Zikouli, D. Christodoulakis',
   'author' => 'M. Xenos and D. Stavrinoudis and K. Zikouli and D. Christodoulakis',
   'booktitle' => 'Proceedings of the FESMA Conference (FESMA\'2000)',
   'key' => 'xenos00objectoriented',
@@ -1492,6 +1642,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'L. M. Yap, B. Henderson-Sellers',
   'author' => 'L. M. Yap and B. Henderson-Sellers',
   'institution' => 'University of New South Wales',
   'key' => 'yap:henderson:93',
@@ -1501,6 +1652,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'L. M. Yap, B. Henderson-Sellers',
   'author' => 'L. M. Yap and B. Henderson-Sellers',
   'journal' => 'Australian Computer Journal',
   'key' => 'yap:henderson:97',
@@ -1512,6 +1664,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Horst Zuse',
   'address' => 'Berlin',
   'author' => 'Horst Zuse',
   'key' => 'zuse1991',

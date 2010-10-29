@@ -1,4 +1,5 @@
 array (
+  '_author' => 'J. Abounader, D. Lamb',
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'Abounader1997e',
@@ -7,6 +8,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Antoine Lejay',
   'author' => 'Lejay, Antoine',
   'coden' => 'PTRFEU',
   'doi' => '10.1007/PL00008783',
@@ -26,24 +28,23 @@ array (
   'year' => '2001',
 )
 array (
-  'abstract' => 'An impressive linear influence of a magnetic field on optically generated trap-recharging waves (TRW) has been observed in InP:Fe and GaAs:Cr. The phenomenon appears for the particular orientation of (B) over right arrow parallel to the samples\' surface and orthogonal to the direction of the electric field (E) over right arrow and wave vector of the TRW (K) over right arrow. The results are qualitatively explained taking into account the Lorentz force and a pronounced inhomogeneity of the charge transport and of the TRW parameters.',
-  'author' => 'Petrov, D. V. and Petrov, M. P. and Hilling, B. and Lemmer, M. and Imlau, M.',
-  'doi' => '10.1007/s00340-009-3435-x',
-  'journal' => 'Applied Physics B-lasers and Optics',
-  'key' => 'Petrov2009',
-  'number' => '3',
-  'owner' => 'Thomas',
-  'pages' => '483--488',
-  'sn' => '0946-2171',
-  'tc' => '1',
-  'timestamp' => '2010.06.16',
-  'title' => 'Large scale magnetic field influence on trap recharging waves in InP:Fe and GaAs:Cr',
-  'type' => 'ARTICLE',
-  'ut' => 'WOS:000266073000015',
-  'volume' => '95',
-  'year' => '2009',
+  '_author' => 'First Author, Second Author',
+  'author' => 'First Author and Second Author',
+  'key' => 'author+06',
+  'title' => 'Some publication title',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2011',
 )
 array (
+  '_author' => 'First Author, Second Author',
+  'author' => 'First Author and Second Author',
+  'key' => 'author06',
+  'title' => 'Some publication title',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2011',
+)
+array (
+  '_author' => 'First Author, Second Author',
   'author' => 'First Author and Second Author',
   'booktitle' => 'Proceedings of the Xth Conference on XYZ',
   'crossref' => 'conference:06',
@@ -56,6 +57,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Serge Bug',
   'author' => 'Serge Bug',
   'key' => 'cediltest',
   'title' => '&ccedil;urly &ccedil;urly &ccedil;urly',
@@ -63,6 +65,7 @@ array (
   'year' => '2010',
 )
 array (
+  '_author' => 'J. Abounader, D. Tooj',
   'author' => 'J. Abounader and D. Tooj',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'classical',
@@ -80,7 +83,8 @@ array (
   'year' => '2006',
 )
 array (
-  'author' => 'J. Abounader and D. Lamb',
+  '_author' => 'J. Abounader, D. Tooj',
+  'author' => 'J. Abounader and Tooj, D.',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'dquotes',
   'title' => 'using double quotes',
@@ -88,22 +92,25 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'J. Abounader, D. Lamb',
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'notallowed1',
-  'title' => 'using double \\" quotes',
+  'title' => 'escaped \\"quotes\\"',
   'type' => 'TECHREPORT',
   'year' => '1997',
 )
 array (
+  '_author' => 'J. Abounader \\, D. Lamb',
   'author' => 'J. Abounader \\ and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'notallowed2',
-  'title' => 'using double quotes',
+  'title' => 'escaped braces',
   'type' => 'TECHREPORT',
   'year' => '1997',
 )
 array (
+  '_author' => 'Serge Bug',
   'author' => 'Serge Bug',
   'key' => 'serge',
   'title' => 'curly braces in quote',
@@ -111,6 +118,7 @@ array (
   'year' => '2010',
 )
 array (
+  '_author' => 'The',
   'author' => 'The',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'singlevalue',
@@ -119,30 +127,34 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'J. Abounader, D. Lamb',
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'stgringconcat:test1',
   'title' => 'tototiti',
-  'type' => 'article',
+  'type' => 'book',
   'year' => '1997',
 )
 array (
+  '_author' => 'J. Abounader, D. Lamb',
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'stgringconcat:test2',
   'title' => 'tototiti',
-  'type' => 'article',
+  'type' => 'bookchapter',
   'year' => '1997',
 )
 array (
+  '_author' => 'J. Abounader, D. Lamb',
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'stgringconcat:test3',
   'title' => 'toto 3344',
-  'type' => 'article',
+  'type' => 'inbook',
   'year' => '1997',
 )
 array (
+  '_author' => 'Jacob G&ouml;del',
   'author' => 'Jacob G&ouml;del',
   'key' => 'testsearch1',
   'title' => 'using Banach Space',
@@ -150,6 +162,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Jacob G&ouml;del',
   'author' => 'Jacob G&ouml;del',
   'key' => 'testsearch2',
   'title' => 'using banach space',
@@ -157,6 +170,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Jacob G&ouml;del',
   'author' => 'Jacob G&ouml;del',
   'key' => 'testsearch3',
   'title' => 'using Banach Space',
@@ -164,6 +178,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Jacob Gödel',
   'author' => 'Jacob Gödel',
   'key' => 'testsearch4',
   'title' => 'using Banach Space',
@@ -171,6 +186,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Jacob Gödel',
   'author' => 'Jacob Gödel',
   'key' => 'testsearch5',
   'title' => 'using Banach Space',

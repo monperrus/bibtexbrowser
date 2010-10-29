@@ -1,4 +1,5 @@
 array (
+  '_author' => 'Christopher M. Bishop',
   'author' => 'Christopher M. Bishop',
   'key' => 'Bishop2006',
   'publisher' => 'Springer',
@@ -7,6 +8,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'M. Bruch, Thorsten Sch&auml;fer, M. Mezini',
   'address' => 'New York, NY, USA',
   'author' => 'M. Bruch and Thorsten Sch&auml;fer and M. Mezini',
   'booktitle' => 'Proceedings of the International Workshop on Recommendation Systems in Software Engieering',
@@ -27,6 +29,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'T. Cover, P. Hart',
   'author' => 'T. Cover and P. Hart',
   'journal' => 'IEEE Transactions on Information Theory',
   'key' => 'Cover1967',
@@ -35,12 +38,14 @@ array (
   'year' => '1967',
 )
 array (
+  '_author' => 'Eclipse',
   'author' => 'Eclipse',
   'howpublished' => '<a href="http://www.eclipse.org">http://www.eclipse.org</a>',
   'key' => 'Eclipse',
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Mik Kersten, Gail C. Murphy',
   'author' => 'Mik Kersten and Gail C. Murphy',
   'booktitle' => 'Proceedings of the ACM SIGSOFT International Symposium on Foundations of Software Engineering',
   'doi' => 'http://doi.acm.org/10.1145/1181775.1181777',
@@ -52,6 +57,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Andrew J. Ko, Htet Aung, Brad A. Myers',
   'author' => 'Andrew J. Ko and Htet Aung and Brad A. Myers',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'isbn' => '1-59593-963-2',
@@ -64,6 +70,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Rainer Koschke, Daniel Simon',
   'author' => 'Rainer Koschke and Daniel Simon',
   'booktitle' => 'Proceedings of the Working Conference on Reverse Engineering',
   'key' => 'Koschke2003',
@@ -74,6 +81,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Y. LeCun, L. Bottou, Y. Bengio, P. Haffner:',
   'author' => 'Y. LeCun and L. Bottou and Y. Bengio and P. Haffner:',
   'journal' => 'Proceedings of the IEEE',
   'key' => 'LeCun1998',
@@ -84,6 +92,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Jonathan I. Maletic, Michael L. Collard, Andrian Marcus',
   'author' => 'Jonathan I. Maletic and Michael L. Collard and Andrian Marcus',
   'booktitle' => 'Proceedings of the International Workshop on Program Comprehension',
   'isbn' => '0-7695-1495-2',
@@ -95,6 +104,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'E. Mamas, K. Kontogiannis',
   'author' => 'E. Mamas and K. Kontogiannis',
   'booktitle' => 'Proceedings of the Working Conference on Reverse Engineering',
   'isbn' => '0-7695-0881-2',
@@ -106,6 +116,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'G. McArthur, J. Mylopoulos, S.K.K. Ng',
   'author' => 'G. McArthur AND J. Mylopoulos AND S.K.K. Ng',
   'booktitle' => 'Proceedings of the Working Conference on Reverse Engineering',
   'key' => 'McArthur02',
@@ -116,6 +127,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Gail C. Murphy, Mik Kersten, Leah Findlater',
   'address' => 'Los Alamitos, CA, USA',
   'author' => 'Gail C. Murphy and Mik Kersten and Leah Findlater',
   'doi' => 'http://dx.doi.org/10.1109/MS.2006.105',
@@ -150,6 +162,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Michael Eichberg, Mira Mezini, Klaus Ostermann, Thorsten Sch&auml;fer',
   'author' => 'Michael Eichberg and Mira Mezini and Klaus Ostermann and Thorsten Sch&auml;fer',
   'booktitle' => 'Proceedings of the Working Conference on Reverse Engineering',
   'isbn' => '0-7695-2243-2',
@@ -161,6 +174,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Rakesh Agrawal, Tomasz Imielinski, Arun Swami',
   'author' => 'Rakesh Agrawal and Tomasz Imielinski and Arun Swami',
   'booktitle' => 'Proceedings of the SIGMOD International Conference on Management of Data',
   'key' => 'agrawal93',
@@ -171,6 +185,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Bowen Alpern, Dick Attanasio, John Barton, Michael Burke, Perry Cheng, Jong-Deok Choi, Anthony Cocchi, Stephen Fink, David Grove, Michael Hind, Susan Flynn Hummel, Derek Lieber, Vassily Litvinov, Ton Ngo, Mark Mergen, Vivek Sarkar, Mauricio Serrano, Janice Shepherd, Stephen Smith, V. C. Sreedhar, Harini Srinivasan, John Whaley',
   'author' => 'Bowen Alpern and Dick Attanasio and John Barton and Michael Burke and Perry Cheng and Jong-Deok Choi and Anthony Cocchi and Stephen Fink and David Grove and Michael Hind and Susan Flynn Hummel and Derek Lieber and Vassily Litvinov and Ton Ngo and Mark Mergen and Vivek Sarkar and Mauricio Serrano and Janice Shepherd and Stephen Smith and V. C. Sreedhar and Harini Srinivasan and John Whaley',
   'journal' => 'IBM Systems Journal',
   'key' => 'alpern00',
@@ -183,6 +198,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Nicolas Anquetil, Timothy Lethbridge',
   'author' => 'Nicolas Anquetil and Timothy Lethbridge',
   'journal' => 'IEE Proceedings - Software',
   'key' => 'anquetil03',
@@ -194,6 +210,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Nicolas Anquetil, Timothy Lethbridge',
   'author' => 'Nicolas Anquetil and Timothy Lethbridge',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'key' => 'anquetil98',
@@ -204,6 +221,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Giuliano Antoniol, Massimiliano Di Penta, Ettore Merlo',
   'author' => 'Giuliano Antoniol and Massimiliano Di Penta and Ettore Merlo',
   'booktitle' => 'Proceedings of the International Workshop on Principles of Software Evolution',
   'key' => 'antoniol04',
@@ -214,6 +232,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Liam O\' Brien, Vorachat Tamarree',
   'author' => 'Liam O\' Brien and Vorachat Tamarree',
   'institution' => 'Software Engineering Institute, Carnegie Mellon University',
   'key' => 'armin',
@@ -224,6 +243,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Ittai Balaban, Frank Tip, Robert M. Fuhrer',
   'author' => 'Ittai Balaban and Frank Tip and Robert M. Fuhrer',
   'booktitle' => 'Proceedings of the Conference on Object-oriented Programming, Systems, Languages, and Applications',
   'key' => 'balaban05',
@@ -234,6 +254,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Victor R. Basili, Lionel C. Briand, Walc&eacute;lio L. Melo',
   'author' => 'Victor R. Basili and Lionel C. Briand and Walc&eacute;lio L. Melo',
   'issn' => '0001-0782',
   'journal' => 'Communications of the ACM',
@@ -247,6 +268,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Sarita Bassil, Rudolf K. Keller',
   'author' => 'Sarita Bassil and Rudolf K. Keller',
   'booktitle' => 'Proceedings of the International Workshop on Program Comprehension',
   'key' => 'bassil01',
@@ -263,6 +285,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Kent Beck, Ralph E. Johnson',
   'author' => 'Kent Beck and Ralph E. Johnson',
   'booktitle' => 'Proceedings of the European Conference on Object-Oriented Programming',
   'key' => 'beck94',
@@ -273,6 +296,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Laszlo A. Belady, Carlo J. Evangelisti',
   'author' => 'Laszlo A. Belady and Carlo J. Evangelisti',
   'journal' => 'Journal of Systems and Software',
   'key' => 'belady81',
@@ -285,6 +309,7 @@ array (
   'year' => '1981',
 )
 array (
+  '_author' => 'Scott Boag, Don Chamberlin, Mary F. Fern&aacute;ndez, Daniela Florescu, Jonathan Robie, J&eacute;r&ocirc;me Sim&eacute;on',
   'author' => 'Scott Boag and Don Chamberlin and Mary F. Fern&aacute;ndez and Daniela Florescu and Jonathan Robie and J&eacute;r&ocirc;me Sim&eacute;on',
   'howpublished' => '<a href="http://www.w3.org/ TR/ xquery/">http://www.w3.org/ TR/ xquery/</a>',
   'key' => 'boag05',
@@ -293,6 +318,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Christoph Bockisch, Michael Haupt, Mira Mezini, Klaus Ostermann',
   'author' => 'Christoph Bockisch and Michael Haupt and Mira Mezini and Klaus Ostermann',
   'booktitle' => 'Proceedings of the International Conference on Aspect-oriented Software Development',
   'isbn' => '1-58113-842-3',
@@ -305,6 +331,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Grady Booch',
   'author' => 'Grady Booch',
   'isbn' => '0-8053-0594-7',
   'key' => 'booch95',
@@ -314,6 +341,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Christian Borgelt',
   'author' => 'Christian Borgelt',
   'howpublished' => '<a href="http://www.borgelt.net/apriori.html">http://www.borgelt.net/apriori.html</a>',
   'key' => 'borgelt',
@@ -321,6 +349,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Jan Bosch, Peter Molin, Michael Mattsson, PerOlof Bengtsson',
   'author' => 'Jan Bosch and Peter Molin and Michael Mattsson and PerOlof Bengtsson',
   'journal' => 'ACM Computing Surveys',
   'key' => 'bosch00',
@@ -333,6 +362,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Ruven Brooks',
   'author' => 'Ruven Brooks',
   'journal' => 'International Journal of Man-Machine Studies',
   'key' => 'brooks83',
@@ -344,6 +374,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Adam Buchsbaum, Yih-Farn Chen, Huale Huang, Eleftherios Koutsofios, John Mocenigo, Anne Rogers, Michael Jankowsky, Spiros Mancoridis',
   'author' => 'Adam Buchsbaum and Yih-Farn Chen and Huale Huang and Eleftherios Koutsofios and John Mocenigo and Anne Rogers and Michael Jankowsky and Spiros Mancoridis',
   'journal' => 'IEEE Software',
   'key' => 'buchsbaum01',
@@ -356,6 +387,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Greg Butler, Rudolf K. Keller, Hafedh Mili',
   'author' => 'Greg Butler and Rudolf K. Keller and Hafedh Mili',
   'journal' => 'ACM Computing Surveys',
   'key' => 'butler00',
@@ -368,6 +400,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Stuart K. Card, Jock D. Mackinlay, Ben Shneiderman',
   'author' => 'Stuart K. Card and Jock D. Mackinlay and Ben Shneiderman',
   'isbn' => '1-55860-533-9',
   'key' => 'card99',
@@ -377,6 +410,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Y.-F. R. Chen, G. S. Fowler, E. Koutsofios, R. S. Wallach',
   'author' => 'Y.-F. R. Chen and G. S. Fowler and E. Koutsofios and R. S. Wallach',
   'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
   'isbn' => '0-8186-7141-6',
@@ -388,6 +422,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Kingsum Chow, David Notkin',
   'author' => 'Kingsum Chow and David Notkin',
   'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
   'key' => 'chow96',
@@ -398,6 +433,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Cynthia L. Corritore, Susan Wiedenbeck',
   'author' => 'Cynthia L. Corritore and Susan Wiedenbeck',
   'issn' => '1071-5819',
   'journal' => 'International Journal of Human-Computer Studies',
@@ -411,6 +447,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Barth&eacute;l&eacute;my Dagenais, Martin P. Robillard',
   'author' => 'Barth&eacute;l&eacute;my Dagenais and Martin P. Robillard',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'key' => 'dagenais08',
@@ -420,6 +457,7 @@ array (
   'year' => '2008',
 )
 array (
+  '_author' => 'Jim D\'Anjou, Scott Fairbrother, Dan Kehn, John Kellerman, Pat McCarthy',
   'author' => 'Jim D\'Anjou and Scott Fairbrother and Dan Kehn and John Kellerman and Pat McCarthy',
   'isbn' => '0321305027',
   'key' => 'danjou04',
@@ -429,6 +467,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Serge Demeyer, Stephane Ducasse, Oscar Nierstrasz',
   'author' => 'Serge Demeyer and Stephane Ducasse and Oscar Nierstrasz',
   'booktitle' => 'Proceedings of the Conference on Object-oriented Programming, Systems, Languages, and Applications',
   'key' => 'demeyer00',
@@ -439,6 +478,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Danny Dig, Ralph Johnson',
   'author' => 'Danny Dig and Ralph Johnson',
   'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
   'key' => 'dig05',
@@ -449,6 +489,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Danny Dig, Can Comertoglu, Darko Marinov, Ralph Johnson',
   'author' => 'Danny Dig and Can Comertoglu and Darko Marinov and Ralph Johnson',
   'booktitle' => 'Proceedings of the European Conference on Object-Oriented Programming',
   'key' => 'dig06',
@@ -459,6 +500,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Mark T. Dishaw, Diane M. Strong',
   'author' => 'Mark T. Dishaw and Diane M. Strong',
   'journal' => 'Journal of Systems and Software',
   'key' => 'dishaw98',
@@ -471,12 +513,14 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'None',
   'author' => 'None',
   'key' => 'dummy',
   'title' => 'Just a dummy entry to make the texlipse parser working...',
   'type' => 'misc',
 )
 array (
+  '_author' => 'Alastair Dunsmore, Marc Roper, Murray Wood',
   'author' => 'Alastair Dunsmore and Marc Roper and Murray Wood',
   'issn' => '0164-1212',
   'journal' => 'Journal of Systems and Software',
@@ -490,6 +534,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Peter Eades, Wei Lai, Kazuo Misue, Kozo Sugiyama',
   'author' => 'Peter Eades and Wei Lai and Kazuo Misue and Kozo Sugiyama',
   'booktitle' => 'International Conference on Computational Graphics and Visualization Techniques',
   'key' => 'eades91',
@@ -501,6 +546,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'W.&nbsp;T. Eadie, D. Drijard, F.&nbsp;E. James',
   'adsnote' => 'Provided by the SAO/NASA Astrophysics Data System',
   'adsurl' => 'http://adsabs.harvard.edu/abs/1971smep.book.....E',
   'author' => 'Eadie, W.&nbsp;T. and Drijard, D. and James, F.&nbsp;E.',
@@ -511,6 +557,7 @@ array (
   'year' => '1971',
 )
 array (
+  '_author' => 'Linda G. DeMichiel',
   'author' => 'Linda G. DeMichiel',
   'key' => 'ejb',
   'publisher' => 'SUN Microsystems',
@@ -519,6 +566,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Marcel Bruch, Thorsten Sch&auml;fer, Mira Mezini',
   'author' => 'Marcel Bruch AND Thorsten Sch&auml;fer AND Mira Mezini',
   'booktitle' => 'Proceedings of the OOPSLA Workshop on Eclipse Technology Exchange',
   'key' => 'etx06',
@@ -529,6 +577,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Thorsten Sch&auml;fer, Michael Eichberg, Mira Mezini',
   'author' => 'Thorsten Sch&auml;fer and Michael Eichberg and Mira Mezini',
   'howpublished' => 'In \\textitLATE \'05: Linking Aspect Technology and Evolution; available at <a href="http://www.st.informatik.tu-darmstadt.de/database/publications/data/ConcernExploration.pdf?id=118">http://www.st.informatik.tu-darmstadt.de/database/publications/data/ConcernExploration.pdf?id=118</a>',
   'key' => 'exploringConcerns',
@@ -537,6 +586,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'George Fairbanks, William Scherlis, David Garlan',
   'author' => 'George Fairbanks AND William Scherlis AND David Garlan',
   'booktitle' => 'Proceedings of the Conference on Object-oriented Programming, Systems, Languages, and Applications',
   'key' => 'fairbanks06',
@@ -547,6 +597,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Jean-Marie Favre',
   'author' => 'Jean-Marie Favre',
   'booktitle' => 'Proceedings of the International Workshop on Program Comprehension',
   'isbn' => '0-7695-1131-7',
@@ -558,6 +609,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Jean-Marie Favre',
   'author' => 'Jean-Marie Favre',
   'booktitle' => 'Proceedings of the European Conference on Software Maintenance and Reengineering',
   'isbn' => '0-7695-1438-3',
@@ -569,6 +621,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Mohamed E. Fayad, Douglas C. Schmidt, Ralph E. Johnson',
   'author' => 'Mohamed E. Fayad and Douglas C. Schmidt and Ralph E. Johnson',
   'isbn' => '0-471-24875-4',
   'key' => 'fayad99',
@@ -578,6 +631,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Thorsten Sch&auml;fer, Mira Mezini',
   'author' => 'Thorsten Sch&auml;fer and Mira Mezini',
   'booktitle' => 'Proceedings of the International Workshop on Visualizing Software for Program Understanding and Analysis',
   'isbn' => '0-7803-9540-9',
@@ -589,6 +643,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Martin Fowler, Kent Beck, John Brant, William Opdyke, Don Roberts',
   'author' => 'Martin Fowler and Kent Beck and John Brant and William Opdyke and Don Roberts',
   'isbn' => '0-201-48567-2',
   'key' => 'fowler99',
@@ -598,6 +653,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'W.B. Frakes, B.A. Nejmeh',
   'author' => 'W.B. Frakes and B.A. Nejmeh',
   'issn' => '0163-5840',
   'journal' => 'SIGIR Forum',
@@ -611,6 +667,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides',
   'author' => 'Erich Gamma and Richard Helm and Ralph Johnson and John Vlissides',
   'isbn' => '0-201-63361-2',
   'key' => 'gamma95',
@@ -620,6 +677,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Dipayan Gangopadhyay, Subrata Mitra',
   'author' => 'Dipayan Gangopadhyay and Subrata Mitra',
   'journal' => 'Automated Software Engineering',
   'key' => 'gangopadhyay96',
@@ -632,6 +690,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Emden R. Gansner, Stephen C. North',
   'author' => 'Emden R. Gansner and Stephen C. North',
   'journal' => 'Software: Practice and Experience',
   'key' => 'gansner00',
@@ -644,6 +703,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Bernhard Ganter, Rudolf Wille',
   'author' => 'Bernhard Ganter and Rudolf Wille',
   'isbn' => '3540627715',
   'key' => 'ganter97',
@@ -653,6 +713,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Alessandro Garcia, Cl&aacute;udio Sant\'Anna, Eduardo Figueiredo, Uir&aacute; Kulesza, Carlos Lucena, Arndt von Staa',
   'author' => 'Alessandro Garcia and Cl&aacute;udio Sant\'Anna and Eduardo Figueiredo and Uir&aacute; Kulesza and Carlos Lucena and Arndt von Staa',
   'booktitle' => 'Proceedings of the International Conference on Aspect-oriented Software Development',
   'isbn' => '1-59593-042-6',
@@ -665,6 +726,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Eclipse Foundation',
   'author' => 'Eclipse Foundation',
   'howpublished' => '<a href="http://www.eclipse.org/gef/">http://www.eclipse.org/gef/</a>',
   'key' => 'gef',
@@ -673,6 +735,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'D. J. Gilmore, T. R.G. Green',
   'author' => 'D. J. Gilmore and T. R.G. Green',
   'issn' => '0020-7373',
   'journal' => 'International Journal of Man-Machine Studies',
@@ -692,6 +755,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Ian Gorton, Liming Zhu',
   'author' => 'Ian Gorton and Liming Zhu',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'isbn' => '1-59593-963-2',
@@ -703,6 +767,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Bernd Groh, Selma Strahringer, Rudolf Wille',
   'author' => 'Bernd Groh and Selma Strahringer and Rudolf Wille',
   'booktitle' => 'Proceedings of the International Conference on Conceptual Structures',
   'key' => 'groh98',
@@ -713,6 +778,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Olivier Gruber, B. J. Hargrave, Jeff McAffer, Pascal Rapicault',
   'author' => 'Olivier Gruber and B. J. Hargrave and Jeff McAffer and Pascal Rapicault',
   'journal' => 'IBM Systems Journal',
   'key' => 'gruber05',
@@ -725,6 +791,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Markku Hakala, Juha Hautamaki, Kai Koskimies, Jukka Paakki, Antti Viljamaa, Jukka Viljamaa',
   'author' => 'Markku Hakala and Juha Hautamaki and Kai Koskimies and Jukka Paakki and Antti Viljamaa and Jukka Viljamaa',
   'booktitle' => 'Proceedings of the Working IEEE/IFIP Conference on Software Architecture',
   'key' => 'hakala01',
@@ -735,6 +802,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Jan Hannemann, Gregor Kiczales',
   'author' => 'Jan Hannemann and Gregor Kiczales',
   'booktitle' => 'Proceedings of the Conference on Object-oriented Programming, Systems, Languages, and Applications',
   'isbn' => '1-58113-471-1',
@@ -747,6 +815,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'William Harrison, Harold Ossher, Stanley Sutton Jr., Peri Tarr',
   'author' => 'William Harrison and Harold Ossher and Stanley Sutton Jr. and Peri Tarr',
   'institution' => 'IBM Research',
   'key' => 'harrison04',
@@ -756,6 +825,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Michael Haupt, Mira Mezini, Christoph Bockisch, Tom Dinkelaker, Michael Eichberg, Michael Krebs',
   'author' => 'Michael Haupt and Mira Mezini and Christoph Bockisch and Tom Dinkelaker and Michael Eichberg and Michael Krebs',
   'booktitle' => 'Proceedings of the International Conference on Virtual Execution Environments',
   'key' => 'haupt05',
@@ -766,6 +836,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Jeffrey Heer, Stuart K. Card, James A. Landay',
   'author' => 'Jeffrey Heer and Stuart K. Card and James A. Landay',
   'booktitle' => 'Proceedings of the SIGCHI Conference on Human Factors in Computing Systems',
   'key' => 'heer05',
@@ -776,6 +847,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Richard Helm, Ian M. Holland, Dipayan Gangopadhyay',
   'author' => 'Richard Helm and Ian M. Holland and Dipayan Gangopadhyay',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming, Systems, Languages, and Applications and the European Conference on Object-Oriented Programming',
   'key' => 'helm90',
@@ -786,6 +858,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Johannes Henkel, Amer Diwan',
   'author' => 'Johannes Henkel and Amer Diwan',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'key' => 'henkel05',
@@ -796,6 +869,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Scott Henninger',
   'author' => 'Scott Henninger',
   'booktitle' => 'Proceedings of the SIGIR International Conference on Research and Development in Information Retrieval',
   'key' => 'henninger91',
@@ -812,6 +886,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'R. Hill, J. Rideout',
   'author' => 'R. Hill and J. Rideout',
   'booktitle' => 'Proceedings of the International Conference on Automated Software Engineering',
   'key' => 'hill2004amc',
@@ -821,6 +896,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Reid Holmes, Gail C. Murphy',
   'author' => 'Reid Holmes and Gail C. Murphy',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'key' => 'holmes05',
@@ -831,6 +907,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Reid Holmes, Robert J. Walker, Gail C. Murphy',
   'author' => 'Reid Holmes and Robert J. Walker and Gail C. Murphy',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'holmes06',
@@ -843,6 +920,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Andrew J. Malton, Richard C. Holt',
   'author' => 'Andrew J. Malton and Richard C. Holt',
   'bibsource' => 'DBLP, http://dblp.uni-trier.de',
   'booktitle' => 'Proceedings of the Working Conference on Reverse Engineering',
@@ -856,6 +934,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Daqing Hou, Kenny Wong, H. James Hoover',
   'author' => 'Daqing Hou and Kenny Wong and H. James Hoover',
   'booktitle' => 'Proceedings of the International Workshop on Program Comprehension',
   'key' => 'hou05',
@@ -866,6 +945,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'David H. Hutchens, Victor R. Basili',
   'author' => 'David H. Hutchens and Victor R. Basili',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'hutchens85',
@@ -884,6 +964,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Ivica Aracic, Mira Mezini',
   'author' => 'Ivica Aracic AND Mira Mezini',
   'howpublished' => '<a href="http://www.sciences.univ-nantes.fr/lina/atl/www/papers/eTX2006/02-IvicaAracic.pdf">http://www.sciences.univ-nantes.fr/lina/atl/www/papers/eTX2006/02-IvicaAracic.pdf</a>',
   'key' => 'ispaceAlternative',
@@ -892,6 +973,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Anil K. Jain, Richard C. Dubes',
   'author' => 'Anil K. Jain and Richard C. Dubes',
   'key' => 'jain88',
   'publisher' => 'Prentice Hall',
@@ -900,6 +982,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'A. K. Jain, M. N. Murty, P. J. Flynn',
   'author' => 'A. K. Jain and M. N. Murty and P. J. Flynn',
   'journal' => 'ACM Computing Surveys',
   'key' => 'jain99',
@@ -912,6 +995,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Doug Janzen, Kris De Volder',
   'author' => 'Doug Janzen and Kris De Volder',
   'booktitle' => 'Proceedings of the International Conference on Aspect-oriented Software Development',
   'isbn' => '1-58113-660-9',
@@ -924,6 +1008,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Doug Janzen, Kris De Volder',
   'author' => 'Doug Janzen and Kris De Volder',
   'booktitle' => 'Proceedings of the European Conference on Object-Oriented Programming',
   'isbn' => '3-540-22159-X',
@@ -936,6 +1021,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'jEdit',
   'author' => 'jEdit',
   'howpublished' => '<a href="http://www.jedit.org">http://www.jedit.org</a>',
   'key' => 'jedit',
@@ -948,6 +1034,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Ralph E. Johnson',
   'author' => 'Ralph E. Johnson',
   'booktitle' => 'Proceedings of the Conference on Object-oriented Programming, Systems, Languages, and Applications',
   'key' => 'johnson92',
@@ -958,6 +1045,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Amr Kamel, Garry Froehlich, Paul Sorenson',
   'author' => 'Amr Kamel AND Garry Froehlich AND Paul Sorenson',
   'howpublished' => '<a href="www.cs.ualberta.ca/&nbsp;sorenson/frames/papers/FrameScanv2-26.pdf">www.cs.ualberta.ca/&nbsp;sorenson/frames/papers/FrameScanv2-26.pdf</a>',
   'key' => 'kamel00',
@@ -966,6 +1054,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Toshihiro Kamiya, Shinji Kusumoto, Katsuro Inoue',
   'author' => 'Toshihiro Kamiya and Shinji Kusumoto and Katsuro Inoue',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'kamiya02',
@@ -978,6 +1067,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'R. Kazman, S. J. Carrière',
   'author' => 'R. Kazman and S. J. Carrière',
   'booktitle' => 'Proceedings of the International Conference on Software Reuse',
   'isbn' => '0-8186-8377-5',
@@ -989,6 +1079,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Gregor Kiczales, John Lamping',
   'author' => 'Gregor Kiczales and John Lamping',
   'booktitle' => 'Proceedings of the Conference on Object-oriented Programming, Systems, Languages, and Applications',
   'key' => 'kiczales92',
@@ -999,6 +1090,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Sunghun Kim, Kai Pan, Jr. E. James Whitehead',
   'author' => 'Sunghun Kim and Kai Pan and E. James Whitehead, Jr.',
   'booktitle' => 'Proceedings of the Working Conference on Reverse Engineering',
   'key' => 'kim05',
@@ -1009,6 +1101,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Miryung Kim, David Notkin',
   'author' => 'Miryung Kim and David Notkin',
   'booktitle' => 'Proceedings of the International Workshop on Mining Software Repositories',
   'key' => 'kim06',
@@ -1019,6 +1112,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Miryung Kim, David Notkin, Dan Grossman',
   'author' => 'Miryung Kim and David Notkin and Dan Grossman',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'key' => 'kim07',
@@ -1029,6 +1123,7 @@ array (
   'year' => '2007',
 )
 array (
+  '_author' => 'Benjamin King',
   'author' => 'Benjamin King',
   'journal' => 'Journal of the American Statistical Association',
   'key' => 'king67',
@@ -1041,6 +1136,7 @@ array (
   'year' => '1967',
 )
 array (
+  '_author' => 'Douglas Kirk, Marc Roper, Murray Wood',
   'author' => 'Douglas Kirk and Marc Roper and Murray Wood',
   'journal' => 'Empirical Software Engineering',
   'key' => 'kirk07',
@@ -1059,6 +1155,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Ron Kohavi',
   'author' => 'Ron Kohavi',
   'booktitle' => 'Proceedings of the Fourteenth International Joint Conference on Artificial Intelligence',
   'key' => 'kohavi95',
@@ -1068,6 +1165,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Rainer Koschke',
   'author' => 'Rainer Koschke',
   'key' => 'koschke00',
   'school' => 'University of Stuttgart',
@@ -1076,6 +1174,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Rainer Koschke',
   'author' => 'Rainer Koschke',
   'journal' => 'Journal of Software Maintenance: Research and Practice',
   'key' => 'koschke03',
@@ -1088,6 +1187,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Bernt Kullbach, Andreas Winter',
   'author' => 'Bernt Kullbach and Andreas Winter',
   'booktitle' => 'Proceedings of the European Conference on Software Maintenance and Reengineering',
   'key' => 'kullbach99',
@@ -1098,6 +1198,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Arun Lakhotia',
   'author' => 'Arun Lakhotia',
   'journal' => 'Reverse Engineering Newsletter',
   'key' => 'lakhotia94',
@@ -1109,6 +1210,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Arun Lakhotia',
   'author' => 'Arun Lakhotia',
   'journal' => 'Journal of Systems and Software',
   'key' => 'lakhotia97',
@@ -1121,6 +1223,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'John Lakos',
   'author' => 'John Lakos',
   'isbn' => '0201633620',
   'key' => 'lakos96',
@@ -1130,6 +1233,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'John Lamping',
   'author' => 'John Lamping',
   'booktitle' => 'Proceedings of the Conference on Object-oriented Programming, Systems, Languages, and Applications',
   'key' => 'lamping93',
@@ -1140,6 +1244,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Michele Lanza',
   'author' => 'Michele Lanza',
   'booktitle' => 'Proceedings of the European Conference on Software Maintenance and Reengineering',
   'isbn' => '0-7695-1902-4',
@@ -1151,6 +1256,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Michele Lanza, Stéphane Ducasse',
   'author' => 'Michele Lanza and Stéphane Ducasse',
   'issn' => '0098-5589',
   'journal' => 'IEEE Transactions on Software Engineering',
@@ -1164,6 +1270,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Timothy C. Lethbridge, Janice Singer, Andrew Forward',
   'author' => 'Timothy C. Lethbridge and Janice Singer and Andrew Forward',
   'journal' => 'IEEE Software',
   'key' => 'lethbridge03',
@@ -1176,6 +1283,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Zhenmin Li, Yuanyuan Zhou',
   'author' => 'Zhenmin Li and Yuanyuan Zhou',
   'booktitle' => 'Proceedings of the European Software Engineering Conference',
   'key' => 'li05',
@@ -1186,6 +1294,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Rob Lintern, Jeff Michaud, Margaret-Anne Storey, Xiaomin Wu',
   'author' => 'Rob Lintern and Jeff Michaud and Margaret-Anne Storey and Xiaomin Wu',
   'booktitle' => 'Proceedings of the Symposium on Software Visualization',
   'isbn' => '1-58113-642-0',
@@ -1198,6 +1307,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Barbara Liskov, Jeannette Wing',
   'author' => 'Barbara Liskov and Jeannette Wing',
   'journal' => 'ACM Transactions on Software Engineering and Methodology',
   'key' => 'liskov94',
@@ -1210,6 +1320,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'David C. Littman, Jeannine Pinto, Stanley Letovsky, Elliot Soloway',
   'author' => 'David C. Littman and Jeannine Pinto and Stanley Letovsky and Elliot Soloway',
   'booktitle' => 'Proceedings of the Workshop on Empirical Studies of Programmers',
   'isbn' => '0-89391-388-X',
@@ -1222,6 +1333,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Benjamin Livshits, Thomas Zimmermann',
   'author' => 'Benjamin Livshits and Thomas Zimmermann',
   'booktitle' => 'Proceedings of the ACM SIGSOFT International Symposium on Foundations of Software Engineering',
   'key' => 'livshits05',
@@ -1232,6 +1344,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Welf L&ouml;we, Andreas Ludwig, Andreas Schwind',
   'author' => 'Welf L&ouml;we and Andreas Ludwig and Andreas Schwind',
   'booktitle' => 'International Conference on Advanced Science and Technology',
   'key' => 'loewe01',
@@ -1240,6 +1353,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Mircea Lungu, Michele Lanza',
   'author' => 'Mircea Lungu and Michele Lanza',
   'booktitle' => 'Proceedings of the European Conference on Software Maintenance and Reengineering',
   'key' => 'lungu06',
@@ -1250,6 +1364,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Jonathan I. Maletic, Andrian Marcus',
   'author' => 'Jonathan I. Maletic and Andrian Marcus',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'key' => 'maletic01',
@@ -1260,6 +1375,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Guido Malpohl, James J. Hunt, Walter F. Tichy',
   'author' => 'Guido Malpohl and James J. Hunt and Walter F. Tichy',
   'journal' => 'Automated Software Engineering',
   'key' => 'malpohl03',
@@ -1272,6 +1388,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'David Mandelin, Lin Xu, Rastislav Bod\\\'\\ik, Doug Kimelman',
   'author' => 'David Mandelin and Lin Xu and Rastislav Bod\\\'\\ik and Doug Kimelman',
   'booktitle' => 'Proceedings of the ACM SIGPLAN Conference on Programming Language Design and Implementation',
   'key' => 'mandelin05',
@@ -1282,6 +1399,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Robert Cecil Martin',
   'author' => 'Robert Cecil Martin',
   'isbn' => '0135974445',
   'key' => 'martin02',
@@ -1291,6 +1409,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Makoto Matsushita, Katsuro Inoue, Reishi Yokomori, Tetsuo Yamamoto, Shinji Kusumoto',
   'author' => 'Makoto Matsushita and Katsuro Inoue and Reishi Yokomori and Tetsuo Yamamoto and Shinji Kusumoto',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'matsushita05',
@@ -1303,6 +1422,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Alberto O. Mendelzon, Johannes Sametinger',
   'author' => 'Alberto O. Mendelzon and Johannes Sametinger',
   'journal' => 'Software - Concepts &amp; Tools',
   'key' => 'mendelzon95',
@@ -1315,6 +1435,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Mira Mezini',
   'author' => 'Mira Mezini',
   'booktitle' => 'Proceedings of the Conference on Object-oriented Programming, Systems, Languages, and Applications',
   'key' => 'mezini97',
@@ -1325,6 +1446,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Amir Michail',
   'author' => 'Amir Michail',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'key' => 'michail00',
@@ -1335,6 +1457,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Amir Michail',
   'author' => 'Amir Michail',
   'booktitle' => 'Proceedings of the International Conference on Automated Software Engineering',
   'key' => 'michail99',
@@ -1345,6 +1468,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'George A. Miller',
   'author' => 'George A. Miller',
   'journal' => 'Psychological Review',
   'key' => 'miller56',
@@ -1355,6 +1479,7 @@ array (
   'year' => '1956',
 )
 array (
+  '_author' => 'Brian S. Mitchell, Spiros Mancoridis',
   'author' => 'Brian S. Mitchell and Spiros Mancoridis',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'mitchell06',
@@ -1367,6 +1492,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Russel Mosemann, Susan Wiedenbeck',
   'author' => 'Russel Mosemann AND Susan Wiedenbeck',
   'booktitle' => 'Proceedings of the International Workshop on Program Comprehension',
   'key' => 'mosemann01',
@@ -1377,6 +1503,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Hausi A. M&uuml;ller, Karl Klashinsky',
   'author' => 'Hausi A. M&uuml;ller and Karl Klashinsky',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'key' => 'mueller88',
@@ -1387,6 +1514,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Hausi A. M&uuml;ller, Scott R. Tilley, Kenny Wong',
   'author' => 'Hausi A. M&uuml;ller and Scott R. Tilley and Kenny Wong',
   'booktitle' => 'Proceedings of the Conference of the Centre for Advanced Studies on Collaborative Research',
   'key' => 'mueller93',
@@ -1398,6 +1526,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Hausi A. M&uuml;ller, Mehmet A. Orgun, Scott R. Tilley, James S. Uhl',
   'author' => 'Hausi A. M&uuml;ller and Mehmet A. Orgun and Scott R. Tilley and James S. Uhl',
   'journal' => 'Journal of Software Maintenance: Research and Practice',
   'key' => 'mueller93b',
@@ -1410,6 +1539,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Gail C. Murphy, David Notkin, Kevin J. Sullivan',
   'author' => 'Gail C. Murphy and David Notkin and Kevin J. Sullivan',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'murphy01',
@@ -1422,6 +1552,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Gail C. Murphy, Mik Kersten, Martin P. Robillard, Davor Cubranic',
   'author' => 'Gail C. Murphy and Mik Kersten and Martin P. Robillard and Davor Cubranic',
   'booktitle' => 'Proceedings of the European Conference on Object-Oriented Programming',
   'isbn' => '3-540-27992-X',
@@ -1434,6 +1565,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'L. R. Neal',
   'author' => 'L. R. Neal',
   'booktitle' => 'Proceedings of the SIGCHI Conference on Human Factors in Computing Systems',
   'key' => 'neal89',
@@ -1444,6 +1576,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Michael Pacione',
   'author' => 'Michael Pacione',
   'key' => 'pacione05',
   'school' => 'University of Strathclyde, Glasgow',
@@ -1452,6 +1585,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Athanasios Papoulis, S. Unnikrishna Pillai',
   'author' => 'Athanasios Papoulis AND S. Unnikrishna Pillai',
   'edition' => '4th',
   'key' => 'papoulis02',
@@ -1461,6 +1595,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Marian Petre',
   'author' => 'Marian Petre',
   'issn' => '0001-0782',
   'journal' => 'Communications of the ACM',
@@ -1484,6 +1619,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Marian Petre, Alan F. Blackwell',
   'author' => 'Marian Petre and Alan F. Blackwell',
   'issn' => '1071-5819',
   'journal' => 'International Journal of Human-Computer Studies',
@@ -1497,6 +1633,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Martin Pinzger, Michael Fischer, Mehdi Jazayeri, Harald Gall',
   'author' => 'Martin Pinzger and Michael Fischer and Mehdi Jazayeri and Harald Gall',
   'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
   'key' => 'pinzger04',
@@ -1507,6 +1644,7 @@ array (
   'year' => '2004',
 )
 array (
+  '_author' => 'Wolfgang Pree',
   'author' => 'Wolfgang Pree',
   'isbn' => '0-201-42294-8',
   'key' => 'pree95',
@@ -1516,12 +1654,14 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Prefuse',
   'author' => 'Prefuse',
   'howpublished' => '<a href="http://www.prefuse.org">http://www.prefuse.org</a>',
   'key' => 'prefuse',
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Blaine A. Price, Ronald Baecker, Ian S. Small',
   'author' => 'Blaine A. Price and Ronald Baecker and Ian S. Small',
   'journal' => 'Journal of Visual Languages and Computing',
   'key' => 'price93',
@@ -1534,6 +1674,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Michael Eichberg, Daniel Germanus, Mira Mezini, Lukas Mrokon, Thorsten Sch&auml;fer',
   'author' => 'Michael Eichberg and Daniel Germanus and Mira Mezini and Lukas Mrokon and Thorsten Sch&auml;fer',
   'booktitle' => 'Proceedings of the European Conference on Software Maintenance and Reengineering',
   'key' => 'qscope',
@@ -1545,6 +1686,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Danny Dig',
   'author' => 'Danny Dig',
   'howpublished' => '<a href="https://netfiles.uiuc.edu/dig/RefactoringCrawler/evaluations.html">https://netfiles.uiuc.edu/dig/RefactoringCrawler/evaluations.html</a>',
   'key' => 'refactoringCrawler',
@@ -1553,6 +1695,7 @@ array (
   'year' => '2007',
 )
 array (
+  '_author' => 'Steven P. Reiss',
   'author' => 'Steven P. Reiss',
   'booktitle' => 'Proceedings of the International Workshop on Visualizing Software for Program Understanding and Analysis',
   'isbn' => '0-7803-9540-9',
@@ -1564,6 +1707,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'R. Robbes, M. Lanza',
   'author' => 'R. Robbes and M. Lanza',
   'booktitle' => 'Proceedings of ASE',
   'key' => 'robbes2008phc',
@@ -1572,6 +1716,7 @@ array (
   'year' => '2008',
 )
 array (
+  '_author' => 'Martin P. Robillard, Gail C. Murphy',
   'author' => 'Martin P. Robillard and Gail C. Murphy',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'isbn' => '1-58113-472-X',
@@ -1584,6 +1729,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'Sébastien Robitaille, Reinhard Schauer, Rudolf K. Keller',
   'author' => 'Sébastien Robitaille and Reinhard Schauer and Rudolf K. Keller',
   'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
   'isbn' => '0-7695-0753-0',
@@ -1595,6 +1741,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Naiyana Sahavechaphan, Kajal Claypool',
   'author' => 'Naiyana Sahavechaphan and Kajal Claypool',
   'booktitle' => 'Proceedings of the Conference on Object-oriented Programming, Systems, Languages, and Applications',
   'key' => 'sahavechaphan06',
@@ -1605,6 +1752,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Badrul Sarwar, George Karypis, Joseph Konstan, John Riedl',
   'author' => 'Badrul Sarwar and George Karypis and Joseph Konstan and John Riedl',
   'booktitle' => 'Proceedings of the 2nd ACM Conference on Electronic Commerce',
   'key' => 'sarwar00',
@@ -1615,6 +1763,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'R. W. Schwanke, M. A. Platoff',
   'author' => 'R. W. Schwanke and M. A. Platoff',
   'booktitle' => 'Proceedings of the International Workshop on Software Configuration Management',
   'key' => 'schwanke89',
@@ -1625,6 +1774,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Robert W. Schwanke',
   'author' => 'Robert W. Schwanke',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'key' => 'schwanke91',
@@ -1635,6 +1785,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Thorsten Sch&auml;fer, Michael Eichberg, Michael Haupt, Mira Mezini',
   'author' => 'Thorsten Sch&auml;fer and Michael Eichberg and Michael Haupt and Mira Mezini',
   'issn' => '0098-5589',
   'journal' => 'IEEE Transactions on Software Engineering',
@@ -1648,6 +1799,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Michael Eichberg, Michael Haupt, Mira Mezini, Thorsten Sch&auml;fer',
   'author' => 'Michael Eichberg and Michael Haupt and Mira Mezini and Thorsten Sch&auml;fer',
   'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
   'isbn' => '0-7695-2368-4',
@@ -1659,6 +1811,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Ben Shneiderman',
   'author' => 'Ben Shneiderman',
   'key' => 'shneiderman80',
   'publisher' => 'Winthrop Publishers',
@@ -1667,6 +1820,7 @@ array (
   'year' => '1980',
 )
 array (
+  '_author' => 'Ben Shneiderman',
   'address' => 'Washington, DC, USA',
   'author' => 'Ben Shneiderman',
   'booktitle' => 'Proceedings of the Symposium on Visual Languages',
@@ -1679,6 +1833,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Forrest Shull, Filippo Lanubile, Victor R. Basili',
   'author' => 'Forrest Shull and Filippo Lanubile and Victor R. Basili',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'shull00',
@@ -1691,6 +1846,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Jonathan Sillito, Kris De Volder, Brian Fisher, Gail Murphy',
   'author' => 'Jonathan Sillito and Kris De Volder and Brian Fisher and Gail Murphy',
   'booktitle' => 'Proceedings of the International Symposium on Empirical Software Engineering',
   'key' => 'sillito05',
@@ -1701,6 +1857,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Susan Elliott Sim, Charles L. A. Clarke, Richard C. Holt, Anthony M. Cox',
   'author' => 'Susan Elliott Sim and Charles L. A. Clarke and Richard C. Holt and Anthony M. Cox',
   'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
   'isbn' => '0-7695-0016-1',
@@ -1712,6 +1869,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Janice Singer, Robert Elves, Margaret-Anne Storey',
   'author' => 'Janice Singer and Robert Elves and Margaret-Anne Storey',
   'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
   'isbn' => '0-7695-2368-4',
@@ -1723,6 +1881,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Janice Singer, Timothy Lethbridge, Norman Vinson, Nicolas Anquetil',
   'author' => 'Janice Singer and Timothy Lethbridge and Norman Vinson and Nicolas Anquetil',
   'booktitle' => 'Proceedings of the Conference of the Centre for Advanced Studies on Collaborative Research',
   'key' => 'singer97',
@@ -1734,6 +1893,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Vineet Sinha, David Karger, Rob Miller',
   'author' => 'Vineet Sinha and David Karger and Rob Miller',
   'booktitle' => 'Proceedings of the Symposium on Visual Languages and Human-Centric Computing',
   'key' => 'sinha06',
@@ -1744,6 +1904,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Peter H.A. Sneath, Robert R. Sokal',
   'author' => 'Peter H.A. Sneath and Robert R. Sokal',
   'key' => 'sneath73',
   'publisher' => 'Freeman',
@@ -1752,6 +1913,7 @@ array (
   'year' => '1973',
 )
 array (
+  '_author' => 'Elliot Soloway, Robin Lampert, Stan Letovsky, David Littman, Jeannine Pinto',
   'author' => 'Elliot Soloway and Robin Lampert and Stan Letovsky and David Littman and Jeannine Pinto',
   'issn' => '0001-0782',
   'journal' => 'Communications of the ACM',
@@ -1765,6 +1927,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Patrick Steyaert, Carine Lucas, Kim Mens, Theo D\'Hondt',
   'author' => 'Patrick Steyaert and Carine Lucas and Kim Mens and Theo D\'Hondt',
   'booktitle' => 'Proceedings of the Conference on Object-oriented Programming, Systems, Languages, and Applications',
   'key' => 'steyaert96',
@@ -1775,6 +1938,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'M.-A. D. Storey, K. Wong, H. A. M&uuml;ller',
   'author' => 'M.-A. D. Storey and K. Wong and H. A. M&uuml;ller',
   'issn' => '0167-6423',
   'journal' => 'Science of Computer Programming',
@@ -1788,6 +1952,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'M.-A. D. Storey, H. A. M&uuml;ller',
   'author' => 'M.-A. D. Storey and H. A. M&uuml;ller',
   'booktitle' => 'Proceedings of the International Conference on Software Maintenance',
   'isbn' => '0-8186-7141-6',
@@ -1799,6 +1964,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Margaret-Anne D. Storey, Hausi A. M&uuml;ller',
   'author' => 'Margaret-Anne D. Storey and Hausi A. M&uuml;ller',
   'booktitle' => 'Proceedings of the Symposium on Graph Drawing',
   'key' => 'storey95b',
@@ -1809,6 +1975,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'M.-A. D. Storey, K. Wong, F. D. Fracchia, H. A. M&uuml;ller',
   'author' => 'M.-A. D. Storey and K. Wong and F. D. Fracchia and H. A. M&uuml;ller',
   'booktitle' => 'Proceedings of the Symposium on Information Visualization',
   'isbn' => '0-8186-8189-6',
@@ -1820,6 +1987,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'M.-A. D. Storey, F. D. Fracchia, H. A. M&uuml;ller',
   'author' => 'M.-A. D. Storey and F. D. Fracchia and H. A. M&uuml;ller',
   'issn' => '0164-1212',
   'journal' => 'Journal of Systems and Software',
@@ -1839,6 +2007,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Eclipse Foundation',
   'author' => 'Eclipse Foundation',
   'howpublished' => '<a href="http://www.eclipse.org/swt/">http://www.eclipse.org/swt/</a>',
   'key' => 'swt',
@@ -1847,6 +2016,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Eclipse Foundation',
   'author' => 'Eclipse Foundation',
   'howpublished' => '<a href="http://www.eclipse.org/swt/snippets/">http://www.eclipse.org/swt/snippets/</a>',
   'key' => 'swtSnippets',
@@ -1855,6 +2025,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Suresh Thummalapenta, Tao Xie',
   'author' => 'Suresh Thummalapenta and Tao Xie',
   'booktitle' => 'Proceedings of the International Conference on Automated Software Engineering',
   'key' => 'thummalapenta07',
@@ -1865,6 +2036,7 @@ array (
   'year' => '2007',
 )
 array (
+  '_author' => 'Thomas Tilley, Richard Cole, Peter Becker, Peter Eklund',
   'author' => 'Thomas Tilley and Richard Cole and Peter Becker and Peter Eklund',
   'booktitle' => 'Proceedings of the International Conference on Formal Concept Analysis',
   'key' => 'tilley03',
@@ -1874,6 +2046,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Scott R. Tilley, Kenny Wong, Margaret-Anne D. Storey, Hausi A. M&uuml;ller',
   'author' => 'Scott R. Tilley and Kenny Wong and Margaret-Anne D. Storey and Hausi A. M&uuml;ller',
   'journal' => 'International Journal of Software Engineering and Knowledge Engineering',
   'key' => 'tilley94',
@@ -1895,6 +2068,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Sinisa Djukanovic, Sebastian Eifert, Matthias Orgler, Kai Stroh, Carole Urvoy, Mario Vekic',
   'author' => 'Sinisa Djukanovic AND Sebastian Eifert AND Matthias Orgler AND Kai Stroh AND Carole Urvoy AND Mario Vekic',
   'howpublished' => '<a href="http://twomore.de.tt">http://twomore.de.tt</a>',
   'key' => 'twomore',
@@ -1902,6 +2076,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Vassilios Tzerpos, Richard C. Holt',
   'author' => 'Vassilios Tzerpos and Richard C. Holt',
   'booktitle' => 'Proceedings of the Working Conference on Reverse Engineering',
   'key' => 'tzerpos97',
@@ -1912,6 +2087,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Jilles van Gurp, Jan Bosch',
   'author' => 'Jilles van Gurp and Jan Bosch',
   'issn' => '0164-1212',
   'journal' => 'Journal of Systems and Software',
@@ -1925,6 +2101,7 @@ array (
   'year' => '2002',
 )
 array (
+  '_author' => 'C. J. van Rijsbergen',
   'address' => 'London',
   'author' => 'C. J. van Rijsbergen',
   'key' => 'vanRijsbergen1979',
@@ -1934,6 +2111,7 @@ array (
   'year' => '1979',
 )
 array (
+  '_author' => 'Filip Van Rysselberghe, Serge Demeyer',
   'author' => 'Filip Van Rysselberghe and Serge Demeyer',
   'booktitle' => 'Proceedings of the International Workshop on Principles of Software Evolution',
   'key' => 'vanRysselberghe03',
@@ -1944,6 +2122,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Anneliese von Mayrhauser, A. Marie Vans',
   'author' => 'Anneliese von Mayrhauser and A. Marie Vans',
   'booktitle' => 'Proceedings of the International Workshop on Computer-Aided Software Engineering',
   'key' => 'vonMayrhauser93',
@@ -1954,6 +2133,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Anneliese von Mayrhauser, A. Marie Vans',
   'author' => 'Anneliese von Mayrhauser and A. Marie Vans',
   'issn' => '0018-9162',
   'journal' => 'Computer',
@@ -1967,6 +2147,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Anneliese von Mayrhauser, A. Marie Vans',
   'author' => 'Anneliese von Mayrhauser and A. Marie Vans',
   'booktitle' => 'Proceedings of the International Computer Software and Applications Conference',
   'isbn' => '0-8186-8105-5',
@@ -1978,6 +2159,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Jianyong Wang, Jiawei Han, Jian Pei',
   'author' => 'Jianyong Wang and Jiawei Han and Jian Pei',
   'booktitle' => 'Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data Mining',
   'key' => 'wang03',
@@ -1988,6 +2170,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'Andrzej Wasylkowski, Andreas Zeller, Christian Lindig',
   'author' => 'Andrzej Wasylkowski and Andreas Zeller and Christian Lindig',
   'booktitle' => 'Proceedings of the ACM SIGSOFT International Symposium on Foundations of Software Engineering',
   'key' => 'wasylkowski07',
@@ -1998,6 +2181,7 @@ array (
   'year' => '2007',
 )
 array (
+  '_author' => 'Geoffrey I Webb, Songmao Zhang',
   'author' => 'Geoffrey I Webb and Songmao Zhang',
   'howpublished' => '<a href="http://www.csse.monash.edu.au/&nbsp;webb/Files/WebbZhang03.pdf">http://www.csse.monash.edu.au/&nbsp;webb/Files/WebbZhang03.pdf</a>',
   'key' => 'webb03',
@@ -2005,6 +2189,7 @@ array (
   'type' => 'MISC',
 )
 array (
+  '_author' => 'Peter Wei&szlig;gerber, Stephan Diehl',
   'author' => 'Peter Wei&szlig;gerber and Stephan Diehl',
   'booktitle' => 'Proceedings of the International Conference on Automated Software Engineering',
   'key' => 'weissgerber06',
@@ -2015,6 +2200,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'David D. Woods',
   'author' => 'David D. Woods',
   'booktitle' => 'Decision Making in Action',
   'editor' => 'G. Klein and J. Orasanu and R. Calderwood',
@@ -2026,6 +2212,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Tao Xie, Jian Pei',
   'author' => 'Tao Xie and Jian Pei',
   'booktitle' => 'Proceedings of the International Workshop on Mining Software Repositories',
   'key' => 'xie06',
@@ -2036,6 +2223,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Zhenchang Xing, Eleni Stroulia',
   'author' => 'Zhenchang Xing and Eleni Stroulia',
   'booktitle' => 'Proceedings of the International Conference on Automated Software Engineering',
   'key' => 'xing05',
@@ -2046,6 +2234,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Zhenchang Xing, Eleni Stroulia',
   'author' => 'Zhenchang Xing and Eleni Stroulia',
   'booktitle' => 'Proceedings of the Working Conference on Reverse Engineering',
   'key' => 'xing06',
@@ -2056,6 +2245,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Object Management Group',
   'author' => 'Object Management Group',
   'howpublished' => '<a href="http://www.omg.org/docs/formal/05-09-01.pdf">http://www.omg.org/docs/formal/05-09-01.pdf</a>',
   'key' => 'xmi',
@@ -2064,6 +2254,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Jinlin Yang, David Evans, Deepali Bhardwaj, Thirumalesh Bhat, Manuvir Das',
   'author' => 'Jinlin Yang and David Evans and Deepali Bhardwaj and Thirumalesh Bhat and Manuvir Das',
   'booktitle' => 'Proceedings of the International Conference on Software Engineering',
   'key' => 'yang06',
@@ -2074,6 +2265,7 @@ array (
   'year' => '2006',
 )
 array (
+  '_author' => 'Yunwen Ye, Gerhard Fischer, Brent Reeves',
   'author' => 'Yunwen Ye and Gerhard Fischer and Brent Reeves',
   'booktitle' => 'Proceedings of the ACM SIGSOFT International Symposium on Foundations of Software Engineering',
   'key' => 'ye02',
@@ -2084,6 +2276,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Mohammed J. Zaki',
   'author' => 'Mohammed J. Zaki',
   'booktitle' => 'Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data Mining',
   'key' => 'zaki00',
@@ -2094,6 +2287,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Mohammed J. Zaki, Ching-Jui Hsiao',
   'author' => 'Mohammed J. Zaki and Ching-Jui Hsiao',
   'journal' => 'IEEE Transactions on Knowledge and Data Engineering',
   'key' => 'zaki05',
@@ -2106,6 +2300,7 @@ array (
   'year' => '2005',
 )
 array (
+  '_author' => 'Iyad Zayour, Timothy C. Lethbridge',
   'author' => 'Iyad Zayour and Timothy C. Lethbridge',
   'booktitle' => 'Proceedings of the Conference of the Centre for Advanced Studies on Collaborative Research',
   'key' => 'zayour00',
@@ -2117,6 +2312,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Lijie Zou, Michael W. Godfrey',
   'author' => 'Lijie Zou and Michael W. Godfrey',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'zou05',

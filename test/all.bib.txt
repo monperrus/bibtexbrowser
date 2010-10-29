@@ -2,6 +2,7 @@ array (
   'type' => 'InCollection',
 )
 array (
+  '_author' => 'Joachim P. Walser',
   'address' => 'Providence, RI, USA',
   'author' => 'Joachim P. Walser',
   'booktitle' => 'Proceedings of the 14th National Conference on Artificial Intelligence and 9th Innovative Applications of Artificial Intelligence Conference (AAAI-97/IAAI-97)',
@@ -14,6 +15,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin Henz, J&ouml;rg W&uuml;rtz',
   'author' => 'Martin Henz and J&ouml;rg W&uuml;rtz',
   'journal' => 'Applied Artificial Intelligence',
   'key' => 'AAI96',
@@ -25,6 +27,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Christian Bessi&egrave;re',
   'author' => 'Christian Bessi&egrave;re',
   'journal' => 'Artificial Intelligence',
   'key' => 'AC6',
@@ -36,6 +39,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Christian Bessi&egrave;re, Eugene Freuder, Jean-Charles R&eacute;gin',
   'address' => 'Montr&eacute;al, Qu&eacute;bec, Canada',
   'author' => 'Christian Bessi&egrave;re and Eugene Freuder and Jean-Charles R&eacute;gin',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -49,6 +53,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Martin Henz',
   'author' => 'Martin Henz',
   'journal' => 'Operations Research',
   'key' => 'ACC98',
@@ -60,6 +65,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Manfred Schmidt-Schau&szlig;, Gert Smolka',
   'author' => 'Manfred Schmidt-Schau&szlig; and Gert Smolka',
   'journal' => 'Artificial Intelligence',
   'key' => 'ACDS88',
@@ -70,6 +76,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Enrico Pontelli, Gopal Gupta, Manuel Hermenegildo',
   'address' => '',
   'author' => 'Enrico Pontelli and Gopal Gupta and Manuel Hermenegildo',
   'booktitle' => '9th International Parallel Processing Symposium',
@@ -81,6 +88,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Sverker Janson, Seif Haridi',
   'address' => 'San Diego, USA',
   'author' => 'Janson, Sverker and Haridi, Seif',
   'booktitle' => 'Logic Programming, Proceedings of the 1991 International Symposium',
@@ -94,6 +102,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Sverker Janson, Johan Montelius, Seif Haridi',
   'address' => 'Cambridge, MA',
   'author' => 'Sverker Janson and Johan Montelius and Seif Haridi',
   'booktitle' => 'Research Directions in Concurrent Object-Oriented Programming',
@@ -105,6 +114,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Michael Maher',
   'address' => 'Melbourne, Australia',
   'author' => 'Michael Maher',
   'booktitle' => 'Proceedings of the International Conference on Logic Programming',
@@ -117,6 +127,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Ravindra K. Ahuja, Thomas L. Magnanti, James B. Orlin',
   'address' => 'Englewood Cliffs, NJ',
   'author' => 'Ahuja, Ravindra K. and Magnanti, Thomas L. and Orlin, James B.',
   'key' => 'AMO:Network_Flows',
@@ -127,6 +138,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'E. H. L. Aarts, P. J. M. Van Laarhoven, J. K. Lenstra, N. L. J. Ulder',
   'author' => 'E. H. L. Aarts and P. J. M. Van Laarhoven and J. K. Lenstra and N. L. J. Ulder',
   'journal' => 'ORSA Journal on Computing',
   'key' => 'Aarts:94',
@@ -138,6 +150,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Mart\\\'\\in Abadi, Luca Cardelli',
   'address' => 'Berlin',
   'author' => 'Mart\\\'\\in Abadi and Luca Cardelli',
   'key' => 'AbadiCardelli:96',
@@ -148,6 +161,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Harold Abelson, Gerald Sussman',
   'address' => 'Cambridge, MA',
   'author' => 'Harold Abelson and Gerald Sussman',
   'edition' => 'Second',
@@ -158,6 +172,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Abderrahamane Aggoun, Nicolas Beldiceanu',
   'address' => 'Tregastel, France',
   'author' => 'Abderrahamane Aggoun and Nicolas Beldiceanu',
   'booktitle' => 'Actes du S&eacute;minaire 1990--Programmation en Logique',
@@ -170,6 +185,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Abderrahamane Aggoun, Nicolas Beldiceanu',
   'address' => 'Paris, France',
   'author' => 'Abderrahamane Aggoun and Nicolas Beldiceanu',
   'booktitle' => 'Logic Programming: Proceedings of the Eight International Conference',
@@ -183,6 +199,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Gul Agha',
   'address' => 'Cambridge, MA',
   'author' => 'Gul Agha',
   'key' => 'Agha:86',
@@ -192,6 +209,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Gul Agha, Peter Wegner, Akinori Yonezawa',
   'address' => 'Cambridge, MA',
   'author' => 'Gul Agha and Peter Wegner and Akinori Yonezawa',
   'key' => 'Agha_93',
@@ -201,6 +219,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Hassan A\\"\\it-Kaci',
   'address' => 'Cambridge, MA',
   'author' => 'Hassan A\\"\\it-Kaci',
   'key' => 'Ait-Kaci',
@@ -211,6 +230,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Hassan A\\"\\it-Kaci, Roger Nasr',
   'author' => 'Hassan A\\"\\it-Kaci and Roger Nasr',
   'journal' => 'Lisp and Symbolic Computation',
   'key' => 'Ait-Kaci:89b',
@@ -222,6 +242,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Pierre America',
   'address' => 'Cambridge, MA',
   'author' => 'Pierre America',
   'booktitle' => 'Object-Oriented Concurrent Programming',
@@ -234,6 +255,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Ian Anderson',
   'author' => 'Ian Anderson',
   'key' => 'Anderson97',
   'publisher' => 'Oxford University Press',
@@ -242,6 +264,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'A. A. Andreatta, S. E. R. Carvalho, C. C. Riberio',
   'address' => 'Sophia-Antipolis, France',
   'author' => 'A. A. Andreatta and S. E. R. Carvalho and C. C. Riberio',
   'booktitle' => 'Proceedings of the 2nd Metaheuristics International Conference',
@@ -251,6 +274,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Marco Dorigo, Luca Maria Gambardella',
   'author' => 'Marco Dorigo and Luca Maria Gambardella',
   'institution' => 'Universit&eacute; Libre de Bruxelles',
   'key' => 'AntCoop',
@@ -261,6 +285,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Marco Dorigo, Luca Maria Gambardella',
   'author' => 'Marco Dorigo and Luca Maria Gambardella',
   'institution' => 'Universit&eacute; Libre de Bruxelles',
   'key' => 'AntTSP',
@@ -271,6 +296,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Krzysztof R. Apt',
   'author' => 'Krzysztof R. Apt',
   'howpublished' => 'Draft',
   'key' => 'Apt97',
@@ -281,6 +307,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Ken Arnold, James Gosling',
   'address' => 'Reading, MA',
   'author' => 'Ken Arnold and James Gosling',
   'key' => 'ArnoldGosling96',
@@ -291,6 +318,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Ken Arnold, James Gosling',
   'address' => 'Reading, MA',
   'author' => 'Ken Arnold and James Gosling',
   'edition' => 'Second',
@@ -311,6 +339,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'M. Austern',
   'address' => 'Reading, MA',
   'author' => 'M. Austern',
   'key' => 'Austern98',
@@ -320,6 +349,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Rolf Backofen, Gert Smolka',
   'author' => 'Rolf Backofen and Gert Smolka',
   'journal' => 'Journal of Theoretical Computer Science',
   'key' => 'BS:Compl-tcs',
@@ -332,6 +362,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Rolf Backofen, Gert Smolka',
   'address' => 'Columbus, Ohio',
   'author' => 'Rolf Backofen and Gert Smolka',
   'booktitle' => '31$^&nbsp;th$ Annual Meeting of the Association for Computational Linguistics',
@@ -345,6 +376,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Marshall Kirk McKusick, Keith Bostic, Michael J. Karels, John S. Quarterman',
   'address' => 'Reading, MA',
   'author' => 'Marshall Kirk McKusick and Keith Bostic and Michael J. Karels and John S. Quarterman',
   'key' => 'BSD',
@@ -354,6 +386,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Rolf Backofen, Ralf Treinen',
   'address' => 'M&uuml;nchen, Germany',
   'author' => 'Rolf Backofen and Ralf Treinen',
   'booktitle' => '1st International Conference on Constraints in Computational Logics',
@@ -368,6 +401,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Rolf Backofen, Ralf Treinen',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Rolf Backofen and Ralf Treinen',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -380,6 +414,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Rolf Backofen, Gert Smolka',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Rolf Backofen and Gert Smolka',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -392,6 +427,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'John Backus',
   'address' => 'New York',
   'author' => 'John Backus',
   'booktitle' => 'ACM Turing Award Lectures : The First 20 Years (1966-1985)',
@@ -406,6 +442,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Henry Baker',
   'author' => 'Henry Baker',
   'journal' => 'ACM SIGPLAN OOPS Messenger: Object-Oriented Programming Systems',
   'key' => 'Baker93',
@@ -417,6 +454,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'K. R. Baker',
   'address' => 'New York',
   'author' => 'Baker, K. R.',
   'key' => 'Baker:74',
@@ -426,6 +464,7 @@ array (
   'year' => '1974',
 )
 array (
+  '_author' => 'E. Baker',
   'author' => 'E. Baker',
   'journal' => 'Operations Research',
   'key' => 'Baker:83',
@@ -436,6 +475,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Henry Baker',
   'author' => 'Henry Baker',
   'journal' => 'ACM SIGPLAN OOPS Messenger: Object-Oriented Programming Systems',
   'key' => 'Baker:93',
@@ -448,6 +488,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Henry Baker, Carl Hewitt',
   'address' => 'Cambridge, MA',
   'author' => 'Henry Baker and Carl Hewitt',
   'institution' => 'Massachusetts Institute of Technology',
@@ -459,6 +500,7 @@ array (
   'year' => '1977',
 )
 array (
+  '_author' => 'Henri Bal, Frans Kaashoek, Andrew Tanenbaum',
   'author' => 'Henri Bal and Frans Kaashoek and Andrew Tanenbaum',
   'journal' => 'IEEE Transactions on Software Engineering',
   'key' => 'Bal+:92',
@@ -471,6 +513,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Henri Bal',
   'address' => 'Tromso, Norway',
   'author' => 'Henri Bal',
   'booktitle' => 'EurOpen Spring Conference on Open Distributed Systems in Perspective',
@@ -481,6 +524,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'B. C. Ball, D. B. Webster',
   'author' => 'B. C. Ball and D. B. Webster',
   'journal' => 'AIIE Transactions',
   'key' => 'Ball77',
@@ -491,6 +535,7 @@ array (
   'year' => '1977',
 )
 array (
+  '_author' => 'David M. Beazley',
   'address' => 'Monterey',
   'author' => 'David M. Beazley',
   'booktitle' => '4th Annual Tcl/Tk Workshop',
@@ -501,6 +546,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'J. Christopher Beck, Andrew J. Davenport, Mark S. Fox',
   'address' => 'Schloss Hagenberg, Linz, Austria',
   'author' => 'J. Christopher Beck and Andrew J. Davenport and Mark S. Fox',
   'booktitle' => 'Principles and Practice of Constraint Programming---CP97, Proceedings of the Third International Conference',
@@ -515,6 +561,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Frederic Benhamou, William Older',
   'author' => 'Frederic Benhamou and William Older',
   'journal' => 'Journal of Logic Programming',
   'key' => 'Benhamou97',
@@ -535,6 +582,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'D.C. Blest, D.G. Fitzgerald',
   'author' => 'D.C. Blest and D.G. Fitzgerald',
   'journal' => 'Discrete Applied Mathematics',
   'key' => 'Blest88',
@@ -546,6 +594,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Daniel Bobrow, Kenneth Kahn, Gregor Kiczales, Larry Masinter, Mark Stefik, Frank Zdybel',
   'address' => 'Portland, Oregon',
   'author' => 'Daniel Bobrow and Kenneth Kahn and Gregor Kiczales and Larry Masinter and Mark Stefik and Frank Zdybel',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
@@ -558,6 +607,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'A. Bockmayr, T. Kasper',
   'abstract' => 'We introduce branch-and-infer, a unifying framework for integer linear programming and finite domain constraint programming. We use this framework to compare the two approaches with respect to their modeling and solving capabilities, to introduce symbolic constraint abstractions into integer programming, and to discuss possible combinations of the two approaches.',
   'author' => 'A. Bockmayr and T. Kasper',
   'journal' => 'INFORMS J. Computing',
@@ -570,6 +620,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'F. S. de Boer, C. Palamidessi',
   'address' => 'Berlin, Heidelberg',
   'author' => 'F. S. de Boer and C. Palamidessi',
   'booktitle' => 'CONCUR\'90: Theories of Concurrency - Unification and Extension (Proc.)',
@@ -583,6 +634,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Alan Borning',
   'address' => 'Palo Alto Research Centre',
   'author' => 'Alan Borning',
   'institution' => 'XEROX',
@@ -592,6 +644,7 @@ array (
   'year' => '1979',
 )
 array (
+  '_author' => 'J. Boye, J. Paakki, J. Maluszynski',
   'author' => 'J. Boye and J. Paakki and J. Maluszynski',
   'institution' => 'Link&ouml;ping University',
   'key' => 'Boye_92',
@@ -603,6 +656,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Alvis Brazma, David Gilbert',
   'author' => 'Alvis Brazma and David Gilbert',
   'institution' => 'City University, London',
   'key' => 'BrazmaGilbert',
@@ -614,6 +668,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Harry Bretthauer, Juergen Kopp',
   'address' => 'Sankt Augustin, Germany',
   'author' => 'Bretthauer, Harry and Kopp, Juergen',
   'institution' => 'Gesellschaft f&uuml;r Mathematik und Datenverarbeitung',
@@ -624,6 +679,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Per Brinch Hansen',
   'author' => 'Brinch Hansen, Per',
   'journal' => 'IEEE Transactions of Software Engineering',
   'key' => 'BrinchHansen:75',
@@ -635,6 +691,7 @@ array (
   'year' => '1975',
 )
 array (
+  '_author' => 'J. Brock, W. Ackerman',
   'author' => 'J. Brock and W. Ackerman',
   'booktitle' => 'Formalization of Programming Concepts (Proceedings)',
   'editor' => 'J. Diaz and I. Ramos',
@@ -647,6 +704,7 @@ array (
   'year' => '1981',
 )
 array (
+  '_author' => 'Konstantin Popov',
   'address' => 'Institut Dalle Molle d\'Intelligence Artificielle Perceptive, Martigny, Switzerland',
   'author' => 'Konstantin Popov',
   'booktitle' => 'WOz\'95, International Workshop on Oz Programming',
@@ -657,6 +715,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Manfred Broy',
   'author' => 'Manfred Broy',
   'journal' => 'Theoretical Computer Science',
   'key' => 'Broy:86',
@@ -667,6 +726,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Klaus-Peter L&ouml;hr',
   'author' => 'Klaus-Peter L&ouml;hr',
   'crossref' => 'cool_cacm_issue',
   'journal' => 'Communications of the ACM',
@@ -680,6 +740,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'G&eacute;rard Berry, G&eacute;rard Boudol',
   'address' => 'San Francisco, CA',
   'author' => 'G&eacute;rard Berry and G&eacute;rard Boudol',
   'booktitle' => 'Proceedings of the 17th ACM Conference on Principles of Programming Languages',
@@ -693,6 +754,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Yves Caseau, Fran&ccedil;ois Laburthe',
   'author' => 'Yves Caseau and Fran&ccedil;ois Laburthe',
   'journal' => 'Journal of Heuristics',
   'key' => 'CASEAU:99',
@@ -703,6 +765,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'B.&nbsp;Carlson, M.&nbsp;Carlsson, D.&nbsp;Diaz',
   'address' => 'S.&nbsp;Margherita Ligure, Italy',
   'author' => 'B.&nbsp;Carlson and M.&nbsp;Carlsson and D.&nbsp;Diaz',
   'booktitle' => 'ICLP\'94, International Conference on Logic Programming',
@@ -715,6 +778,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'M. Dincbas, P. Van Hentenryck, H. Simonis, A. Aggoun, T. Graf',
   'address' => 'Tokyo, Japan',
   'author' => 'M. Dincbas and P. Van Hentenryck and H. Simonis and A. Aggoun and T. Graf',
   'booktitle' => 'Proceedings International Conference on Fifth Generation Computer Systems',
@@ -727,6 +791,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Nicolas Beldiceanu, Helmut Simonis, Philip Kay, Peter Chan',
   'author' => 'Nicolas Beldiceanu and Helmut Simonis and Philip Kay and Peter Chan',
   'institution' => 'COSYTEC SA',
   'key' => 'CHIP:whitepaper',
@@ -736,6 +801,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Andreas Podelski, Gert Smolka',
   'address' => 'Kanagawa, Japan',
   'author' => 'Andreas Podelski and Gert Smolka',
   'booktitle' => 'Proceedings of the 1995 International Conference on Logic Programming',
@@ -749,6 +815,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Martin Henz, Stefan Lauer, Detlev Zimmermann',
   'address' => 'Toulouse, France',
   'author' => 'Martin Henz and Stefan Lauer and Detlev Zimmermann',
   'booktitle' => 'Proceedings of the 8$^th$ IEEE International Conference on Tools with Artificial Intelligence',
@@ -764,6 +831,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Joxan Jaffar, Roland H. C. Yap',
   'author' => 'Joxan Jaffar and Roland H. C. Yap',
   'journal' => 'Constraints',
   'key' => 'CP2000',
@@ -775,6 +843,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Pascal Van Hentenryck, editors Vijay Saraswat',
   'author' => 'Pascal Van Hentenryck and Vijay Saraswat, editors',
   'howpublished' => 'ACM Workshop on Strategic Directions in Computing Research, MIT Laboratory for Computer Science, Cambridge, Massachusetts, June 14-15, 1996, available at \\tt http://www.medg.lcs.mit.edu/sdcr/',
   'key' => 'CP96',
@@ -785,6 +854,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Andreas Podelski, Gert Smolka',
   'address' => 'Cassis, France',
   'author' => 'Andreas Podelski and Gert Smolka',
   'booktitle' => 'Proceedings of the First International Conference on Principles and Practice of Constraint Programming',
@@ -798,6 +868,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Gilles Pesant, Michel Gendreau',
   'author' => 'Gilles Pesant and Michel Gendreau',
   'howpublished' => 'draft',
   'key' => 'CPLS',
@@ -805,6 +876,7 @@ array (
   'type' => 'Misc',
 )
 array (
+  '_author' => 'Jr. William O. Cain',
   'address' => 'Amsterdam, New York, Oxford',
   'author' => 'Cain, Jr., William O.',
   'booktitle' => 'Optimal Strategies in Sports',
@@ -820,6 +892,7 @@ array (
   'year' => '1977',
 )
 array (
+  '_author' => 'Robert T. Campbell, Der-San Chen',
   'address' => 'Amsterdam, New York, Oxford',
   'author' => 'Robert T. Campbell and Der-San Chen',
   'booktitle' => 'Management Science in Sports',
@@ -836,6 +909,7 @@ array (
   'year' => '1976',
 )
 array (
+  '_author' => 'Luca Cardelli',
   'author' => 'Luca Cardelli',
   'journal' => 'Computing Systems',
   'key' => 'Cardelli:POPL:95',
@@ -848,6 +922,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Luca Cardelli, Peter Wegner',
   'author' => 'Luca Cardelli and Peter Wegner',
   'journal' => 'ACM Computing Surveys',
   'key' => 'CardelliWegner:85',
@@ -860,6 +935,7 @@ array (
   'year' => '1985',
 )
 array (
+  '_author' => 'B. Carlson, M. Carlsson, S. Janson',
   'address' => 'Cambridge, MA,',
   'author' => 'B. Carlson and M. Carlsson and S. Janson',
   'booktitle' => 'Logic Programming',
@@ -873,6 +949,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Mats Carlsson, Greger Ottosson, Björn Carlson',
   'address' => 'Southampton, England',
   'author' => 'Mats Carlsson and Greger Ottosson and Björn Carlson',
   'booktitle' => 'PLILP\'97, International Symposium on Programming Languages: Implementations, Logics, and Programming',
@@ -887,6 +964,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Denis Caromel',
   'author' => 'Denis Caromel',
   'crossref' => 'cool_cacm_issue',
   'journal' => 'Communications of the ACM',
@@ -900,6 +978,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Y. Caseau, F. Laburthe',
   'address' => '&Eacute;cole Normale Sup&eacute;rieure Paris, France',
   'author' => 'Y. Caseau and F. Laburthe',
   'institution' => 'LIENS Technical Report 95-25',
@@ -912,6 +991,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Yves Caseau, Fran&ccedil;ois Laburthe',
   'address' => 'Schloss Hagenberg, Linz, Austria',
   'author' => 'Yves Caseau and Fran&ccedil;ois Laburthe',
   'booktitle' => 'Principles and Practice of Constraint Programming---CP97, Proceedings of the Third International Conference',
@@ -926,6 +1006,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Yves Caseau, Fran&ccedil;ois Laburthe',
   'address' => 'Leuven, Belgium',
   'author' => 'Yves Caseau and Fran&ccedil;ois Laburthe',
   'booktitle' => 'Proceedings of the International Conference on Logic Programming',
@@ -939,6 +1020,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Amedeo Cesta, Angelo Oddi, Stephen F. Smith',
   'address' => 'Stockholm, Sweden',
   'author' => 'Amedeo Cesta and Angelo Oddi and Stephen F. Smith',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -953,6 +1035,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Jacqueline Chabrier, Jean-Michel Richer, Jean-Jacques Chabrier',
   'author' => 'Jacqueline Chabrier and Jean-Michel Richer and Jean-Jacques Chabrier',
   'booktitle' => 'Proceedings of the Workshop on Constraint Programming Applications, in conjunction with the Second International Conference on Principles and Practice of Constraint Programming (CP96)',
   'key' => 'Chabrier:96',
@@ -962,6 +1045,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'C. J. Cheney',
   'author' => 'C. J. Cheney',
   'journal' => 'Communications of the ACM',
   'key' => 'Cheney1970',
@@ -973,6 +1057,7 @@ array (
   'year' => '1970',
 )
 array (
+  '_author' => 'T. Chikayama, T. Fujise, D. Sekita',
   'address' => 'Madrid, Spain',
   'author' => 'T. Chikayama and T. Fujise and D. Sekita',
   'booktitle' => 'Programming Language Implementation and Logic Programming, 6th International Symposium, PLILP\'94',
@@ -987,6 +1072,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'N. Christofides, A. Mingozzi, P. Toth',
   'author' => 'N. Christofides and A. Mingozzi and P. Toth',
   'journal' => 'Network',
   'key' => 'Christofides:81',
@@ -997,6 +1083,7 @@ array (
   'year' => '1981',
 )
 array (
+  '_author' => 'Chu Min Li, Anbulagan',
   'address' => 'Schloss Hagenberg, Linz, Austria',
   'author' => 'Chu Min Li and Anbulagan',
   'booktitle' => 'Principles and Practice of Constraint Programming---CP97, Proceedings of the Third International Conference',
@@ -1011,6 +1098,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Chu Min Li, Anbulagan',
   'address' => 'San Mateo, CA',
   'author' => 'Chu Min Li and Anbulagan',
   'booktitle' => 'Proceedings of 15th International Joint Conference on Aritificail Intelligence, IJCAI\'97',
@@ -1022,6 +1110,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'H. Alt, N. Blum, K. Mehlhorn, M. Paul',
   'author' => 'H. Alt and N. Blum and K. Mehlhorn and M. Paul',
   'key' => 'Clark77',
   'title' => 'Computing a maximum cardinality matching in a bipartite graph in $O(n^1.5 \\sqrtm / \\logn)$',
@@ -1041,6 +1130,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Philippe Codognet, Daniel Diaz',
   'address' => 'Madrid, Spain',
   'author' => 'Philippe Codognet and Daniel Diaz',
   'booktitle' => 'Programming Language Implementation and Logic Programming, 6th International Symposium, PLILP\'94',
@@ -1055,6 +1145,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'J. Cohen',
   'author' => 'J. Cohen',
   'journal' => 'Communications of the ACM',
   'key' => 'Cohen90',
@@ -1066,6 +1157,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Derek Coleman',
   'address' => 'Englewood Cliffs, NJ',
   'author' => 'Derek Coleman',
   'key' => 'Coleman_94',
@@ -1075,6 +1167,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Alain Colmerauer, Henri Kanoui, R. Psero, Philippe Roussel',
   'address' => 'Marseille, France',
   'author' => 'Alain Colmerauer and Henri Kanoui and R. Psero and Philippe Roussel',
   'institution' => 'Universit&eacute; Aix-Marseille II',
@@ -1084,6 +1177,7 @@ array (
   'year' => '1973',
 )
 array (
+  '_author' => 'Hubert Comon, Ralf Treinen',
   'address' => 'Edinburgh, Scotland',
   'author' => 'Hubert Comon and Ralf Treinen',
   'booktitle' => 'Colloquium on Trees in Algebra and Programming',
@@ -1098,6 +1192,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Hubert Comon, Ralf Treinen',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Hubert Comon and Ralf Treinen',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -1110,6 +1205,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Hubert Comon, Ralf Treinen',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Hubert Comon and Ralf Treinen',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -1122,6 +1218,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Hubert Comon, Ralf Treinen',
   'address' => 'Universit&eacute; de Paris Sud, 91405 Orsay, France',
   'author' => 'Hubert Comon and Ralf Treinen',
   'institution' => 'Laboratoire de Recherche en Informatique',
@@ -1134,6 +1231,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Hubert Comon, Ralf Treinen',
   'author' => 'Hubert Comon and Ralf Treinen',
   'journal' => 'Journal of Theoretical Computer Science',
   'key' => 'ComonTreinen:lpo93tcs',
@@ -1150,6 +1248,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Thomas Conroy, Eduardo Pelegri-Llopart',
   'address' => 'Reading, MA',
   'author' => 'Thomas Conroy and Eduardo Pelegri-Llopart',
   'booktitle' => 'Smalltalk-80: Bits of History and Words of Advice',
@@ -1163,6 +1262,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'J&ouml;rg W&uuml;rtz',
   'address' => 'Berlin, Heidelberg, New York',
   'author' => 'J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Operations Research Proceedings 1996',
@@ -1176,6 +1276,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Joachim Niehren, Martin M&uuml;ller',
   'address' => 'Venice, Italy',
   'author' => 'Joachim Niehren and Martin M&uuml;ller',
   'booktitle' => 'International Workshop on Concurrent Constraints Programming',
@@ -1186,6 +1287,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'William Cook',
   'address' => 'Noordwijkerhout, Netherlands',
   'author' => 'William Cook',
   'booktitle' => 'Foundations of Object-Oriented Languages: REX School/Workshop',
@@ -1199,6 +1301,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Pierre-Jacques Courtois, F. Heymans, David Parnas',
   'author' => 'Pierre-Jacques Courtois and F. Heymans and David Parnas',
   'journal' => 'Communications of the ACM',
   'key' => 'Courtois:71',
@@ -1211,6 +1314,7 @@ array (
   'year' => '1971',
 )
 array (
+  '_author' => 'P. Cousot, R. Cousot',
   'address' => 'Los Angeles, California',
   'author' => 'P. Cousot and R. Cousot',
   'booktitle' => '$4^th$ Annual ACM SIGPLAN-SIGACT Symposium on Artificial Intelligence &amp; Programming Languages',
@@ -1223,6 +1327,7 @@ array (
   'year' => '1977',
 )
 array (
+  '_author' => 'P. Cousot, R. Cousot',
   'address' => 'Paris, France',
   'author' => 'P. Cousot and R. Cousot',
   'institution' => 'D&eacute;partement de Math&eacute;matiques et d\'Informatique, Ecole Normale Sup&eacute;rieure',
@@ -1234,6 +1339,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'James M. Crawford, Mukesh Dalal, Joachim P. Walser',
   'author' => 'James M. Crawford and Mukesh Dalal and Joachim P. Walser',
   'booktitle' => 'Proceedings of the AIPS-98 Workshop on Planning as Combinatorial Search',
   'key' => 'CrawfordDalalWalser98',
@@ -1243,6 +1349,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Andrew W. Appel',
   'address' => 'Princeton',
   'author' => 'Andrew W. Appel',
   'institution' => 'Princeton University',
@@ -1254,6 +1361,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Daniel Diaz, Philippe Codognet',
   'address' => '',
   'author' => 'Daniel Diaz and Philippe Codognet',
   'booktitle' => '10th International Conference on Logic Programming',
@@ -1263,6 +1371,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'M. Davis, G. Logemann, D. Loveland',
   'author' => 'M. Davis and G. Logemann and D. Loveland',
   'journal' => 'Communications of the ACM',
   'key' => 'DPL62',
@@ -1275,6 +1384,7 @@ array (
   'year' => '1962',
 )
 array (
+  '_author' => 'Markus H&ouml;hfeld, Gert Smolka',
   'address' => 'Postfach 80 08 80, 7000 Stuttgart 80, Germany',
   'author' => 'Markus H&ouml;hfeld and Gert Smolka',
   'institution' => 'IWBS, IBM Deutschland',
@@ -1287,6 +1397,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'C. J. Date',
   'address' => 'Reading, MA',
   'author' => 'C. J. Date',
   'key' => 'Date95',
@@ -1296,6 +1407,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'M. Davis, H. Putnam',
   'author' => 'M. Davis and H. Putnam',
   'journal' => 'Journal of the ACM',
   'key' => 'Davis60',
@@ -1307,6 +1419,7 @@ array (
   'year' => '1960',
 )
 array (
+  '_author' => 'M. Davis, G. Logemann, D. Loveland',
   'author' => 'M. Davis and G. Logemann and D. Loveland',
   'journal' => 'Communications of the ACM',
   'key' => 'Davis62',
@@ -1318,6 +1431,7 @@ array (
   'year' => '1962',
 )
 array (
+  '_author' => 'Martin Davis',
   'author' => 'Martin Davis',
   'booktitle' => 'Proceedings, Symposia of Applied Mathematics',
   'key' => 'Davis63',
@@ -1328,6 +1442,7 @@ array (
   'year' => '1963',
 )
 array (
+  '_author' => 'Ernest Davis',
   'author' => 'Ernest Davis',
   'journal' => 'Artificial Intelligence',
   'key' => 'Davis87',
@@ -1338,6 +1453,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'M. Dell\'Amico, M. Trubian',
   'author' => 'M. Dell\'Amico and M. Trubian',
   'journal' => 'Annals of Operations Research',
   'key' => 'DellAmico:93',
@@ -1348,6 +1464,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Jack Dennis',
   'address' => 'Paris',
   'author' => 'Jack Dennis',
   'booktitle' => 'Proceedings Colloque sur la Programmation',
@@ -1361,6 +1478,7 @@ array (
   'year' => '1974',
 )
 array (
+  '_author' => 'Peter Deutsch',
   'address' => 'Nottingham, UK',
   'author' => 'Peter Deutsch',
   'booktitle' => 'Proceeedings of the European Conference on Object-Oriented Programming',
@@ -1373,6 +1491,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Peter Deutsch, Allan Schiffman',
   'address' => 'Austin, TX',
   'author' => 'Peter Deutsch and Allan Schiffman',
   'booktitle' => 'Proceedings of the ACM Symposium on Principles of Programming Languages',
@@ -1385,6 +1504,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Edsger Dijkstra',
   'address' => 'London',
   'author' => 'Edsger Dijkstra',
   'booktitle' => 'Programming Languages',
@@ -1396,6 +1516,7 @@ array (
   'year' => '1968',
 )
 array (
+  '_author' => 'Edsger Dijkstra',
   'author' => 'Edsger Dijkstra',
   'journal' => 'Acta Informatica',
   'key' => 'Dijkstra71',
@@ -1406,6 +1527,7 @@ array (
   'year' => '1971',
 )
 array (
+  '_author' => 'M. Dincbas, H. Simonis, P. Van Hentenryck',
   'address' => 'Cambridge, MA',
   'author' => 'M. Dincbas and H. Simonis and P. Van Hentenryck',
   'booktitle' => 'Logic Programming: Proc.\\ of the Fifth International Conference and Symposium (Volume 1)',
@@ -1419,6 +1541,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Mehmet Dincbas, Helmut Simonis, Pascal Van Hentenryck',
   'address' => 'Munich, Germany',
   'author' => 'Mehmet Dincbas and Helmut Simonis and Pascal Van Hentenryck',
   'booktitle' => 'Proceedings of the European Conference on Artificial Intelligence',
@@ -1433,6 +1556,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'J&uuml;rgen Dix, Martin M&uuml;ller',
   'address' => 'Charlotte, North Carolina',
   'author' => 'J&uuml;rgen Dix and Martin M&uuml;ller',
   'booktitle' => 'Proceedings of the 8th International Symposium on Methodologies for Intelligent Systems',
@@ -1447,6 +1571,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Christophe Dony, Jacques Malenfant, Pierre Cointe',
   'address' => 'Vancouver, Canada',
   'author' => 'Christophe Dony and Jacques Malenfant and Pierre Cointe',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
@@ -1459,6 +1584,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Marco Dorigo, Vittorio Maniezzo, Alberto Colorni',
   'author' => 'Marco Dorigo and Vittorio Maniezzo and Alberto Colorni',
   'journal' => 'IEEE Transactions on Systems, Man, and Cybernetics',
   'key' => 'DorigoIEEE',
@@ -1470,6 +1596,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Denise L. Draper, Ari K. J&oacute;nsson, David P. Clements, David E Joslin',
   'address' => 'Stockholm, Sweden',
   'author' => 'Denise L. Draper and Ari K. J&oacute;nsson and David P. Clements and David E Joslin',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -1484,6 +1611,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Karel Driesen',
   'author' => 'Karel Driesen',
   'key' => 'Driesen:93',
   'school' => 'Vrije Universiteit Brussel',
@@ -1492,6 +1620,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Karel Driesen',
   'address' => 'Washington, D.C.',
   'author' => 'Karel Driesen',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
@@ -1504,6 +1633,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Luca Di Gaspero, Andrea Schaerf',
   'address' => '1-33100 Udine, Italy',
   'author' => 'Luca Di Gaspero and Andrea Schaerf',
   'institution' => 'Dipartimento di Matematica e Informatica, Universit&agrave; degli Studi di Udine via delle Scienze 206',
@@ -1514,6 +1644,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Martin Henz, Gert Smolka',
   'address' => 'Bologna, Italy',
   'author' => 'Martin Henz and Gert Smolka',
   'booktitle' => 'Workshop on Coordination Models and Languages for Parallelism and Distribution (in connection with ECOOP 94)',
@@ -1523,6 +1654,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'J. Edmonds',
   'author' => 'Edmonds, J.',
   'journal' => 'Journal of Research of the National Bureau of Standards',
   'key' => 'Edmonds_a',
@@ -1533,6 +1665,7 @@ array (
   'year' => '1965',
 )
 array (
+  '_author' => 'J. Edmonds',
   'author' => 'Edmonds, J.',
   'journal' => 'Canadian Journal on Mathematics',
   'key' => 'Edmonds_b',
@@ -1542,6 +1675,7 @@ array (
   'year' => '1965',
 )
 array (
+  '_author' => 'Andrew Black, Norman Hutchinson, Eric Jul, Henry Levy',
   'address' => 'Portland, Oregon',
   'author' => 'Andrew Black and Norman Hutchinson and Eric Jul and Henry Levy',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
@@ -1554,6 +1688,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Christian Schulte',
   'address' => 'Schloss Hagenberg, Linz, Austria',
   'author' => 'Christian Schulte',
   'booktitle' => 'Principles and Practice of Constraint Programming---CP97, Proceedings of the Third International Conference',
@@ -1568,6 +1703,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Kazunori Ueda, Yasuhiro Ajiro, Kenta Cho',
   'author' => 'Kazunori Ueda and Yasuhiro Ajiro and Kenta Cho',
   'howpublished' => 'draft',
   'key' => 'ErrorCorrectingSourceCode',
@@ -1575,6 +1711,7 @@ array (
   'type' => 'Misc',
 )
 array (
+  '_author' => 'Christian Schulte',
   'address' => 'Leuven, Belgium',
   'author' => 'Christian Schulte',
   'booktitle' => 'Proceedings of the International Conference on Logic Programming',
@@ -1588,6 +1725,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Luca Cardelli, Florian Matthes, Mart\\\'\\in Abadi',
   'address' => '130 Lytton Avenue, Palo Alto, California 94301',
   'author' => 'Luca Cardelli and Florian Matthes and Mart\\\'\\in Abadi',
   'institution' => 'digital Systems Research Center',
@@ -1598,6 +1736,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Gert Smolka',
   'author' => 'Gert Smolka',
   'journal' => 'Journal of Logic Programming',
   'key' => 'FL89',
@@ -1608,6 +1747,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Bob Zeidman',
   'author' => 'Bob Zeidman',
   'howpublished' => 'White Paper of The Chalkboard Network',
   'key' => 'FPGA-overview',
@@ -1616,6 +1756,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Gert Smolka, Martin Henz, Michael Mehl, Ralf Scheidhauer, Christian Schulte, Ralf Treinen, J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Gert Smolka and Martin Henz and Michael Mehl and Ralf Scheidhauer and Christian Schulte and Ralf Treinen and J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -1626,6 +1767,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Hassan A\\"\\it-Kaci, Andreas Podelski, Gert Smolka',
   'address' => 'Tokyo, Japan',
   'author' => 'Hassan A\\"\\it-Kaci and Andreas Podelski and Gert Smolka',
   'booktitle' => 'Proceedings of the International Conference on Fifth Generation Computer Systems',
@@ -1640,6 +1782,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Hassan A\\"\\it-Kaci, Andreas Podelski, Gert Smolka',
   'address' => '92563 Rueil-Malmaison, France',
   'author' => 'Hassan A\\"\\it-Kaci and Andreas Podelski and Gert Smolka',
   'institution' => 'Digital Paris Research Laboratory',
@@ -1652,6 +1795,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Hassan A\\"\\it-Kaci, Andreas Podelski, Gert Smolka',
   'author' => 'Hassan A\\"\\it-Kaci and Andreas Podelski and Gert Smolka',
   'journal' => 'Journal of Theoretical Computer Science',
   'key' => 'FT-tcs',
@@ -1664,6 +1808,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Fran&ccedil;cois Fages, Julian Fowler, Thierry Sola',
   'address' => 'Madrid, Spain',
   'author' => 'Fran&ccedil;cois Fages and Julian Fowler and Thierry Sola',
   'booktitle' => 'Programming Language Implementation and Logic Programming, 6th International Symposium, PLILP\'94',
@@ -1678,6 +1823,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'H. L. Fang, P. Ross, D. Corne',
   'address' => 'Urbana-Champaign, IL',
   'author' => 'H. L. Fang and P. Ross and D. Corne',
   'booktitle' => 'Proc.\\ of the Fifth International Conference on Genetic Algorithms',
@@ -1689,6 +1835,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Joachim Niehren, Andreas Podelski',
   'address' => 'Orsay, France',
   'author' => 'Joachim Niehren and Andreas Podelski',
   'booktitle' => 'TAPSOFT 93: Theory and Practice of Software Development',
@@ -1703,6 +1850,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'J. A. Ferland, A. Hertz, A. Lavoie',
   'author' => 'J. A. Ferland and A. Hertz and A. Lavoie',
   'journal' => 'Operations Research',
   'key' => 'Ferland:96',
@@ -1713,6 +1861,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Klaus Fischer, J&ouml;rg M&uuml;ller, Markus Pischel',
   'address' => 'San Francisco',
   'author' => 'Klaus Fischer and J&ouml;rg M&uuml;ller and Markus Pischel',
   'booktitle' => 'Proceedings of the International Conference on Multiagent Systems (ICMAS)',
@@ -1723,6 +1872,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Ian Foster, Robert Olson, Steven Tuecke',
   'author' => 'Ian Foster and Robert Olson and Steven Tuecke',
   'journal' => 'Scientific Programming',
   'key' => 'Foster:92',
@@ -1734,6 +1884,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'T. Franzen, S. Haridi, S. Janson',
   'address' => 'Berlin, Heidelberg',
   'author' => 'T. Franzen and S. Haridi and S. Janson',
   'booktitle' => 'Extensions of Logic Programming: Proceedings of the Second International Workshop ELP\'91',
@@ -1747,6 +1898,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Jon Freeman',
   'address' => 'Philadelphia, PA',
   'author' => 'Jon Freeman',
   'key' => 'Freeman95',
@@ -1756,6 +1908,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Daniel Friedman, David Wise',
   'author' => 'Daniel Friedman and David Wise',
   'journal' => 'IEEE Transactions on Computers',
   'key' => 'Friedman:78',
@@ -1768,6 +1921,7 @@ array (
   'year' => '1978',
 )
 array (
+  '_author' => 'Daniel Friedman, Mitchell Wand, Christopher Haynes',
   'address' => 'Cambridge, MA',
   'author' => 'Daniel Friedman and Mitchell Wand and Christopher Haynes',
   'key' => 'FriedmanWandHaynes92',
@@ -1777,6 +1931,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Christian Bessi&egrave;re, Jean-Charles R&eacute;gin',
   'address' => 'Nagoya, Japan',
   'author' => 'Christian Bessi&egrave;re and Jean-Charles R&eacute;gin',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -1790,6 +1945,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Laurent Granvilliers, Eric Monfroy',
   'address' => 'Singapore',
   'author' => 'Laurent Granvilliers and Eric Monfroy',
   'booktitle' => 'Principles and Practice of Constraint Programming---CP 2000, Proceedings of the Sixth International Conference',
@@ -1802,6 +1958,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Daniel Diaz, Philippe Codognet',
   'address' => 'Como, Italy',
   'author' => 'Daniel Diaz and Philippe Codognet',
   'booktitle' => 'ACM Symposium on Applied Computing',
@@ -1812,6 +1969,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'H. N. Gabow',
   'author' => 'Gabow, H. N.',
   'journal' => 'Journal of the ACM',
   'key' => 'Gabow:max_card_matching',
@@ -1822,6 +1980,7 @@ array (
   'year' => '1976',
 )
 array (
+  '_author' => 'Michel Gendreau, Alan Hertz, Gilbert Laporte',
   'author' => 'Michel Gendreau and Alan Hertz and Gilbert Laporte',
   'journal' => 'Management Science',
   'key' => 'Gendreau:94',
@@ -1831,6 +1990,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Ian P. Gent, Ewan MacIntyre, Patrick Prosser, Toby Walsh',
   'author' => 'Ian P. Gent and Ewan MacIntyre and Patrick Prosser and Toby Walsh',
   'booktitle' => 'Proceedings of the thirteenth National Conference on Artificial Intelligence (AAAI \'96)',
   'key' => 'Gent96',
@@ -1840,6 +2000,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Carmen Gervet',
   'author' => 'Carmen Gervet',
   'journal' => 'Constraints',
   'key' => 'Gervet:97a',
@@ -1852,6 +2013,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Ghan Bir Singh',
   'author' => 'Ghan Bir Singh',
   'journal' => 'ACM SIGPLAN OOPS Messenger: Object-Oriented Programming Systems',
   'key' => 'Ghan:94',
@@ -1863,6 +2025,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Wolfgang K. Giloi',
   'address' => 'Heilbronner Str. 10, D-1000 Berlin 31',
   'author' => 'Wolfgang K. Giloi',
   'institution' => 'Konrad-Zuse-Zentrum f&uuml;r Informationstechnik Berlin',
@@ -1873,6 +2036,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Martin Henz, Michael Mehl',
   'address' => 'Institut Dalle Molle d\'Intelligence Artificielle Perceptive, Martigny, Switzerland',
   'author' => 'Martin Henz and Michael Mehl',
   'booktitle' => 'WOz\'95, International Workshop on Oz Programming',
@@ -1883,6 +2047,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'E. Gamma, R. Helm, R. Johnson, J. Vlissides',
   'address' => 'Reading, MA',
   'author' => 'E. Gamma and R. Helm and R. Johnson and J. Vlissides',
   'key' => 'GoF94',
@@ -1892,6 +2057,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Adele Goldberg, editors Alan Kay',
   'address' => 'Palo Alto, CA',
   'author' => 'Adele Goldberg and Alan Kay, editors',
   'institution' => 'Xerox PARC',
@@ -1903,6 +2069,7 @@ array (
   'year' => '1976',
 )
 array (
+  '_author' => 'Adele Goldberg, David Robson',
   'address' => 'Reading, MA',
   'author' => 'Adele Goldberg and David Robson',
   'key' => 'GoldbergRobson:83',
@@ -1912,6 +2079,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Robert M. Haralick, Gordon L. Elliot',
   'author' => 'Robert M. Haralick and Gordon L. Elliot',
   'journal' => 'Artificial Intelligence',
   'key' => 'HE80',
@@ -1923,6 +2091,7 @@ array (
   'year' => '1980',
 )
 array (
+  '_author' => 'Reiner H&auml;hnle, Ryuzo Hasegawa, Yasuyuki Shirai',
   'author' => 'Reiner H&auml;hnle and Ryuzo Hasegawa and Yasuyuki Shirai',
   'booktitle' => 'Proc.\\ of ILPS Post-Conference Workshop on Interval Constraints, Portland/OR, USA',
   'editor' => 'Fr&eacute;d&eacute;ric Benhamou and William J.&nbsp;Older and Maarten van Emden and Pascal van Hentenryck',
@@ -1933,6 +2102,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Andreas V. Hense, Gert Smolka',
   'address' => 'Beijing, P.R. China',
   'author' => 'Andreas V. Hense and Gert Smolka',
   'booktitle' => 'Proceedings of the IFIP TC12/WG12.3 International Workshop on Automated Reasoning',
@@ -1947,6 +2117,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Andreas V. Hense, Gert Smolka',
   'address' => 'Postfach 1150, D-66041 Saarbr&uuml;cken, Germany',
   'author' => 'Andreas V. Hense and Gert Smolka',
   'institution' => 'Universit&auml;t des Saarlandes, Fachbereich 14 Informatik',
@@ -1958,6 +2129,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Andreas V. Hense, Gert Smolka',
   'address' => 'Postfach 1150, D-66041 Saarbr&uuml;cken, Germany',
   'author' => 'Andreas V. Hense and Gert Smolka',
   'institution' => 'Universit&auml;t des Saarlandes, Fachbereich 14 Informatik',
@@ -1969,6 +2141,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Warwick Harvey, Peter Stuckey',
   'address' => 'Pisa, Italy',
   'author' => 'Warwick Harvey and Peter Stuckey',
   'booktitle' => 'Proceedings of the Fourth International Conference on Principles and Practice of Constraint Programming(CP98)',
@@ -1983,6 +2156,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Andreas Hense, Gert Smolka',
   'address' => 'M&uuml;nchen, Germany',
   'author' => 'Andreas Hense and Gert Smolka',
   'booktitle' => '1st International Conference on Constraints in Computational Logics',
@@ -1997,6 +2171,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Martin Henz, Gert Smolka, J&ouml;rg W&uuml;rtz',
   'address' => 'Chamb&eacute;ry, France',
   'author' => 'Martin Henz and Gert Smolka and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Proceedings of the 13$^th$ International Joint Conference on Artificial Intelligence',
@@ -2011,6 +2186,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Mozafian Hajian, Robert Rodosek, Barry Richards',
   'address' => 'London',
   'author' => 'Mozafian Hajian and Robert Rodosek and Barry Richards',
   'institution' => 'IC-Parc',
@@ -2021,6 +2197,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Robert Harper',
   'address' => 'Department of Computer Science, University of Edinburgh',
   'author' => 'Robert Harper',
   'institution' => 'Laboratory for Foundations of Computer Science',
@@ -2032,6 +2209,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Benjamin W. Wah, Yao-Jen Chang',
   'author' => 'Benjamin W. Wah and Yao-Jen Chang',
   'journal' => 'Journal of Global Optimization',
   'key' => 'HarperRobe94d',
@@ -2043,6 +2221,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'John Harrison',
   'address' => 'Turku, Finland',
   'author' => 'John Harrison',
   'booktitle' => 'Theorem Proving in Higher Order Logics: 9th International Conference, TPHOLs\'96',
@@ -2057,6 +2236,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'J. W. Havender',
   'author' => 'J. W. Havender',
   'journal' => 'IBM Systems Journal',
   'key' => 'Havender:1968:ADM',
@@ -2068,6 +2248,7 @@ array (
   'year' => '1968',
 )
 array (
+  '_author' => 'M. Held, R. Karp',
   'author' => 'M. Held and R. Karp',
   'journal' => 'Operations Research',
   'key' => 'Held:70',
@@ -2078,6 +2259,7 @@ array (
   'year' => '1970',
 )
 array (
+  '_author' => 'Pascal Van Hentenryck, Laurent Michel, Frederic Benhamou',
   'author' => 'Pascal Van Hentenryck and Laurent Michel and Frederic Benhamou',
   'journal' => 'Science of Computer Programming',
   'key' => 'Hentenryck97',
@@ -2086,6 +2268,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin Henz',
   'author' => 'Henz, Martin',
   'key' => 'HenzDiss',
   'month' => 'jun',
@@ -2095,6 +2278,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin Henz',
   'author' => 'Martin Henz',
   'key' => 'HenzMaster',
   'month' => 'dec',
@@ -2104,6 +2288,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Martin Henz',
   'address' => 'Dordrecht / Boston / London',
   'author' => 'Henz, Martin',
   'key' => 'HenzOFCCP:98',
@@ -2115,6 +2300,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Rudolf Herschel, Friedrich Pieper',
   'address' => 'M&uuml;nchen, Wien',
   'author' => 'Rudolf Herschel and Friedrich Pieper',
   'key' => 'Herschel:83',
@@ -2124,6 +2310,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Carl Hewitt',
   'author' => 'Carl Hewitt',
   'journal' => 'Journal of Artificial Intelligence',
   'key' => 'Hewitt77',
@@ -2135,6 +2322,7 @@ array (
   'year' => '1977',
 )
 array (
+  '_author' => 'Carl Hewitt, Henry Baker',
   'address' => 'Toronto, Canada',
   'author' => 'Carl Hewitt and Henry Baker',
   'booktitle' => 'Proceedings of the World Computer Congress of the IFIP',
@@ -2148,6 +2336,7 @@ array (
   'year' => '1977',
 )
 array (
+  '_author' => 'Weidong Chen, Michael Kifer, David S. Warren',
   'author' => 'Chen, Weidong and Kifer, Michael and Warren, David S.',
   'journal' => 'Journal of Logic Programming',
   'key' => 'Hilog',
@@ -2158,6 +2347,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Charles A. R. Hoare',
   'author' => 'Charles A. R. Hoare',
   'journal' => 'Communications of the ACM',
   'key' => 'Hoare72',
@@ -2170,6 +2360,7 @@ array (
   'year' => '1972',
 )
 array (
+  '_author' => 'Charles A. R. Hoare, Nikolaus Wirth',
   'author' => 'Charles A. R. Hoare and Nikolaus Wirth',
   'journal' => 'Communications of the ACM',
   'key' => 'Hoare:66',
@@ -2181,6 +2372,7 @@ array (
   'year' => '1966',
 )
 array (
+  '_author' => 'Urs H&ouml;lzle, Craig Chambers, David Ungar',
   'address' => 'Geneva, Switzerland',
   'author' => 'Urs H&ouml;lzle and Craig Chambers and David Ungar',
   'booktitle' => 'Proceeedings of the European Conference on Object-Oriented Programming',
@@ -2194,6 +2386,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Urs H&ouml;lzle, David Ungar',
   'author' => 'Urs H&ouml;lzle and David Ungar',
   'journal' => 'ACM Transactions on Programming Languages and Systems',
   'key' => 'Hoelzle:96',
@@ -2205,6 +2398,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'J. N. Hooker, V. Vinay',
   'author' => 'J. N. Hooker and V. Vinay',
   'journal' => 'Journal of Automated Reasoning',
   'key' => 'Hooker95',
@@ -2216,6 +2410,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'J. N. Hooker',
   'author' => 'J. N. Hooker',
   'journal' => 'Operations Research',
   'key' => 'Hooker:94',
@@ -2226,6 +2421,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'J. N. Hooker',
   'author' => 'J. N. Hooker',
   'journal' => 'Journal of Heuristics',
   'key' => 'Hooker:96',
@@ -2236,6 +2432,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Holger H. Hoos',
   'address' => 'Stockholm, Sweden',
   'author' => 'Holger H. Hoos',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -2250,6 +2447,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Holger Hoos',
   'author' => 'Holger Hoos',
   'howpublished' => 'Diplomarbeit. Fachbereich Informatik, Technische Hochschule Darmstadt, Germany',
   'key' => 'Hoos:1996',
@@ -2259,6 +2457,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Bruce Horn',
   'address' => 'Vancouver, Canada',
   'author' => 'Bruce Horn',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
@@ -2271,6 +2470,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Matthew Huntbach',
   'author' => 'Matthew Huntbach',
   'journal' => 'Journal of Object-Oriented Programming',
   'key' => 'Huntbach95',
@@ -2280,6 +2480,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Martin Henz, Michael Mehl, Ralf Scheidhauer, Gert Smolka, Ralf Treinen, J&ouml;rg W&uuml;rtz',
   'author' => 'Martin Henz and Michael Mehl and Ralf Scheidhauer and Gert Smolka and Ralf Treinen and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Statusseminar des BMFT, K&uuml;nstliche Intelligenz',
   'editor' => 'Gottfried Wolf',
@@ -2292,6 +2493,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Martin Henz, J&ouml;rg W&uuml;rtz',
   'author' => 'Martin Henz and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'The Selected Proceedings of the 1st International Conference on the Practice and Theory of Automated Time Tabling, Edinburgh 1995',
   'editor' => 'E.K.Burke and P.Ross',
@@ -2304,6 +2506,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Martin Henz',
   'author' => 'Martin Henz',
   'journal' => 'IEEE Intelligent Systems',
   'key' => 'IEEEIS2000',
@@ -2316,6 +2519,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Martin Henz, Gert Smolka, J&ouml;rg W&uuml;rtz',
   'address' => 'Chamb&eacute;ry, France',
   'author' => 'Martin Henz and Gert Smolka and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -2337,6 +2541,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Robert Iannucci',
   'address' => 'Cambridge, MA',
   'author' => 'Robert Iannucci',
   'key' => 'IannucciDiss',
@@ -2346,6 +2551,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Tetsuo Ida, Jiro Tanaka',
   'address' => 'Paris',
   'author' => 'Tetsuo Ida and Jiro Tanaka',
   'booktitle' => 'Proceedings of the World Computer Congress of the IFIP',
@@ -2358,6 +2564,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Jean-Fran&ccedil;ois Puget',
   'address' => 'Singapore',
   'author' => 'Jean-Fran&ccedil;ois Puget',
   'booktitle' => 'Proceedings of the Second Singapore International Conference on Intelligent Systems (SPICIS)',
@@ -2369,6 +2576,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Carol Sliwa',
   'author' => 'Carol Sliwa',
   'journal' => 'ComputerWorld',
   'key' => 'JDBC',
@@ -2378,6 +2586,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Joachim Niehren',
   'address' => 'Stuhlsatzenhausweg 3, D66123 Saarbr&uuml;cken, Germany',
   'author' => 'Joachim Niehren',
   'directory' => 'ProgrammingSysLab',
@@ -2392,6 +2601,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Robert Halstead',
   'author' => 'Robert Halstead',
   'journal' => 'ACM Transactions on Programming Languages and Systems',
   'key' => 'JTOPLAS-07-4*501',
@@ -2403,6 +2613,7 @@ array (
   'year' => '1985',
 )
 array (
+  '_author' => 'Joxan Jaffar, Jean-Louis Lassez',
   'author' => 'Joxan Jaffar and Jean-Louis Lassez',
   'booktitle' => 'Proceedings of the 14th ACM Symposium on Principles of Programming Languages, Munich, Germany',
   'key' => 'JaffarLassez:87',
@@ -2414,6 +2625,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Sverker Janson',
   'address' => 'SICS Box 1263, S-164 28 Kista, Sweden',
   'author' => 'Sverker Janson',
   'key' => 'Janson:PhD:94',
@@ -2425,6 +2637,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Lalita Jategaonka, Albert Meyer',
   'address' => 'Montreal, Canada',
   'author' => 'Lalita Jategaonka and Albert Meyer',
   'booktitle' => 'Proceedings of the Annual IEEE Symposium on Logic in Computer Science',
@@ -2438,6 +2651,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Jonathan C. Hardwick, Jay Sipelstein',
   'address' => 'Caregie Mellon University, Pittsburgh, PA 15213',
   'author' => 'Jonathan C. Hardwick and Jay Sipelstein',
   'institution' => 'School of Computer Science',
@@ -2448,6 +2662,7 @@ array (
   'year' => '1966',
 )
 array (
+  '_author' => 'N. Jones, P. Sestoft, Harald S&oslash;ndergaard',
   'author' => 'N. Jones and P. Sestoft and Harald S&oslash;ndergaard',
   'booktitle' => 'Proceedings of the Conference on Rewriting Techniques and Applications',
   'editor' => 'J.-P. Jouannaud',
@@ -2461,6 +2676,7 @@ array (
   'year' => '1985',
 )
 array (
+  '_author' => 'N. Jones, C. Gomard, P Sestoft',
   'address' => 'Englewood Cliffs, NJ',
   'author' => 'N. Jones and C. Gomard and P Sestoft',
   'key' => 'Jones_93',
@@ -2472,6 +2688,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'S. Kirkpatrick, C. Gelatt, M. Vecchi',
   'author' => 'S. Kirkpatrick and C. Gelatt and M. Vecchi',
   'journal' => 'Science',
   'key' => 'KIRK:83',
@@ -2482,6 +2699,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Kazunori Ueda, Takashi Chikayama',
   'author' => 'Kazunori Ueda and Takashi Chikayama',
   'journal' => 'The Computer Journal',
   'key' => 'KL1',
@@ -2493,6 +2711,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Jana Koehler, Ralf Treinen',
   'address' => 'Raleigh, NC',
   'author' => 'Jana Koehler and Ralf Treinen',
   'booktitle' => 'Symposium on automated deduction in non-standard logics (working notes)',
@@ -2506,6 +2725,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Jana Koehler, Ralf Treinen',
   'author' => 'Jana Koehler and Ralf Treinen',
   'booktitle' => 'Executable Modal and Temporal Logics',
   'editor' => 'Michael Fisher and Richard Owens',
@@ -2518,6 +2738,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Ka Boon Kevin Ng',
   'author' => 'Ng, Ka Boon Kevin',
   'key' => 'KaBoonMaster',
   'publisher' => 'Master\'s thesis, School of Computing, National University of Singapore',
@@ -2526,6 +2747,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Frans Kaashoek, Henri Bal, Andrew Tanenbaum',
   'address' => 'Ft. Lauderdale, FL',
   'author' => 'Frans Kaashoek and Henri Bal and Andrew Tanenbaum',
   'booktitle' => 'Proceedings of the Workshop on Experiences with Building Distributed and Multiprocessor Systems',
@@ -2536,6 +2758,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Gilles Kahn',
   'address' => 'Stockholm, Sweden',
   'author' => 'Gilles Kahn',
   'booktitle' => 'Proceedings of the World Computer Congress of the IFIP',
@@ -2547,6 +2770,7 @@ array (
   'year' => '1974',
 )
 array (
+  '_author' => 'Gilles Kahn, David MacQueen',
   'address' => 'Toronto, Canada',
   'author' => 'Gilles Kahn and David MacQueen',
   'booktitle' => 'Proceedings of the World Computer Congress of the IFIP',
@@ -2560,6 +2784,7 @@ array (
   'year' => '1977',
 )
 array (
+  '_author' => 'Kenneth Kahn',
   'address' => 'Nottingham, UK',
   'author' => 'Kenneth Kahn',
   'booktitle' => 'Proceeedings of the European Conference on Object-Oriented Programming',
@@ -2572,6 +2797,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Kenneth Kahn',
   'address' => 'ICOT, Japan',
   'author' => 'Kahn, Kenneth',
   'booktitle' => 'Proceedings of the International Conference on Fifth Generation Computer Systems',
@@ -2583,6 +2809,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Kenneth Kahn, Eric Tribble, Mark Miller, Daniel Bobrow',
   'address' => 'Portland, Oregon',
   'author' => 'Kenneth Kahn and Eric Tribble and Mark Miller and Daniel Bobrow',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
@@ -2595,6 +2822,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'K. M. Kahn, V. A. Saraswat',
   'address' => 'Skokie, IL',
   'author' => 'K. M. Kahn and V. A. Saraswat',
   'booktitle' => 'Proc.\\ of the IEEE Workshop 1990 on Visual Languages',
@@ -2606,6 +2834,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Kenneth M. Kahn',
   'author' => 'Kenneth M. Kahn',
   'howpublished' => 'unpublished',
   'key' => 'KahnPlay',
@@ -2613,6 +2842,7 @@ array (
   'type' => 'Misc',
 )
 array (
+  '_author' => 'Hermann Kaindl, Gerhard Kainz, Roland Steiner, Andreas Auer, Klaus Radda',
   'address' => 'Stockholm, Sweden',
   'author' => 'Hermann Kaindl and Gerhard Kainz and Roland Steiner and Andreas Auer and Klaus Radda',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -2627,6 +2857,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Murat Karaorman, John Bruno',
   'author' => 'Murat Karaorman and John Bruno',
   'crossref' => 'cool_cacm_issue',
   'journal' => 'Communications of the ACM',
@@ -2640,6 +2871,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'S. Khoo, R. Sundaresh',
   'author' => 'S. Khoo and R. Sundaresh',
   'booktitle' => 'Partial Evaluation and Semantics-based Program Manipulation',
   'key' => 'Khoo_91',
@@ -2652,6 +2884,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Gregor Kiczales, Jim des Rivi&egrave;res, Daniel Bobrow',
   'address' => 'Cambridge, MA',
   'author' => 'Gregor Kiczales and Jim des Rivi&egrave;res and Daniel Bobrow',
   'key' => 'Kiczales91',
@@ -2661,6 +2894,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Gregor Kiczales, Michael Ashley, Luis Rodriguez, Amin Vahdat, Daniel Bobrow',
   'address' => 'Cambridge, MA',
   'author' => 'Gregor Kiczales and Michael Ashley and Luis Rodriguez and Amin Vahdat and Daniel Bobrow',
   'booktitle' => 'Object-Oriented Programming: The CLOS Perspective',
@@ -2673,6 +2907,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Won Kim, Frederick Lochovsky',
   'address' => 'Reading, MA',
   'author' => 'Won Kim and Frederick Lochovsky',
   'key' => 'Kim:89',
@@ -2682,6 +2917,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Robert Kowalski',
   'address' => 'Stockholm, Sweden',
   'author' => 'Robert Kowalski',
   'booktitle' => 'Proceedings of the World Computer Congress of the IFIP',
@@ -2702,6 +2938,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Vipin Kumar',
   'author' => 'Vipin Kumar',
   'journal' => 'AI Magazine',
   'key' => 'Kumar',
@@ -2714,6 +2951,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Kurt Mehlhorn, Stefan N&auml;her',
   'address' => 'Cambridge',
   'author' => 'Mehlhorn, Kurt and N&auml;her, Stefan',
   'isbn' => '0-521-56329-1',
@@ -2726,6 +2964,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'P. J. M. Van Laarhoven, E. H. L. Aarts, J. K. Lenstra',
   'author' => 'P. J. M. Van Laarhoven and E. H. L. Aarts and J. K. Lenstra',
   'journal' => 'Operations Research',
   'key' => 'Laarhoven:92',
@@ -2737,6 +2976,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Peter Landin',
   'author' => 'Peter Landin',
   'journal' => 'Computer Journal',
   'key' => 'Landin63',
@@ -2748,6 +2988,7 @@ array (
   'year' => '1963',
 )
 array (
+  '_author' => 'Peter Landin',
   'author' => 'Peter Landin',
   'journal' => 'Communications of the ACM',
   'key' => 'Landin65',
@@ -2759,6 +3000,7 @@ array (
   'year' => '1965',
 )
 array (
+  '_author' => 'Peter Landin',
   'author' => 'Peter Landin',
   'journal' => 'Communications of the ACM',
   'key' => 'Landin66',
@@ -2770,6 +3012,7 @@ array (
   'year' => '1966',
 )
 array (
+  '_author' => 'Gilbert Laporte, Yves Nobert',
   'author' => 'Gilbert Laporte and Yves Nobert',
   'journal' => 'Annals of Discrete Mathematics',
   'key' => 'Laporte:87',
@@ -2780,6 +3023,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Claude Le Pape',
   'author' => 'Claude Le Pape',
   'howpublished' => 'Presentation Slides',
   'key' => 'LePape97',
@@ -2789,6 +3033,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Claude Le Pape, Philippe Baptiste',
   'author' => 'Le Pape, Claude and Baptiste, Philippe',
   'journal' => 'Constraints',
   'key' => 'LePape:98',
@@ -2800,6 +3045,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Doug Lea',
   'address' => 'Reading, MA',
   'author' => 'Doug Lea',
   'key' => 'Lea:96',
@@ -2810,6 +3056,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Wm Leler',
   'address' => 'Reading, MA',
   'author' => 'Wm Leler',
   'key' => 'Leler88',
@@ -2819,6 +3066,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Chu Min Li',
   'author' => 'Chu Min Li',
   'booktitle' => 'Information Processing Letters',
   'key' => 'Li:99',
@@ -2829,6 +3077,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Stanley Lippman',
   'address' => 'Reading, MA',
   'author' => 'Stanley Lippman',
   'key' => 'Lippman89',
@@ -2838,6 +3087,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Guy Steele, Richard Gabriel',
   'address' => 'Cambridge, MA',
   'author' => 'Guy Steele and Richard Gabriel',
   'booktitle' => 'Proceedings of the ACM SIGPLAN History of Programming Languages Conference',
@@ -2850,6 +3100,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Bing Liu, Joxan Jaffar, Roland H.C. Yap',
   'author' => 'Bing Liu and Joxan Jaffar and Roland H.C. Yap',
   'howpublished' => 'Draft',
   'key' => 'LiuBing97',
@@ -2858,6 +3109,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Cristina Videira Lopez, Karl Lieberherr',
   'address' => 'Bologna, Italy',
   'author' => 'Cristina Videira Lopez and Karl Lieberherr',
   'booktitle' => 'Proceeedings of the European Conference on Object-Oriented Programming',
@@ -2871,6 +3123,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Steven Lucco',
   'author' => 'Steven Lucco',
   'journal' => 'SIGPLAN Notices',
   'key' => 'Lucco:87',
@@ -2883,6 +3136,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Daniel Sabin, Eugene Freuder',
   'address' => 'Seattle, WA',
   'author' => 'Daniel Sabin and Eugene Freuder',
   'booktitle' => 'PPCP 94, Second Workshop on Principles and Practice of Constraint Programming',
@@ -2893,6 +3147,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Roger Mohr, Thomas C. Henderson',
   'author' => 'Roger Mohr and Thomas C. Henderson',
   'journal' => 'Artificial Intelligence',
   'key' => 'MH:86',
@@ -2904,6 +3159,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Jawahar Malhotra',
   'author' => 'Jawahar Malhotra',
   'howpublished' => 'Stony Brook, Lecture Note of CSE 526, Principles of Programming Languages, tought by Prateek Mishra',
   'key' => 'MLSyntax91',
@@ -2912,6 +3168,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'J&uuml;rgen Dix, Martin M&uuml;ller',
   'address' => 'Santa Margherita Ligure, Italy',
   'author' => 'J&uuml;rgen Dix and Martin M&uuml;ller',
   'booktitle' => 'Proceedings of the 1994 International Conference on Logic Programming',
@@ -2925,6 +3182,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'J&uuml;rgen Dix, Martin M&uuml;ller',
   'address' => 'Saarbr&uuml;cken, Germany',
   'author' => 'J&uuml;rgen Dix and Martin M&uuml;ller',
   'booktitle' => 'KI-94: Advances in Artificial Intelligence',
@@ -2939,6 +3197,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Michael Mehl, Ralf Scheidhauer, Christian Schulte',
   'address' => 'Utrecht, The Netherlands',
   'author' => 'Michael Mehl and Ralf Scheidhauer and Christian Schulte',
   'booktitle' => 'Programming Languages: Implementations, Logics and Programs, 7th International Symposium, PLILP\'95',
@@ -2953,6 +3212,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Michael Mehl, Ralf Scheidhauer, Christian Schulte',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Michael Mehl and Ralf Scheidhauer and Christian Schulte',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -2965,6 +3225,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Kurt Mehlhorn, Sven Thiel',
   'address' => 'Singapore',
   'author' => 'Kurt Mehlhorn and Sven Thiel',
   'booktitle' => 'Principles and Practice of Constraint Programming---CP 2000, Proceedings of the Sixth International Conference',
@@ -2977,6 +3238,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'J. P. Marques-Silva',
   'address' => 'Fort Lauderdale, Florida',
   'author' => 'J. P. Marques-Silva',
   'booktitle' => 'Fifth International Symposium on Artificial Intelligence and Mathematics',
@@ -2988,6 +3250,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Satoshi Matsuoka, Akinori Yonezawa',
   'address' => 'Cambridge, MA',
   'author' => 'Satoshi Matsuoka and Akinori Yonezawa',
   'booktitle' => 'Research Directions in Object-Based Concurrency',
@@ -2999,6 +3262,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Ken McAloon, Carol Tretkoff, Gerhard Wetzel',
   'address' => 'Paris',
   'author' => 'Ken McAloon and Carol Tretkoff and Gerhard Wetzel',
   'booktitle' => 'Proceedings of the 1997 ILOG Optimization Suite International Users\' Conference',
@@ -3009,6 +3273,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'John McCarthy',
   'author' => 'John McCarthy',
   'journal' => 'Communications of the ACM',
   'key' => 'McCarthy1960',
@@ -3019,6 +3284,7 @@ array (
   'year' => '1960',
 )
 array (
+  '_author' => 'John McCarthy',
   'address' => 'Cambridge, MA',
   'author' => 'John McCarthy',
   'key' => 'McCarthy:65',
@@ -3028,6 +3294,7 @@ array (
   'year' => '1965',
 )
 array (
+  '_author' => 'Ciaran McHale',
   'address' => 'Dublin, Ireland',
   'author' => 'Ciaran McHale',
   'key' => 'McHaleDiss',
@@ -3037,6 +3304,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'M. D. McIlroy',
   'address' => 'Scientific Affairs Division, NATO, Brussels',
   'author' => 'M. D. McIlroy',
   'booktitle' => 'Software Engineering, Report on a conference sponsored by the NATO Science Committee, Garmisch, Germany, 7th to 11th October 1968',
@@ -3049,6 +3317,7 @@ array (
   'year' => '1969',
 )
 array (
+  '_author' => 'Michael Mehl',
   'address' => 'Postfach 3049, D-67653 Kaiserslautern, Germany',
   'author' => 'Michael Mehl',
   'institution' => 'Universit&auml;t Kaiserslautern, Fachbereich Informatik',
@@ -3061,6 +3330,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Pedro Meseguer, Carme Torras',
   'address' => 'Stockholm, Sweden',
   'author' => 'Pedro Meseguer and Carme Torras',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -3075,6 +3345,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Jos&eacute; Meseguer',
   'address' => 'Kaiserslautern, Germany',
   'author' => 'Jos&eacute; Meseguer',
   'booktitle' => 'Proceeedings of the European Conference on Object-Oriented Programming',
@@ -3088,6 +3359,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Pedro Meseguer, Toby Walsh',
   'address' => 'Brighton, UK',
   'author' => 'Pedro Meseguer and Toby Walsh',
   'booktitle' => 'Proceedings of the European Conference on Artificial Intelligence',
@@ -3101,6 +3373,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Bertrand Meyer',
   'address' => 'Englewood Cliffs, NJ',
   'author' => 'Bertrand Meyer',
   'key' => 'Meyer92',
@@ -3111,6 +3384,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Bertrand Meyer',
   'author' => 'Bertrand Meyer',
   'crossref' => 'cool_cacm_issue',
   'journal' => 'Communications of the ACM',
@@ -3124,6 +3398,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Scott Meyers',
   'address' => 'Reading, Maassacusetts',
   'author' => 'Scott Meyers',
   'key' => 'Meyers96',
@@ -3133,6 +3408,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Robin Milner',
   'address' => 'Marktoberndorf, Germany',
   'author' => 'Robin Milner',
   'booktitle' => 'Proceedings of the Summer School on Logic and Algebra of Specification',
@@ -3144,6 +3420,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Robin Milner',
   'author' => 'Milner, Robin',
   'journal' => 'Communications of the ACM',
   'key' => 'Milner:93',
@@ -3156,6 +3433,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Robin Milner',
   'author' => 'Milner, Robin',
   'journal' => 'Communication of the ACM',
   'key' => 'Milner:93a',
@@ -3169,6 +3447,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Marvin L. Minsky',
   'address' => 'Cambridge, MA',
   'author' => 'Marvin L. Minsky',
   'institution' => 'Project MAC, MIT',
@@ -3179,6 +3458,7 @@ array (
   'year' => '1963',
 )
 array (
+  '_author' => 'Kazunori Ueda, Masao Morita',
   'author' => 'Kazunori Ueda and Masao Morita',
   'journal' => 'New Generation Computing',
   'key' => 'ModedFlat',
@@ -3190,6 +3470,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'David Moon',
   'address' => 'Portland, Oregon',
   'author' => 'David Moon',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
@@ -3203,6 +3484,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Chris Moss',
   'address' => 'Reading, MA',
   'author' => 'Chris Moss',
   'key' => 'Moss94',
@@ -3220,6 +3502,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Martin M&uuml;ller, Joachim Niehren',
   'address' => 'Edinburgh, Scotland',
   'author' => 'Martin M&uuml;ller and Joachim Niehren',
   'booktitle' => 'Joint COMPULOGNET/ELSNET/EAGLES Workshop on Computational Logic for Natural Language Processing',
@@ -3231,6 +3514,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Martin M&uuml;ller',
   'author' => 'Martin M&uuml;ller',
   'booktitle' => '8$^th$ International Workshop on Unification',
   'editor' => 'Denis Lugiez',
@@ -3242,6 +3526,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'T. M&uuml;ller, M. M&uuml;ller',
   'address' => 'Technische Universit&auml;t M&uuml;nchen',
   'author' => 'T. M&uuml;ller and M. M&uuml;ller',
   'booktitle' => '13. Workshop Logische Programmierung',
@@ -3254,6 +3539,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin M&uuml;ller, Tobias M&uuml;ller, Peter Van Roy',
   'address' => 'Portland, Oregon',
   'author' => 'Martin M&uuml;ller and Tobias M&uuml;ller and Van Roy, Peter',
   'booktitle' => 'Visions for the Future of Logic Programming: Laying the Foundations for a Modern successor of Prolog',
@@ -3266,6 +3552,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Martin M&uuml;ller, Susumu Nishimura',
   'address' => 'Manila, The Philippines',
   'author' => 'Martin M&uuml;ller and Susumu Nishimura',
   'booktitle' => 'Asian Computer Science Conference (ASIAN 98)',
@@ -3277,6 +3564,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Tobias M&uuml;ller, J&ouml;rg W&uuml;rtz',
   'address' => 'Technische Universit&auml;t Wien',
   'author' => 'Tobias M&uuml;ller and J&ouml;rg W&uuml;rtz',
   'booktitle' => '11. Workshop Logische Programmierung',
@@ -3290,6 +3578,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Tobias M&uuml;ller, J&ouml;rg W&uuml;rtz',
   'address' => 'Long Island, NY, USA',
   'author' => 'Tobias M&uuml;ller and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Logic Programming: Proceedings of the 1997 International Symposium',
@@ -3302,6 +3591,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin Henz, Martin M&uuml;ller, Markus Wolf',
   'address' => 'Institut Dalle Molle d\'Intelligence Artificielle Perceptive, Martigny, Switzerland',
   'author' => 'Martin Henz and Martin M&uuml;ller and Markus Wolf',
   'booktitle' => 'WOz\'95, International Workshop on Oz Programming',
@@ -3312,6 +3602,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Brad Myers, Dario Giuse, Brad Vander Zanden',
   'address' => 'Vancouver, Canada',
   'author' => 'Myers, Brad and Giuse, Dario and Vander Zanden, Brad',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
@@ -3324,6 +3615,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Guy Blelloch, Jonathan Hardwick, Jay Sipelstein, Marco Zagha',
   'address' => 'Pittsburgh, PA',
   'author' => 'Guy Blelloch and Jonathan Hardwick and Jay Sipelstein and Marco Zagha',
   'institution' => 'Carnegie Mellon University',
@@ -3334,6 +3626,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Seif Haridi, Peter Van Roy, Per Brand, Christian Schulte',
   'address' => 'Tokyo, Japan',
   'author' => 'Seif Haridi and Peter Van Roy and Per Brand and Christian Schulte',
   'journal' => 'New Generation Computing',
@@ -3347,6 +3640,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Joachim Niehren, Andreas Podelski, Ralf Treinen',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Joachim Niehren and Andreas Podelski and Ralf Treinen',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -3359,6 +3653,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'George L. Nemhauser, Michael A. Trick',
   'address' => 'Toronto',
   'author' => 'George L. Nemhauser and Michael A. Trick',
   'booktitle' => 'Second International Conference on the Practice and Theory of Automated Timetabling',
@@ -3368,6 +3663,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'George L. Nemhauser, Michael A. Trick',
   'author' => 'George L. Nemhauser and Michael A. Trick',
   'journal' => 'Operations Research',
   'key' => 'NT98',
@@ -3379,6 +3675,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'R. Nakano, T. Yamada',
   'address' => 'San Diego, CA',
   'author' => 'R. Nakano and T. Yamada',
   'booktitle' => 'Proc.\\ of the Fourth International Conference on Genetic Algorithms',
@@ -3390,6 +3687,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Peter Naur, others',
   'author' => 'Peter Naur and others',
   'journal' => 'Communications of the ACM',
   'key' => 'Naur63',
@@ -3401,6 +3699,7 @@ array (
   'year' => '1963',
 )
 array (
+  '_author' => 'Bernhard Nebel, Gert Smolka',
   'author' => 'Bernhard Nebel and Gert Smolka',
   'booktitle' => 'Text Understanding in LILOG: Integrating Computational Linguistics and Artificial Intelligence',
   'editor' => 'O. Herzog and C.-R. Rollinger',
@@ -3413,6 +3712,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'G. Nemhauser, L. Wolsey',
   'address' => 'New York',
   'author' => 'G. Nemhauser and L. Wolsey',
   'key' => 'Nemhauser88',
@@ -3422,6 +3722,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Tobias M&uuml;ller',
   'address' => 'Institut Dalle Molle d\'Intelligence Artificielle Perceptive, Martigny, Switzerland',
   'author' => 'Tobias M&uuml;ller',
   'booktitle' => 'WOz\'95, International Workshop on Oz Programming',
@@ -3432,6 +3733,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Joachim Niehren',
   'author' => 'Niehren, Joachim',
   'key' => 'NiehrenDiss',
   'month' => 'dec',
@@ -3442,6 +3744,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Joachim Niehren, Martin M&uuml;ller',
   'address' => 'Pathumthani, Thailand',
   'author' => 'Niehren, Joachim and M&uuml;ller, Martin',
   'booktitle' => 'Asian Computing Science Conference',
@@ -3457,6 +3760,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Joachim Niehren',
   'annote' => 'St. Petersburg Beach, Florida',
   'author' => 'Niehren, Joachim',
   'booktitle' => '$23^th$ Proceedings of the ACM Symposium on Principles of Programming Languages',
@@ -3472,6 +3776,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Joachim Niehren, Andreas Podelski, Ralf Treinen',
   'address' => 'Montreal, Canada',
   'author' => 'Joachim Niehren and Andreas Podelski and Ralf Treinen',
   'booktitle' => '5th International Conference on Rewriting Techniques and Applications',
@@ -3486,6 +3791,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'F. Nielson',
   'author' => 'F. Nielson',
   'key' => 'Nielson_84',
   'note' => 'Available as computer science report CST-31-84',
@@ -3496,6 +3802,7 @@ array (
   'year' => '1984',
 )
 array (
+  '_author' => 'O. M. Nierstrasz, J. Mooney, K.J. Twaites',
   'author' => 'O. M. Nierstrasz and J. Mooney and K.J. Twaites',
   'booktitle' => 'Proceedings of the CIPS Conference',
   'key' => 'Nierstrasz:83',
@@ -3505,6 +3812,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Oscar Nierstrasz',
   'address' => 'Reading, MA',
   'author' => 'Oscar Nierstrasz',
   'booktitle' => 'Object-Oriented Concepts, Databases, and Applications',
@@ -3517,6 +3825,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'E. Nowicki, C. Smutnicki',
   'author' => 'E. Nowicki and C. Smutnicki',
   'journal' => 'Management Science',
   'key' => 'Nowicki:96',
@@ -3528,6 +3837,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Wim Nuijten, Claude Le Pape',
   'author' => 'Wim Nuijten and Claude Le Pape',
   'journal' => 'Journal of Heuristics',
   'key' => 'Nuijten:98',
@@ -3539,6 +3849,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'David Ungar, Randall B. Smith',
   'address' => 'Orlando, FL',
   'author' => 'Ungar, David and Smith, Randall B.',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
@@ -3559,6 +3870,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Luca Cardelli',
   'address' => 'Palo Alto, CA',
   'author' => 'Cardelli, Luca',
   'institution' => 'Digital Equipment Corporation, Systems Research Center',
@@ -3570,6 +3882,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'John K. Outerhout',
   'author' => 'John K. Outerhout',
   'howpublished' => 'Draft somewhere on the web',
   'key' => 'OusterhoutScripting',
@@ -3579,6 +3892,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Kai Ibach',
   'address' => 'Institut Dalle Molle d\'Intelligence Artificielle Perceptive, Martigny, Switzerland',
   'author' => 'Kai Ibach',
   'booktitle' => 'WOz\'95, International Workshop on Oz Programming',
@@ -3589,6 +3903,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Jean-Fran&ccedil;ois Puget, Michel Leconte',
   'address' => '',
   'author' => 'Jean-Fran&ccedil;ois Puget and Michel Leconte',
   'booktitle' => 'Proceedings of the International Symposium on Logic Programming',
@@ -3599,6 +3914,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Jens Palsberg, Michael Schwartzbach',
   'address' => 'New York',
   'author' => 'Jens Palsberg and Michael Schwartzbach',
   'key' => 'PalsbergSchwartzbach:94',
@@ -3608,6 +3924,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Roland H.C. Yap',
   'author' => 'Roland H.C. Yap',
   'howpublished' => 'draft',
   'key' => 'ParametricSequence98',
@@ -3616,6 +3933,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Seif Haridi, Peter Van Roy, Gert Smolka',
   'address' => 'Maui, Hawaii, USA',
   'author' => 'Seif Haridi and Peter Van Roy and Gert Smolka',
   'booktitle' => 'Proceedings of the Second International Symposium on Parallel Symbolic Computation (PASCO \'97)',
@@ -3628,6 +3946,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Lawrence C. Paulson',
   'address' => 'Cambridge',
   'author' => 'Lawrence C. Paulson',
   'edition' => 'Second',
@@ -3638,6 +3957,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Claus Pedersen',
   'author' => 'Claus Pedersen',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
   'editor' => 'Norman Meyrowitz',
@@ -3649,6 +3969,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Laurent Perron',
   'address' => 'Alexandria, VA, USA',
   'author' => 'Laurent Perron',
   'booktitle' => 'Principles and Practice of Constraint Programming',
@@ -3660,6 +3981,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Gilles Pesant, Michel Gendreau, Jean-Yves Potvin, Jean-Marc Rousseau',
   'author' => 'Gilles Pesant and Michel Gendreau and Jean-Yves Potvin and Jean-Marc Rousseau',
   'journal' => 'Transportation Science',
   'key' => 'Pesant:98',
@@ -3683,6 +4005,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Konstantin Popov',
   'author' => 'Konstantin Popov',
   'howpublished' => 'Doctoral Dissertation, Universit&auml;t des Saarlandes, Fachbereich Informatik, Im Stadtwald, 66041 Saarbr&uuml;cken, Germany',
   'key' => 'PopovDiss',
@@ -3692,6 +4015,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Dick Pountain',
   'author' => 'Dick Pountain',
   'journal' => 'BYTE',
   'key' => 'PountainFP',
@@ -3702,6 +4026,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Nicolas Prcovic, Betrand Neveu',
   'address' => 'Alexandria, Virginia, USA',
   'author' => 'Nicolas Prcovic and Betrand Neveu',
   'booktitle' => 'Principles and Practice of Constraint Programming',
@@ -3715,6 +4040,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Alain Colmerauer, Henri Kanoui, Michel Van Caneghem',
   'author' => 'Alain Colmerauer and Henri Kanoui and Michel Van Caneghem',
   'journal' => 'Technology and Science of Informatics',
   'key' => 'PrologII',
@@ -3726,6 +4052,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Pierre Roy, Fran&ccedil;ois Pachet',
   'address' => 'Cambridge',
   'author' => 'Pierre Roy and Fran&ccedil;ois Pachet',
   'booktitle' => '15th Annual Conference of the British Computer Specialist Group on Expert Systems',
@@ -3738,6 +4065,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'J&uuml;rgen M&uuml;ller, J&ouml;rg M&uuml;ller, Markus Pischel, Ralf Scheidhauer',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'J&uuml;rgen M&uuml;ller and J&ouml;rg M&uuml;ller and Markus Pischel and Ralf Scheidhauer',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -3749,6 +4077,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Hassan A\\"\\it-Kaci, Andreas Podelski, Gert Smolka',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Hassan A\\"\\it-Kaci and Andreas Podelski and Gert Smolka',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -3761,6 +4090,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Gert Smolka, Martin Henz, J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Gert Smolka and Martin Henz and J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -3782,6 +4112,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'John Ioannidis',
   'author' => 'John Ioannidis',
   'howpublished' => 'Draft somewhere on the web',
   'key' => 'RealProgrammers',
@@ -3789,6 +4120,7 @@ array (
   'type' => 'Misc',
 )
 array (
+  '_author' => 'Gert Smolka, Ralf Treinen',
   'author' => 'Gert Smolka and Ralf Treinen',
   'journal' => 'Journal of Logic Programming',
   'key' => 'RecordsLogProg-jlp',
@@ -3801,6 +4133,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Jean-Charles R&eacute;gin, Jean-Fran&ccedil;ois Puget',
   'address' => 'Schloss Hagenberg, Linz, Austria',
   'author' => 'Jean-Charles R&eacute;gin and Jean-Fran&ccedil;ois Puget',
   'booktitle' => 'Principles and Practice of Constraint Programming---CP97, Proceedings of the Third International Conference',
@@ -3815,6 +4148,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Jean-Charles R&eacute;gin',
   'address' => 'Alexandria, VA, USA',
   'author' => 'Jean-Charles R&eacute;gin',
   'booktitle' => 'Principles and Practice of Constraint Programming',
@@ -3826,6 +4160,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Jean-Charles R&eacute;gin',
   'address' => 'Stockholm, Sweden',
   'author' => 'Jean-Charles R&eacute;gin',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -3840,6 +4175,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Gerhard Reinelt',
   'author' => 'Gerhard Reinelt',
   'key' => 'Reinelt:94',
   'publisher' => 'Springer-Verlag',
@@ -3848,6 +4184,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Keith Clark, Steve Gregory',
   'address' => 'Aspen&auml;s, Sweden',
   'author' => 'Keith Clark and Steve Gregory',
   'booktitle' => 'Symposium on Functional Languages and Computer Architecture',
@@ -3859,6 +4196,7 @@ array (
   'year' => '1981',
 )
 array (
+  '_author' => 'Didier R&eacute;my, J&eacute;r&ocirc;me Vouillon',
   'address' => 'Paris',
   'author' => 'Didier R&eacute;my and J&eacute;r&ocirc;me Vouillon',
   'booktitle' => 'Proceedings of the ACM Symposium on Principles of Programming Languages',
@@ -3871,6 +4209,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Tim Rentsch',
   'author' => 'Tim Rentsch',
   'journal' => 'SIGPLAN Notices',
   'key' => 'Rentsch:82',
@@ -3882,6 +4221,7 @@ array (
   'year' => '1982',
 )
 array (
+  '_author' => 'John Reppy',
   'address' => 'Toronto, Canada',
   'author' => 'John Reppy',
   'booktitle' => 'Proceedings of the ACM SIGPLAN Conference on Programming Language Design and Implementation',
@@ -3893,6 +4233,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Gert Smolka',
   'address' => 'Cambridge, Mass.',
   'author' => 'Gert Smolka',
   'booktitle' => 'Constraint Logic Programming: Selected Research',
@@ -3906,6 +4247,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Joachim Niehren, Gert Smolka',
   'address' => 'M&uuml;nchen, Germany',
   'author' => 'Joachim Niehren and Gert Smolka',
   'booktitle' => '1$^st$ International Conference on Constraints in Computational Logics',
@@ -3920,6 +4262,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Tom Richards, Barry Richards',
   'address' => 'London',
   'author' => 'Tom Richards and Barry Richards',
   'institution' => 'IC-Parc',
@@ -3930,6 +4273,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'J. A. Robinson',
   'author' => 'J. A. Robinson',
   'journal' => 'Journal of the ACM',
   'key' => 'Robinson65',
@@ -3941,6 +4285,7 @@ array (
   'year' => '1965',
 )
 array (
+  '_author' => 'Robert Rodosek, Mark Wallace, Mozafian Hajian',
   'address' => 'London',
   'author' => 'Robert Rodosek and Mark Wallace and Mozafian Hajian',
   'institution' => 'IC-Parc',
@@ -3951,6 +4296,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'R. Rodosek, M.G. Wallace, M.T. Haijan',
   'author' => 'R. Rodosek and M.G. Wallace and M.T. Haijan',
   'booktitle' => 'Proceedings of the Workshop on Constraint Programming Applications, in conjunction with the Second International Conference on Principles and Practice of Constraint Programming (CP96)',
   'key' => 'RodosekWallaceHaijan:96',
@@ -3959,6 +4305,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Andreas Rossberg, Gert Smolka',
   'author' => 'Andreas Rossberg and Gert Smolka',
   'howpublished' => 'unpublished',
   'key' => 'RossbergSmolka',
@@ -3966,6 +4313,7 @@ array (
   'type' => 'Misc',
 )
 array (
+  '_author' => 'Catherine Roucairol',
   'author' => 'Catherine Roucairol',
   'journal' => 'Discrete Applied Mathematics',
   'key' => 'Roucairol',
@@ -3976,6 +4324,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'K. G. Russell',
   'author' => 'K. G. Russell',
   'journal' => 'Biometrika',
   'key' => 'Russell80',
@@ -3987,6 +4336,7 @@ array (
   'year' => '1980',
 )
 array (
+  '_author' => 'Robert A. Russell, Janny M. Y. Leung',
   'author' => 'Robert A. Russell and Janny M. Y. Leung',
   'journal' => 'Operations Research',
   'key' => 'Russell94',
@@ -3999,6 +4349,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Barbara M. Smith, Stuart A. Grant',
   'address' => 'Brighton, UK',
   'author' => 'Barbara M. Smith and Stuart A. Grant',
   'booktitle' => 'Proceedings of the European Conference on Artificial Intelligence',
@@ -4012,6 +4363,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Martin Henz, Gert Smolka, J&ouml;rg W&uuml;rtz',
   'address' => 'Cambridge, MA',
   'author' => 'Martin Henz and Gert Smolka and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Principles and Practice of Constraint Programming',
@@ -4025,6 +4377,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Gert Smolka, Martin Henz, J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Gert Smolka and Martin Henz and J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -4037,6 +4390,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Gert Smolka, Martin Henz, J&ouml;rg W&uuml;rtz',
   'address' => 'Blanes, Spain',
   'author' => 'Gert Smolka and Martin Henz and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Programaci&oacute;n Declarativa',
@@ -4059,6 +4413,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'J. P. Marques-Silva, K. A. Sakallah',
   'address' => 'San Jose, CA',
   'author' => 'J. P. Marques-Silva and K. A. Sakallah',
   'booktitle' => 'Proceedings of the International Conference on Computer-Aided Design',
@@ -4069,6 +4424,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Alexander Stepanov, Meng Lee',
   'author' => 'Alexander Stepanov and Meng Lee',
   'key' => 'SL:1995',
   'note' => 'STL has since been incorporated into the C++ standard, ISO/IEC 14882-1998',
@@ -4088,6 +4444,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Christian Schulte, Gert Smolka',
   'address' => 'Ithaca, New York, USA',
   'author' => 'Christian Schulte and Gert Smolka',
   'booktitle' => 'Logic Programming: Proceedings of the 1994 International Symposium',
@@ -4101,6 +4458,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Christian Schulte, Gert Smolka, J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Christian Schulte and Gert Smolka and J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -4113,6 +4471,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Christian Schulte, Gert Smolka, J&ouml;rg W&uuml;rtz',
   'address' => 'Orcas Island, Washington, USA',
   'author' => 'Christian Schulte and Gert Smolka and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Second Workshop on Principles and Practice of Constraint Programming',
@@ -4127,6 +4486,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Gert Smolka, Ralf Treinen',
   'author' => 'Gert Smolka and Ralf Treinen',
   'journal' => 'Journal of Logic Programming',
   'key' => 'ST:RecordsLogProg-jlp',
@@ -4139,6 +4499,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Gert Smolka, Ralf Treinen',
   'address' => 'Washington D.C., USA',
   'author' => 'Gert Smolka and Ralf Treinen',
   'booktitle' => 'Proceedings of the Joint International Conference and Symposium on Logic Programming',
@@ -4153,6 +4514,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Gert Smolka, Ralf Treinen',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Gert Smolka and Ralf Treinen',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -4165,6 +4527,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Mihaela Sabin, Robert D. Russell, Eugene C. Freuder',
   'author' => 'Mihaela Sabin and Robert D. Russell and Eugene C. Freuder',
   'booktitle' => 'Proceedings of the Workshop on Constraint Programming Applications, in conjunction with the Second International Conference on Principles and Practice of Constraint Programming (CP96)',
   'key' => 'Sabin:96',
@@ -4174,6 +4537,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Johannes Sametinger',
   'address' => 'Berlin',
   'author' => 'Johannes Sametinger',
   'key' => 'Sametinger97',
@@ -4183,6 +4547,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Vijay Saraswat',
   'address' => 'Cambridge, MA',
   'author' => 'Vijay Saraswat',
   'key' => 'SaraswatDiss',
@@ -4192,6 +4557,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Vijay A. Saraswat',
   'address' => 'Pittsburgh',
   'author' => 'Vijay A. Saraswat',
   'key' => 'SaraswatThesis',
@@ -4201,6 +4567,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Andrea Schaerf',
   'address' => 'Budapest, Hungary',
   'author' => 'Andrea Schaerf',
   'booktitle' => 'Proceedings of the European Conference on Artificial Intelligence',
@@ -4212,6 +4579,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Andrea Schaerf',
   'author' => 'Andrea Schaerf',
   'journal' => 'Constraints',
   'key' => 'Scha99',
@@ -4223,6 +4591,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Ralf Scheidhauer, Michael Mehl',
   'author' => 'Ralf Scheidhauer and Michael Mehl',
   'booktitle' => 'Sprachen f&uuml;r KI-Anwendungen, Konzepte -- Methoden -- Implementierungen',
   'editor' => 'H. Boley, U. Furbach, W.-M. Lippe (Hrsg.)',
@@ -4238,6 +4607,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Heinz Schmidt, Stephen Omohundro',
   'address' => 'Cambridge, MA',
   'author' => 'Heinz Schmidt and Stephen Omohundro',
   'booktitle' => 'Object-Oriented Programming: The CLOS Perspective',
@@ -4250,6 +4620,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'L. Schrage',
   'address' => 'Belmont, CA',
   'author' => 'L. Schrage',
   'edition' => 'fifth',
@@ -4260,6 +4631,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Jan A. M. Schreuder',
   'author' => 'Jan A. M. Schreuder',
   'journal' => 'Discrete Applied Mathematics',
   'key' => 'Schreuder92',
@@ -4271,6 +4643,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Christian Schulte',
   'address' => 'Saarbrücken, Germany',
   'author' => 'Christian Schulte',
   'key' => 'Schulte:PHD:00',
@@ -4281,6 +4654,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Ehud Shapiro, Akikazu Takeuchi',
   'author' => 'Ehud Shapiro and Akikazu Takeuchi',
   'journal' => 'New Generation Computing',
   'key' => 'Shapiro83',
@@ -4291,6 +4665,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Ehud Shapiro',
   'author' => 'Ehud Shapiro',
   'journal' => 'ACM Computing Surveys',
   'key' => 'Shapiro:89',
@@ -4303,6 +4678,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Intelligent Systems Laboratory',
   'address' => 'URL <a href="http://www.sics.se/isl/sicstus.html">http://www.sics.se/isl/sicstus.html</a>',
   'author' => 'Intelligent Systems Laboratory',
   'key' => 'SicstusProlog:00',
@@ -4312,6 +4688,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Helmut Simonis',
   'author' => 'Helmut Simonis',
   'booktitle' => 'Invited Talk at the Workshop on Constraint Programming Applications, in conjunction with the Second International Conference on Principles and Practice of Constraint Programming (CP96)',
   'key' => 'Simonis:96',
@@ -4321,6 +4698,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Jeffrey Mark Siskind, David Allen McAllester',
   'author' => 'Jeffrey Mark Siskind and David Allen McAllester',
   'institution' => 'University of Pennsylvania, Institute fo Research in Cognitive Science',
   'key' => 'SiskindMcAllester:93',
@@ -4330,6 +4708,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'J. Slaney, M. Fujita, M. Stickel',
   'author' => 'J. Slaney and M. Fujita and M. Stickel',
   'journal' => 'Computers and Mathematics with Applications',
   'key' => 'Slaney:93',
@@ -4338,6 +4717,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Barbara Smith',
   'address' => 'Paris',
   'author' => 'Barbara Smith',
   'booktitle' => 'Proceedings of the 1996 ILOG Solver and ILOG Scheduler International Users\' Conference',
@@ -4348,6 +4728,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Reid Smith',
   'author' => 'Reid Smith',
   'journal' => 'IEEE Transactions on Computers',
   'key' => 'Smith:80',
@@ -4360,6 +4741,7 @@ array (
   'year' => '1980',
 )
 array (
+  '_author' => 'S. F. Smith, C.-C. Cheng',
   'address' => 'Washington, DC',
   'author' => 'S. F. Smith and C.-C. Cheng',
   'booktitle' => 'Proceedings of the 11th National Conference on Artificial Intelligence',
@@ -4372,6 +4754,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Gert Smolka',
   'address' => 'Lisbon, Portugal',
   'author' => 'Gert Smolka',
   'booktitle' => 'Programming Languages and Systems',
@@ -4385,6 +4768,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Gert Smolka',
   'address' => 'M&uuml;nchen, Germany',
   'author' => 'Gert Smolka',
   'booktitle' => 'First International Conference on Constraints in Computational Logics',
@@ -4399,6 +4783,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Gert Smolka',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Gert Smolka',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -4411,6 +4796,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Gert Smolka',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Gert Smolka',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -4422,6 +4808,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Gert Smolka',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Gert Smolka',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -4434,6 +4821,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Gert Smolka',
   'author' => 'Gert Smolka',
   'booktitle' => 'Constraints: Basics and Trends',
   'editor' => 'Andreas Podelski',
@@ -4446,6 +4834,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'M. M. Solomon',
   'author' => 'M. M. Solomon',
   'journal' => 'Operations Research',
   'key' => 'Solomon:87',
@@ -4456,6 +4845,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Gadi Solotorevsky, Ehud Gudes',
   'author' => 'Gadi Solotorevsky and Ehud Gudes',
   'booktitle' => 'Proceedings of the Workshop on Constraint Programming Applications, in conjunction with the Second International Conference on Principles and Practice of Constraint Programming (CP96)',
   'key' => 'Solotorevsky:96',
@@ -4465,6 +4855,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Christian Schulte',
   'address' => 'Institut Dalle Molle d\'Intelligence Artificielle Perceptive, Martigny, Switzerland',
   'author' => 'Christian Schulte',
   'booktitle' => 'WOz\'95, International Workshop on Oz Programming',
@@ -4475,6 +4866,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Frank Essig',
   'address' => 'Institut Dalle Molle d\'Intelligence Artificielle Perceptive, Martigny, Switzerland',
   'author' => 'Frank Essig',
   'booktitle' => 'WOz\'95, International Workshop on Oz Programming',
@@ -4485,6 +4877,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Gerald Jay Sussman, Guy Lewis Steele',
   'author' => 'Gerald Jay Sussman and Guy Lewis Steele',
   'journal' => 'Artificial Intelligence',
   'key' => 'Steele80',
@@ -4496,6 +4889,7 @@ array (
   'year' => '1980',
 )
 array (
+  '_author' => 'Guy Steele',
   'author' => 'Guy Steele',
   'edition' => 'Second',
   'key' => 'Steele:90',
@@ -4505,6 +4899,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Guy Steele',
   'address' => 'Cambridge, MA',
   'author' => 'Guy Steele',
   'institution' => 'Massachusetts Institute of Technology',
@@ -4516,6 +4911,7 @@ array (
   'year' => '1976',
 )
 array (
+  '_author' => 'Guy Steele, Gerald Sussman',
   'address' => 'Cambridge, MA',
   'author' => 'Guy Steele and Gerald Sussman',
   'institution' => 'Massachusetts Institute of Technology',
@@ -4527,6 +4923,7 @@ array (
   'year' => '1976',
 )
 array (
+  '_author' => 'Kostas Stergiou, Toby Walsh',
   'address' => 'Stockholm, Sweden',
   'author' => 'Kostas Stergiou and Toby Walsh',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -4541,6 +4938,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Kazunori Ueda',
   'author' => 'Kazunori Ueda',
   'howpublished' => 'slides',
   'key' => 'StrongModingSlides',
@@ -4548,6 +4946,7 @@ array (
   'type' => 'Misc',
 )
 array (
+  '_author' => 'Bjarne Stroustrup',
   'address' => 'Reading, MA',
   'author' => 'Bjarne Stroustrup',
   'key' => 'Stroustrup87',
@@ -4557,6 +4956,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Bjarne Stroustrup',
   'address' => 'Reading, MA',
   'author' => 'Bjarne Stroustrup',
   'edition' => 'Third',
@@ -4567,6 +4967,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Gregory Wilson, Paul Lu',
   'address' => 'Cambridge, MA',
   'author' => 'Gregory Wilson and Paul Lu',
   'key' => 'Stroustrup:96',
@@ -4577,6 +4978,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Clemens Szyperski',
   'address' => 'Cambridge, UK',
   'author' => 'Clemens Szyperski',
   'booktitle' => 'Proceedings of the IFIP Tenth World Computing Conference',
@@ -4589,6 +4991,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'R.E. Tarjan',
   'author' => 'Tarjan, R.E.',
   'journal' => 'Journal of the ACM',
   'key' => 'TAR:union-find',
@@ -4599,6 +5002,7 @@ array (
   'year' => '1975',
 )
 array (
+  '_author' => 'Per Kreuger',
   'author' => 'Per Kreuger',
   'howpublished' => 'Presentation Slides',
   'key' => 'TUFF97',
@@ -4608,6 +5012,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Antero Taivalsaari',
   'author' => 'Antero Taivalsaari',
   'journal' => 'ACM Computing Surveys',
   'key' => 'Taivalsaari:96',
@@ -4620,6 +5025,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Kenjiro Taura',
   'address' => 'Tokyo',
   'author' => 'Kenjiro Taura',
   'key' => 'TauraThesis',
@@ -4629,6 +5035,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Laszlo Teleki',
   'author' => 'Laszlo Teleki',
   'booktitle' => 'Proceedings of the Workshop on Constraint Programming Applications, in conjunction with the Second International Conference on Principles and Practice of Constraint Programming (CP96)',
   'key' => 'Teleki:96',
@@ -4638,6 +5045,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'B. Thomsen, L. Leth, A. Giacalone',
   'address' => 'Berlin, Heidelberg',
   'author' => 'B. Thomsen and L. Leth and A. Giacalone',
   'booktitle' => 'Semantics: Foundations and Applications - Proc.\\ of the REX Workshop',
@@ -4651,6 +5059,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Christine Tomlinson, Mark Scheevel',
   'address' => 'Reading, MA',
   'author' => 'Christine Tomlinson and Mark Scheevel',
   'booktitle' => 'Object-Oriented Concepts, Databases, and Applications',
@@ -4663,6 +5072,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Kenneth Kahn',
   'author' => 'Kenneth Kahn',
   'journal' => 'Journal of Visual Languages and Computing',
   'key' => 'Toontalk:96',
@@ -4673,6 +5083,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Peter Van Roy, Seif Haridi, Per Brand, Gert Smolka, Michael Mehl, Ralf Scheidhauer',
   'author' => 'Peter Van Roy and Seif Haridi and Per Brand and Gert Smolka and Michael Mehl and Ralf Scheidhauer',
   'journal' => 'ACM Transactions on Programming Languages and Systems',
   'key' => 'Toplas:97',
@@ -4685,6 +5096,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin Henz, Stephan Reiter',
   'address' => 'Institut Dalle Molle d\'Intelligence Artificielle Perceptive, Martigny, Switzerland',
   'author' => 'Martin Henz and Stephan Reiter',
   'booktitle' => 'WOz\'95, International Workshop on Oz Programming',
@@ -4695,6 +5107,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Ralf Treinen',
   'address' => 'Gda&nacute;sk, Poland',
   'author' => 'Ralf Treinen',
   'booktitle' => 'Mathematical Foundations of Computer Science',
@@ -4709,6 +5122,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Ralf Treinen',
   'author' => 'Ralf Treinen',
   'journal' => 'Journal of Symbolic Computation',
   'key' => 'Trei:undecidability-jsc',
@@ -4722,6 +5136,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Ralf Treinen',
   'author' => 'Ralf Treinen',
   'booktitle' => 'Logic, Structures and Syntax',
   'editor' => 'Patrick Blackburn and Maarten de Rijke',
@@ -4733,6 +5148,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Ralf Treinen',
   'address' => 'Sendai, Japan',
   'author' => 'Ralf Treinen',
   'booktitle' => 'Theoretical Aspects of Computer Software',
@@ -4747,6 +5163,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Michael A. Trick',
   'address' => 'Konstanz, Germany',
   'author' => 'Michael A. Trick',
   'booktitle' => 'Third International Conference on the Practice and Theory of Automated Timetabling',
@@ -4756,6 +5173,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Michael Trick',
   'author' => 'Michael Trick',
   'howpublished' => 'WWW at \\mbox\\tt http://mat.gsia.cmu.edu/acc$\\underline\\ $mod.html',
   'key' => 'Trick98',
@@ -4764,6 +5182,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Arabinda Tripathy',
   'author' => 'Arabinda Tripathy',
   'journal' => 'Discrete Applied Mathematics',
   'key' => 'Tripathy',
@@ -4775,6 +5194,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Edward P. K. Tsang',
   'address' => 'London and San Diego',
   'author' => 'Edward P. K. Tsang',
   'key' => 'Tsang93',
@@ -4784,6 +5204,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Kazunori Ueda',
   'author' => 'Kazunori Ueda',
   'booktitle' => 'Parallel Symbolic Languages and Systems: International Workshop PSLS\'95, Beaune, France',
   'editor' => 'Takayasu Ito and Robert H. Halstead and Christian Queinnec',
@@ -4797,6 +5218,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'David Ungar, David Patterson',
   'address' => 'Reading, MA',
   'author' => 'David Ungar and David Patterson',
   'booktitle' => 'Smalltalk-80: Bits of History and Words of Advice',
@@ -4810,6 +5232,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'David Ungar',
   'address' => 'Cambridge, MA',
   'author' => 'David Ungar',
   'key' => 'Ungar:86',
@@ -4819,6 +5242,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Peter Van Roy, Michael Mehl, Ralf Scheidhauer',
   'address' => 'Aachen, Germany',
   'author' => 'Peter Van Roy and Michael Mehl and Ralf Scheidhauer',
   'booktitle' => 'International Symposium on Programming Languages, Implementations, Logics, and Programs',
@@ -4829,6 +5253,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'R. J. M. Vaessens, E. H. L. Aarts, J. K. Lenstra',
   'author' => 'R. J. M. Vaessens and E. H. L. Aarts and J. K. Lenstra',
   'journal' => 'INFORMS Journal on Computing',
   'key' => 'Vaessens:96',
@@ -4840,6 +5265,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'P. Van Hentenryck',
   'author' => 'Van Hentenryck, P.',
   'key' => 'VanHentenryck87:lp',
   'month' => 'July',
@@ -4850,6 +5276,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Pascal Van Hentenryck',
   'address' => 'Cambridge, MA',
   'author' => 'Pascal Van Hentenryck',
   'key' => 'VanHentenryck89',
@@ -4859,6 +5286,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'P. Van Hentenryck, Y. Deville',
   'author' => 'P. Van Hentenryck and Y. Deville',
   'institution' => 'Brown University',
   'key' => 'VanHentenryck:90a',
@@ -4869,6 +5297,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Pascal Van Hentenryck, Vijay Saraswat, Yves Deville',
   'address' => 'Berlin',
   'author' => 'Pascal Van Hentenryck and Vijay Saraswat and Yves Deville',
   'booktitle' => 'Constraints: Basics and Trends',
@@ -4881,6 +5310,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Peter Van Roy',
   'author' => 'Peter Van Roy',
   'journal' => 'Journal of Logic Programming',
   'key' => 'VanRoy:SequentialPrologImp',
@@ -4897,6 +5327,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Jan Vitek, Nigel Horspool',
   'address' => 'Bologna, Italy',
   'author' => 'Jan Vitek and Nigel Horspool',
   'booktitle' => 'Proceeedings of the European Conference on Object-Oriented Programming',
@@ -4910,6 +5341,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Gert Smolka',
   'address' => 'Berlin',
   'author' => 'Gert Smolka',
   'booktitle' => 'Computer Science Today',
@@ -4923,6 +5355,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Philip Wadler',
   'author' => 'Philip Wadler',
   'journal' => 'Theoretical Computer Science',
   'key' => 'Wadler:90',
@@ -4933,6 +5366,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'W. D. Wallis',
   'address' => 'Dordrecht / Boston / London',
   'author' => 'W. D. Wallis',
   'key' => 'Wallis97',
@@ -4942,6 +5376,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Toby Walsh',
   'address' => 'Stockholm, Sweden',
   'author' => 'Toby Walsh',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -4956,6 +5391,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'David H. D. Warren',
   'address' => 'Menlo Park, CA',
   'author' => 'David H. D. Warren',
   'institution' => 'SRI International, Artificial Intelligence Center',
@@ -4967,6 +5403,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Takuo Watanabe, Akinori Yonezawa',
   'address' => 'Cambridge, MA',
   'author' => 'Takuo Watanabe and Akinori Yonezawa',
   'booktitle' => 'ABCL: An Object-Oriented Concurrent System',
@@ -4979,6 +5416,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Takuo Watanabe, Akinori Yonezawa',
   'address' => 'Noordwijkerhout, Netherlands',
   'author' => 'Takuo Watanabe and Akinori Yonezawa',
   'booktitle' => 'Foundations of Object-Oriented Languages: REX School/Workshop',
@@ -4993,6 +5431,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Niklaus Wirth',
   'address' => 'New York',
   'author' => 'Niklaus Wirth',
   'booktitle' => 'ACM Turing Award Lectures : The First 20 Years (1966-1985)',
@@ -5007,6 +5446,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'P. Devienne, P. Lebegue, J.C. Routier, J. W&uuml;rtz',
   'address' => 'Caen, France',
   'author' => 'P. Devienne and P. Lebegue and J.C. Routier and J. W&uuml;rtz',
   'booktitle' => '11th Symposium on Theoretical Aspects of Computer Science',
@@ -5021,6 +5461,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'J&ouml;rg W&uuml;rtz',
   'address' => 'Saarbr&uuml;cken, Germany',
   'author' => 'J&ouml;rg W&uuml;rtz',
   'key' => 'WuertzDiss:98',
@@ -5031,6 +5472,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'R. Yang, H. Aiso',
   'author' => 'R. Yang and H. Aiso',
   'journal' => 'New Generation Computing',
   'key' => 'Yang:87',
@@ -5061,6 +5503,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Akinori Yonezawa, Jean-Pierre Briot, Etsuya Shibayama',
   'address' => 'Portland, Oregon',
   'author' => 'Akinori Yonezawa and Jean-Pierre Briot and Etsuya Shibayama',
   'booktitle' => 'Proceedings of the Conference on Object-Oriented Programming: Systems, Languages and Applications',
@@ -5073,6 +5516,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Hantao Zhang',
   'author' => 'Zhang, Hantao',
   'journal' => 'Association of Automated Resasoning Newsletters',
   'key' => 'Zhang:93',
@@ -5083,6 +5527,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Jian Zhang, Hantao Zhang',
   'address' => 'Portland, Oregon',
   'author' => 'Jian Zhang and Hantao Zhang',
   'booktitle' => 'Proceedings of the Thirteenth National Conference on Ariticial Intelligence and Eighth Innovative Applications of Artificial Intelligence Conference',
@@ -5096,6 +5541,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Parosh Aziz Abdulla, Per Bjesse, Niklas E&eacute;n',
   'address' => 'Amsterdam, The Netherlands',
   'author' => 'Parosh Aziz Abdulla and Per Bjesse and Niklas E&eacute;n',
   'booktitle' => 'Tools and Algorithms for the Construction and Analysis of Systems, 6th International Conference, TACAS \'00',
@@ -5109,6 +5555,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Martin Henz',
   'author' => 'Martin Henz',
   'howpublished' => '\\tt http://www.comp.nus.edu.sg/$\\tilde\\ $henz/projects/acc/',
   'key' => 'accsolutions',
@@ -5117,6 +5564,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'US Department of Defense',
   'address' => 'Washington, DC',
   'author' => 'US Department of Defense',
   'key' => 'ada',
@@ -5126,6 +5574,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Martin Henz, Yun Fong Lim, Seet Chong Lua, Xiao Ping Shi, J. Paul Walser, Roland H. C. Yap',
   'address' => 'Fort Lauderdale, Florida',
   'author' => 'Martin Henz and Yun Fong Lim and Seet Chong Lua and Xiao Ping Shi and J. Paul Walser and Roland H. C. Yap',
   'booktitle' => 'Sixth International Symposium on Artificial Intelligence and Mathematics',
@@ -5136,6 +5585,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'M. Dell\'Amico, S. Martello',
   'author' => 'M. Dell\'Amico and S. Martello',
   'booktitle' => 'Annotated Bibliographies in Combinatorial Optimization',
   'editor' => 'F. Maffioli and M. Dell\'Amico',
@@ -5147,6 +5597,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Gregor Kiczales, John Lamping, Anurag Mendhekar, Chris Maeda, Cristina Videira Lopes, Jean-Marc Loingtier, John Irwin',
   'address' => 'Jyv&auml;skyl&auml;, Finland',
   'author' => 'Gregor Kiczales and John Lamping and Anurag Mendhekar and Chris Maeda and Cristina Videira Lopes and Jean-Marc Loingtier and John Irwin',
   'booktitle' => 'Proceeedings of the European Conference on Object-Oriented Programming',
@@ -5159,6 +5610,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'D. Applegate, W. Cook',
   'author' => 'D. Applegate and W. Cook',
   'journal' => 'ORSA Journal on Computing',
   'key' => 'apple',
@@ -5170,6 +5622,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Krzysztof R.Apt, Jacob Brunekreef, Vincent Partington, Andrea Schaerf',
   'author' => 'Krzysztof R.Apt and Jacob Brunekreef and Vincent Partington and Andrea Schaerf',
   'journal' => 'ACM Transactions on Programming Languages and Systems',
   'key' => 'apt98',
@@ -5181,6 +5634,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Franz Baader, Hans-J&uuml;rgen B&uuml;rckert, Bernhard Nebel, Werner Nutt, Gert Smolka',
   'author' => 'Baader, Franz and Hans-J&uuml;rgen B&uuml;rckert and Bernhard Nebel and Werner Nutt and Gert Smolka',
   'journal' => 'Journal of Logic, Language and Information',
   'key' => 'baader:et:al:jlli-92',
@@ -5191,6 +5645,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'K. S. Bagga, L. W. Beineke, F. Harary',
   'author' => 'K. S. Bagga and L. W. Beineke and F. Harary',
   'journal' => 'Vishwa Internat. J. Graph Theory',
   'key' => 'bagga:92',
@@ -5202,6 +5657,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Philippe Baptiste',
   'author' => 'Philippe Baptiste',
   'journal' => 'Discrete Applied Mathematics',
   'key' => 'baptiste2000',
@@ -5211,6 +5667,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'P. Baptiste, C. Le Pape, and W. Nuijten',
   'author' => 'P. Baptiste and C. Le Pape and and W. Nuijten',
   'booktitle' => 'Proceedings of the First International Joint Workshop on Artificial Intelligence and Operations Research',
   'key' => 'baptiste95',
@@ -5219,6 +5676,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'M. Bartusch',
   'address' => 'Passau, Germany',
   'author' => 'M. Bartusch',
   'key' => 'bar83',
@@ -5228,6 +5686,7 @@ array (
   'year' => '1983',
 )
 array (
+  '_author' => 'Frank Baum',
   'address' => 'Chicago',
   'author' => 'Frank Baum',
   'key' => 'baum',
@@ -5237,6 +5696,7 @@ array (
   'year' => '1900',
 )
 array (
+  '_author' => 'N. Beldiceanu, E. Contejean',
   'author' => 'N. Beldiceanu and E. Contejean',
   'journal' => 'Mathematical computer modelling',
   'key' => 'beldiceanu:94',
@@ -5249,6 +5709,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Christian Bessi&egrave;re, Jean-Charles R&eacute;gin',
   'address' => 'Alexandria, VA, USA',
   'author' => 'Christian Bessi&egrave;re and Jean-Charles R&eacute;gin',
   'booktitle' => 'Principles and Practice of Constraint Programming',
@@ -5260,6 +5721,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Wolfgang Bibel, Steffen H&ouml;lldobler, J&ouml;rg W&uuml;rtz',
   'address' => 'Saratoga Springs, NY, USA',
   'author' => 'Wolfgang Bibel and Steffen H&ouml;lldobler and J&ouml;rg W&uuml;rtz',
   'booktitle' => '11th International Conference on Automated Deduction',
@@ -5274,6 +5736,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Armin Biere, Alessandro Cimatti, Edmund Clarke, Yunshan Zhu',
   'address' => 'Amsterdam, The Netherlands',
   'author' => 'Armin Biere and Alessandro Cimatti and Edmund Clarke and Yunshan Zhu',
   'booktitle' => 'Tools and Algorithms for the Construction and Analysis of Systems, 5th International Conference, TACAS \'99',
@@ -5288,6 +5751,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Stefano Bistarelli, H&eacute;l&egrave;ne Fargier, Ugo Montanari, Francesca Rossi, Thomas Schies, G&eacute;rard Verfaille',
   'author' => 'Stefano Bistarelli and H&eacute;l&egrave;ne Fargier and Ugo Montanari and Francesca Rossi and Thomas Schies and G&eacute;rard Verfaille',
   'crossref' => 'jampel:book',
   'editor' => 'Michael Jampel and Eugene Freuder and Michael Maher',
@@ -5300,6 +5764,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Susan Blackmore',
   'address' => 'Oxford, UK',
   'author' => 'Susan Blackmore',
   'key' => 'blackmore99',
@@ -5310,6 +5775,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Guy Blelloch, Bruce Maggs',
   'address' => 'Boca Raton, Florida',
   'author' => 'Guy Blelloch and Bruce Maggs',
   'booktitle' => 'Algorithms and Theory of Computation Handbook',
@@ -5321,6 +5787,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'F.S. de Boer, J.N. Kok, C. Palamidessi, J.J.M.M. Rutten',
   'author' => 'F.S. de Boer and J.N. Kok and C. Palamidessi and J.J.M.M. Rutten',
   'journal' => 'Journal of Theoretical Computer Science',
   'key' => 'boer91',
@@ -5332,6 +5799,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Grady Booch',
   'address' => 'Redwood City, CA',
   'author' => 'Grady Booch',
   'key' => 'booch:91',
@@ -5341,6 +5809,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Grady Booch',
   'address' => 'Redwood City, CA',
   'author' => 'Grady Booch',
   'edition' => 'Second',
@@ -5351,6 +5820,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Alan Borning, Robert Duisberg, Bjorn Freeman-Benson Axel Kramer, Michael Woolf',
   'author' => 'Alan Borning and Robert Duisberg and Bjorn Freeman-Benson Axel Kramer and Michael Woolf',
   'booktitle' => 'Proceedings of the 1987 ACM Conference on Object-Oriented Programming Systems, Languages, and Applications',
   'key' => 'borning87',
@@ -5362,6 +5832,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Alan Borning, Bjorn Freeman-Benson, Molly Wilson',
   'author' => 'Alan Borning and Bjorn Freeman-Benson and Molly Wilson',
   'journal' => 'Lisp and Symbolic Computation',
   'key' => 'borning92',
@@ -5372,6 +5843,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Per Bothner',
   'author' => 'Per Bothner',
   'booktitle' => 'Lisp Users Conference',
   'key' => 'bothner98',
@@ -5380,6 +5852,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'D. M. Bressoud',
   'author' => 'D. M. Bressoud',
   'journal' => 'Europ. J. Combinatorics',
   'key' => 'bressoud:87',
@@ -5390,6 +5863,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'J. Carlier, E. Pinson',
   'author' => 'J. Carlier and E. Pinson',
   'journal' => 'Management Science',
   'key' => 'carlier89',
@@ -5402,6 +5876,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'G. Carpaneto, S. Martello, P. Toth',
   'author' => 'G. Carpaneto and S. Martello and P. Toth',
   'journal' => 'Annals of Operations Research',
   'key' => 'carpaneto88',
@@ -5412,6 +5887,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Yves Caseau, Fran&ccedil;ois Laburthe',
   'author' => 'Yves Caseau and Fran&ccedil;ois Laburthe',
   'booktitle' => 'Proceedings of the In International Conference on Logic Programming',
   'key' => 'caseau95',
@@ -5421,6 +5897,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Yves Caseau',
   'address' => 'Linz, Austria',
   'author' => 'Yves Caseau',
   'booktitle' => 'Principles and Practice of Constraint Programming - CP97, Proceedings of the 3rd International Conference',
@@ -5434,6 +5911,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Yves Caseau, Fran&ccedil;ois Laburthe',
   'address' => '',
   'author' => 'Yves Caseau and Fran&ccedil;ois Laburthe',
   'booktitle' => 'Proceedings of the International Conference on Logic Programming',
@@ -5445,6 +5923,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Y. Caseau, F. Laburthe',
   'author' => 'Y. Caseau and F. Laburthe',
   'booktitle' => 'Joint International Conference and Symposium on Logic Programming',
   'key' => 'caseau:96',
@@ -5455,6 +5934,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Yves Caseau, Fran&ccedil;ois Laburthe, Glenn Silverstein',
   'address' => 'Alexandria, VA, USA',
   'author' => 'Yves Caseau and Fran&ccedil;ois Laburthe and Glenn Silverstein',
   'booktitle' => 'Principles and Practice of Constraint Programming',
@@ -5467,6 +5947,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Eric S. Raymond',
   'author' => 'Eric S. Raymond',
   'howpublished' => 'somewhere on the web, search for title',
   'key' => 'cathedral',
@@ -5476,6 +5957,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Pascal Van Hentenryck, Vijay Saraswat, Yves Deville',
   'address' => 'Providence, RI 02912',
   'author' => 'Pascal Van Hentenryck and Vijay Saraswat and Yves Deville',
   'institution' => 'Department of Computer Science, Brown University',
@@ -5487,6 +5969,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Emmanuel Chailloux, Christian Codognet, Philippe Codognet',
   'address' => 'New Orleans, Louisiana',
   'author' => 'Emmanuel Chailloux and Christian Codognet and Philippe Codognet',
   'booktitle' => 'Proceedings of the 6$^th$ IEEE International Conference on Tools with Artificial Intelligence',
@@ -5499,6 +5982,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Yu Cheng',
   'author' => 'Yu Cheng',
   'journal' => 'Journal of Transportation Engineering---ASCE',
   'key' => 'cheng:98',
@@ -5511,6 +5995,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Yu Cheng',
   'author' => 'Yu Cheng',
   'journal' => 'Knowledge-Based Systems',
   'key' => 'cheng:98b',
@@ -5522,6 +6007,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Fran&ccedil;ois Larburthe',
   'address' => 'School of Computing, National University of Singapore, 55 Science Drive 2, Singapore 117599',
   'author' => 'Fran&ccedil;ois Larburthe',
   'booktitle' => 'Proceedings of TRICS: Techniques foR Implementing Constraint programming Systems, a post-conference workshop of CP 2000, appears as Technical Report TRA9/00',
@@ -5532,6 +6018,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Yves Caseau, Fran&ccedil;çois Laburthe',
   'author' => 'Yves Caseau and Fran&ccedil;çois Laburthe',
   'booktitle' => 'Proceedings of the JICSLP\'96 workshop on multi-paradigm logic programming',
   'editors' => 'M.T. Chakravarty and Y. Guo and T. Ida',
@@ -5542,6 +6029,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Claude Le Pape, Philippe Baptiste',
   'address' => 'London, United Kingdom',
   'author' => 'Claude Le Pape and Philippe Baptiste',
   'booktitle' => 'Proceedings of the Third International Conference and Exhibition on the Practical Application of Constraint Technology',
@@ -5551,6 +6039,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Yves Caseau, Fran&ccedil;ois-Xavier Josset, Fran&ccedil;ois Laburthe',
   'address' => 'Las Cruces, New Mexico, USA',
   'author' => 'Yves Caseau and Fran&ccedil;ois-Xavier Josset and Fran&ccedil;ois Laburthe',
   'booktitle' => 'Proceedings of the International Conference on Logic Programming',
@@ -5563,6 +6052,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'J. Jaffar, S. Machaylov, P. Stuckey, R. Yap',
   'author' => 'J. Jaffar and S. Machaylov and P. Stuckey and R. Yap',
   'journal' => 'ACM Transactions on Programming Languages and Systems',
   'key' => 'clpr',
@@ -5574,6 +6064,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'George E. Collins',
   'author' => 'George E. Collins',
   'journal' => 'Communications of the ACM',
   'key' => 'collins1960',
@@ -5586,6 +6077,7 @@ array (
   'year' => '1960',
 )
 array (
+  '_author' => 'Hubert Comon, Ralf Treinen',
   'abstract' => 'ftp://lri.lri.fr/LRI/articles/treinen/lpo-tcs.abstract',
   'author' => 'Hubert Comon and Ralf Treinen',
   'ftp' => 'ftp://lri.lri.fr/LRI/articles/treinen/lpo-tcs.ps.gz',
@@ -5607,6 +6099,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'D. Connolly',
   'author' => 'D. Connolly',
   'journal' => 'Journal of the Operations Research Society',
   'key' => 'connolly92',
@@ -5617,6 +6110,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Stephen A. Cook',
   'author' => 'Stephen A. Cook',
   'journal' => 'Third Annual ACM Symposium on Theory of Computing',
   'key' => 'cook:71',
@@ -5627,6 +6121,7 @@ array (
   'year' => '1971',
 )
 array (
+  '_author' => 'Tobias M&uuml;ller',
   'address' => 'Programming Systems Lab, Saarbr&uuml;cken, Swedish Institute of Computer Science, Stockholm, and Universit&eacute; catholique de Louvain',
   'author' => 'Tobias M&uuml;ller',
   'howpublished' => 'available from <a href="http://www.mozart-oz.org">http://www.mozart-oz.org</a>',
@@ -5636,6 +6131,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Tobias M&uuml;ller',
   'address' => 'Programming Systems Lab, Saarbr&uuml;cken, Swedish Institute of Computer Science, Stockholm, and Universit&eacute; catholique de Louvain',
   'author' => 'Tobias M&uuml;ller',
   'howpublished' => 'available from <a href="http://www.mozart-oz.org">http://www.mozart-oz.org</a>',
@@ -5653,6 +6149,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'J. M. Crawford',
   'address' => 'NJ, USA',
   'author' => 'J. M. Crawford',
   'howpublished' => 'Second DIMACS Challenge: Cliques, Coloring and Satisfiability',
@@ -5663,6 +6160,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Martin Henz',
   'address' => 'Dagstuhl, Germany',
   'author' => 'Martin Henz',
   'booktitle' => '3$^rd$ International Workshop on Conditional Term Rewriting Systems',
@@ -5674,6 +6172,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Andrew Davison',
   'author' => 'Andrew Davison',
   'key' => 'davison:89',
   'school' => 'Imperial College, London',
@@ -5682,6 +6181,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Toby Walsh',
   'address' => 'Nagoya, Japan',
   'author' => 'Toby Walsh',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -5695,6 +6195,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'D. de Werra',
   'author' => 'D. de Werra',
   'journal' => 'Discrete Applied Mathematics',
   'key' => 'deWerra80',
@@ -5706,6 +6207,7 @@ array (
   'year' => '1980',
 )
 array (
+  '_author' => 'D. de Werra',
   'address' => 'Amsterdam',
   'author' => 'de Werra, D.',
   'booktitle' => 'Studies on Graphs and Discrete Programming',
@@ -5718,6 +6220,7 @@ array (
   'year' => '1980',
 )
 array (
+  '_author' => 'D. de Werra',
   'author' => 'D. de Werra',
   'journal' => 'Discrete Applied Mathematics',
   'key' => 'deWerra88',
@@ -5729,6 +6232,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Martin Henz',
   'address' => 'Universit&auml;t des Saarlandes, Forschungsbereich Programmiersysteme, Postfach 15 11 50, 66041 Saarbr&uuml;cken, Germany',
   'author' => 'Martin Henz',
   'howpublished' => '\\tt http://www.com.nus.edu.sg/$\\tilde\\ $henz/ofccp/oz/',
@@ -5738,6 +6242,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Stefano Novello, Joachim Schimpf',
   'address' => 'Imperial College, London',
   'author' => 'Stefano Novello and Joachim Schimpf',
   'howpublished' => 'available from <a href="http://www.icparc.ic.ac.uk/eclipse">http://www.icparc.ic.ac.uk/eclipse</a>',
@@ -5748,6 +6253,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Toshio Endo, Kenjiro Taura, Akinori Yonezawa',
   'author' => 'Toshio Endo and Kenjiro Taura and Akinori Yonezawa',
   'booktitle' => 'Proceedings of High Performance Networking and Computing (SC97)',
   'key' => 'endo97',
@@ -5757,6 +6263,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Joachim Walser',
   'address' => 'Cambridge, Massachusetts, USA',
   'author' => 'Joachim Walser',
   'booktitle' => 'Proceedings of the Workshop on Constraint Programming Applications, in conjunction with the Second International Conference on Principles and Practice of Constraint Programming (CP96)',
@@ -5770,6 +6277,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Christian Schulte, Gert Smolka',
   'address' => 'Programming Systems Lab, Saarbr&uuml;cken, Swedish Institute of Computer Science, Stockholm, and Universit&eacute; catholique de Louvain',
   'author' => 'Christian Schulte and Gert Smolka',
   'howpublished' => 'available from <a href="http://www.mozart-oz.org">http://www.mozart-oz.org</a>',
@@ -5779,6 +6287,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Antonio Fernandez, Pat Hill',
   'author' => 'Antonio Fernandez and Pat Hill',
   'booktitle' => 'Proceedings of APPIA-GULP-PRODE 97 (AGP\'97)',
   'key' => 'fernadez97',
@@ -5788,6 +6297,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin Henz, Tobias M&uuml;ller, Ka Boon Ng',
   'address' => 'Las Cruces, New Mexico, USA',
   'author' => 'Martin Henz and Tobias M&uuml;ller and Ka Boon Ng',
   'booktitle' => 'Proceedings of the Workshop on Parallelism and Implementation Technology for Constraint Logic Programming',
@@ -5798,6 +6308,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Andrei Mantsivoda, Vyacheslav Petukhin, Alexei Weimann',
   'address' => 'Budapest, Hungary',
   'author' => 'Andrei Mantsivoda and Vyacheslav Petukhin and Alexei Weimann',
   'booktitle' => 'Proceedings of the International Conference on Logic Programming',
@@ -5811,6 +6322,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'F. Focacci, A. Lodi, M. Milano',
   'address' => 'Singapore',
   'author' => 'F. Focacci and A. Lodi and M. Milano',
   'booktitle' => 'Principles and Practice of Constraint Programming',
@@ -5823,6 +6335,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'F. Focacci, A. Lodi, D Vigo M. Milano',
   'author' => 'F. Focacci and A. Lodi and M. Milano, D Vigo',
   'booktitle' => 'Workshop on Large Scale Combinatorial Optimization and Constraints, CP98',
   'key' => 'focacci98',
@@ -5832,6 +6345,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'F. Focacci, A. Lodi, M. Milano',
   'address' => 'Alexandria, VA, USA',
   'author' => 'F. Focacci and A. Lodi and M. Milano',
   'booktitle' => 'Principles and Practice of Constraint Programming',
@@ -5844,6 +6358,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Martin Henz, Edgar Tan, Roland Yap',
   'author' => 'Martin Henz and Edgar Tan and Roland Yap',
   'howpublished' => 'Draft',
   'key' => 'fpgasat',
@@ -5854,6 +6369,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'B. N. Freeman-Benson, J. Maloney, A. Borning',
   'author' => 'Freeman-Benson, B. N. and J. Maloney and A. Borning',
   'journal' => 'Communications of the ACM',
   'key' => 'freeman-benson90',
@@ -5865,6 +6381,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Eugene Freuder, Richard Wallace',
   'author' => 'Eugene Freuder and Richard Wallace',
   'crossref' => 'jampel:book',
   'editor' => 'Michael Jampel and Eugene Freuder and Michael Maher',
@@ -5877,6 +6394,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Michael Garey, David Johnson',
   'address' => 'New York',
   'author' => 'Michael Garey and David Johnson',
   'key' => 'gareyjohnson79',
@@ -5886,6 +6404,7 @@ array (
   'year' => '1979',
 )
 array (
+  '_author' => 'H. Gelernter, J. R. Hansen, C. L. Gerberich',
   'author' => 'H. Gelernter and J. R. Hansen and C. L. Gerberich',
   'journal' => 'Journal of the ACM',
   'key' => 'gelernter1960',
@@ -5907,6 +6426,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Kazunori Ueda',
   'address' => 'Amsterdam',
   'author' => 'Kazunori Ueda',
   'booktitle' => 'Programming of Future Generation Computers',
@@ -5919,6 +6439,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Ka Boon Ng, Chui Wo Choi, Martin Henz, Tobias M&uuml;ller',
   'address' => 'School of Computing, National University of Singapore, 55 Science Drive 2, Singapore 117599',
   'author' => 'Ka Boon Ng and Chui Wo Choi and Martin Henz and Tobias M&uuml;ller',
   'booktitle' => 'Proceedings of TRICS: Techniques foR Implementing Constraint programming Systems, a post-conference workshop of CP 2000, appears as Technical Report TRA9/00',
@@ -5930,6 +6451,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'F. Glover, M. Laguna',
   'author' => 'F. Glover and M. Laguna',
   'booktitle' => 'Modern Heuristic Techniques for Combinatorial Problems',
   'key' => 'glover93',
@@ -5939,6 +6461,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'D. E. Goldberg',
   'author' => 'Goldberg, D. E.',
   'key' => 'goldberg:book',
   'publisher' => 'Addison-Wesley',
@@ -5947,6 +6470,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Carla P. Gomes, Bart Selman, Ken McAloon, Carol Tretkoff',
   'author' => 'Carla P. Gomes and Bart Selman and Ken McAloon and Carol Tretkoff',
   'booktitle' => '4th International Conference on Artificial Intelligence Planning Systems (AIPS-98)',
   'key' => 'gomes98',
@@ -5956,6 +6480,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Google',
   'author' => 'Google',
   'howpublished' => '<a href="http://directory.google.com/Top/Computers/Programming/Languages/">http://directory.google.com/Top/Computers/Programming/Languages/</a>',
   'key' => 'googlepl',
@@ -5964,6 +6489,7 @@ array (
   'year' => '2003',
 )
 array (
+  '_author' => 'J. Gu',
   'author' => 'J. Gu',
   'journal' => 'SIGART Bulletin',
   'key' => 'gu92',
@@ -5974,6 +6500,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Jared Diamond',
   'address' => 'UK',
   'author' => 'Jared Diamond',
   'key' => 'guns',
@@ -5983,6 +6510,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'William Gustafson',
   'author' => 'William Gustafson',
   'key' => 'gustafson:98',
   'school' => 'Rochester Institute of Technology',
@@ -5991,6 +6519,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Ali Haghani, Min-Ching Chen',
   'author' => 'Ali Haghani and Min-Ching Chen',
   'journal' => 'Transportation Research',
   'key' => 'haghani:98',
@@ -6002,6 +6531,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Youssef Hamadi, David Merceron',
   'address' => 'Linz, Austria',
   'author' => 'Youssef Hamadi and David Merceron',
   'booktitle' => 'Principles and Practice of Constraint Programming - CP97, Proceedings of the 3rd International Conference',
@@ -6016,6 +6546,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'M. Aubury, I. Page, G. Randall, J. Saul, R. Watts',
   'address' => 'Oxford, UK',
   'author' => 'M. Aubury and I. Page and G. Randall and J. Saul and R. Watts',
   'institution' => 'Oxford University Computing Laboratory',
@@ -6025,6 +6556,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Philipp Hanschke, J&ouml;rg W&uuml;rtz',
   'author' => 'Philipp Hanschke and J&ouml;rg W&uuml;rtz',
   'journal' => 'Information Processing Letters',
   'key' => 'hanschke:93a',
@@ -6037,6 +6569,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Philipp Hanschke, J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Philipp Hanschke and J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6049,6 +6582,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'P. Hansen, B. Jaumard',
   'author' => 'P. Hansen and B. Jaumard',
   'journal' => 'Computing',
   'key' => 'hansen90',
@@ -6059,6 +6593,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Warwick Harvey, Peter J. Stuckey',
   'address' => 'Pisa, Italy',
   'author' => 'Warwick Harvey and Peter J. Stuckey',
   'booktitle' => 'Principles and Practice of Constraint Programming - CP98, Proceedings of the 4th International Conference',
@@ -6073,6 +6608,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Christopher T. Haynes, Daniel P. Friedman, Mitchell Wand',
   'author' => 'Christopher T. Haynes and Daniel P. Friedman and Mitchell Wand',
   'journal' => 'Journal of Computer Languages',
   'key' => 'haynes86',
@@ -6083,6 +6619,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Laurent Michel, Pascal Van Hentenryck',
   'author' => 'Laurent Michel and Pascal Van Hentenryck',
   'journal' => 'Journal of Theoretical Computer Science',
   'key' => 'helios97',
@@ -6095,6 +6632,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Pascal Van Hentenryck, Yves Deville, Choh-Man Teng',
   'author' => 'Van Hentenryck, Pascal and Deville, Yves and Teng, Choh-Man',
   'journal' => 'Artificial Intelligence',
   'key' => 'hentenryck92',
@@ -6105,6 +6643,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Martin Henz, Gert Smolka',
   'address' => 'Bologna, Italy',
   'author' => 'Martin Henz and Gert Smolka',
   'booktitle' => 'Workshop on Coordination Models and Languages for Parallelism and Distribution (in connection with ECOOP 94)',
@@ -6115,6 +6654,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'J. N. Hooker, C. Fedjki',
   'author' => 'J. N. Hooker and C. Fedjki',
   'journal' => 'Annals of Mathematics and Artificial Intelligence',
   'key' => 'hooker90',
@@ -6125,6 +6665,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Holger H. Hoos, Thomas St&uuml;tzle',
   'author' => 'Holger H. Hoos and Thomas St&uuml;tzle',
   'journal' => 'Journal of Automated Reasoning',
   'key' => 'hoos00local',
@@ -6137,6 +6678,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Hiroshi Hosobe, Satoshi Matsuoka, Akoniro Yonezawa',
   'author' => 'Hiroshi Hosobe and Satoshi Matsuoka and Akoniro Yonezawa',
   'booktitle' => 'Principles and Practice of Constraint Programming---CP96, Proceedings of the Second International Conference',
   'key' => 'hosobe96',
@@ -6147,6 +6689,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Gert Smolka',
   'author' => 'Gert Smolka',
   'howpublished' => 'Project Proposal, German Research Center for Artificial Intelligence (DFKI) Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'key' => 'hydra',
@@ -6156,6 +6699,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Pedro Meseguer',
   'address' => 'Nagoya, Japan',
   'author' => 'Pedro Meseguer',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -6169,6 +6713,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'ILOG',
   'author' => 'ILOG',
   'howpublished' => '<a href="http://www.ilog.com">http://www.ilog.com</a>',
   'key' => 'ilog97',
@@ -6195,6 +6740,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Dan Ingalls',
   'address' => 'Tuscon, AZ',
   'author' => 'Dan Ingalls',
   'booktitle' => 'Proceedings of the ACM Symposium on Principles of Programming Languages',
@@ -6205,6 +6751,7 @@ array (
   'year' => '1978',
 )
 array (
+  '_author' => 'Tobias M&uuml;ller, J&ouml;rg W&uuml;rtz',
   'author' => 'Tobias M&uuml;ller and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'JICSLP96 Post-conference workshop and Compulog Net Meeting on Parallelism and Implementation Technology for (Constraint) Logic Programming Languages',
   'directory' => 'ProgrammingSysLab',
@@ -6216,6 +6763,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Rishiyur Nikhil, Arvind',
   'address' => 'Jerusalem, Israel',
   'author' => 'Rishiyur Nikhil and Arvind',
   'booktitle' => 'Proceedings of the Annual International Symposium on Computer Architecture',
@@ -6228,6 +6776,7 @@ array (
   'year' => '1989',
 )
 array (
+  '_author' => 'Joxan Jaffar, Michael Maher',
   'author' => 'Joxan Jaffar and Michael Maher',
   'journal' => 'Journal of Logic Programming',
   'key' => 'jaffar:94',
@@ -6247,6 +6796,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Robert G. Jeroslow, Jinchang Wang',
   'author' => 'Robert G. Jeroslow and Jinchang Wang',
   'journal' => 'Annals of Mathematics and Artificial Intelligence',
   'key' => 'jeroslow90',
@@ -6257,6 +6807,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'Richard Jones, Rafael Lins',
   'address' => 'New York',
   'author' => 'Richard Jones and Rafael Lins',
   'key' => 'joneslins',
@@ -6266,6 +6817,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Kenneth Kahn, Eric Tribble, Mark Miller, Daniel Bobrow',
   'address' => 'Cambridge, MA',
   'author' => 'Kenneth Kahn and Eric Tribble and Mark Miller and Daniel Bobrow',
   'booktitle' => 'Concurrent Prolog',
@@ -6279,6 +6831,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Andrew J. Kennedy',
   'author' => 'Andrew J. Kennedy',
   'journal' => 'Journal of Functional Programming',
   'key' => 'kennedy:96',
@@ -6291,6 +6844,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Naoki Kobayashi',
   'author' => 'Naoki Kobayashi',
   'journal' => 'ACM Transactions on Programming Languages and Systems',
   'key' => 'kobayashi98',
@@ -6302,6 +6856,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Richard E. Korf',
   'author' => 'Richard E. Korf',
   'journal' => 'Artificial Intelligence',
   'key' => 'korf:85',
@@ -6313,6 +6868,7 @@ array (
   'year' => '1985',
 )
 array (
+  '_author' => 'Manfred Kudlek',
   'author' => 'Manfred Kudlek',
   'booktitle' => 'Foundations of Computer Science: Potential - Theory - Cognition',
   'key' => 'kudlek',
@@ -6324,6 +6880,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'H. P. Barendregt',
   'address' => 'Amsterdam',
   'author' => 'H. P. Barendregt',
   'booktitle' => 'Handbook of Theoretical Computer Science',
@@ -6337,6 +6894,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'William D. Harvey, Matthew L. Ginsberg',
   'address' => 'Montr&eacute;al, Qu&eacute;bec, Canada',
   'author' => 'William D. Harvey and Matthew L. Ginsberg',
   'booktitle' => 'Proceedings of the International Joint Conference on Artificial Intelligence',
@@ -6350,6 +6908,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'C. Le Pape',
   'author' => 'C. Le Pape',
   'booktitle' => 'Proceedings of the INRIA/IEEE Conference on Emerging Technologies and Factory Automation',
   'key' => 'lepape:95',
@@ -6359,6 +6918,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'V. Linek, B. Sands',
   'author' => 'V. Linek and B. Sands',
   'journal' => 'Ars Combinatoria',
   'key' => 'linek:96',
@@ -6370,6 +6930,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Vijay Saraswat',
   'address' => 'New Delhi, India',
   'author' => 'Vijay Saraswat',
   'booktitle' => 'Proceedings of the Conference on Foundations of Software Technology and Theoretical Computer Science',
@@ -6383,6 +6944,7 @@ array (
   'year' => '1985',
 )
 array (
+  '_author' => 'Kazunori Ueda',
   'address' => 'Tokyo, Japan',
   'author' => 'Kazunori Ueda',
   'booktitle' => 'Proceedings of the International Conference on Logic Programming',
@@ -6396,6 +6958,7 @@ array (
   'year' => '1985',
 )
 array (
+  '_author' => 'Arvind, Rishiyur Nikhil',
   'address' => 'Eindhoven, Netherlands',
   'author' => 'Arvind and Nikhil, Rishiyur',
   'booktitle' => 'Proceedings of the Conference on Parallel Architectures and Languages Europe (PARLE). Volume II: Parallel Languages',
@@ -6409,6 +6972,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Logikkonsult',
   'author' => 'Logikkonsult',
   'howpublished' => 'older overview of the method',
   'key' => 'logikkonsult',
@@ -6417,6 +6981,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'D. W. Loveland',
   'author' => 'D. W. Loveland',
   'journal' => 'Journal of the ACM',
   'key' => 'loveland68',
@@ -6428,6 +6993,7 @@ array (
   'year' => '1968',
 )
 array (
+  '_author' => 'D. W. Loveland',
   'author' => 'D. W. Loveland',
   'journal' => 'Journal of the ACM',
   'key' => 'loveland69',
@@ -6439,6 +7005,7 @@ array (
   'year' => '1969',
 )
 array (
+  '_author' => 'Donald W. Loveland',
   'address' => 'Amsterdam',
   'author' => 'Donald W. Loveland',
   'key' => 'loveland78',
@@ -6449,6 +7016,7 @@ array (
   'year' => '1978',
 )
 array (
+  '_author' => 'Irvin J. Lustig, cois Puget Jean-Fran\\',
   'author' => 'Irvin J. Lustig and Jean-Fran\\,cois Puget',
   'howpublished' => '<a href="http://www.ilog.com">http://www.ilog.com</a>',
   'key' => 'lustig99',
@@ -6457,6 +7025,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Irvin J. Lustig, Jean-Fran&ccedil;ois Puget',
   'author' => 'Irvin J. Lustig and Jean-Fran&ccedil;ois Puget',
   'howpublished' => 'white paper of Ilog Inc., Mountain View, CA 94043, USA, available at <a href="http://www.ilog.com">http://www.ilog.com</a>',
   'key' => 'lustig:99',
@@ -6465,6 +7034,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Alan Mackworth',
   'author' => 'Alan Mackworth',
   'journal' => 'Artificial Intelligence',
   'key' => 'mackworth77',
@@ -6475,6 +7045,7 @@ array (
   'year' => '1977',
 )
 array (
+  '_author' => 'R.S. Mangoubi, Dennis F.X. Mathaisel',
   'author' => 'R.S. Mangoubi and Dennis F.X. Mathaisel',
   'journal' => 'Transportation Science',
   'key' => 'mangoubi85',
@@ -6488,6 +7059,7 @@ array (
   'year' => '1985',
 )
 array (
+  '_author' => 'R. S. Mangoubi, Dennis F. X. Mathaisel',
   'author' => 'R. S. Mangoubi and Dennis F. X. Mathaisel',
   'journal' => 'Transportation Science',
   'key' => 'mangoubi:85',
@@ -6500,6 +7072,7 @@ array (
   'year' => '1985',
 )
 array (
+  '_author' => 'Marleen van Brandenburg',
   'address' => '55 Science Drive 2, Singapore 117599',
   'author' => 'Marleen van Brandenburg',
   'institution' => 'School of Computing, National University of Singapore',
@@ -6512,6 +7085,7 @@ array (
   'year' => '2001',
 )
 array (
+  '_author' => 'Kim Marriott, Peter J. Stuckey',
   'address' => 'Cambridge, MA',
   'author' => 'Kim Marriott and Peter J. Stuckey',
   'key' => 'marriott98',
@@ -6521,6 +7095,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'David McAllester, Bart Selman, Henry Kautz',
   'author' => 'David McAllester and Bart Selman and Henry Kautz',
   'booktitle' => 'Proceedings Fourteenth National Conference on Artificial Intelligence (AAAI-97)',
   'key' => 'mcallester97',
@@ -6529,6 +7104,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Michael Mehl',
   'address' => 'Reinhardsbrunn Castle, Germany',
   'author' => 'Michael Mehl',
   'booktitle' => '2nd International Workshop on Nonmonotonic and Inductive Logic',
@@ -6543,6 +7119,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Micha Meier',
   'address' => 'Cassis, France',
   'author' => 'Micha Meier',
   'booktitle' => 'Proceedings of the First International Conference on Principles and Practice of Constraint Programming',
@@ -6556,6 +7133,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Francisco Menezes, Pedro Barahona',
   'author' => 'Francisco Menezes and Pedro Barahona',
   'crossref' => 'jampel:book',
   'editor' => 'Michael Jampel and Eugene Freuder and Michael Maher',
@@ -6568,6 +7146,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Laurent Michel, Pascal Van Hentenryck',
   'address' => 'Schloss Hagenberg, Linz, Austria',
   'author' => 'Laurent Michel and Pascal Van Hentenryck',
   'booktitle' => 'Principles and Practice of Constraint Programming---CP97, Proceedings of the Third International Conference',
@@ -6582,6 +7161,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Eric Monfroy',
   'address' => 'Vandoeuvre-l&eacute;s-Nancy',
   'author' => 'Eric Monfroy',
   'institution' => 'Centre de Recherche en Informatique de Nancy',
@@ -6593,6 +7173,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'F. Harary, L. Moser',
   'author' => 'F. Harary and L. Moser',
   'journal' => 'Amer. Math. Monthly',
   'key' => 'moser:66',
@@ -6603,6 +7184,7 @@ array (
   'year' => '1966',
 )
 array (
+  '_author' => 'Tobias M&uuml;ller',
   'address' => 'London, UK',
   'author' => 'Tobias M&uuml;ller',
   'booktitle' => 'First International Conference on Computational Logic',
@@ -6612,6 +7194,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'R. H. B. Netzer, J. Xu',
   'author' => 'R. H. B. Netzer and J. Xu',
   'issue' => '2',
   'journal' => 'IEEE Transactions on Parallel and Distributed Systems',
@@ -6623,6 +7206,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Ka Boon Ng, Kar Loon Ong',
   'address' => 'School of Computing, National University of Singapore, 55 Science Drive 2, Singapore 117599',
   'author' => 'Ka Boon Ng and Kar Loon Ong',
   'booktitle' => 'Proceedings of TRICS: Techniques foR Implementing Constraint programming Systems, a post-conference workshop of CP 2000, appears as Technical Report TRA9/00',
@@ -6634,6 +7218,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Teruhisa Miura, Toru Ishida',
   'address' => 'Madison, WI',
   'author' => 'Teruhisa Miura and Toru Ishida',
   'booktitle' => 'Proceedings of the 16th National Conference on Artificial Intelligence',
@@ -6644,6 +7229,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Fred Brooks',
   'address' => 'Dublin',
   'author' => 'Fred Brooks',
   'booktitle' => 'Proceedings of the IFIP Tenth World Computing Conference',
@@ -6655,6 +7241,7 @@ array (
   'year' => '1986',
 )
 array (
+  '_author' => 'Martin M&uuml;ller',
   'author' => 'Martin M&uuml;ller',
   'howpublished' => 'Draft',
   'key' => 'notesonhmx',
@@ -6663,6 +7250,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Inmos Limited',
   'address' => 'Englewood Cliffs, NJ',
   'author' => 'Inmos Limited',
   'key' => 'occam',
@@ -6672,6 +7260,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Martin Henz, Tobias M&uuml;ller, Sven Thiel, Marleen van Brandenburg',
   'author' => 'Henz, Martin and M&uuml;ller, Tobias and Thiel, Sven and van Brandenburg, Marleen',
   'howpublished' => 'draft; available at <a href="http://www.comp.nus.edu.sg/&nbsp;henz/drafts/one-factor.ps">http://www.comp.nus.edu.sg/&nbsp;henz/drafts/one-factor.ps</a>',
   'key' => 'one-factor',
@@ -6681,6 +7270,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Martin Henz, Tobias M&uuml;ller, Sven Thiel, Marleen van Brandenburg',
   'author' => 'Henz, Martin and M&uuml;ller, Tobias and Thiel, Sven and van Brandenburg, Marleen',
   'howpublished' => '<a href="http://www.comp.nus.edu.sg/&nbsp;henz/projects/roundrobin">http://www.comp.nus.edu.sg/&nbsp;henz/projects/roundrobin</a>',
   'key' => 'one_factor_benchmarks',
@@ -6689,6 +7279,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Pascal Van Hentenryck',
   'address' => 'Cambridge, MA',
   'author' => 'Pascal Van Hentenryck',
   'key' => 'opl',
@@ -6698,6 +7289,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Martin Henz, Tobias M&uuml;ller',
   'address' => 'Singapore',
   'author' => 'Martin Henz and Tobias M&uuml;ller',
   'booktitle' => 'Proceedings of the Fifth Conference of the Association of Asia-Pacific Operational Research Societies Within IFORS',
@@ -6707,6 +7299,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Tobias M&uuml;ller, J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Tobias M&uuml;ller and J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6716,6 +7309,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Gert Smolka',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Gert Smolka',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6725,6 +7319,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin M&uuml;ller, Tobias M&uuml;ller, Christian Schulte, Ralf Treinen, J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Martin M&uuml;ller and Tobias M&uuml;ller and Christian Schulte and Ralf Treinen and J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6734,6 +7329,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Tobias M&uuml;ller, J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Tobias M&uuml;ller and J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6743,6 +7339,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Gert Smolka',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Gert Smolka',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6753,6 +7350,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Martin Henz, Martin M&uuml;ller, Christian Schulte, J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Martin Henz and Martin M&uuml;ller and Christian Schulte and J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6762,6 +7360,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin Henz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Martin Henz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6771,6 +7370,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Christian Schulte',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Christian Schulte',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6780,6 +7380,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6789,6 +7390,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Michael Mehl, Tobias M&uuml;ller, Konstantin Popov, Ralf Scheidhauer, Christian Schulte',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Michael Mehl and Tobias M&uuml;ller and Konstantin Popov and Ralf Scheidhauer and Christian Schulte',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6798,6 +7400,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Martin Henz, Martin M&uuml;ller',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Martin Henz and Martin M&uuml;ller',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6807,6 +7410,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Michael Mehl, Christian Schulte',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'Michael Mehl and Christian Schulte',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -6816,6 +7420,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'I. Page',
   'author' => 'I. Page',
   'issue' => '1',
   'journal' => 'Journal of VLSI Signal Processing',
@@ -6827,6 +7432,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Jean-Fran&ccedil;ois Puget',
   'address' => 'Singapore',
   'author' => 'Jean-Fran&ccedil;ois Puget',
   'booktitle' => 'Proceedings of the First Singapore International Conference on Intelligent Systems (SPICIS)',
@@ -6838,6 +7444,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'Frank Pfenning',
   'author' => 'Frank Pfenning',
   'journal' => 'Journal of Automated Reasoning',
   'key' => 'pfenning93proof',
@@ -6847,6 +7454,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Ralf Treinen',
   'address' => 'Postfach 1150, D-66041 Saarbr&uuml;cken, Germany',
   'author' => 'Ralf Treinen',
   'howpublished' => 'Doctoral Dissertation',
@@ -6860,6 +7468,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'N. C. K. Phillips, W. D. Wallis',
   'author' => 'N. C. K. Phillips and W. D. Wallis',
   'journal' => 'Congressus Numerantium',
   'key' => 'phillips:96',
@@ -6870,6 +7479,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Atsuhiro Goto, Masatoshi Sato, Katsuto Nakajima, Kazuo Taki, Akira Matsumoto',
   'address' => 'Tokyo, Japan',
   'author' => 'Atsuhiro Goto and Masatoshi Sato and Katsuto Nakajima and Kazuo Taki and Akira Matsumoto',
   'booktitle' => 'Proceedings of the International Conference on Fifth Generation Computer Systems',
@@ -6881,6 +7491,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Martin M&uuml;ller, Joachim Niehren, Gert Smolka',
   'author' => 'Martin M&uuml;ller and Joachim Niehren and Gert Smolka',
   'institution' => 'Programming Systems Lab, Universit&auml;t des Saarlandes',
   'key' => 'plain-report-97',
@@ -6890,6 +7501,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Urs H&ouml;lzle, David Ungar',
   'address' => 'Orlando, Florida',
   'author' => 'Urs H&ouml;lzle and David Ungar',
   'booktitle' => 'Proceedings of the ACM SIGPLAN Conference on Programming Language Design and Implementation',
@@ -6901,6 +7513,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Michael Schwartzbach',
   'author' => 'Michael Schwartzbach',
   'howpublished' => 'Lecture Notes',
   'key' => 'poly-type',
@@ -6910,6 +7523,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Bent Bruun Kristensen, Ole Lehrmann Madsen, Birger Moller-Pedersen, Kristen Nygaard',
   'address' => 'Austin, TX',
   'author' => 'Kristensen, Bent Bruun and Madsen, Ole Lehrmann and Moller-Pedersen, Birger and Nygaard, Kristen',
   'booktitle' => 'Proceedings of the ACM Symposium on Principles of Programming Languages',
@@ -6930,6 +7544,7 @@ array (
   'year' => '1990',
 )
 array (
+  '_author' => 'John Plevyak, Xingbin Zhang, Andrew Chien',
   'address' => 'San Francisco, CA',
   'author' => 'John Plevyak and Xingbin Zhang and Andrew Chien',
   'bibtype' => 'INPROCEEDINGS',
@@ -6943,6 +7558,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Neil Postman',
   'author' => 'Neil Postman',
   'key' => 'postman85',
   'month' => 'nov',
@@ -6952,6 +7568,7 @@ array (
   'year' => '1985',
 )
 array (
+  '_author' => 'Kenjiro Taura, Satoshi Matsuoka, Akinori Yonezawa',
   'address' => 'Charleston, SC',
   'author' => 'Kenjiro Taura and Satoshi Matsuoka and Akinori Yonezawa',
   'booktitle' => 'Proceedings of the ACM SIGPLAN Symposium on Principles and Practice of Parallel Programming',
@@ -6964,6 +7581,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Steven Prestwich',
   'author' => 'Steven Prestwich',
   'booktitle' => 'Proceedings of Practical Applications of Constraint Technology and Logic Programming',
   'key' => 'prestwich2000',
@@ -6973,6 +7591,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Gert Smolka',
   'author' => 'Gert Smolka',
   'howpublished' => 'draft',
   'key' => 'promises',
@@ -6980,6 +7599,7 @@ array (
   'type' => 'Misc',
 )
 array (
+  '_author' => 'Martin Henz',
   'address' => 'Cambridge, Massachusetts, USA',
   'author' => 'Martin Henz',
   'booktitle' => 'Workshop on Constraint Programming Applications, in conjunction with the Second International Conference on Principles and Practice of Constraint Programming (CP96)',
@@ -6992,6 +7612,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Jean-Charles R&eacute;gin',
   'author' => 'Jean-Charles R&eacute;gin',
   'booktitle' => 'Proceedings of the AAAI $12^th$ National Conference on Artificial Intelligence',
   'key' => 'regin94',
@@ -7002,6 +7623,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Jean-Charles R&eacute;gin',
   'author' => 'Jean-Charles R&eacute;gin',
   'booktitle' => 'Proceedings of the 13th National Conference on Artificial Intelligence',
   'key' => 'regin96',
@@ -7011,6 +7633,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Martin Henz',
   'address' => 'Las Cruces, New Mexico',
   'author' => 'Martin Henz',
   'booktitle' => 'Proceedings of the International Conference on Logic Programming',
@@ -7023,6 +7646,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Martin Henz, Gert Smolka',
   'author' => 'Martin Henz and Gert Smolka',
   'howpublished' => 'SML code available via WWW at \\mbox\\tt http://www.comp.nus.edu.sg/$\\tilde\\ $henz/projects/rooms',
   'key' => 'rooms',
@@ -7031,6 +7655,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Martin Henz, Gert Smolka',
   'author' => 'Martin Henz and Gert Smolka',
   'howpublished' => 'draft available at <a href="http://www.comp.nus.edu.sg/&nbsp;henz/drafts/room.ps">http://www.comp.nus.edu.sg/&nbsp;henz/drafts/room.ps</a>',
   'key' => 'roomsdraft',
@@ -7039,6 +7664,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Fran&ccedil;ois Laburthe, Yves Caseau',
   'address' => 'Pisa, Italy',
   'author' => 'Fran&ccedil;ois Laburthe and Yves Caseau',
   'booktitle' => 'Principles and Practice of Constraint Programming',
@@ -7051,6 +7677,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Michael Sannella',
   'author' => 'Michael Sannella',
   'booktitle' => 'Proceedings of the ACM Symposium on User Interface Software and Technology',
   'key' => 'sannella94',
@@ -7061,6 +7688,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'E. Sapir',
   'address' => 'Berkeley &amp; Los Angeles',
   'author' => 'E. Sapir',
   'editors' => 'D. G. Mandelbaum',
@@ -7071,6 +7699,7 @@ array (
   'year' => '1956',
 )
 array (
+  '_author' => 'E. Sapir',
   'author' => 'E. Sapir',
   'journal' => 'Language',
   'key' => 'sapir1929',
@@ -7081,6 +7710,7 @@ array (
   'year' => '1929',
 )
 array (
+  '_author' => 'Bart Selman, Henry Kautz, David McAllester',
   'address' => 'NAGOYA, Archi, Japan',
   'author' => 'Bart Selman and Henry Kautz and David McAllester',
   'booktitle' => 'Proceedings of the 15$^th$ International Joint Conference Artificial Intelligence',
@@ -7090,6 +7720,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Henry Kautz, Bart Selman',
   'address' => 'Vienna, Austria',
   'author' => 'Henry Kautz and Bart Selman',
   'booktitle' => 'Proceedings of the ECAI-92',
@@ -7100,6 +7731,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'J. Gu, P. W. Purdom, J. Franco, B. W. Wah',
   'author' => 'J. Gu and P. W. Purdom and J. Franco and B. W. Wah',
   'booktitle' => 'Satisfiability Problem: Theory and Applications',
   'key' => 'satsurvey',
@@ -7112,6 +7744,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Michael A. Trick',
   'address' => 'Konstanz, Germany',
   'author' => 'Michael A. Trick',
   'booktitle' => 'Proceedings of the 3$^\\textrmrd$ International Conference on the Practice and Theory of Automated Timetabling',
@@ -7123,6 +7756,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'J&ouml;rg W&uuml;rtz',
   'address' => 'Toulouse, France',
   'author' => 'J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Proceedings of the 8th IEEE International Conference on Tools with Artificial Intelligence',
@@ -7137,6 +7771,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Kenjiro Taura, Akinori Yonezawa',
   'author' => 'Kenjiro Taura and Akinori Yonezawa',
   'booktitle' => 'Object-based parallel and distributed computation: France-Japan Workshop, OBPDC \'95, Tokyo, Japan, June 21--23, 1995: selected papers',
   'editor' => 'Jean-Pierre Briot and Jean-Marc Geib and Akinori Yonezawa',
@@ -7149,6 +7784,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'Gerald Sussman, Guy Steele',
   'address' => 'Cambridge, MA',
   'author' => 'Gerald Sussman and Guy Steele',
   'institution' => 'Massachusetts Institute of Technology',
@@ -7160,6 +7796,7 @@ array (
   'year' => '1975',
 )
 array (
+  '_author' => 'J&uuml;rgen Schmidhuber',
   'author' => 'J&uuml;rgen Schmidhuber',
   'booktitle' => 'Foundations of Computer Science: Potential - Theory - Cognition',
   'key' => 'schmidhuber',
@@ -7171,6 +7808,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'David A. Schmidt',
   'address' => 'Dubuque, Iowa',
   'author' => 'David A. Schmidt',
   'key' => 'schmidt',
@@ -7180,6 +7818,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Jan A. M. Schreuder, David Panton',
   'author' => 'Jan A. M. Schreuder and David Panton',
   'howpublished' => 'draft',
   'key' => 'schreuder2000',
@@ -7189,6 +7828,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Christian Schulte',
   'address' => 'Las Cruces, New Mexico',
   'author' => 'Christian Schulte',
   'booktitle' => 'Proceedings of the International Conference on Logic Programming',
@@ -7202,6 +7842,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Christian Schulte',
   'author' => 'Christian Schulte',
   'howpublished' => 'Draft',
   'key' => 'schultedeep',
@@ -7210,6 +7851,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Jeffrey Mark Siskind, David Allen McAllester',
   'address' => 'Washington, DC',
   'author' => 'Jeffrey Mark Siskind and David Allen McAllester',
   'booktitle' => 'Proceedings of the AAAI 11$^th$ National Conference on Artificial Intelligence',
@@ -7222,6 +7864,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Ka Boon Kevin Ng',
   'author' => 'Ng, Ka Boon Kevin',
   'howpublished' => 'Honours Year Project Report, School of Computing, National University of Singapore',
   'key' => 'scripting',
@@ -7230,6 +7873,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'B.&nbsp;Selman, Hector Levesque, David Mitchell',
   'author' => 'B.&nbsp;Selman and Hector Levesque and David Mitchell',
   'booktitle' => 'Proceedings of AAAI-92',
   'key' => 'selman:92',
@@ -7239,6 +7883,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'B. Selman, H. A. Kautz',
   'address' => 'Washington, DC',
   'author' => 'B. Selman and H. A. Kautz',
   'booktitle' => 'Proceedings of the 11th National Conference on Artificial Intelligence',
@@ -7250,6 +7895,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'B.&nbsp;Selman, H.&nbsp;Kautz, B.&nbsp;Cohen',
   'author' => 'B.&nbsp;Selman and H.&nbsp;Kautz and B.&nbsp;Cohen',
   'booktitle' => 'Proceedings of AAAI-94',
   'key' => 'selman:94',
@@ -7259,6 +7905,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'C.P. Gomes, B. Selman, H. A. Kautz',
   'address' => 'Madison, WI',
   'author' => 'C.P. Gomes and B. Selman and H. A. Kautz',
   'booktitle' => 'Proceedings of the 16th National Conference on Artificial Intelligence',
@@ -7269,6 +7916,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Paul Shaw',
   'address' => 'Pisa, Italy',
   'author' => 'Paul Shaw',
   'booktitle' => 'Principles and Practice of Constraint Programming - CP98, Proceedings of the 4th International Conference',
@@ -7283,6 +7931,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Mary Sheeran, Gunnar St\\aalmarck',
   'address' => '',
   'author' => 'Mary Sheeran and Gunnar St\\aalmarck',
   'booktitle' => 'Formal Methods for CAD: Enabling technologies and system-level applications, Formal Methods in System Design',
@@ -7293,6 +7942,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Mary Sheeran, Gunnar St&aring;lmarck',
   'author' => 'Mary Sheeran and Gunnar St&aring;lmarck',
   'booktitle' => 'Formal Methods for CAD: Enabling technologies and system-level applications, Formal Methods in System Design',
   'editor' => 'G. Gopalakrishnan',
@@ -7302,6 +7952,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Ole-Johan Dahl, Kristen Nygaard',
   'address' => 'Forskningsveien 1 B, Oslo 3, Norway',
   'author' => 'Ole-Johan Dahl and Kristen Nygaard',
   'institution' => 'Norwegian Computing Center',
@@ -7312,6 +7963,7 @@ array (
   'year' => '1965',
 )
 array (
+  '_author' => 'Ole-Johan Dahl, Kristen Nygaard',
   'author' => 'Ole-Johan Dahl and Kristen Nygaard',
   'journal' => 'Communications of the ACM',
   'key' => 'simula:66',
@@ -7323,6 +7975,7 @@ array (
   'year' => '1966',
 )
 array (
+  '_author' => 'Gert Smolka, Martin Henz, J&ouml;rg W&uuml;rtz',
   'address' => 'Humboldt-Universit&auml;t zu Berlin, Germany',
   'author' => 'Gert Smolka and Martin Henz and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Grundlagen und Anwendungen der K&uuml;nstlichen Intelligenz, 17. Fachtagung f&uuml;r K&uuml;nstliche Intelligenz',
@@ -7337,6 +7990,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Jr. Guy Lewis Steele',
   'address' => 'Cambridge, MA',
   'author' => 'Steele, Jr., Guy Lewis',
   'key' => 'steelephd',
@@ -7347,6 +8001,7 @@ array (
   'year' => '1980',
 )
 array (
+  '_author' => 'Tee Yong Chew, Martin Henz, Ka Boon Ng',
   'address' => 'Boston, MA',
   'author' => 'Tee Yong Chew and Martin Henz and Ka Boon Ng',
   'booktitle' => 'Practical Aspects of Declarative Languages, Second International Workshop, PADL 2000',
@@ -7360,6 +8015,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Tee Yong Chew, Martin Henz',
   'author' => 'Tee Yong Chew and Martin Henz',
   'howpublished' => 'Oz code available via WWW at \\mbox\\tt http://www.comp.nus.edu.sg/\\homedir henz/projects/stk',
   'key' => 'stkcode',
@@ -7368,6 +8024,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Tee Yong Chew',
   'author' => 'Chew, Tee Yong',
   'howpublished' => 'Honours Year Project Report, School of Computing, National University of Singapore, available at \\tt http://www.comp.nus.edu.sg/&nbsp;henz/projects/toolkit/',
   'key' => 'stkreport',
@@ -7377,6 +8034,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Martin Sulzmann, Martin Odersky, Martin Wehr',
   'author' => 'Martin Sulzmann and Martin Odersky and Martin Wehr',
   'booktitle' => 'Proc.\\ 4th Int\'l Workshop on Foundations of Object-Oriented Languages (FOOL), Paris, France',
   'editor' => 'Benjamin Pierce',
@@ -7388,6 +8046,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'J&ouml;rn Sch&ouml;nberger, Dirk C. Mattfeld, Herbert Kopfer',
   'author' => 'J&ouml;rn Sch&ouml;nberger and Dirk C. Mattfeld and Herbert Kopfer',
   'howpublished' => 'submitted',
   'key' => 'tabletennis2000',
@@ -7396,6 +8055,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Yves Rochat, Eric D. Taillard',
   'author' => 'Yves Rochat and Eric D. Taillard',
   'journal' => 'Journal of Heuristics',
   'key' => 'taillard:95',
@@ -7406,6 +8066,7 @@ array (
   'year' => '1995',
 )
 array (
+  '_author' => 'Kenjiro Taura, Akinori Yonezawa',
   'author' => 'Kenjiro Taura and Akinori Yonezawa',
   'booktitle' => 'Proceedings of PPoPP\'97',
   'key' => 'taura:gc:97',
@@ -7414,6 +8075,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Kenjiro Taura, Akinori Yonezawa',
   'author' => 'Kenjiro Taura and Akinori Yonezawa',
   'booktitle' => 'Proceedings of PLDI\'97',
   'key' => 'taura:mt:98',
@@ -7422,6 +8084,7 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'J. Earley, H. Sturgis',
   'author' => 'J. Earley and H. Sturgis',
   'journal' => 'Communications of the ACM',
   'key' => 'tdiagrams',
@@ -7432,6 +8095,7 @@ array (
   'year' => '1970',
 )
 array (
+  '_author' => 'R. D. Tennent',
   'author' => 'R. D. Tennent',
   'key' => 'tennent',
   'publisher' => 'Englewood Cliffs; Prentice-Hall',
@@ -7440,6 +8104,7 @@ array (
   'year' => '1981',
 )
 array (
+  '_author' => 'R. D. Tennent',
   'address' => 'Hertfordshire, UK',
   'author' => 'R. D. Tennent',
   'key' => 'tennent91',
@@ -7449,6 +8114,7 @@ array (
   'year' => '1991',
 )
 array (
+  '_author' => 'Mark P. Jones',
   'author' => 'Mark P. Jones',
   'howpublished' => '<a href="http://www.cse.ogi.edu/&nbsp;mpj/thih/">http://www.cse.ogi.edu/&nbsp;mpj/thih/</a>',
   'key' => 'thih2000',
@@ -7457,6 +8123,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Hassan A\\"\\it-Kaci, Andreas Podelski',
   'author' => 'Hassan A\\"\\it-Kaci and Andreas Podelski',
   'journal' => 'Journal of Logic Programming',
   'key' => 'towardsLIFE',
@@ -7467,6 +8134,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Nicolas Beldiceanu, Warwick Harvey, Martin Henz, Fran&ccedil;ois Laburthe, Eric Monfroy, Tobias M&uuml;ller, Laurent Perron, editors Christian Schulte',
   'address' => '55 Science Drive 2, Singapore 117599',
   'author' => 'Nicolas Beldiceanu and Warwick Harvey and Martin Henz and Fran&ccedil;ois Laburthe and Eric Monfroy and Tobias M&uuml;ller and Laurent Perron and Christian Schulte, editors',
   'institution' => 'School of Computing, National University of Singapore',
@@ -7479,6 +8147,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Martin M&uuml;ller',
   'author' => 'Martin M&uuml;ller',
   'howpublished' => 'unpublished',
   'key' => 'typesafe',
@@ -7487,6 +8156,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'P. Van Hentenryck, L. Michel, L. Perron, J.-C. R&eacute;gin',
   'address' => 'Paris',
   'author' => 'Van Hentenryck, P. and Michel, L. and Perron, L. and R&eacute;gin, J.-C.',
   'booktitle' => 'International Conference on Principles and Practice of Declarative Programming, PPDP\'99',
@@ -7497,6 +8167,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Arjen van Weert, Scheuder Jan A. M.',
   'address' => 'Toronto, Canada',
   'author' => 'van Weert, Arjen and Scheuder Jan A. M.',
   'booktitle' => 'Practice and Theory of Automated Timetabling II, Second International Conference, PATAT\'97',
@@ -7510,6 +8181,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Paul J. Voda',
   'author' => 'Paul J. Voda',
   'howpublished' => 'unpublished',
   'key' => 'voda98a',
@@ -7517,6 +8189,7 @@ array (
   'type' => 'Misc',
 )
 array (
+  '_author' => 'Mark Wallace',
   'author' => 'Mark Wallace',
   'journal' => 'Constraints',
   'key' => 'wallace:96b',
@@ -7530,6 +8203,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'J. Paul Walser',
   'author' => 'J. Paul Walser',
   'key' => 'walser:book',
   'publisher' => 'Springer-Verlag',
@@ -7539,6 +8213,7 @@ array (
   'year' => '1999',
 )
 array (
+  '_author' => 'Joachim Paul Walser',
   'author' => 'Joachim Paul Walser',
   'key' => 'walser_phd:98',
   'month' => 'aug',
@@ -7548,6 +8223,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Toby Walsh',
   'author' => 'Toby Walsh',
   'howpublished' => 'draft available at Walsh\'s home page at York',
   'key' => 'walsh2000',
@@ -7556,6 +8232,7 @@ array (
   'year' => '2000',
 )
 array (
+  '_author' => 'Benjamin Lee Whorf',
   'address' => 'Cambridge, Massacussetts',
   'author' => 'Benjamin Lee Whorf',
   'editors' => 'J. B. Carroll',
@@ -7566,6 +8243,7 @@ array (
   'year' => '1956',
 )
 array (
+  '_author' => 'T. H. Willcocks',
   'author' => 'T. H. Willcocks',
   'journal' => 'Journal of Recreational Mathematics',
   'key' => 'willcocks68',
@@ -7577,6 +8255,7 @@ array (
   'year' => '1968',
 )
 array (
+  '_author' => 'Molly Wilson, A. Borning',
   'author' => 'Molly Wilson and A. Borning',
   'journal' => 'Journal of Logic Programming',
   'key' => 'wilson93',
@@ -7588,6 +8267,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Robert A. Wilson',
   'author' => 'Robert A. Wilson',
   'key' => 'wilson93b',
   'month' => 'oct',
@@ -7597,6 +8277,7 @@ array (
   'year' => '1993',
 )
 array (
+  '_author' => 'Armin Wolf',
   'author' => 'Armin Wolf',
   'crossref' => 'jampel:book',
   'editor' => 'Michael Jampel and Eugene Freuder and Michael Maher',
@@ -7609,6 +8290,7 @@ array (
   'year' => '1996',
 )
 array (
+  '_author' => 'J&ouml;rg W&uuml;rtz',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
   'author' => 'J&ouml;rg W&uuml;rtz',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
@@ -7621,6 +8303,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'J&ouml;rg W&uuml;rtz',
   'address' => 'Vienna, Austria',
   'author' => 'J&ouml;rg W&uuml;rtz',
   'booktitle' => '10th European Conference on Artificial Intelligence',
@@ -7634,6 +8317,7 @@ array (
   'year' => '1992',
 )
 array (
+  '_author' => 'J&ouml;rg W&uuml;rtz',
   'address' => 'Santa Margherita Ligure, Italy',
   'author' => 'J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Workshop at ICLP: Verification and analysis of (concurrent) logic languages',
@@ -7646,6 +8330,7 @@ array (
   'year' => '1994',
 )
 array (
+  '_author' => 'Hirotaka Yamamoto, Kenjiro Taura, Akinori Yonezawa',
   'author' => 'Hirotaka Yamamoto and Kenjiro Taura and Akinori Yonezawa',
   'booktitle' => 'Proceedings of Fourth Workshop on Languages, Compilers, and Run-time Systems for Scalable Computers (LCR98)',
   'key' => 'yamamoto:98',
@@ -7655,6 +8340,7 @@ array (
   'year' => '1998',
 )
 array (
+  '_author' => 'Roland H.C. Yap',
   'author' => 'Roland H.C. Yap',
   'howpublished' => 'draft',
   'key' => 'yap98',
@@ -7662,6 +8348,7 @@ array (
   'type' => 'Misc',
 )
 array (
+  '_author' => 'Yasuhiko Yokote, Mario Tokoro',
   'address' => 'Cambridge, MA',
   'author' => 'Yasuhiko Yokote and Mario Tokoro',
   'booktitle' => 'Object-Oriented Concurrent Programming',
@@ -7674,6 +8361,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Akinori Yonezawa, Mario Tokoro',
   'address' => 'Cambridge, MA',
   'author' => 'Akinori Yonezawa and Mario Tokoro',
   'booktitle' => 'Object-Oriented Concurrent Programming',
@@ -7686,6 +8374,7 @@ array (
   'year' => '1987',
 )
 array (
+  '_author' => 'Kaoru Yoshida, Takashi Chikayama',
   'address' => 'Tokyo, Japan',
   'author' => 'Kaoru Yoshida and Takashi Chikayama',
   'booktitle' => 'Proceedings of the International Conference on Fifth Generation Computer Systems',
@@ -7697,6 +8386,7 @@ array (
   'year' => '1988',
 )
 array (
+  '_author' => 'Wong Hiu Yung, Yuen Wing Seung, Kin Hong Lee, Philip Heng Wai Leong',
   'author' => 'Wong Hiu Yung and Yuen Wing Seung and Kin Hong Lee and Philip Heng Wai Leong',
   'booktitle' => 'Field-Programmable Logic and Applications',
   'editor' => 'Patrick Lysaght and James Irvine and Reiner W. Hartenstein',
