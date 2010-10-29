@@ -195,7 +195,7 @@ License, or (at your option) any later version.
 // *************** CONFIGURATION
 // I recommend to put your changes in bibtexbrowser.local.php
 // it will help you to upgrade the script with a new version
-@include('bibtexbrowser.local.php');
+@include(dirname(__FILE__).'/bibtexbrowser.local.php');
 // there is no encoding transformation from the bibtex file to the html file
 // if your bibtex file contains 8 bits characters in utf-8
 // change the following parameter
@@ -2288,15 +2288,13 @@ foreach($metatags as $item) {
 echo '<title>'.strip_tags($content->getTitle()).'</title>'; 
   
 // now the CSS
-if (is_readable('bibtexbrowser.css')) {
-  echo '<link href="bibtexbrowser.css" rel="stylesheet" type="text/css"/>';
+echo '<style type="text/css"><!--  '."\n";
+if (is_readable(dirname(__FILE__).'/bibtexbrowser.css')) {
+  readfile(dirname(__FILE__).'/bibtexbrowser.css');
 }
-else {
-  // we use the embedded css
-  echo '<style type="text/css"><!--';
-  bibtexbrowserDefaultCSS();
-  echo '--></style>';
-} 
+else {  bibtexbrowserDefaultCSS(); }
+echo "\n".' --></style>';
+
 ?>
 </head>
 <body>
