@@ -122,7 +122,6 @@ If bibtexbrowser.css exists, it is used, otherwise bibtexbrowser uses its own em
 All the variable parts of bibtexbrowser can be modified with a file called ''bibtexbrowser.local.php''.
 
 <code>
-<pre>
 &#60;?php
 
 // if your bibtex file is utf-8 encodedd
@@ -157,7 +156,6 @@ return
 // define('BIBTEXBROWSER_URL','');
 
 ?>
-</pre>
 </code>
 
 
