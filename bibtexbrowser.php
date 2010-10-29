@@ -1608,6 +1608,7 @@ function query2title(&$query) {
     $headers = array();
     foreach($query as $k=>$v) {
       if($k == '_author') { $k = 'author'; }
+      if($k == 'type') { $v = substr($v,1,strlen($v)-2); }
       $headers[$k] = ucwords($k).': '.ucwords($v);
   }
     // special cases
@@ -2561,7 +2562,13 @@ class Dispatcher {
     $this->query['_author']=$_GET[Q_AUTHOR];
   }
 
-  function type() { $this->query[Q_TYPE]=$_GET[Q_TYPE];  }
+  function type() { 
+    // remarks KEN
+    // "book" selects inbook, book, bookchapter
+    // so we add the regexp modifiers
+    if (strlen($_GET[Q_TYPE])>0) { $_GET[Q_TYPE] = '^'.$_GET[Q_TYPE].'$'; }
+    $this->query[Q_TYPE]= $_GET[Q_TYPE];
+  }
 
   function menu() {
     $menu = new MenuManager($_GET[Q_DB]);
