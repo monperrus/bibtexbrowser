@@ -650,7 +650,7 @@ class BibDBBuilder {
   }
 
   function setEntryField($finalkey,$entryvalue) {
-
+  
     // is it a constant? then we replace the value
     // we support advanced features of bibtexbrowser
     // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
@@ -942,22 +942,67 @@ class BibEntry {
     }
     return $authors;
   }
+  
+  /**
+  * Returns the formated author name w.r.t to the user preference encoded in COMMA_NAMES
+  */
+  function formatAuthor($author){
+    if (COMMA_NAMES) {
+      return $this->formatAuthorCommaSeparated($author);
+    }
+    else return $this->formatAuthorCanonical($author);
+  }
 
-  /** Returns the authors of this entry as an array */
+  /**
+  * Returns the formated author name as "FirstName LastName".
+  */
+  function formatAuthorCanonical($author){
+      list($firstname, $lastname) = splitFullName($author);
+      if ($firstname!='') return $firstname.' '.$lastname;
+      else return $lastname;
+  }
+
+  /**
+  * Returns the formated author name as "LastName, FirstName".
+  */
+  function formatAuthorCommaSeparated($author){
+      list($firstname, $lastname) = splitFullName($author);
+      if ($firstname!='') return $lastname.', '.$firstname;
+      else return $lastname;
+  }
+
+
+  /** Returns the authors as a string depending on the configuration parameter COMMA_NAMES  */
   function getFormattedAuthors() {
     $authors = array();
     foreach ($this->getRawAuthors() as $author) {
-      $authors[]=formatAuthor($author);
+      $authors[]=$this->formatAuthor($author);
     }
     return $authors;
   }
 
+  /** @deprecated
+  *   @see getFormattedAuthorsImproved()
+  */
+  function formattedAuthors() {  return $this->getFormattedAuthorsImproved(); }
+  
+  /** Adds to getFormattedAuthors() the home page links and returns a string (not an array)
+  */
+  function getFormattedAuthorsImproved() {
+    $array_authors = $this->getFormattedAuthors();
+    foreach ($array_authors as $k => $author) {
+      $array_authors[$k]=$this->addHomepageLink($author);
+    }
+    
+    if (COMMA_NAMES) {$sep = '; ';} else {$sep = ', ';}
+    return implode($sep ,$array_authors);
+  }
 
   /** Returns the authors of this entry as an array in a canonical form */
   function getCanonicalAuthors() {
     $authors = array();
     foreach ($this->getRawAuthors() as $author) {
-      $authors[]=formatAuthorCanonical($author);
+      $authors[]=$this->formatAuthorCanonical($author);
     }
     return $authors;
   }
@@ -966,10 +1011,21 @@ class BibEntry {
   function getArrayOfCommaSeparatedAuthors() {
     $authors = array();
     foreach ($this->getRawAuthors() as $author) {
-      $authors[]=formatAuthorCommaSeparated($author);
+      $authors[]=$this->formatAuthorCommaSeparated($author);
     }
     return $authors;
   }
+
+  /**
+  * Returns a compacted string form of author names by throwing away
+  * all author names except for the first one and appending ", et al."
+  */
+  function getCompactedAuthors($author){
+    $authors = $this->getAuthors();
+    $etal = count($authors) > 1 ? ', et al.' : '';
+    return $this->formatAuthor($authors[0]) . $etal;
+  }
+
 
   /** add the link to the homepage if it is defined in a string
    *  e.g. @string{hp_MartinMonperrus="http://www.monperrus.net/martin"}
@@ -987,17 +1043,6 @@ class BibEntry {
     return $author;
   }
 
-  /** Returns the authors as a string depending on the configuration parameter COMMA_NAMES */
-  function formattedAuthors() {
-    $array_authors = $this->getFormattedAuthors();
-    foreach ($array_authors as $k => $author) {
-      $array_authors[$k]=$this->addHomepageLink($author);
-    }
-    if (COMMA_NAMES) return implode('; ',$array_authors);
-    else return implode(', ',$array_authors);
-  }
-
-
 
   /** Returns the editors of this entry as an arry */
   function getEditors() {
@@ -1008,14 +1053,14 @@ class BibEntry {
     return $editors;
   }
 
-  /**
-  * Returns a compacted string form of author names by throwing away
-  * all author names except for the first one and appending ", et al."
-  */
-  function getCompactedAuthors($author){
-    $authors = $this->getAuthors();
-    $etal = count($authors) > 1 ? ', et al.' : '';
-    return formatAuthor($authors[0]) . $etal;
+  /** Returns the editors of this entry as an arry */
+  function getFormattedEditors() {
+    $editors = array();
+    foreach ($this->getEditors() as $editor) {
+      $editors[]=$this->formatAuthor($editor);
+    }
+    if (COMMA_NAMES) {$sep = '; ';} else {$sep = ', ';}
+    return implode($sep, $editors).', '.(count($editors)>1?'eds.':'ed.');
   }
 
 
@@ -1273,35 +1318,6 @@ function splitFullName($author){
   return array(trim($firstname), trim($lastname));
 }
 
-
-
-/**
- * Returns the formated author name w.r.t to the user preference encoded in COMMA_NAMES
- */
-function formatAuthor($author){
-  if (COMMA_NAMES) {
-    return formatAuthorCommaSeparated($author);
-  }
-  else return formatAuthorCanonical($author);
-}
-
-/**
- * Returns the formated author name as "FirstName LastName".
- */
-function formatAuthorCanonical($author){
-    list($firstname, $lastname) = splitFullName($author);
-    if ($firstname!='') return $firstname.' '.$lastname;
-    else return $lastname;
-}
-
-/**
- * Returns the formated author name as "LastName, FirstName".
- */
-function formatAuthorCommaSeparated($author){
-    list($firstname, $lastname) = splitFullName($author);
-    if ($firstname!='') return $lastname.', '.$firstname;
-    else return $lastname;
-}
 
 /** New undocumented feature, used by Benoit Baudry
  * see http://www.irisa.fr/triskell/perso_pro/bbaudry/publications.php 
