@@ -1293,7 +1293,7 @@ function bib2html(&$bibentry) {
 /**bibtexbrowser uses this function which encapsulates the user-defined sections*/
 function _DefaultBibliographySections() {
   $function = BIBLIOGRAPHYSECTIONS;
-  return $function($bibentry);
+  return $function();
 }
 
 /** the default sections */
