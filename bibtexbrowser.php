@@ -329,7 +329,7 @@ function setDB() {
                     $bib_is_unmodified                               
                     &&  (strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])>filemtime($bib));
   } // end for each
-  if ( $bib_is_unmodified ) { 
+  if ( $bib_is_unmodified && !headers_sent()) { 
     header("HTTP/1.1 304 Not Modified");
     exit; 
   }
