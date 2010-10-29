@@ -687,17 +687,30 @@ class BibDBBuilder {
   }
 
   function endEntry($entrysource) {
+  
+    // we can set the fulltext
     $this->currentEntry->text = $entrysource;
+    
+    // we format the author names in a special field
+    // to enable search
+    if ($this->currentEntry->hasField('author')) {
+      $this->currentEntry->setField('_author',$this->currentEntry->getFormattedAuthorsImproved());
+    }
 
     // ignoring jabref comments
     if (($this->currentEntry->getType()=='comment')) {
       /* do nothing for jabref comments */
-    } else if ($this->currentEntry->getType()=='string') {
+    } 
+    
+    // we add it to the string database
+    else if ($this->currentEntry->getType()=='string') {
       foreach($this->currentEntry->fields as $k => $v) {
-        //echo $k.' '.$v;
         $k!='type' and $this->stringdb[$k]=$v;
       }
-    } else {
+    } 
+    
+    // we add it to the database
+    else {
       $this->builtdb[$this->currentEntry->getKey()] = $this->currentEntry;
     }
   }
@@ -1593,7 +1606,10 @@ class BibtexBrowserDisplay {
 /** transforms an array representing a query into a formatted string */
 function query2title(&$query) {
     $headers = array();
-    foreach($query as $k=>$v) $headers[$k] = ucwords($k).': '.ucwords($v);
+    foreach($query as $k=>$v) {
+      if($k == '_author') { $k = 'author'; }
+      $headers[$k] = ucwords($k).': '.ucwords($v);
+  }
     // special cases
     if (isset($headers[Q_ALL])) $headers[Q_ALL] = 'Publications in '.$_GET[Q_FILE];
     if (isset($headers[Q_AUTHOR])) $headers[Q_AUTHOR] = 'Publications of '.$_GET[Q_AUTHOR];
@@ -2058,7 +2074,7 @@ class BibDataBase {
     foreach ($this->bibdb as $bib) {
       foreach($bib->getRawAuthors() as $a){
         //we use an array because several authors can have the same lastname
-        @$result[getLastName($a)][$a]++;
+        @$result[getLastName($a)][$bib->formatAuthor($a)]++;
       }
     }
     ksort($result);
@@ -2538,7 +2554,11 @@ class Dispatcher {
   function keywords() { $this->query[Q_TAG]=$_GET[Q_TAG]; }
 
   function author() {
-    $this->query[Q_AUTHOR]=$_GET[Q_AUTHOR];
+    // Friday, October 29 2010
+    // changed fomr 'author' to '_author'
+    // because '_author' is already formatted
+    // doing so we can search at the same time "Joe Dupont" an "Dupont, Joe"
+    $this->query['_author']=$_GET[Q_AUTHOR];
   }
 
   function type() { $this->query[Q_TYPE]=$_GET[Q_TYPE];  }
