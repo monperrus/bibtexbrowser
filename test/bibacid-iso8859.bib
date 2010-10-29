@@ -11,8 +11,9 @@
 }
 
 %% using double quotes
+%% also Took test the advanced search
 @TECHREPORT{dquotes,
-  author = "J. Abounader and D. Lamb",
+  author = "J. Abounader and Tooj, D.",
   title = "using double quotes ",
   institution = "Queen's University, Kingston, ON.",
   year = "1997"
@@ -117,7 +118,7 @@ MRREVIEWER = {Jean-Fran{\c{c}}ois Clouet},
 @string{str1="toto"}
 @string{str2="titi"}
 
-@article{stgringconcat:test1,
+@book{stgringconcat:test1,
   author = {J. Abounader and D. Lamb},
   title = str1#str2,
   institution = {Queen's University, Kingston, ON.},
@@ -125,7 +126,7 @@ MRREVIEWER = {Jean-Fran{\c{c}}ois Clouet},
 }
 
 % with space
-@article{stgringconcat:test2,
+@bookchapter{stgringconcat:test2,
   author = {J. Abounader and D. Lamb},
   title = str1 # str2,
   institution = {Queen's University, Kingston, ON.},
@@ -133,7 +134,7 @@ MRREVIEWER = {Jean-Fran{\c{c}}ois Clouet},
 }
 
 % with another value
-@article{stgringconcat:test3,
+@inbook{stgringconcat:test3,
   author = {J. Abounader and D. Lamb},
   title = str1 # {3344},
   institution = {Queen's University, Kingston, ON.},
