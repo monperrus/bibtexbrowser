@@ -442,9 +442,9 @@ $delegate->beginFile();
 
 
 $handle = fopen($bibfilename, "r");
-// if you encounter this errir "Allowed memory size of xxxxx bytes exhausted"
+// if you encounter this error "Allowed memory size of xxxxx bytes exhausted"
 // then decrease the size of the temp buffer below
-$bufsize=min(filesize($bibfilename),BUFFERSIZE);
+$bufsize=BUFFERSIZE;
 
 while (!feof($handle)) {
 $sread=fread($handle,$bufsize);
@@ -1184,7 +1184,10 @@ class BibEntry {
         echo bib2html($this);
 
         $href = 'href="'.BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY => $this->getKey())).'"';
-        echo " <a {$href}>[bib]</a>";
+
+        // we add biburl and title to be able to retrieve this important information
+        // using Xpath expressions on the XHTML source
+        echo " <a class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bib]</a>";
 
         // returns an empty string if no url present
         echo $this->getUrlLink();
@@ -1328,7 +1331,7 @@ return
     ),
   // conference papers
     array(
-      'query' => array(Q_TYPE=>'inproceedings',Q_EXCLUDE=>'workshop'),
+      'query' => array(Q_TYPE=>'inproceedings|conference',Q_EXCLUDE=>'workshop'),
       'title' => 'Refereed Conference Papers'
     ),
   // workshop papers
@@ -2006,7 +2009,8 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
 
   /** Creates metadata for Google Scholar
    * + a description
-   * See http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar
+   * @see http://scholar.google.com/intl/en/scholar/inclusion.html
+   * @see http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar
    * */
   function metadata() {
     $result=array();
@@ -2022,18 +2026,26 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
     }
     $result[] = array('citation_date',$this->bib->getYear());
 
-    // citation_publisher
-    $result[] = array('citation_publisher',$this->bib->getPublisher());
+    // this page
+    $result[] = array('citation_abstract_html_url','http://'.$_SERVER['HTTP_HOST'].($_SERVER['SERVER_PORT']=='80'?'':$_SERVER['SERVER_PORT']).$_SERVER['REQUEST_URI']);
+    
+    if ($this->bib->hasField("publisher")) {
+      $result[] = array('citation_publisher',$this->bib->getPublisher());
+    }
 
     // BOOKTITLE: JOURNAL NAME OR PROCEEDINGS
     if ($this->bib->getType()=="article") { // journal article
       $result[] = array('citation_journal_title',$this->bib->getField("journal"));
       $result[] = array('citation_volume',$this->bib->getField("volume"));
       if ($this->bib->hasField("issue")) {
-        $result[] = array('citation_issue',$this->bib->getField("issue"));}
+        $result[] = array('citation_issue',$this->bib->getField("issue"));
+      }
+      if ($this->bib->hasField("issn")) {
+        $result[] = array('citation_issue',$this->bib->getField("issn"));
+      }
     } 
 
-    if ($this->bib->getType()=="inproceedings") {
+    if ($this->bib->getType()=="inproceedings" || $this->bib->getType()=="conference") {
        $result[] = array('citation_conference_title',$this->bib->getField(BOOKTITLE));
        $result[] = array('citation_conference',$this->bib->getField(BOOKTITLE));
     }
@@ -2069,20 +2081,91 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
       $result[] = array('citation_pdf_url',$this->bib->getField("url"));
     }
 
+    // we don't introduce yet another kind of bibliographic metadata
+    // the core bibtex metadata will simply be available as json
     // now adding the pure bibtex with no translation
-    foreach ($this->bib->getFields() as $k => $v) {
-      if (!preg_match("/^_/",$k)) {
-        $result[] = array("bibtex:".$k,$v);  
-      }
-    }
+    //foreach ($this->bib->getFields() as $k => $v) {
+    //  if (!preg_match("/^_/",$k)) {
+    //    $result[] = array("bibtex:".$k,$v);  
+    //  }
+    //}
 
-    // and a fallback to essential dublin core
+    // a fallback to essential dublin core
+    // Dublin Core should not be used for bibliographic metadata
+    // according to several sources 
+    //  * Google Scholar: "Use Dublin Core tags (e.g., DC.title) as a last resort - they work poorly for journal papers"
+    //  * http://reprog.wordpress.com/2010/09/03/bibliographic-data-part-2-dublin-cores-dirty-little-secret/
+    // however it seems that Google Scholar needs at least DC.Title to trigger referencing
+    // reference documentation: http://dublincore.org/documents/dc-citation-guidelines/
     $result[] = array('DC.Title',$this->bib->getTitle());
     foreach($this->bib->getArrayOfCommaSeparatedAuthors() as $author) {
       $result[] = array('DC.Creator',$author);
     }
     $result[] = array('DC.Date',$this->bib->getYear());
 
+
+    // --------------------------------- BEGIN METADATA EPRINTS
+    // and now adding eprints metadata
+    // why adding eprints metadata?
+    // because eprints is a well known bibliographic software and several crawlers/desktop software
+    // use their metadata
+    // unfortunately, the metadata is even less documented than Google Scholar citation_
+    // reference documentation: the eprints source code (./perl_lib/EPrints/Plugin/Export/Simple.pm)
+    // examples: conference paper: http://tubiblio.ulb.tu-darmstadt.de/44344/
+    //           journal paper: http://tubiblio.ulb.tu-darmstadt.de/44344/
+    $result[] = array('eprints.title',$this->bib->getTitle());
+    $authors = $this->bib->getArrayOfCommaSeparatedAuthors();
+    foreach($authors as $author) {
+      $result[] = array('eprints.creators_name',$author);
+    }
+    $result[] = array('eprints.date',$this->bib->getYear());
+
+    if ($this->bib->hasField("publisher")) {
+      $result[] = array('eprints.publisher',$this->bib->getPublisher());
+    }
+
+    if ($this->bib->getType()=="article") { // journal article
+      $result[] = array('eprints.type','article');
+      $result[] = array('eprints.publication',$this->bib->getField("journal"));
+      $result[] = array('eprints.volume',$this->bib->getField("volume"));
+      if ($this->bib->hasField("issue")) {
+        $result[] = array('eprints.number',$this->bib->getField("issue"));}
+    } 
+
+    if ($this->bib->getType()=="inproceedings" || $this->bib->getType()=="conference") {
+       $result[] = array('eprints.type','proceeding');
+       $result[] = array('eprints.book_title',$this->bib->getField(BOOKTITLE));
+    }
+
+    if ($this->bib->getType()=="phdthesis"
+         || $this->bib->getType()=="mastersthesis"
+         || $this->bib->getType()=="bachelorsthesis"
+       )
+    {
+       $result[] = array('eprints.type','thesis');
+       $result[] = array('eprints.institution',$this->bib->getField('school'));
+    }
+
+    if ($this->bib->getType()=="techreport")
+    {
+       $result[] = array('eprints.type','monograph');
+       if ($this->bib->hasField("number")) {
+         $result[] = array('eprints.number',$this->bib->getField('number'));
+       }
+       if ($this->bib->hasField("institution")) {
+         $result[] = array('eprints.institution',$this->bib->getField('institution'));
+       }
+    }
+
+    // generic
+    if ($this->bib->hasField("doi")) {
+      $result[] = array('eprints.id_number',$this->bib->getField("doi"));
+    }
+
+    if ($this->bib->hasField("url")) {
+      $result[] = array('eprints.official_url',$this->bib->getField("url"));
+    }
+    // --------------------------------- END METADATA EPRINTS
 
     return $result;
 
