@@ -2027,7 +2027,7 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
     $result[] = array('citation_date',$this->bib->getYear());
 
     // this page
-    $result[] = array('citation_abstract_html_url','http://'.$_SERVER['HTTP_HOST'].($_SERVER['SERVER_PORT']=='80'?'':$_SERVER['SERVER_PORT']).$_SERVER['REQUEST_URI']);
+    $result[] = array('citation_abstract_html_url','http://'.$_SERVER['HTTP_HOST'].($_SERVER['SERVER_PORT']=='80'?'':$_SERVER['SERVER_PORT']).str_replace('&','&amp;',$_SERVER['REQUEST_URI']));
     
     if ($this->bib->hasField("publisher")) {
       $result[] = array('citation_publisher',$this->bib->getPublisher());
