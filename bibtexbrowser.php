@@ -272,6 +272,9 @@ License, or (at your option) any later version.
 @define('YEAR', 'year');
 @define('BUFFERSIZE',100000);
 @define('MULTIPLE_BIB_SEPARATOR',';');
+@define('METADATA_GS',true);
+@define('METADATA_DC',true);
+@define('METADATA_EPRINTS',true);
 
 // in embedded mode, we still need a URL for displaying bibtex entries alone
 // this is usually resolved to bibtexbrowser.php
@@ -2015,6 +2018,7 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
   function metadata() {
     $result=array();
     
+    if (METADATA_GS) {
     // the description may mix with the Google Scholar tags
     // we remove it
     // $result[] = array('description',trim(strip_tags(str_replace('"','',bib2html($this->bib)))));
@@ -2080,7 +2084,9 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
     if ($this->bib->hasField("url")) {
       $result[] = array('citation_pdf_url',$this->bib->getField("url"));
     }
-
+    }
+    
+    
     // we don't introduce yet another kind of bibliographic metadata
     // the core bibtex metadata will simply be available as json
     // now adding the pure bibtex with no translation
@@ -2090,6 +2096,7 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
     //  }
     //}
 
+    
     // a fallback to essential dublin core
     // Dublin Core should not be used for bibliographic metadata
     // according to several sources 
@@ -2097,12 +2104,13 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
     //  * http://reprog.wordpress.com/2010/09/03/bibliographic-data-part-2-dublin-cores-dirty-little-secret/
     // however it seems that Google Scholar needs at least DC.Title to trigger referencing
     // reference documentation: http://dublincore.org/documents/dc-citation-guidelines/
+    if (METADATA_DC) {
     $result[] = array('DC.Title',$this->bib->getTitle());
     foreach($this->bib->getArrayOfCommaSeparatedAuthors() as $author) {
       $result[] = array('DC.Creator',$author);
     }
     $result[] = array('DC.Date',$this->bib->getYear());
-
+    }
 
     // --------------------------------- BEGIN METADATA EPRINTS
     // and now adding eprints metadata
@@ -2113,6 +2121,7 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
     // reference documentation: the eprints source code (./perl_lib/EPrints/Plugin/Export/Simple.pm)
     // examples: conference paper: http://tubiblio.ulb.tu-darmstadt.de/44344/
     //           journal paper: http://tubiblio.ulb.tu-darmstadt.de/44344/
+    if (METADATA_EPRINTS) {
     $result[] = array('eprints.title',$this->bib->getTitle());
     $authors = $this->bib->getArrayOfCommaSeparatedAuthors();
     foreach($authors as $author) {
@@ -2164,6 +2173,7 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
 
     if ($this->bib->hasField("url")) {
       $result[] = array('eprints.official_url',$this->bib->getField("url"));
+    }
     }
     // --------------------------------- END METADATA EPRINTS
 
