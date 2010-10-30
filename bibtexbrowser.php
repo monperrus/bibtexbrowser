@@ -39,7 +39,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 =====Download=====
 For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]] or comment this page. Don't hesitate to contact me to be added in the [[users|lists of bibtexbrowser users]] :-)
 
-You may try bibtexbrowser without installation with [[http://www.publications.li]].
+You may try bibtexbrowser without installation with [[http://my.publications.li]].
 
 **[[http://www.monperrus.net/martin/bibtexbrowser.php.txt|Download bibtexbrowser]]** <?php if (is_readable('bibtexbrowser-rc.php')) {echo '<a href="http://www.monperrus.net/martin/bibtexbrowser-rc.php.txt">(Try the release candidate!)</a>';} ?>
 
@@ -51,7 +51,7 @@ Demo: [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|Here, 
 <a href="bibtexbrowser-screenshot.png"><img height="500" src="bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/></a>
 
 =====Basic installation=====
-
+<div class="wikitous" title="/bibtexbrowser/docs/basic-install"> 
 Create a bib file with the publication records (e.g. csgroup2008.bib) and upload it to your server.
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib'' (frameset based view)
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all'' (pub list sorted by year)
@@ -59,11 +59,12 @@ Create a bib file with the publication records (e.g. csgroup2008.bib) and upload
 
 ** Warning **: bibtexbrowser maintains a cached version of the parsed bibtex, for high performance, check that PHP can write in the working directory of PHP.
 
-**Handling mutliple bibtex files**: It is a common practice to create one file for the @string, and another one with the bib entries. In this case, just give bibtexbrowser the files separated by a semi-column e.g:
+**Handling mutliple bibtex files**: If you want to include several bibtex files, just give bibtexbrowser the files separated by semi-columns e.g:
 ''bibtexbrowser.php?bib=strings.bib;csgroup2008.bib''
 
-
+</div>
 =====How to embed your publication list in your home page=====
+<div class="wikitous" title="/bibtexbrowser/docs/embed"> 
 
 <table border="1">
 <tr><th></th><th>Sorted by year </th><th>Sorted by publication type</th></tr>
@@ -102,35 +103,56 @@ include( 'bibtexbrowser.php' );
 </td>
 </tr><!-- end individual -->
 </table>
-
+</div>
 =====How to tailor bibtexbrowser?=====
 
 ====By modifying the CSS====
+<div class="wikitous" title="/bibtexbrowser/docs/tailor/css"> 
 
 If bibtexbrowser.css exists, it is used, otherwise bibtexbrowser uses its own embedded CSS style (see function bibtexbrowserDefaultCSS). An example of CSS tailoring is:
-&#60;style>
+<pre>
 .date {   background-color: blue; }
 .rheader {  font-size: large }
 .bibref {  padding:3px; padding-left:15px;  vertical-align:top;}
 .bibtitle { font-weight:bold; }
 .bibbooktitle { font-style:italic; }
-&#60;/style>
+</pre>
+</div>
 
+====By modifying the bibliography style ====
+<div class="wikitous" title="/bibtexbrowser/docs/tailor/style"> 
+The bibliography style is encapsulated in a function. If you want to modify the bibliography style, you can copy the default style ([[bibtexbrowser-style-default.php.txt|source]]) in a new file, say ''bibtexbrowser-yourstyle.php'', and rename the function ''DefaultBibliographyStyle'' in say ''MyFancyBibliographyStyle''.
+Then, add in the file ''bibtexbrowser.local.php'' (see below):
+<code>
+&#60;?php
+include( 'bibtexbrowser-yourstyle.php' );
+define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
+?>
+</code>
+
+[[http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt|Janos Tapolcai contributed with this style, which looks like IEEE references]].
+For contributing with a new style, [[http://www.monperrus.net/martin/|please drop me an email ]]
+</div>
 
 ====By creating a "bibtexbrowser.local.php"====
+<div class="wikitous" title="/bibtexbrowser/docs/tailor/local"> 
 
 All the variable parts of bibtexbrowser can be modified with a file called ''bibtexbrowser.local.php''.
 
-<code>
+<pre>
 &#60;?php
-
+// ------------------------------- NOVICE LEVEL
 // if your bibtex file is utf-8 encodedd
 define("ENCODING","utf-8");
 
 // number of bib items per page
 define('PAGE_SIZE',50);
 
-// if you are not satisifed with the default style (see below)
+// see the other define(...) in the source, they are all overridable
+
+// ------------------------------- INTERMEDIATE LEVEL
+
+// if you are not satisifed with the default style
 define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
 function MyFancyBibliographyStyle() {
    // see function DefaultBibliographyStyle
@@ -151,27 +173,15 @@ return
 }
 
 
-// Advanced
+// ------------------------------- EXPERT LEVEL
 // to get the individual bib pages embedded as well
 // define('BIBTEXBROWSER_URL','');
 
 ?>
-</code>
-
-
+</pre>
+</div>
 <a name="modify-bibstyle"/>
-====By modifying the bibliography style ====
-The bibliography style is encapsulated in a function. If you want to modify the bibliography style, you can copy the default style ([[bibtexbrowser-style-default.php.txt|source]]) in a new file, say ''bibtexbrowser-yourstyle.php'', and rename the function ''DefaultBibliographyStyle'' in say ''MyFancyBibliographyStyle''.
-Then, add in the file ''bibtexbrowser.local.php'':
-<code>
-&#60;?php
-include( 'bibtexbrowser-yourstyle.php' );
-define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
-?>
-</code>
 
-[[http://www.monperrus.net/martin/bibtexbrowser-style-janos.php.txt|Janos Tapolcai contributed with this style, which looks like IEEE references]].
-For contributing with a new style, [[http://www.monperrus.net/martin/|please drop me an email ]]
 
 =====How to add links to the slides of a conference/workshop paper?=====
 
@@ -216,6 +226,7 @@ modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
 License, or (at your option) any later version.
 
+<script>wikitous_option_buttonText = 'Improve this documentation';</script><script src="http://wikitous.appspot.com/wikitous.js"></script>
 */
 
 // *************** CONFIGURATION
@@ -845,6 +856,11 @@ function latex2html($line) {
 
 /** Note that & are encoded as %26 and not as &amp; so it does not break the Z3988 URL */
 function s3988($s) {return urlencode(utf8_encode($s));}
+
+/** @deprecated */
+function formatAuthor() {
+  die('Sorry, this function does not exist anymore, however, you can simply use $bibentry->formatAuthor($author) instead.');
+}
 
 // ----------------------------------------------------------------------
 // BIB ENTRIES
@@ -2052,6 +2068,21 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
     if ($this->bib->hasField("url")) {
       $result[] = array('citation_pdf_url',$this->bib->getField("url"));
     }
+
+    // now adding the pure bibtex with no translation
+    foreach ($this->bib->getFields() as $k => $v) {
+      if (!preg_match("/^_/",$k)) {
+        $result[] = array("bibtex:".$k,$v);  
+      }
+    }
+
+    // and a fallback to essential dublin core
+    $result[] = array('DC.Title',$this->bib->getTitle());
+    foreach($this->bib->getArrayOfCommaSeparatedAuthors() as $author) {
+      $result[] = array('DC.Creator',$author);
+    }
+    $result[] = array('DC.Date',$this->bib->getYear());
+
 
     return $result;
 
