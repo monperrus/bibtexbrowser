@@ -174,8 +174,8 @@ return
 
 
 // ------------------------------- EXPERT LEVEL
-// to get the individual bib pages embedded as well
-// define('BIBTEXBROWSER_URL','');
+// define('BIBTEXBROWSER_URL','path/to/bibtexbrowser.php'); // if bibtexbrowser.php is in another directory in embedded mode
+// define('BIBTEXBROWSER_URL',''); // to get the individual bib pages embedded as well
 
 ?>
 </pre>
@@ -303,7 +303,7 @@ License, or (at your option) any later version.
 function setDB() {
 
   // default bib file, if no file is specified in the query string.
-  if (!isset($_GET[Q_FILE])) {
+  if (!isset($_GET[Q_FILE]) || $_GET[Q_FILE] == "") {
   ?>
   <div id="bibtexbrowser_message">
   Congratulations! bibtexbrowser is correctly installed!<br/>
@@ -1621,7 +1621,7 @@ else $page = 1;
     // (1 page) reverse (<)
     if ($start > 0) {
       $href = makeHref(array($queryKey => $page - 1,'menu'=>''));
-      $result .= '<a '. $href ."><b>[pred]</b></a>\n";
+      $result .= '<a '. $href ."><b>[prev]</b></a>\n";
     }
 
     // (1 page) forward (>)
