@@ -274,7 +274,7 @@ License, or (at your option) any later version.
 @define('MULTIPLE_BIB_SEPARATOR',';');
 @define('METADATA_GS',true);
 @define('METADATA_DC',true);
-@define('METADATA_EPRINTS',true);
+@define('METADATA_EPRINTS',false);
 
 // in embedded mode, we still need a URL for displaying bibtex entries alone
 // this is usually resolved to bibtexbrowser.php
