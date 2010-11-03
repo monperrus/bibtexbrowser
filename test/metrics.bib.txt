@@ -1476,7 +1476,20 @@ array (
 )
 array (
   '_author' => 'Martin Monperrus, Jean-Marc Jézéquel, Joël Champeau, Brigitte Hoeltzener',
-  'abstract' => 'Model-Driven Engineering (MDE) is an approach to software development that uses models as primary artifacts, from which code, documentation and tests are derived. One way of assessing quality assurance in a given domain is to define domain metrics. As text documents, models can be considered from a syntactic point of view i.e., thought of as graphs. We can readily apply graph-based metrics to them, such as the number of nodes, the number of edges or the fan-in/fan-out distributions. However, these metrics cannot leverage the semantic structuring enforced by each specific metamodel to give domain specific information. Contrary to graph-based metrics, more specific metrics do exist for given domains (such as LOC for programs), but they lack genericity. Our contribution is to propose one metric that is generic over the domains and the metamodels and allows the easy specification of an open-ended wide range of model metrics.',
+  'abstract' => 'Model-Driven Engineering (MDE) is an approach to software development
+	that uses models as primary artifacts, from which code, documentation
+	and tests are derived. One way of assessing quality assurance in
+	a given domain is to define domain metrics. As text documents, models
+	can be considered from a syntactic point of view i.e., thought of
+	as graphs. We can readily apply graph-based metrics to them, such
+	as the number of nodes, the number of edges or the fan-in/fan-out
+	distributions. However, these metrics cannot leverage the semantic
+	structuring enforced by each specific metamodel to give domain specific
+	information. Contrary to graph-based metrics, more specific metrics
+	do exist for given domains (such as LOC for programs), but they lack
+	genericity. Our contribution is to propose one metric that is generic
+	over the domains and the metamodels and allows the easy specification
+	of an open-ended wide range of model metrics.',
   'author' => 'Martin Monperrus and Jean-Marc Jézéquel and Joël Champeau and Brigitte Hoeltzener',
   'booktitle' => 'Model-Driven Software Development: Integrating Quality Assurance',
   'editor' => 'Jörg Rech and Christian Bunse',

@@ -149,7 +149,7 @@ array (
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'stgringconcat:test3',
-  'title' => 'toto 3344',
+  'title' => 'toto3344',
   'type' => 'inbook',
   'year' => '1997',
 )
@@ -191,5 +191,16 @@ array (
   'key' => 'testsearch5',
   'title' => 'using Banach Space',
   'type' => 'article',
+  'year' => '1997',
+)
+array (
+  '_author' => 'J. Abounader, D. Tooj',
+  'abstract' => 'This is an abstract
+  on several lines',
+  'author' => 'J. Abounader and D. Tooj',
+  'institution' => 'Queen\'s University, Kingston, ON.',
+  'key' => 'with_abstract',
+  'title' => 'This is with abstract',
+  'type' => 'inproceedings',
   'year' => '1997',
 )
