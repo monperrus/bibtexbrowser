@@ -1284,11 +1284,19 @@ class BibEntry {
    */
   function toEntryUnformatted() {
     echo '<pre class="purebibtex">'; // pre is nice when it is embedded with no CSS available
+    $entry = $this->getFullText();
     if ($this->hasField('url')) {
-      $url=$this->getField('url');
+      $url = $this->getField('url');
       // this is not a parsing but a simple replacement
-      echo str_replace($url,'<a href="'.$url.'">'.$url.'</a>',$this->getFullText());
-    } else echo $this->getFullText();
+      $entry = str_replace($url,'<a href="'.$url.'">'.$url.'</a>', $entry);
+    }
+    if ($this->hasField('abstract')) {
+      $abstract = $this->getField('abstract');
+      // Google Scholar: http://scholar.google.com/intl/en/scholar/inclusion.html
+      // "each paper needs to be listed on a separate URL; and at least the full author-written abstract must be clearly visible on the URL"
+      $entry = str_replace($abstract,'<span class="abstract">'.$abstract.'</span>', $entry);
+    }
+    echo $entry;
     echo '</pre>';
    }
 
