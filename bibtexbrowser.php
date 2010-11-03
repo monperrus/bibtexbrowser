@@ -1294,6 +1294,7 @@ class BibEntry {
       $abstract = $this->getField('abstract');
       // Google Scholar: http://scholar.google.com/intl/en/scholar/inclusion.html
       // "each paper needs to be listed on a separate URL; and at least the full author-written abstract must be clearly visible on the URL"
+      // this will be also used to hijax the abstract with jquery
       $entry = str_replace($abstract,'<span class="abstract">'.$abstract.'</span>', $entry);
     }
     echo $entry;
