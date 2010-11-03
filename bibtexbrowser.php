@@ -519,6 +519,9 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
     $isinentry = false;$delegate->endEntry($entrysource);
     $entryvalue=''; // resetting the value buffer
     }
+    else if ($s==' ' || $s=="\t"  || $s=="\n" ) {
+      // blank characters are not taken into account when values are not in quotes or curly brackets
+    }
     else { $entryvalue=$entryvalue.$s;}
   }
 
@@ -905,8 +908,14 @@ class BibEntry {
   /** Sets a field of this bib entry. */
   function setField($name, $value) {
     $name = strtolower($name);
-    $value = xtrim($value);
-    if ($name!='url') $value = latex2html($value);
+    // fields that should not be transformed
+    if ($name!='abstract' && $name!='url' ) { 
+      $value = xtrim($value); /* abstract should stay as is for later use with str_replace */
+      $value = latex2html($value);
+    } else {
+      //echo "xx".$value."xx\n";
+    }
+    
     $this->fields[$name] = $value;
   }
 
