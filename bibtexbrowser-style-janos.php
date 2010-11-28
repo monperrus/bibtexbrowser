@@ -53,11 +53,7 @@ function JanosBibliographyStyle(&$bibentry) {
   //// ******* EDITOR
   $editor='';
   if ($bibentry->hasField(EDITOR)) {
-    $editors = array();
-    foreach ($bibentry->getEditors() as $ed) {
-      $editors[]=formatAuthor($ed);
-    }
-    $editor = implode(', ',$editors).', '.(count($editors)>1?'eds.':'ed.');
+    $editors = $bibentry->getFormattedEditors();
   }
 
   if ($booktitle!='') {
