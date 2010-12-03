@@ -31,7 +31,7 @@ $url=array(
 'all & academic view' => 'bib='.$bib.'&all&academic',//
 'author & academic view' => 'bib='.$bib.'&author=Martin+Monperrus&academic',//
 'author & academic view (deprecated)' => 'bib='.$bib.'&academic=Martin+Monperrus',//
-//'the default view with frameset' => 'bib='.$bib.'',//
+'the default view with frameset' => 'bib='.$bib.'&frameset',//
 'RSS feed all' => 'bib='.$bib.'&all&rss',
 'RSS feed author' => 'bib='.$bib.'&author=Martin+Monperrus&rss',
 /*'included in another page all' => $base.'bibtexbrowser-test-include1.php',
