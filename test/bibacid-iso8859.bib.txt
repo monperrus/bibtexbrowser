@@ -195,8 +195,7 @@ array (
 )
 array (
   '_author' => 'J. Abounader, D. Tooj',
-  'abstract' => 'This is an abstract
-  on several lines',
+  'abstract' => 'This is an abstract on several lines',
   'author' => 'J. Abounader and D. Tooj',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'with_abstract',

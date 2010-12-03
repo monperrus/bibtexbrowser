@@ -608,14 +608,7 @@ array (
 )
 array (
   '_author' => 'A. Bockmayr, T. Kasper',
-  'abstract' => 'We introduce branch-and-infer, a unifying
-        framework for integer linear programming and finite domain
-        constraint programming. We use this framework to compare the
-        two approaches with respect to their modeling and solving
-        capabilities, to introduce symbolic constraint abstractions
-        into integer programming, and to discuss possible combinations
-        of the two approaches.
-',
+  'abstract' => 'We introduce branch-and-infer, a unifying framework for integer linear programming and finite domain constraint programming. We use this framework to compare the two approaches with respect to their modeling and solving capabilities, to introduce symbolic constraint abstractions into integer programming, and to discuss possible combinations of the two approaches.',
   'author' => 'A. Bockmayr and T. Kasper',
   'journal' => 'INFORMS J. Computing',
   'key' => 'BockmayrKasper98',
