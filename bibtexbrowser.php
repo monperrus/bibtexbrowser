@@ -443,8 +443,8 @@ $isinentry = false;
 
 $delegate->beginFile();
 
-
 $handle = fopen($bibfilename, "r");
+if (!$handle) die ('cannot open '.$bibfilename);
 // if you encounter this error "Allowed memory size of xxxxx bytes exhausted"
 // then decrease the size of the temp buffer below
 $bufsize=BUFFERSIZE;
@@ -519,7 +519,7 @@ for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
     $isinentry = false;$delegate->endEntry($entrysource);
     $entryvalue=''; // resetting the value buffer
     }
-    else if ($s==' ' || $s=="\t"  || $s=="\n" ) {
+    else if ($s==' ' || $s=="\t"  || $s=="\n" || $s=="\r" ) {
       // blank characters are not taken into account when values are not in quotes or curly brackets
     }
     else { $entryvalue=$entryvalue.$s;}
