@@ -1,0 +1,22 @@
+running testLatex2html0: 
+  -- transformation of accents
+running testLatex2html1: 
+  -- transformation of ampersamd
+running testLatex2html2: 
+  -- transformation of non breaking space
+running testLatex2html3: 
+  -- transformation of curly braces (serge's bug)
+running testshortopentags: 
+  -- short PHP tag &lt;? 
+running test_search1: 
+  -- search for banach space (latex markup)
+running test_search2: 
+  -- search for goedel (latex and accents)
+running test_search2a: 
+  -- search for goedel (latex and accents)
+running test_search2b: 
+  XX search for goedel (latex and accents)
+running test_search3: 
+  -- search for OCL
+running test_search4: 
+  -- search for TYPE:book

@@ -79,7 +79,6 @@ foreach($url as $desc => $query_string) {
     echo xml_get_current_line_number  ( $xmlparser  )."<br/>";
     echo xml_get_current_column_number  ( $xmlparser  )."<br/>";
   }
-   
 }
 
 
