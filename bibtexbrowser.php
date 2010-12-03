@@ -2521,7 +2521,7 @@ echo "\n".' --></style>';
 </body>
 </html>
 <?php
-exit;
+//exit;
 } // end constructor
 
 }
@@ -2638,7 +2638,7 @@ class RSSDisplay {
 </rss>
 
 <?php
-  exit;
+  //exit;
   }
 }
 
