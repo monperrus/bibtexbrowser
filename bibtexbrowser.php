@@ -239,6 +239,10 @@ License, or (at your option) any later version.
 @define('ENCODING','iso-8859-1');//define('ENCODING','utf-8');//define('ENCODING','windows-1252');
 // number of bib items per page
 @define('PAGE_SIZE',isset($_GET['nopage'])?10000:25);
+// should links be open in a new window/tab?
+// you may change this in bibtexbrowser.local.php
+// by adding to define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',true);
+@define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',false);
 @define('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');// this is the name of a function
 @define('BIBLIOGRAPHYSECTIONS','DefaultBibliographySections');// this is the name of a function
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
@@ -909,7 +913,10 @@ class BibEntry {
   function setField($name, $value) {
     $name = strtolower($name);
     // fields that should not be transformed
-    if ($name!='url' ) { 
+    // we assume that "comment" is never latex code
+    // but instead could contain HTML code (with links using the character "~" for example)
+    // so "comment" is not transformed too
+    if ($name!='url' && $name!='comment') { 
       $value = xtrim($value); 
       $value = latex2html($value);
     } else {
@@ -952,16 +959,17 @@ class BibEntry {
     return isset($this->fields[strtolower($name)]);
   }
 
-  /** Returns the authors of this entry. If no author field exists,
-   * returns the editors. If none of authors and editors exists,
+  /** Returns the authors of this entry. If "author" is not given,
    * return a string 'Unknown'. */
   function getAuthor() {
     if (array_key_exists(AUTHOR, $this->fields)) {
       return $this->fields[AUTHOR];
     }
-    if (array_key_exists(EDITOR, $this->fields)) {
-      return $this->fields[EDITOR];
-    }
+    // 2010-03-02: commented the following, it results in misleading author lists
+    // issue found by Alan P. Sexton
+    //if (array_key_exists(EDITOR, $this->fields)) {
+    //  return $this->fields[EDITOR];
+    //}
     return 'Unknown';
   }
 
@@ -1199,7 +1207,7 @@ class BibEntry {
 
         // we add biburl and title to be able to retrieve this important information
         // using Xpath expressions on the XHTML source
-        echo " <a class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bib]</a>";
+        echo " <a ".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bib]</a>";
 
         // returns an empty string if no url present
         echo $this->getUrlLink();
