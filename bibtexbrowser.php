@@ -224,7 +224,7 @@ Misc:
 
 This script is a fork from an excellent script of the University of Texas at El Paso.
 
-(C) 2006-2007-2008-2009-2010 Martin Monperrus
+(C) 2006-2011 Martin Monperrus
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
