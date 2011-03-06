@@ -1728,8 +1728,8 @@ class BibtexBrowserDisplay {
   function javascript() {
   // we use jquery with the official content delivery URLs
   // Microsoft and Google also provide jquery with their content delivery networks
-?><script src="http://code.jquery.com/jquery-1.5.1.min.js"></script> 
-<script><!--
+?><script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script> 
+<script type="text/javascript" ><!--
 // Javascript progressive enhancement for bibtexbrowser
 $('a.biburl').each(function(item) { // for each url "[bib]"
   var biburl = $(this);
