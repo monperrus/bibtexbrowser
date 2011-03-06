@@ -1,4 +1,9 @@
 array (
+  'foo' => 'Foo',
+  'type' => 'string
+@string',
+)
+array (
   '_author' => 'J. Abounader, D. Lamb',
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
@@ -69,7 +74,7 @@ array (
   'author' => 'J. Abounader and D. Tooj',
   'institution' => 'Queen\'s University, Kingston, ON.',
   'key' => 'classical',
-  'title' => 'This is classical',
+  'title' => 'foo Bar',
   'type' => 'inproceedings',
   'year' => '1997',
 )

@@ -1,10 +1,15 @@
 
+%% test concatenation in @string
+@string{foo="Foo"}
+@string{bar=foo#" Bar"}
+
+
 %% test the home page feature
 @string{hp_J.Abounader="http://www.google.com"}
 
 @inproceedings{classical,
   author = {J. Abounader and D. Tooj},
-  title = {This is  {classical}},
+  title = bar,
   institution = {Queen's University, Kingston, ON.},
   year = {1997}
 }
