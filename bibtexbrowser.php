@@ -15,6 +15,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 * **(04/2007)**: bibtexbrowser is easy to install: just a single file.
 
 =====Other features=====
+* **(03/2011)** bibtexbrowser uses progressive enhancement with Javascript
 * **(10/2010)** bibtexbrowser now supports cross-references (Bibtex crossref)
 * **(09/2010)** bibtexbrowser now supports multiple bibtex files (''bibtexbrowser.php?bib=file1.bib;file2.bib'')
 * **(05/2010)** bibtexbrowser adds links to your co-author pages if you define the corresponding @string (see function addHomepageLink)
@@ -143,23 +144,27 @@ All the variable parts of bibtexbrowser can be modified with a file called ''bib
 &#60;?php
 // ------------------------------- NOVICE LEVEL
 // if your bibtex file is utf-8 encodedd
-define("ENCODING","utf-8");
+// define("ENCODING","utf-8");
 
 // number of bib items per page
-define('PAGE_SIZE',50);
+// define('PAGE_SIZE',50);
+
+// disable Javascript progressive enhancement
+// define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',false);
+
 
 // see the other define(...) in the source, they are all overridable
 
 // ------------------------------- INTERMEDIATE LEVEL
 
 // if you are not satisifed with the default style
-define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
+// define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
 function MyFancyBibliographyStyle() {
    // see function DefaultBibliographyStyle
 }
 
 // if you are not satisifed with the default sections
-define('BIBLIOGRAPHYSECTIONS','mySections');
+// define('BIBLIOGRAPHYSECTIONS','mySections');
 function mySections() {
 return  
   array(
@@ -239,9 +244,14 @@ License, or (at your option) any later version.
 @define('ENCODING','iso-8859-1');//define('ENCODING','utf-8');//define('ENCODING','windows-1252');
 // number of bib items per page
 @define('PAGE_SIZE',isset($_GET['nopage'])?10000:25);
-// should links be open in a new window/tab?
-// you may change this in bibtexbrowser.local.php
-// by adding to define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',true);
+// bibtexbrowser uses a small piece of Javascript to improve the user experience
+// see http://en.wikipedia.org/wiki/Progressive_enhancement
+// if you don't like it, you can be disable it by adding in bibtexbrowser.local.php
+// @define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',false);
+@define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',true);
+// if you disable the Javascript progressive enhancement, 
+// you may want the links to be open in a new window/tab
+// if yes, add in bibtexbrowser.local.php  define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',true);
 @define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',false);
 @define('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');// this is the name of a function
 @define('BIBLIOGRAPHYSECTIONS','DefaultBibliographySections');// this is the name of a function
@@ -1207,7 +1217,7 @@ class BibEntry {
 
         // we add biburl and title to be able to retrieve this important information
         // using Xpath expressions on the XHTML source
-        echo " <a ".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bib]</a>";
+        echo " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bib]</a>";
 
         // returns an empty string if no url present
         echo $this->getUrlLink();
@@ -1709,7 +1719,36 @@ class BibtexBrowserDisplay {
 
   function  formatedHeader() { return "<div class=\"rheader\">{$this->title}</div>\n";}
 
-
+  /** Adds a touch of AJAX in bibtexbrowser to display bibtex entries inline.
+   * It uses the HIJAX design pattern: the Javascript code fetches the normal bibtex HTML page
+   * and extracts the bibtex.
+   * In other terms, URLs and content are left perfectly optimized for crawlers 
+   * Note how beautiful is this piece of code thanks to JQuery.
+   */
+  function javascript() {
+  // we use jquery with the official content delivery URLs
+  // Microsoft and Google also provide jquery with their content delivery networks
+?><script src="http://code.jquery.com/jquery-1.5.1.min.js"></script> 
+<script><!--
+// Javascript progressive enhancement for bibtexbrowser
+$('a.biburl').each(function(item) { // for each url "[bib]"
+  var biburl = $(this);
+  biburl.click(function(ev) { // we change the click semantics
+    ev.preventDefault(); // no open url
+    if (biburl.nextAll('.purebibtex').length == 0) { // we don't have yet the bibtex data
+      var bibtexEntryUrl = $(this).attr('href');
+      $.ajax({url: bibtexEntryUrl,  dataType: 'xml', success: function (data) { // we download it
+        var elem = $('.purebibtex', data).clone(); // the bibtex entry (clone is required for Chrome)
+        // we add a link so that users clearly see that even with AJAX
+        // there is still one URL per paper (which is important for crawlers and metadata)
+        elem.append($('<span>\n\n%% Bibtex Entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></span>'));
+        elem.appendTo(biburl.parent()); // we add it to this line 
+      }});
+    } else {biburl.nextAll('.purebibtex').toggle();}  // we toggle the view    
+  });
+});
+--></script><?php
+  }
 }
 
 /** transforms an array representing a query into a formatted string */
@@ -1804,9 +1843,13 @@ class PagedDisplay extends BibtexBrowserDisplay {
     $this->endIndex =$this->startIndex + PAGE_SIZE;
 
     $this->contentStrategy->display($this);
-     if ($this->noPages>1) $this->displayPageBar($this->noPages, $page);
+    if ($this->noPages>1) $this->displayPageBar($this->noPages, $page);
 
-     echo $this->poweredby();
+    echo $this->poweredby();
+    
+    if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
+      $this->javascript();
+    }
 
   }
 
@@ -1997,6 +2040,11 @@ class AcademicDisplay extends BibtexBrowserDisplay {
     }
 
     echo $this->poweredby();
+    
+    if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
+      $this->javascript();
+    }
+
   }
 
 }
