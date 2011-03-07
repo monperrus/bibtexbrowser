@@ -1735,16 +1735,18 @@ $('a.biburl').each(function(item) { // for each url "[bib]"
   var biburl = $(this);
   biburl.click(function(ev) { // we change the click semantics
     ev.preventDefault(); // no open url
-    if (biburl.nextAll('.purebibtex').length == 0) { // we don't have yet the bibtex data
+    if (biburl.nextAll('pre').length == 0) { // we don't have yet the bibtex data
       var bibtexEntryUrl = $(this).attr('href');
       $.ajax({url: bibtexEntryUrl,  dataType: 'xml', success: function (data) { // we download it
-        var elem = $('.purebibtex', data).clone(); // the bibtex entry (clone is required for Chrome)
+        var elem = $('<pre/>'); // the element containing bibtex entry, creating a new element is required for Chrome and IE
+        elem.text($('.purebibtex', data).text()); // both text() is required for IE
         // we add a link so that users clearly see that even with AJAX
         // there is still one URL per paper (which is important for crawlers and metadata)
-        elem.append($('<span>\n\n%% Bibtex Entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></span>'));
-        elem.appendTo(biburl.parent()); // we add it to this line 
+        elem.append(
+           $('<div>%% Bibtex entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></div>')
+           ).appendTo(biburl.parent());
       }});
-    } else {biburl.nextAll('.purebibtex').toggle();}  // we toggle the view    
+    } else {biburl.nextAll('pre').toggle();}  // we toggle the view    
   });
 });
 --></script><?php
