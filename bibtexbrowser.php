@@ -1738,7 +1738,7 @@ $('a.biburl').each(function(item) { // for each url "[bib]"
     if (biburl.nextAll('pre').length == 0) { // we don't have yet the bibtex data
       var bibtexEntryUrl = $(this).attr('href');
       $.ajax({url: bibtexEntryUrl,  dataType: 'xml', success: function (data) { // we download it
-        var elem = $('<pre/>'); // the element containing bibtex entry, creating a new element is required for Chrome and IE
+        var elem = $('<pre class="purebibtex"/>'); // the element containing bibtex entry, creating a new element is required for Chrome and IE
         elem.text($('.purebibtex', data).text()); // both text() is required for IE
         // we add a link so that users clearly see that even with AJAX
         // there is still one URL per paper (which is important for crawlers and metadata)
