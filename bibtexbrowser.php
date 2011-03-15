@@ -231,7 +231,7 @@ modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
 License, or (at your option) any later version.
 
-<script>wikitous_option_buttonText = 'Improve this documentation';</script><script src="http://wikitous.appspot.com/wikitous.js"></script>
+<script type="text/javascript">wikitous_option_buttonText = 'Improve this documentation';</script><script type="text/javascript" src="http://wikitous.appspot.com/wikitous.js"></script>
 */
 
 // *************** CONFIGURATION
