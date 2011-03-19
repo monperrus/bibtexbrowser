@@ -1739,13 +1739,13 @@ $('a.biburl').each(function(item) { // for each url "[bib]"
       var bibtexEntryUrl = $(this).attr('href');
       $.ajax({url: bibtexEntryUrl,  dataType: 'xml', success: function (data) { // we download it
         var elem = $('<pre class="purebibtex"/>'); // the element containing bibtex entry, creating a new element is required for Chrome and IE
-        elem.text($('.purebibtex', data).text()); // both text() is required for IE
+        elem.text($('.purebibtex', data).text()); // both text() are required for IE
         // we add a link so that users clearly see that even with AJAX
         // there is still one URL per paper (which is important for crawlers and metadata)
         elem.append(
            $('<div>%% Bibtex entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></div>')
            ).appendTo(biburl.parent());
-      }});
+      }, error: function() {window.location.href = biburl.attr('href');}});
     } else {biburl.nextAll('pre').toggle();}  // we toggle the view    
   });
 });
@@ -2074,12 +2074,14 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
 
 
   function display() {
+    // we encapsulate everything so that the output of display() is still valid XHTML
+    echo '<div>';
     echo $this->bib->toCoins();
     echo $this->formatedHeader();
     echo $this->bib->toEntryUnformatted();
     //echo $this->bib->getUrlLink();
-
     echo $this->poweredby();
+    echo '</div>';
   }
 
   /** Creates metadata for Google Scholar
@@ -2590,9 +2592,10 @@ echo "\n".' --></style>';
 }
 
 
-/** is used to switch between HTML wrapper and NoWrapper */
+/** NoWrapper calls method display() on the content. */
 class NoWrapper {
   function NoWrapper(&$content) {
+    header('Content-type: text/html; charset='.ENCODING);
     echo $content->display();
   }
 }
