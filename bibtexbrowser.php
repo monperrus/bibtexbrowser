@@ -824,7 +824,14 @@ function latex2html($line) {
   // handling \url{....}
   // often used in howpublished for @misc
   $line = preg_replace('/\\\\url\{(.*)\}/U','<a href="\\1">\\1</a>', $line);
-  
+
+  // Friday, April 01 2011
+  // added support for accented i
+  // for instance \`\i
+  // see http://en.wikibooks.org/wiki/LaTeX/Accents
+  // " the letters "i" and "j" require special treatment when they are given accents because it is often desirable to replace the dot with the accent. For this purpose, the commands \i and \j can be used to produce dotless letters."
+  $line = preg_replace('/\\\\([ij])/i','\\1', $line);
+
   $line = char2html($line,"'",'a',"acute");
   $line = char2html($line,"'",'e',"acute");
   $line = char2html($line,"'",'i',"acute");
