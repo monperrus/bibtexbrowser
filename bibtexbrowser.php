@@ -234,6 +234,13 @@ License, or (at your option) any later version.
 <script type="text/javascript">wikitous_option_buttonText = 'Improve this documentation';</script><script type="text/javascript" src="http://wikitous.appspot.com/wikitous.js"></script>
 */
 
+// Wednesday, June 01 2011: bug found by Carlos Brás
+// it should be possible to include( 'bibtexbrowser.php' ); several times in the same script
+if (!defined('BIBTEXBROWSER')) {
+// this if block ends at the very end of this file, after all class and function declarations.
+define('BIBTEXBROWSER','v__MTIME__');
+
+
 // *************** CONFIGURATION
 // I recommend to put your changes in bibtexbrowser.local.php
 // it will help you to upgrade the script with a new version
@@ -1484,6 +1491,67 @@ class IndependentYearMenu  {
   }
 }
 
+/** Class to encapsulates the header formatting and the powered by footer  */
+class BibtexBrowserDisplay {
+  /** the title */
+  var $title;
+
+  function getTitle() { return $this->title; }
+
+  function display() { /* unimplemented */ }
+
+  /** returns the url of this display (e.g. base on the query)*/
+  function getURL() { return '';}
+
+  /** returns the url of the RSS  */
+  function getRSS() { return '';}
+
+  /** Returns the powered by part */
+  function poweredby() {
+    $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
+    $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
+    $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v__MTIME__-->';
+    $poweredby .= '</div>'."\n";
+    return $poweredby;
+   }
+
+  function  formatedHeader() { return "<div class=\"rheader\">{$this->title}</div>\n";}
+
+  /** Adds a touch of AJAX in bibtexbrowser to display bibtex entries inline.
+   * It uses the HIJAX design pattern: the Javascript code fetches the normal bibtex HTML page
+   * and extracts the bibtex.
+   * In other terms, URLs and content are left perfectly optimized for crawlers 
+   * Note how beautiful is this piece of code thanks to JQuery.
+   */
+  function javascript() {
+  // we use jquery with the official content delivery URLs
+  // Microsoft and Google also provide jquery with their content delivery networks
+?><script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script> 
+<script type="text/javascript" ><!--
+// Javascript progressive enhancement for bibtexbrowser
+$('a.biburl').each(function(item) { // for each url "[bib]"
+  var biburl = $(this);
+  biburl.click(function(ev) { // we change the click semantics
+    ev.preventDefault(); // no open url
+    if (biburl.nextAll('pre').length == 0) { // we don't have yet the bibtex data
+      var bibtexEntryUrl = $(this).attr('href');
+      $.ajax({url: bibtexEntryUrl,  dataType: 'xml', success: function (data) { // we download it
+        var elem = $('<pre class="purebibtex"/>'); // the element containing bibtex entry, creating a new element is required for Chrome and IE
+        elem.text($('.purebibtex', data).text()); // both text() are required for IE
+        // we add a link so that users clearly see that even with AJAX
+        // there is still one URL per paper (which is important for crawlers and metadata)
+        elem.append(
+           $('<div>%% Bibtex entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></div>')
+           ).appendTo(biburl.parent());
+      }, error: function() {window.location.href = biburl.attr('href');}});
+    } else {biburl.nextAll('pre').toggle();}  // we toggle the view    
+  });
+});
+--></script><?php
+  }
+}
+
+
 
 /**
  * A class providing GUI controllers in a frame.
@@ -1697,66 +1765,6 @@ else $page = 1;
       }
       $index++;
     }
-  }
-}
-
-/** Class to encapsulates the header formating and the powered bw footer  */
-class BibtexBrowserDisplay {
-  /** the title */
-  var $title;
-
-  function getTitle() { return $this->title; }
-
-  function display() { /* unimplemented */ }
-
-  /** returns the url of this display (e.g. base on the query)*/
-  function getURL() { return '';}
-
-  /** returns the url of the RSS  */
-  function getRSS() { return '';}
-
-  /** Returns the powered by part */
-  function poweredby() {
-    $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
-    $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
-    $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v__MTIME__-->';
-    $poweredby .= '</div>'."\n";
-    return $poweredby;
-   }
-
-  function  formatedHeader() { return "<div class=\"rheader\">{$this->title}</div>\n";}
-
-  /** Adds a touch of AJAX in bibtexbrowser to display bibtex entries inline.
-   * It uses the HIJAX design pattern: the Javascript code fetches the normal bibtex HTML page
-   * and extracts the bibtex.
-   * In other terms, URLs and content are left perfectly optimized for crawlers 
-   * Note how beautiful is this piece of code thanks to JQuery.
-   */
-  function javascript() {
-  // we use jquery with the official content delivery URLs
-  // Microsoft and Google also provide jquery with their content delivery networks
-?><script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script> 
-<script type="text/javascript" ><!--
-// Javascript progressive enhancement for bibtexbrowser
-$('a.biburl').each(function(item) { // for each url "[bib]"
-  var biburl = $(this);
-  biburl.click(function(ev) { // we change the click semantics
-    ev.preventDefault(); // no open url
-    if (biburl.nextAll('pre').length == 0) { // we don't have yet the bibtex data
-      var bibtexEntryUrl = $(this).attr('href');
-      $.ajax({url: bibtexEntryUrl,  dataType: 'xml', success: function (data) { // we download it
-        var elem = $('<pre class="purebibtex"/>'); // the element containing bibtex entry, creating a new element is required for Chrome and IE
-        elem.text($('.purebibtex', data).text()); // both text() are required for IE
-        // we add a link so that users clearly see that even with AJAX
-        // there is still one URL per paper (which is important for crawlers and metadata)
-        elem.append(
-           $('<div>%% Bibtex entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></div>')
-           ).appendTo(biburl.parent());
-      }, error: function() {window.location.href = biburl.attr('href');}});
-    } else {biburl.nextAll('pre').toggle();}  // we toggle the view    
-  });
-});
---></script><?php
   }
 }
 
@@ -2602,7 +2610,7 @@ echo "\n".' --></style>';
 /** NoWrapper calls method display() on the content. */
 class NoWrapper {
   function NoWrapper(&$content) {
-    header('Content-type: text/html; charset='.ENCODING);
+    @header('Content-type: text/html; charset='.ENCODING);
     echo $content->display();
   }
 }
@@ -2887,7 +2895,9 @@ class Dispatcher {
     return 'END_DISPATCH';
 }
 
-}
+} // end class Dispatcher
+
+} // end if (!defined('BIBTEXBROWSER'))
 
 new Dispatcher();
 
