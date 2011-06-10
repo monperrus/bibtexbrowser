@@ -1388,8 +1388,8 @@ array (
   'year' => '2003',
 )
 array (
-  '_author' => 'David Mandelin, Lin Xu, Rastislav Bod\\\'\\ik, Doug Kimelman',
-  'author' => 'David Mandelin and Lin Xu and Rastislav Bod\\\'\\ik and Doug Kimelman',
+  '_author' => 'David Mandelin, Lin Xu, Rastislav Bod&iacute;k, Doug Kimelman',
+  'author' => 'David Mandelin and Lin Xu and Rastislav Bod&iacute;k and Doug Kimelman',
   'booktitle' => 'Proceedings of the ACM SIGPLAN Conference on Programming Language Design and Implementation',
   'key' => 'mandelin05',
   'pages' => '48--61',

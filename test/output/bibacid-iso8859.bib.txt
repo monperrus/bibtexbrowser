@@ -115,6 +115,14 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'F&igrave;rst A&igrave;thor, S&igrave;cond Author&Igrave;',
+  'author' => 'F&igrave;rst A&igrave;thor and S&igrave;cond Author&Igrave;',
+  'key' => 'paper000',
+  'title' => 'Some publication title',
+  'type' => 'INPROCEEDINGS',
+  'year' => '2011',
+)
+array (
   '_author' => 'Serge Bug',
   'author' => 'Serge Bug',
   'key' => 'serge',

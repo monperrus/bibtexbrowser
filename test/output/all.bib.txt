@@ -150,9 +150,9 @@ array (
   'year' => '1994',
 )
 array (
-  '_author' => 'Mart\\\'\\in Abadi, Luca Cardelli',
+  '_author' => 'Mart&iacute;n Abadi, Luca Cardelli',
   'address' => 'Berlin',
-  'author' => 'Mart\\\'\\in Abadi and Luca Cardelli',
+  'author' => 'Mart&iacute;n Abadi and Luca Cardelli',
   'key' => 'AbadiCardelli:96',
   'publisher' => 'Springer-Verlag',
   'series' => 'Monographs in Computer Science',
@@ -219,9 +219,9 @@ array (
   'year' => '1993',
 )
 array (
-  '_author' => 'Hassan A\\"\\it-Kaci',
+  '_author' => 'Hassan A&iuml;t-Kaci',
   'address' => 'Cambridge, MA',
-  'author' => 'Hassan A\\"\\it-Kaci',
+  'author' => 'Hassan A&iuml;t-Kaci',
   'key' => 'Ait-Kaci',
   'publisher' => 'The MIT Press',
   'series' => 'Logic Programming',
@@ -230,8 +230,8 @@ array (
   'year' => '1991',
 )
 array (
-  '_author' => 'Hassan A\\"\\it-Kaci, Roger Nasr',
-  'author' => 'Hassan A\\"\\it-Kaci and Roger Nasr',
+  '_author' => 'Hassan A&iuml;t-Kaci, Roger Nasr',
+  'author' => 'Hassan A&iuml;t-Kaci and Roger Nasr',
   'journal' => 'Lisp and Symbolic Computation',
   'key' => 'Ait-Kaci:89b',
   'keywords' => '',
@@ -1240,7 +1240,7 @@ array (
   'type' => 'Article',
 )
 array (
-  'howpublished' => 'Special Issue of \\it Communications of the ACM, 36(9)',
+  'howpublished' => 'Special Issue of it Communications of the ACM, 36(9)',
   'key' => 'Concurrent Object-Oriented Programming',
   'month' => 'sep',
   'title' => 'Concurrent Object-Oriented Programming',
@@ -1725,9 +1725,9 @@ array (
   'year' => '1997',
 )
 array (
-  '_author' => 'Luca Cardelli, Florian Matthes, Mart\\\'\\in Abadi',
+  '_author' => 'Luca Cardelli, Florian Matthes, Mart&iacute;n Abadi',
   'address' => '130 Lytton Avenue, Palo Alto, California 94301',
-  'author' => 'Luca Cardelli and Florian Matthes and Mart\\\'\\in Abadi',
+  'author' => 'Luca Cardelli and Florian Matthes and Mart&iacute;n Abadi',
   'institution' => 'digital Systems Research Center',
   'key' => 'ExtensibleSyntax',
   'number' => 'SRC Research Report 121',
@@ -1767,9 +1767,9 @@ array (
   'year' => '1997',
 )
 array (
-  '_author' => 'Hassan A\\"\\it-Kaci, Andreas Podelski, Gert Smolka',
+  '_author' => 'Hassan A&iuml;t-Kaci, Andreas Podelski, Gert Smolka',
   'address' => 'Tokyo, Japan',
-  'author' => 'Hassan A\\"\\it-Kaci and Andreas Podelski and Gert Smolka',
+  'author' => 'Hassan A&iuml;t-Kaci and Andreas Podelski and Gert Smolka',
   'booktitle' => 'Proceedings of the International Conference on Fifth Generation Computer Systems',
   'key' => 'FT-FGC92',
   'month' => '1--5 jun',
@@ -1782,9 +1782,9 @@ array (
   'year' => '1992',
 )
 array (
-  '_author' => 'Hassan A\\"\\it-Kaci, Andreas Podelski, Gert Smolka',
+  '_author' => 'Hassan A&iuml;t-Kaci, Andreas Podelski, Gert Smolka',
   'address' => '92563 Rueil-Malmaison, France',
-  'author' => 'Hassan A\\"\\it-Kaci and Andreas Podelski and Gert Smolka',
+  'author' => 'Hassan A&iuml;t-Kaci and Andreas Podelski and Gert Smolka',
   'institution' => 'Digital Paris Research Laboratory',
   'key' => 'FT-PRLreport',
   'month' => 'nov',
@@ -1795,8 +1795,8 @@ array (
   'year' => '1992',
 )
 array (
-  '_author' => 'Hassan A\\"\\it-Kaci, Andreas Podelski, Gert Smolka',
-  'author' => 'Hassan A\\"\\it-Kaci and Andreas Podelski and Gert Smolka',
+  '_author' => 'Hassan A&iuml;t-Kaci, Andreas Podelski, Gert Smolka',
+  'author' => 'Hassan A&iuml;t-Kaci and Andreas Podelski and Gert Smolka',
   'journal' => 'Journal of Theoretical Computer Science',
   'key' => 'FT-tcs',
   'month' => 'jan',
@@ -4010,7 +4010,7 @@ array (
   'howpublished' => 'Doctoral Dissertation, Universit&auml;t des Saarlandes, Fachbereich Informatik, Im Stadtwald, 66041 Saarbr&uuml;cken, Germany',
   'key' => 'PopovDiss',
   'note' => 'In preparation',
-  'title' => '\\it Exploiting Thread-Level Concurrency for Parallelism in a Constraint Language',
+  'title' => 'it Exploiting Thread-Level Concurrency for Parallelism in a Constraint Language',
   'type' => 'Misc',
   'year' => '1997',
 )
@@ -4077,9 +4077,9 @@ array (
   'year' => '1992',
 )
 array (
-  '_author' => 'Hassan A\\"\\it-Kaci, Andreas Podelski, Gert Smolka',
+  '_author' => 'Hassan A&iuml;t-Kaci, Andreas Podelski, Gert Smolka',
   'address' => 'Stuhlsatzenhausweg 3, D-66123 Saarbr&uuml;cken, Germany',
-  'author' => 'Hassan A\\"\\it-Kaci and Andreas Podelski and Gert Smolka',
+  'author' => 'Hassan A&iuml;t-Kaci and Andreas Podelski and Gert Smolka',
   'institution' => 'German Research Center for Artificial Intelligence (DFKI)',
   'key' => 'RR-92-17',
   'month' => 'mar',
@@ -4394,7 +4394,7 @@ array (
   'address' => 'Blanes, Spain',
   'author' => 'Gert Smolka and Martin Henz and J&ouml;rg W&uuml;rtz',
   'booktitle' => 'Programaci&oacute;n Declarativa',
-  'editor' => 'Jaume August\\\'\\i and Pere Garcia',
+  'editor' => 'Jaume August&iacute; and Pere Garcia',
   'key' => 'SHW:Oz93ProDe',
   'month' => '30 September--1 October',
   'note' => 'appeared in \\em Principles and Practice of Constraint Programming, see Section Books and Book Chapters',
@@ -8005,7 +8005,7 @@ array (
   'address' => 'Boston, MA',
   'author' => 'Tee Yong Chew and Martin Henz and Ka Boon Ng',
   'booktitle' => 'Practical Aspects of Declarative Languages, Second International Workshop, PADL 2000',
-  'editor' => 'Enrico Pontelli and V\\\'\\itor Santos Costa',
+  'editor' => 'Enrico Pontelli and V&iacute;tor Santos Costa',
   'key' => 'stk',
   'pages' => '185--199',
   'publisher' => 'Springer-Verlag,&nbsp;Berlin',
@@ -8123,8 +8123,8 @@ array (
   'year' => '2000',
 )
 array (
-  '_author' => 'Hassan A\\"\\it-Kaci, Andreas Podelski',
-  'author' => 'Hassan A\\"\\it-Kaci and Andreas Podelski',
+  '_author' => 'Hassan A&iuml;t-Kaci, Andreas Podelski',
+  'author' => 'Hassan A&iuml;t-Kaci and Andreas Podelski',
   'journal' => 'Journal of Logic Programming',
   'key' => 'towardsLIFE',
   'pages' => '195--234',
