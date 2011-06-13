@@ -262,6 +262,8 @@ define('BIBTEXBROWSER','v__MTIME__');
 @define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',false);
 @define('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');// this is the name of a function
 @define('BIBLIOGRAPHYSECTIONS','DefaultBibliographySections');// this is the name of a function
+// can we load bibtex files on external servers?
+@define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
 @define('TYPES_SIZE',10); // number of entry types per table
 @define('YEAR_SIZE',20); // number of years per table
@@ -345,7 +347,9 @@ function setDB() {
 
   // ---------------------------- HANDLING unexistent files
   foreach(explode(MULTIPLE_BIB_SEPARATOR, $_GET[Q_FILE]) as $bib) {
-    if (!file_exists($bib)) {
+  
+    // this is a security protection
+    if (BIBTEXBROWSER_LOCAL_BIB_ONLY && !file_exists($bib)) {
      // to automate dectection of faulty links with tools such as webcheck
      header('HTTP/1.1 404 Not found');
      die('<b>the bib file '.$bib.' does not exist !</b>');
