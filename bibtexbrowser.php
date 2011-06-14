@@ -2854,7 +2854,7 @@ class Dispatcher {
   function academic() {
      $this->displayer='AcademicDisplay';
      // backward compatibility
-     if($_GET[Q_ACADEMIC]!==true && $_GET[Q_ACADEMIC]!='') {
+     if($_GET[Q_ACADEMIC]!=true && $_GET[Q_ACADEMIC]!='') {
       $_GET[Q_AUTHOR]=$_GET[Q_ACADEMIC];
       $this->query[Q_AUTHOR]=$_GET[Q_ACADEMIC];
      }
