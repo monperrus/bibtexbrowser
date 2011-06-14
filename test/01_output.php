@@ -60,8 +60,11 @@ foreach($url as $desc => $query_string) {
   $data = ob_get_clean();
   
   if (!preg_match('/<.xml/',$data)) {
+    
     $data = '<?xml version="1.0" encoding="'.ENCODING.'"?>'.$data;
   };
+  
+  echo $query_string."\n  -> ".md5($query_string).".html\n";
   file_put_contents(dirname(__FILE__).'/output/'.md5($query_string).".html", $data);
 
   //echo "<a href=\"${x}\">${desc}</a>: "; 
@@ -70,7 +73,7 @@ foreach($url as $desc => $query_string) {
   $xmlparser = xml_parser_create('ISO-8859-1');
 
   if (xml_parse($xmlparser,$data,true) == 1) {
-    echo "-- ".$query_string."\n";
+    echo "  # correctly parsed\n";
   }
   else {   
     echo "XX ".$query_string."\n";
