@@ -2853,11 +2853,22 @@ class Dispatcher {
   /** the academic keyword in URLs switch from a year based viey to a publication type based view */
   function academic() {
      $this->displayer='AcademicDisplay';
-     // backward compatibility
-     if($_GET[Q_ACADEMIC]!=true && $_GET[Q_ACADEMIC]!='') {
+     
+     
+     // backward compatibility with old GET API
+     // this is deprecated
+     // instead of academic=Martin+Monperrus
+     // you should use author=Martin+Monperrus&academic
+     // be careful of the semantics of === and !==
+     // 'foo bar' == true is true
+     // 123 == true is true (and whatever number different from 0
+     // 0 == true is true
+     // '1'!=1 is **false**
+     if(!isset($_GET[Q_AUTHOR]) && $_GET[Q_ACADEMIC]!==true && $_GET[Q_ACADEMIC]!=='true' && $_GET[Q_ACADEMIC]!=1 && $_GET[Q_ACADEMIC]!='') {
       $_GET[Q_AUTHOR]=$_GET[Q_ACADEMIC];
       $this->query[Q_AUTHOR]=$_GET[Q_ACADEMIC];
      }
+
   }
 
   function key() {
