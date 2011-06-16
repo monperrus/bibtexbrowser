@@ -473,7 +473,6 @@ if (!$handle) die ('cannot open '.$bibfilename);
 // if you encounter this error "Allowed memory size of xxxxx bytes exhausted"
 // then decrease the size of the temp buffer below
 $bufsize=BUFFERSIZE;
-
 while (!feof($handle)) {
 $sread=fread($handle,$bufsize);
 //foreach(str_split($sread) as $s) {
@@ -1421,6 +1420,7 @@ function createQueryString($array_param) {
 
  // then a simple transformation and implode
  foreach ($array_param as $key => $val) {
+      if($key == '_author') { $key = 'author'; }
       $array_param[$key]=$key .'='. urlencode($val);
  }
  return implode("&amp;",$array_param);
