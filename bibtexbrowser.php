@@ -2846,7 +2846,7 @@ class Dispatcher {
     // remarks KEN
     // "book" selects inbook, book, bookchapter
     // so we add the regexp modifiers
-    if (strlen($_GET[Q_TYPE])>0) { $_GET[Q_TYPE] = '^'.$_GET[Q_TYPE].'$'; }
+    if (strlen($_GET[Q_TYPE])>0 && !preg_match('/^\^.*\$$/',$_GET[Q_TYPE])) { $_GET[Q_TYPE] = '^'.$_GET[Q_TYPE].'$'; }
     $this->query[Q_TYPE]= $_GET[Q_TYPE];
   }
 
