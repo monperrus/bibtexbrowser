@@ -234,7 +234,7 @@ License, or (at your option) any later version.
 <script type="text/javascript">wikitous_option_buttonText = 'Improve this documentation';</script><script type="text/javascript" src="http://wikitous.appspot.com/wikitous.js"></script>
 */
 
-// Wednesday, June 01 2011: bug found by Carlos Brás
+// Wednesday, June 01 2011: bug found by Carlos Brï¿½s
 // it should be possible to include( 'bibtexbrowser.php' ); several times in the same script
 if (!defined('BIBTEXBROWSER')) {
 // this if block ends at the very end of this file, after all class and function declarations.
@@ -1533,8 +1533,10 @@ class BibtexBrowserDisplay {
 ?><script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script> 
 <script type="text/javascript" ><!--
 // Javascript progressive enhancement for bibtexbrowser
-$('a.biburl').each(function(item) { // for each url "[bib]"
+$('a.biburl').each(function() { // for each url "[bib]"
   var biburl = $(this);
+  if (biburl.attr('bibtexbrowser') === undefined)
+  {
   biburl.click(function(ev) { // we change the click semantics
     ev.preventDefault(); // no open url
     if (biburl.nextAll('pre').length == 0) { // we don't have yet the bibtex data
@@ -1550,7 +1552,11 @@ $('a.biburl').each(function(item) { // for each url "[bib]"
       }, error: function() {window.location.href = biburl.attr('href');}});
     } else {biburl.nextAll('pre').toggle();}  // we toggle the view    
   });
+  biburl.attr('bibtexbrowser','done');
+  } // end if biburl.bibtexbrowser;
 });
+
+
 --></script><?php
   }
 }
