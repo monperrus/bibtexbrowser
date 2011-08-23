@@ -2,7 +2,7 @@
 <!--this is version v__MTIME__, see http://www.monperrus.net/martin/bibtexbrowser/ -->
 
 bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
- bibtexbrowser is stable, mature and easy to install. It is used in [[users|50+ different universities]] around the globe.
+ bibtexbrowser is stable, mature and easy to install. It is used in [[users|60+ different universities]] around the globe.
 
 +++TOC+++
 
@@ -15,7 +15,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 * **(04/2007)**: bibtexbrowser is easy to install: just a single file.
 
 =====Other features=====
-* **(03/2011)** bibtexbrowser uses progressive enhancement with Javascript
+* **(03/2011)** bibtexbrowser includes a hide/show mechanism for bibtex entries (in Javascript, see configuration variable BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT)
 * **(10/2010)** bibtexbrowser now supports cross-references (Bibtex crossref)
 * **(09/2010)** bibtexbrowser now supports multiple bibtex files (''bibtexbrowser.php?bib=file1.bib;file2.bib'')
 * **(05/2010)** bibtexbrowser adds links to your co-author pages if you define the corresponding @string (see function addHomepageLink)
@@ -40,7 +40,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 =====Download=====
 For feature requests, bug reports, or patch proposals, [[http://www.monperrus.net/martin/|please drop me an email ]] or comment this page. Don't hesitate to contact me to be added in the [[users|lists of bibtexbrowser users]] :-)
 
-You may try bibtexbrowser without installation with [[http://my.publications.li]].
+You may try bibtexbrowser without installation by uploading your bibtex file at [[http://my.publications.li]].
 
 **[[http://www.monperrus.net/martin/bibtexbrowser.php.txt|Download bibtexbrowser]]** <?php if (is_readable('bibtexbrowser-rc.php')) {echo '<a href="http://www.monperrus.net/martin/bibtexbrowser-rc.php.txt">(Try the release candidate!)</a>';} ?>
 
@@ -231,7 +231,6 @@ modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
 License, or (at your option) any later version.
 
-<script type="text/javascript">wikitous_option_buttonText = 'Improve this documentation';</script><script type="text/javascript" src="http://wikitous.appspot.com/wikitous.js"></script>
 */
 
 // Wednesday, June 01 2011: bug found by Carlos Br�s
