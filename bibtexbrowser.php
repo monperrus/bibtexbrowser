@@ -2767,9 +2767,9 @@ class Dispatcher {
     setDB();
     
     // is the publication list included in another page?
-    // strtr is used for Windows where __FILE__ contains C:\toto and SCRIPT_FILENAME contains C:/toto :-(
-    // 2010-07-01: bug found by Marco: on some installation these two variables contain backslashes
-    if (strtr(__FILE__,"\\","/")!=strtr($_SERVER['SCRIPT_FILENAME'],"\\","/")) $this->wrapper='NoWrapper';
+    // strtr is used for Windows where __FILE__ contains C:\toto and SCRIPT_FILENAME contains C:/toto (bug reported by Marco)
+    // realpath is required if the path contains sym-linked directories (bug found by Mark Hereld)    
+    if (strtr(realpath(__FILE__),"\\","/")!=strtr(realpath($_SERVER['SCRIPT_FILENAME']),"\\","/")) $this->wrapper='NoWrapper';
 
     // first pass, we will exit if we encounter key or menu or academic
     // other wise we just create the $this->query
