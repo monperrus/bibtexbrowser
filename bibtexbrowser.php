@@ -981,7 +981,7 @@ class BibEntry {
 
   /** returns a "[pdf]" link if relevant */
   function getUrlLink() {
-    if ($this->hasField('url')) return ' <a href="'.$this->getField('url').'">[pdf]</a>';
+    if ($this->hasField('url')) return ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField('url').'">[pdf]</a>';
     return '';
   }
 
