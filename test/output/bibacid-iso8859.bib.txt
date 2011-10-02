@@ -97,6 +97,15 @@ array (
   'year' => '1997',
 )
 array (
+  '_author' => 'Mark Hereld',
+  'author' => 'Mark Hereld',
+  'howpublished' => '<a href="http://foo.com/under_score.html">http://foo.com/under_score.html</a>',
+  'key' => 'mark',
+  'title' => 'Bug in Urls',
+  'type' => 'misc',
+  'year' => '2011',
+)
+array (
   '_author' => 'J. Abounader, D. Lamb',
   'author' => 'J. Abounader and D. Lamb',
   'institution' => 'Queen\'s University, Kingston, ON.',
