@@ -44,8 +44,6 @@ function DefaultBibliographyStyle(&$bibentry) {
       $booktitle = 'Chapter in '.$bibentry->getField('chapter');}
   if ($type=="article") {
       $booktitle = 'In '.$bibentry->getField("journal");}
-  if (($type=="misc") && $bibentry->hasField("note")) {
-    $booktitle = $bibentry->getField("note");}
 
   //// we may add the editor names to the booktitle
   $editor='';
