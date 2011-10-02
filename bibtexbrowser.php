@@ -1172,7 +1172,7 @@ class BibEntry {
   function getFormattedEditors() {
     $editors = array();
     foreach ($this->getEditors() as $editor) {
-      $editors[]=$this->formatAuthor($editor);
+      $editors[]=$this->addHomepageLink($this->formatAuthor($editor));
     }
     if (COMMA_NAMES) {$sep = '; ';} else {$sep = ', ';}
     return implode($sep, $editors).', '.(count($editors)>1?'eds.':'ed.');
