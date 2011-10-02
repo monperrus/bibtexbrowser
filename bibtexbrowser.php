@@ -2126,7 +2126,7 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
       
       $download = '';
       if ($this->bib->hasField('url')) {
-        $download = '<div class="bibentry-document-link"><a href="'.$this->bib->getUrl().'">View PDF</a></div>';
+        $download = '<div class="bibentry-document-link"><a href="'.$this->bib->getField('url').'">View PDF</a></div>';
       }
       $reference= '<div class="bibentry-label">Reference:</div><div class="bibentry-reference">'.strip_tags(bib2html($this->bib)).'</div>';
 
