@@ -2104,15 +2104,37 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
     //$this->title = $this->bib->getTitle().' (bibtex)'.$this->bib->getUrlLink();
   }
 
+  /** 2011/10/02: new display, inspired from Tom Zimmermann's home page */
+  function displayOnSteroids() {
+      $subtitle = '<div class="bibentry-by">by '.$this->bib->getFormattedAuthorsImproved().'</div>';
+
+      $abstract = '';
+      if ($this->bib->hasField('abstract')) {
+        $abstract = '<div class="bibentry-label">Abstract:</div><div class="bibentry-abstract">'.$this->bib->getAbstract().'</div>';
+      }
+      
+      $download = '';
+      if ($this->bib->hasField('url')) {
+        $download = '<div class="bibentry-document-link"><a href="'.$this->bib->getUrl().'">View PDF</a></div>';
+      }
+      $reference= '<div class="bibentry-label">Reference:</div><div class="bibentry-reference">'.strip_tags(bib2html($this->bib)).'</div>';
+
+      $bibtex = '<div class="bibentry-label">Bibtex Entry:</div>'.$this->bib->toEntryUnformatted().'';
+      return $subtitle.$abstract.$download.$reference.$bibtex.$this->bib->toCoins();
+  }
 
   function display() {
     // we encapsulate everything so that the output of display() is still valid XHTML
     echo '<div>';
-    echo $this->bib->toCoins();
-    echo $this->bib->toEntryUnformatted();
-    //echo $this->bib->getUrlLink();
+    //echo $this->display_old();
+    echo $this->displayOnSteroids();
     echo $this->poweredby();
     echo '</div>';
+  }
+
+  // old display
+  function display_old() {
+    return $this->bib->toCoins().$this->bib->toEntryUnformatted();
   }
 
   /** Creates metadata for Google Scholar
@@ -2540,14 +2562,6 @@ function bibtexbrowserDefaultCSS() {
   color: #ff6633;
 }
 
-.purebibtex {
-  font-family: monospace;
-  background-color:#FFFFFF;
-  font-size: small;
-  border: 1px solid #000000;
-  white-space:pre;
-  
-}
 .input_box{
   margin-bottom : 2px;
 }
@@ -2567,6 +2581,21 @@ function bibtexbrowserDefaultCSS() {
 /* could be fancy, see : http://www.feedicons.com/ for icons*/
   /*background-image: url("rss.png"); text-indent: -9999px;*/
 }
+
+.purebibtex {
+  font-family: monospace;
+  font-size: small;
+  border: 1px solid #DDDDDD;
+  white-space:pre;
+  background: none repeat scroll 0 0 #F5F5F5;  
+  padding:10px;
+}
+.bibentry-by { font-style: italic; }
+.bibentry-abstract { margin:15px; }
+.bibentry-label { margin-top:15px; }
+.bibentry-reference { margin-bottom:15px; padding:10px; background: none repeat scroll 0 0 #F5F5F5; border: 1px solid #DDDDDD; }
+
+
 <?php
 } // end function bibtexbrowserDefaultCSS
 
