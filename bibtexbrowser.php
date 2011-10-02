@@ -1872,9 +1872,6 @@ class PagedDisplay extends BibtexBrowserDisplay {
 
     $this->noPages = ceil(count($this->result) / PAGE_SIZE);
 
-      /** Displays the header stringg. */
-    echo $this->formatedHeader();
-
     if ($this->noPages>1) $this->displayPageBar($this->noPages, $page);
 
     $this->startIndex = ($page - 1) * PAGE_SIZE;
@@ -2072,7 +2069,6 @@ class AcademicDisplay extends BibtexBrowserDisplay {
   }
   
   function display() {
-    echo $this->formatedHeader();
     foreach (_DefaultBibliographySections() as $section) {
       $this->search2html($section['query'],$section['title']);
     }
@@ -2113,7 +2109,6 @@ class BibEntryDisplay extends BibtexBrowserDisplay {
     // we encapsulate everything so that the output of display() is still valid XHTML
     echo '<div>';
     echo $this->bib->toCoins();
-    echo $this->formatedHeader();
     echo $this->bib->toEntryUnformatted();
     //echo $this->bib->getUrlLink();
     echo $this->poweredby();
@@ -2579,7 +2574,11 @@ function bibtexbrowserDefaultCSS() {
     withe <HTML><BODY> and TITLE */
 class HTMLWrapper {
 /**
- * $content: an object with a display() method
+ * $content: an object with methods
+      display() 
+      getRSS()
+      formatedHeader()
+      getTitle()
  * $title: title of the page
  */
 function HTMLWrapper(&$content,$metatags=array()/* an array name=>value*/) {
@@ -2618,6 +2617,7 @@ echo "\n".' --></style>';
 ?>
 </head>
 <body>
+<?php echo $content->formatedHeader();?>
 <?php $content->display();?>
 </body>
 </html>
