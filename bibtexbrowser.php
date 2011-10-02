@@ -15,6 +15,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 * **(04/2007)**: bibtexbrowser is easy to install: just a single file.
 
 =====Other features=====
+* **(10/2011)** if a bibtex entry contains a field gsid (like Google Scholar ID), bibtexbrowser includes a link [cites] to the cited-by page of Google Scholar (e.g. [[http://scholar.google.com/scholar?cites=15080874515065717592]])
 * **(03/2011)** bibtexbrowser includes a hide/show mechanism for bibtex entries (in Javascript, see configuration variable BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT)
 * **(10/2010)** bibtexbrowser now supports cross-references (Bibtex crossref)
 * **(09/2010)** bibtexbrowser now supports multiple bibtex files (''bibtexbrowser.php?bib=file1.bib;file2.bib'')
@@ -1257,6 +1258,12 @@ class BibEntry {
         if ($this->hasField('doi')) {
             echo ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
         }
+        
+        // Google Scholar ID
+        if ($this->hasField('gsid')) {
+            echo ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">[cites]</a>';
+        }
+
 
         echo "</td></tr>\n";
 
