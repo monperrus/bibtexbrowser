@@ -2875,6 +2875,8 @@ class Dispatcher {
   function exclude() { $this->query[Q_EXCLUDE]=$_GET[Q_EXCLUDE]; }
 
   function year() {  $this->query[Q_YEAR]=$_GET[Q_YEAR]; }
+  
+  function editor() {  $this->query[EDITOR]=$_GET[EDITOR]; }
 
   function keywords() { $this->query[Q_TAG]=$_GET[Q_TAG]; }
 
