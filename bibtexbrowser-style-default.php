@@ -23,7 +23,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   // title
   // usually in bold: .bibtitle { font-weight:bold; }
   $title = '<span class="bibtitle">'.$title.'</span>';
-  if ($bibentry->hasField('url')) $title = ' <a href="'.$bibentry->getField("url").'">'.$title.'</a>';
+  if ($bibentry->hasField('url')) $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField("url").'">'.$title.'</a>';
   
 
   // author

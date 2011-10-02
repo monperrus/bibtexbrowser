@@ -1,4 +1,4 @@
-<?php /** Bibtexbrowser style contributed by János Tapolcai
+<?php /** Bibtexbrowser style contributed by Janos Tapolcai
 see: [[http://www.monperrus.net/martin/bibtexbrowser]]
 
 It looks like the IEEE transaction style.
@@ -25,7 +25,7 @@ function JanosBibliographyStyle(&$bibentry) {
 
   // title
   $title = '"'.$title.'"';
-  if ($bibentry->hasField('url')) $title = ' <a href="'.$bibentry->getField("url").'">'.$title.'</a>';
+  if ($bibentry->hasField('url')) $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField("url").'">'.$title.'</a>';
   $entry[] = $title;
 
 
