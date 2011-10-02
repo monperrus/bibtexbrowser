@@ -963,8 +963,20 @@ class BibEntry {
 
   /** Tries to build a good URL for this entry */
   function getURL() {
-    if ($this->hasField('url')) return $this->getField('url');
-    else return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/'.BIBTEXBROWSER_URL.'?'.createQueryString(array('key'=>$this->getKey()));
+    if (defined('BIBTEXBROWSER_URL_BUILDER')) {
+      $f = BIBTEXBROWSER_URL_BUILDER;
+      return $f($this);
+    }
+    return BIBTEXBROWSER_URL.'?'.createQueryString(array('key'=>$this->getKey()));
+  }
+
+  /** Tries to build a good absolute URL for this entry */
+  function getAbsoluteURL() {
+    if (defined('BIBTEXBROWSER_URL_BUILDER')) {
+      $f = BIBTEXBROWSER_URL_BUILDER;
+      return $f($this);
+    }
+    return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/'.$this->getURL();
   }
 
   /** returns a "[pdf]" link if relevant */
@@ -1229,7 +1241,7 @@ class BibEntry {
         echo '<td class="bibitem">';
         echo bib2html($this);
 
-        $href = 'href="'.BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY => $this->getKey())).'"';
+        $href = 'href="'.$this->getURL().'"';
 
         // we add biburl and title to be able to retrieve this important information
         // using Xpath expressions on the XHTML source
@@ -2713,7 +2725,7 @@ class RSSDisplay {
          ?>
          <item>
          <title><?php echo $this->text2rss($bibentry->getTitle());?></title>
-         <link><?php echo htmlentities($bibentry->getURL());?></link>
+         <link><?php echo $bibentry->getAbsoluteURL();?></link>
          <description>
           <?php
             // we are in XML, so we cannot have HTML entitites
