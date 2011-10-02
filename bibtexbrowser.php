@@ -263,6 +263,10 @@ define('BIBTEXBROWSER','v__MTIME__');
 @define('BIBLIOGRAPHYSECTIONS','DefaultBibliographySections');// this is the name of a function
 // can we load bibtex files on external servers?
 @define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
+
+// the target frame of menu links
+@define('BIBTEXBROWSER_MENU_TARGET','main'); // might be define('BIBTEXBROWSER_MENU_TARGET','_self'); in bibtexbrowser.local.php 
+
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
 @define('TYPES_SIZE',10); // number of entry types per table
 @define('YEAR_SIZE',20); // number of years per table
@@ -1610,7 +1614,7 @@ class MenuManager extends BibtexBrowserDisplay {
   /** Displays the search view in a form. */
   function searchView() {
     ?>
-    <form action="?" method="get" target="main">
+    <form action="?" method="get" target="<?php echo BIBTEXBROWSER_MENU_TARGET;?>">
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
       <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo $_GET[Q_FILE]; ?>"/>
       <br/>
@@ -1781,7 +1785,7 @@ else $page = 1;
     foreach ($items as $key => $item) {
       if ($index >= $startIndex && $index < $endIndex) {
  $href = makeHref(array($queryKey => $key));
- echo '<a '. $href .' target="main">'. $item ."</a>\n";
+ echo '<a '. $href .' target="'.BIBTEXBROWSER_MENU_TARGET.'">'. $item ."</a>\n";
  echo "<div class=\"mini_se\"></div>\n";
       }
       $index++;
