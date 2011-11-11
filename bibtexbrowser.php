@@ -186,7 +186,7 @@ return
 ?>
 </pre>
 </div>
-<a name="modify-bibstyle"/>
+<a name="modify-bibstyle"></a>
 
 
 =====How to add links to the slides of a conference/workshop paper?=====
