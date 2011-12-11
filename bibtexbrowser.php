@@ -1231,7 +1231,7 @@ class BibEntry {
       return $this->getKey();
     }     
     
-    throw new Exception('Unknown configuration value for ABBRV_TYPE');
+    die('Unknown configuration value for ABBRV_TYPE');
   }
 
 
