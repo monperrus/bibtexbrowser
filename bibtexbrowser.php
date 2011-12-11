@@ -1420,6 +1420,59 @@ function _DefaultBibliographySections() {
   return $function();
 }
 
+
+/** Compares two instances of BibEntry by month 
+ * @author Jan Geldmacher
+ */
+function compare_bib_entry_by_month($a, $b)
+{
+  // this was the old behavior
+  // return strcmp($a->getKey(),$b->getKey());
+  
+  //bibkey which is used for sorting
+  $sort_key = 'month';
+  //desired order of values
+  $sort_order_values = array('jan','january','feb','february','mar','march','apr','april','may','jun','june','jul','july','aug','august','sep','september','oct','october','nov','november','dec','december');
+  //order: 1=as specified in $sort_order_values  or -1=reversed
+  $order = -1;
+
+
+  //first check if the search key exists
+  if (!array_key_exists($sort_key,$a->fields)  && !array_key_exists($sort_key,$b->fields)) {
+    //neither a nor b have the key -> we compare the keys
+    $retval=strcmp($a->getKey(),$b->getKey());
+  }
+  elseif (!array_key_exists($sort_key,$a->fields)) {
+    //only b has the field -> b is greater
+    $retval=-1;
+  }
+  elseif  (!array_key_exists($sort_key,$b->fields)) {
+    //only a has the key -> a is greater
+    $retval=1;
+  }
+  else {
+    //both have the key, sort using the order given in $sort_order_values
+
+    $val_a = array_search(strtolower($a->fields[$sort_key]), $sort_order_values);
+    $val_b = array_search(strtolower($b->fields[$sort_key]), $sort_order_values);
+    
+    if (($val_a == FALSE && $val_b == FALSE) || ($val_a == $val_b)) {
+      //neither a nor b are in the search array or a=b -> both are equal
+      $retval=0;
+    }
+    elseif (($val_a == FALSE) || ($val_a < $val_b)) {
+      //a is not in the search array or a<b -> b is greater
+      $retval=-1;
+    }
+    elseif (($val_b == FALSE) || (($val_a > $val_b))){
+      //b is not in the search array or a>b -> a is greater
+      $retval=1;
+    }   
+  }
+ 
+  return $order*$retval;
+}
+
 /** the default sections */
 function DefaultBibliographySections() {
 return  
@@ -2040,8 +2093,8 @@ class DefaultContentStrategy  {
       </tr>
       <?php
       }
-      // sort by keys, enable a nice sorting as Dupont2008a, Dupont2008b, Dupont2008c
-      krsort($entries);
+      // sort by month if present, otherwise by keys (Dupont2008a, Dupont2008b, Dupont2008c)
+      uasort($entries, "compare_bib_entry_by_month");
       foreach ($entries as $bib) {
         if ($display->isDisplayed($index)) {
           $bib->setAbbrv($refnum--);
