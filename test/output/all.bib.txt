@@ -1112,9 +1112,13 @@ array (
 array (
   '_author' => 'H. Alt, N. Blum, K. Mehlhorn, M. Paul',
   'author' => 'H. Alt and N. Blum and K. Mehlhorn and M. Paul',
+  'journal' => 'Information Processing Letters',
   'key' => 'Clark77',
+  'number' => '37',
+  'pages' => '237--240',
   'title' => 'Computing a maximum cardinality matching in a bipartite graph in $O(n^1.5 \\sqrtm / \\logn)$',
   'type' => 'article',
+  'year' => '1991',
 )
 array (
   'annote' => 'Contributors: Abelson, H. and Adams IV, N.I. and Bartley, D.H. and Brooks, G. and Dybvig, R.K. and Friedman, D.P. and Halstead, R. and Hanson, C. and Haynes, C.T. and Kohlbecker, E. and Oxley, D. and Pitman, K.M. and Rozas, G.J. and Steele Jr., G.L. and Sussman, G.J. and Wand, M.',
@@ -2231,7 +2235,7 @@ array (
   'pages' => '221--234',
   'publisher' => 'Springer-Verlag,&nbsp;Berlin',
   'series' => 'Lecture Notes in Computer Science&nbsp;1125',
-  'title' => 'St\\aalmarck\'s Algorithm as a HOL Derived Rule',
+  'title' => 'St&aring;lmarck\'s Algorithm as a HOL Derived Rule',
   'type' => 'inproceedings',
   'year' => '1996',
 )
@@ -6976,7 +6980,7 @@ array (
   'author' => 'Logikkonsult',
   'howpublished' => 'older overview of the method',
   'key' => 'logikkonsult',
-  'title' => 'St\\aalmarck\'s Method',
+  'title' => 'St&aring;lmarck\'s Method',
   'type' => 'Misc',
   'year' => '1997',
 )
@@ -7931,13 +7935,13 @@ array (
   'year' => '1998',
 )
 array (
-  '_author' => 'Mary Sheeran, Gunnar St\\aalmarck',
+  '_author' => 'Mary Sheeran, Gunnar St&aring;lmarck',
   'address' => '',
-  'author' => 'Mary Sheeran and Gunnar St\\aalmarck',
+  'author' => 'Mary Sheeran and Gunnar St&aring;lmarck',
   'booktitle' => 'Formal Methods for CAD: Enabling technologies and system-level applications, Formal Methods in System Design',
   'editor' => 'G. Gopalakrishnan',
   'key' => 'sheeran2000',
-  'title' => 'A Tutorial on St\\aalmarck\'s Proof Procedure for Propositional Logic',
+  'title' => 'A Tutorial on St&aring;lmarck\'s Proof Procedure for Propositional Logic',
   'type' => 'inproceedings',
   'year' => '2000',
 )
