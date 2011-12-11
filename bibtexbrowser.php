@@ -391,7 +391,7 @@ function setDB() {
   // we try to save a "compiled" in a txt file
   $compiledbib = 'bibtexbrowser_'.md5($_GET[Q_FILE]).'.dat';
 
-  $parse=true;
+  $parse=false;
   foreach(explode(MULTIPLE_BIB_SEPARATOR, $_GET[Q_FILE]) as $bib) {
   // do we have a compiled version ?
   if (is_file($compiledbib) && is_readable($compiledbib)) {
@@ -401,12 +401,11 @@ function setDB() {
       $_GET[Q_DB] = unserialize(file_get_contents($compiledbib));
       // basic test
       // do we have an correct version of the file
-      if (is_a($_GET[Q_DB],'BibDataBase')) {
-        // at least we can switch off the parsing
-        $parse=false;
+      if (!is_a($_GET[Q_DB],'BibDataBase')) {
+        $parse=true;
       }
-    }
-  }
+    } else {$parse=true;}
+  } else {$parse=true;}
   } // end for each
 
   // we don't have a compiled version
@@ -431,6 +430,8 @@ function setDB() {
     }
     //else echo '<!-- please chmod the directory containing the bibtex file to be able to keep a compiled version (much faster requests for large bibtex files) -->';
   } // end parsing and saving
+  
+  return $parse;
 } // end function setDB
 
 
