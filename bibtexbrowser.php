@@ -301,7 +301,7 @@ define('BIBTEXBROWSER','v__MTIME__');
 // there is no encoding transformation from the bibtex file to the html file
 // if your bibtex file contains 8 bits characters in utf-8
 // change the following parameter
-define('ENCODING','UTF-8');//@define('ENCODING','iso-8859-1');//define('ENCODING','windows-1252');
+@define('ENCODING','UTF-8');//@define('ENCODING','iso-8859-1');//define('ENCODING','windows-1252');
 // number of bib items per page
 @define('PAGE_SIZE',isset($_GET['nopage'])?10000:25);
 // bibtexbrowser uses a small piece of Javascript to improve the user experience
