@@ -153,6 +153,11 @@ All the variable parts of bibtexbrowser can be modified with a file called ''bib
 // disable Javascript progressive enhancement
 // define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',false);
 
+// may be default/year/x-abbrv
+// default => [1] The essence of metamodeling
+// year => [2005] The essence of metamodeling
+// x-abbrv => [SoSyM] The essence of metamodeling if the bibtex entry contains a field x-abbrv
+//define('ABBRV_TYPE','default');
 
 // see the other define(...) in the source, they are all overridable
 
@@ -267,6 +272,8 @@ define('BIBTEXBROWSER','v__MTIME__');
 
 // the target frame of menu links
 @define('BIBTEXBROWSER_MENU_TARGET','main'); // might be define('BIBTEXBROWSER_MENU_TARGET','_self'); in bibtexbrowser.local.php 
+
+@define('ABBRV_TYPE','default');// may be default/year/x-abbrv
 
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
 @define('TYPES_SIZE',10); // number of entry types per table
@@ -751,7 +758,7 @@ class BibDBBuilder {
 
   function setEntryKey($entrykey) {
     //echo "new entry:".$entrykey."\n";
-    $this->currentEntry->setField('key',$entrykey);
+    $this->currentEntry->setKey($entrykey);
   }
 
   function beginEntry() {
@@ -927,8 +934,6 @@ class BibEntry {
   /** Creates an empty new bib entry. Each bib entry is assigned a unique
    * identification number. */
   function BibEntry() {
-    static $id = 0;
-    $this->id = $id++;
     $this->fields = array();
     $this->constants = array();
     $this->text ='';
@@ -938,6 +943,13 @@ class BibEntry {
   function getType() {
     // strtolower is important to be case-insensitive
     return strtolower($this->getField(Q_TYPE));
+  }
+
+  /** Sets the key of this bib entry. */
+  function setKey($value) {
+    $this->setField('key',$value);
+    // by default the ID is the key
+    $this->id = $value;
   }
 
   /** Sets a field of this bib entry. */
@@ -1207,6 +1219,25 @@ class BibEntry {
   function getId() {
     return $this->id;
   }
+  
+  /** Returns the abbreviation. */
+  function getAbbrv() {
+    if (ABBRV_TYPE == 'default') return $this->id;
+    if (ABBRV_TYPE == 'year') return $this->getYear();
+    if (ABBRV_TYPE == 'x-abbrv') {
+      if ($this->hasField('x-abbrv')) {return $this->getField('x-abbrv');}
+      // otherwise
+      return $this->getKey();
+    }     
+    
+    throw new Exception('Unknown configuration value for ABBRV_TYPE');
+  }
+
+
+  /** Sets the abbreviation (e.g. [OOPSLA] or [1]) */
+  function setAbbrv($abbrv) {
+    return $this->id = $abbrv;
+  }
 
   function getText() {
   /** Returns the verbatim text of this bib entry. */
@@ -1242,7 +1273,7 @@ class BibEntry {
   */
   function toTR() {
         echo '<tr class="bibline">';
-        echo '<td  class="bibref"><a name="'.$this->getId().'"></a>['.$this->getId().']</td> ';
+        echo '<td  class="bibref"><a name="'.$this->getId().'"></a>['.$this->getAbbrv().']</td> ';
         echo '<td class="bibitem">';
         echo bib2html($this);
 
@@ -2013,7 +2044,7 @@ class DefaultContentStrategy  {
       krsort($entries);
       foreach ($entries as $bib) {
         if ($display->isDisplayed($index)) {
-          $bib->id = $refnum--;
+          $bib->setAbbrv($refnum--);
           $bib->toTR();
         }
         $index++;
@@ -2070,10 +2101,17 @@ class AcademicDisplay extends BibtexBrowserDisplay {
     if (count($entries)>0) {
     echo "\n".'<div class="header">'.$title.'</div>'."\n";
     echo '<table class="result">'."\n";
+
+    // by default the abbreviation is incermented over all 
+    // searches
+    static $count;
+    if ($count == NULL) { $count = 1; } // init
+    $id = $count;
     foreach ($entries as $bib) {
-        $bib->id = $bib->getYear();
+        $bib->setAbbrv($id++);
         $bib->toTR();
     } // end foreach
+    $count = @$count + count($entries);
     echo '</table>';
     }
 
@@ -2433,15 +2471,6 @@ class BibDataBase {
       }
     arsort($result);
     return $result;
-  }
-
-  /** Given its ID, return the bib entry. */
-  function getEntry($id){
-    foreach($this->bibdb as $bib) {
-      if($bib->getId() == $id)
- return $bib;
-    }
-    return null;
   }
 
   /** Given its key, return the bib entry. */
