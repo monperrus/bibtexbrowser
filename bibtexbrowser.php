@@ -35,7 +35,7 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 * bibtexbrowser can display all entries with a bib keyword
 * bibtexbrowser outputs valid XHTML 1.0 Transitional
 * bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;author=Barbara+A.+Kitchenham|demo]]
-* bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in utf-8 ''define('ENCODING','utf-8')'' )
+* bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in UTF-8 ''define('ENCODING','UTF-8')'' )
 
 
 =====Download=====
@@ -57,7 +57,7 @@ Demo: [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|Here, 
 Create a bib file with the publication records (e.g. csgroup2008.bib) and upload it to your server.
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib'' (frameset based view)
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all'' (pub list sorted by year)
-* Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all&amp;academic'' (pub list  sorted by publication type, then by year)
+* Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all&amp;academic'' (pub list  sorted by publication type, then by year, see "Sectioning in academic mode" below)
 
 ** Warning **: bibtexbrowser maintains a cached version of the parsed bibtex, for high performance, check that PHP can write in the working directory of PHP.
 
@@ -65,6 +65,13 @@ Create a bib file with the publication records (e.g. csgroup2008.bib) and upload
 ''bibtexbrowser.php?bib=strings.bib;csgroup2008.bib''
 
 </div>
+
+=====UTF-8 support / ISO-8859-1 support=====
+
+^^By default, bibtexbrowser assumes that the bibtex file is UTF-8 encoded.
+If you want to change it to e.g. ISO-8859-1, add ''define('ENCODING','ISO-8859-1');'' into ''bibtexbrowser.local.php'' (see below).
+Note that if the bibtex only contains latex-encoded diacritics (e.g. ''\'e''), it does not matter.
+^^
 =====How to embed your publication list in your home page=====
 <div class="wikitous" title="/bibtexbrowser/docs/embed"> 
 
@@ -82,6 +89,7 @@ include( 'bibtexbrowser.php' );
 &#60;?php
 $_GET&#91;'bib'&#93;='csgroup2008.bib';
 $_GET&#91;'all'&#93;=1;
+define('ABBRV_TYPE','year');
 $_GET&#91;'academic'&#93;=1;
 include( 'bibtexbrowser.php' );
 ?>
@@ -99,6 +107,7 @@ include( 'bibtexbrowser.php' );
 &#60;?php
 $_GET&#91;'bib'&#93;='mybib.bib';
 $_GET&#91;'author'&#93;='Martin Monperrus';
+define('ABBRV_TYPE','year');
 $_GET&#91;'academic'&#93;=1;
 include( 'bibtexbrowser.php' );
 ?>
@@ -106,6 +115,45 @@ include( 'bibtexbrowser.php' );
 </tr><!-- end individual -->
 </table>
 </div>
+
+=====Sectioning in academic mode=====
+
+The default academic mode creates four sections :
+- books
+- articles and book chapters
+- workshop papers (for entries containing "workshop" in the field booktitle)
+- others.
+
+You may create your own one in ''bibtexbrowser.local.php'' (see also "By creating a bibtexbrowser.local.php" below):
+<pre>
+define('BIBLIOGRAPHYSECTIONS','my_sectioning');
+function my_sectioning() {
+return  
+  array(
+  // Books
+    array(
+      'query' => array(Q_TYPE=>'book'),
+      'title' => 'Books'
+    ),
+  // Articles
+    array(
+      'query' => array(Q_TYPE=>'article'),
+      'title' => 'Refereed Articles'
+    ),
+  // Conference and Workshop papers
+    array(
+      'query' => array(Q_TYPE=>'inproceedings),
+      'title' => 'Conference and Workshop  Papers'
+    ),
+  // others
+    array(
+      'query' => array(Q_TYPE=>'misc|phdthesis|mastersthesis|bachelorsthesis|techreport'),
+      'title' => 'Other Publications'
+    )
+  );
+}
+</pre>
+
 =====How to tailor bibtexbrowser?=====
 
 ====By modifying the CSS====
@@ -136,7 +184,7 @@ define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
 For contributing with a new style, [[http://www.monperrus.net/martin/|please drop me an email ]]
 </div>
 
-====By creating a "bibtexbrowser.local.php"====
+====By creating a bibtexbrowser.local.php====
 <div class="wikitous" title="/bibtexbrowser/docs/tailor/local"> 
 
 All the variable parts of bibtexbrowser can be modified with a file called ''bibtexbrowser.local.php''.
@@ -144,8 +192,8 @@ All the variable parts of bibtexbrowser can be modified with a file called ''bib
 <pre>
 &#60;?php
 // ------------------------------- NOVICE LEVEL
-// if your bibtex file is utf-8 encodedd
-// define("ENCODING","utf-8");
+// if your bibtex file is UTF-8 encodedd
+// define("ENCODING","UTF-8");
 
 // number of bib items per page
 // define('PAGE_SIZE',50);
@@ -253,7 +301,7 @@ define('BIBTEXBROWSER','v__MTIME__');
 // there is no encoding transformation from the bibtex file to the html file
 // if your bibtex file contains 8 bits characters in utf-8
 // change the following parameter
-@define('ENCODING','iso-8859-1');//define('ENCODING','utf-8');//define('ENCODING','windows-1252');
+define('ENCODING','UTF-8');//@define('ENCODING','iso-8859-1');//define('ENCODING','windows-1252');
 // number of bib items per page
 @define('PAGE_SIZE',isset($_GET['nopage'])?10000:25);
 // bibtexbrowser uses a small piece of Javascript to improve the user experience
