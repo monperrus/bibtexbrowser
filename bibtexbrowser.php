@@ -378,12 +378,21 @@ define('BIBTEXBROWSER','v__MTIME__');
 
 @error_reporting(/*pp4php:serl*/E_ALL/*lres*/);
 
+
 /** sets the database of bibtex entries (object of type BibDataBase)
   * in $_GET[Q_DB]
   * Uses a caching mechanism on disk for sake of performance
   */
 function setDB() {
 
+  // Check if magic_quotes_runtime is active
+  if(get_magic_quotes_runtime())
+  {
+      // Deactivate
+      // otherwise it does not work
+      set_magic_quotes_runtime(false);
+  }
+  
   // default bib file, if no file is specified in the query string.
   if (!isset($_GET[Q_FILE]) || $_GET[Q_FILE] == "") {
   ?>
@@ -890,6 +899,10 @@ function latex2html($line) {
   // bug found by Serge Barral: what happens if we have curly braces only (typically to ensure case in Latex)
   // added && strpos($line,'{')===false
   if (strpos($line,'\\')===false && strpos($line,'{')===false) return $line;
+  
+  // we should better replace this before the others
+  // in order not to mix with the HTML entities coming after (just in case)
+  $line = str_replace('\\&','&amp;', $line);
 
   // handling \url{....}
   // often used in howpublished for @misc
@@ -942,7 +955,8 @@ function latex2html($line) {
 
   $line = str_replace('\\o','&oslash;', $line);
   $line = str_replace('\\O','&Oslash;', $line);
-  $line = str_replace('\\&','&amp;', $line);
+  $line = str_replace('\\aa','&aring;', $line);
+  $line = str_replace('\\AA','&Aring;', $line);
 
   // clean out extra tex curly brackets, usually used for preserving capitals
   $line = str_replace('}','', $line);
