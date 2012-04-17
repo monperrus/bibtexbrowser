@@ -379,12 +379,20 @@ define('BIBTEXBROWSER','v__MTIME__');
 @error_reporting(/*pp4php:serl*/E_ALL/*lres*/);
 
 
-/** sets the database of bibtex entries (object of type BibDataBase)
+/** parses $_GET[Q_FILE] and puts the result (an object of type BibDataBase)
   * in $_GET[Q_DB]
-  * Uses a caching mechanism on disk for sake of performance
+  * See also zetDB()
   */
 function setDB() {
+  $_GET[Q_DB] = zetDB($_GET[Q_FILE]);
+}
 
+/** parses the $bibtex_filenames (usually semi-column separated) and returns an object of type BibDataBase
+  * See also setDB()
+  */
+function zetDB($bibtex_filenames) {
+
+  $db = null;
   // Check if magic_quotes_runtime is active
   if(get_magic_quotes_runtime())
   {
@@ -394,7 +402,7 @@ function setDB() {
   }
   
   // default bib file, if no file is specified in the query string.
-  if (!isset($_GET[Q_FILE]) || $_GET[Q_FILE] == "") {
+  if (!isset($bibtex_filenames) || $bibtex_filenames == "") {
   ?>
   <div id="bibtexbrowser_message">
   Congratulations! bibtexbrowser is correctly installed!<br/>
@@ -409,12 +417,12 @@ function setDB() {
   }
 
   // first does the bibfiles exist:
-  // $_GET[Q_FILE] can be urlencoded for instance if they contain slashes
+  // $bibtex_filenames can be urlencoded for instance if they contain slashes
   // so we decode it
-  $_GET[Q_FILE] = urldecode($_GET[Q_FILE]);
+  $bibtex_filenames = urldecode($bibtex_filenames);
 
   // ---------------------------- HANDLING unexistent files
-  foreach(explode(MULTIPLE_BIB_SEPARATOR, $_GET[Q_FILE]) as $bib) {
+  foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
   
     // this is a security protection
     if (BIBTEXBROWSER_LOCAL_BIB_ONLY && !file_exists($bib)) {
@@ -431,7 +439,7 @@ function setDB() {
   // save bandwidth and server cpu
   // (imagine the number of requests from search engine bots...)
   $bib_is_unmodified = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ;
-  foreach(explode(MULTIPLE_BIB_SEPARATOR, $_GET[Q_FILE]) as $bib) {
+  foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
       $bib_is_unmodified = 
                     $bib_is_unmodified                               
                     &&  (strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])>filemtime($bib));
@@ -446,22 +454,18 @@ function setDB() {
   // ---------------------------- HANDLING caching of compiled bibtex files
   // for sake of performance, once the bibtex file is parsed
   // we try to save a "compiled" in a txt file
-  $compiledbib = 'bibtexbrowser_'.md5($_GET[Q_FILE]).'.dat';
+  $compiledbib = 'bibtexbrowser_'.md5($bibtex_filenames).'.dat';
 
   $parse=false;
-  foreach(explode(MULTIPLE_BIB_SEPARATOR, $_GET[Q_FILE]) as $bib) {
+  foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
   // do we have a compiled version ?
   if (is_file($compiledbib) && is_readable($compiledbib)) {
-    // is it up to date ? wrt to the bib file and the script
-    // then upgrading with a new version of bibtexbrowser triggers a new compilation of the bib file
-    if (filemtime($bib)<filemtime($compiledbib) && filemtime(__FILE__)<filemtime($compiledbib)) {
-      $_GET[Q_DB] = unserialize(file_get_contents($compiledbib));
-      // basic test
-      // do we have an correct version of the file
-      if (!is_a($_GET[Q_DB],'BibDataBase')) {
-        $parse=true;
-      }
-    } else {$parse=true;}
+    $db = @unserialize(file_get_contents($compiledbib));
+    // basic test
+    // do we have an correct version of the file
+    if (!is_a($db,'BibDataBase')) {
+      $parse=true;
+    }
   } else {$parse=true;}
   } // end for each
 
@@ -470,25 +474,33 @@ function setDB() {
     //echo '<!-- parsing -->';
     // then parsing the file
     $db = new BibDataBase();
-  foreach(explode(MULTIPLE_BIB_SEPARATOR, $_GET[Q_FILE]) as $bib) {
+  foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
       $db->load($bib);
     }    
-    $_GET[Q_DB]=$db;
-
-    // are we able to save the compiled version ?
-    // note that the compiled version is saved in the current working directory
-    if ((!is_file($compiledbib) && is_writable(getcwd())) || (is_file($compiledbib) && is_writable($compiledbib)) ) {
-      // we can use file_put_contents
-      // but don't do it for compatibility with PHP 4.3
-      $f = fopen($compiledbib,'w');
-      //we use a lock to avoid that a call to bbtexbrowser made while we write the object loads an incorrect object
-      if (flock($f,LOCK_EX)) fwrite($f,serialize($_GET[Q_DB]));
-      fclose($f);
-    }
-    //else echo '<!-- please chmod the directory containing the bibtex file to be able to keep a compiled version (much faster requests for large bibtex files) -->';
-  } // end parsing and saving
+  }
   
-  return $parse;
+  // now we may update the database
+  foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
+      // is it up to date ? wrt to the bib file and the script
+    // then upgrading with a new version of bibtexbrowser triggers a new compilation of the bib file
+    if (filemtime($bib)>filemtime($compiledbib) || filemtime(__FILE__)>filemtime($compiledbib)) {
+      $db->update($bib);
+    }
+  }
+    
+  // are we able to save the compiled version ?
+  // note that the compiled version is saved in the current working directory
+  if ((!is_file($compiledbib) && is_writable(getcwd())) || (is_file($compiledbib) && is_writable($compiledbib)) ) {
+    // we can use file_put_contents
+    // but don't do it for compatibility with PHP 4.3
+    $f = fopen($compiledbib,'w');
+    //we use a lock to avoid that a call to bibbtexbrowser made while we write the object loads an incorrect object
+    if (flock($f,LOCK_EX)) fwrite($f,serialize($db));
+    fclose($f);
+  } // end saving the cached verions
+  //else echo '<!-- please chmod the directory containing the bibtex file to be able to keep a compiled version (much faster requests for large bibtex files) -->';
+  
+  return $db;
 } // end function setDB
 
 
@@ -825,7 +837,10 @@ class BibDBBuilder {
 
   function endEntry($entrysource) {
   
-    // we can set the fulltext
+    // we add a timestamp
+    $this->currentEntry->setTimestamp();
+    
+    // we set the fulltext
     $this->currentEntry->text = $entrysource;
     
     // we format the author names in a special field
@@ -848,7 +863,7 @@ class BibDBBuilder {
     
     // we add it to the database
     else {
-      $this->builtdb[$this->currentEntry->getKey()] = $this->currentEntry;
+      $this->builtdb[$this->currentEntry->getKey()] = $this->currentEntry;      
     }
   }
 } // end class BibDBBuilder
@@ -994,12 +1009,24 @@ class BibEntry {
   /** The verbatim copy (i.e., whole text) of this bib entry. */
   var $text;
 
+  /** A timestamp to trace when entries have been created */
+  var $timestamp;
+  
   /** Creates an empty new bib entry. Each bib entry is assigned a unique
    * identification number. */
   function BibEntry() {
     $this->fields = array();
     $this->constants = array();
     $this->text ='';
+  }
+
+  /** Adds timestamp to this object */
+  function setTimestamp() {
+    $this->timestamp = time();
+  }
+  /** Returns the timestamp of this object */
+  function getTimestamp() {
+    return $this->timestamp;
   }
 
   /** Returns the type of this bib entry. */
@@ -2492,11 +2519,38 @@ class BibDataBase {
   /** Creates a new database by parsing bib entries from the given
    * file. */
   function load($filename) {
-    $db = new BibDBBuilder($filename, $this->bibdb, $this->stringdb);
-    //print_r($parser);
-    $this->bibdb = $db->builtdb;
+    $this->update($filename);
+  }
+  
+  /** Updates a database (replaces the new bibtex entries by the most recent ones) */ 
+  function update($filename) {
+  
+    $empty_array = array();
+    $db = new BibDBBuilder($filename, $empty_array, $this->stringdb);
+    
     $this->stringdb = $db->stringdb;
-    //print_r($this->stringdb);
+    $result = $db->builtdb;
+    
+    
+    foreach ($result as $b) {
+       
+      // new entries:
+      if (!isset($this->bibdb[$b->getKey()])) {
+        $this->bibdb[$b->getKey()] = $b;
+      }
+      // update entry
+      else if (isset($this->bibdb[$b->getKey()]) && ($b->getText() !== $this->bibdb[$b->getKey()]->getText())) {
+        $this->bibdb[$b->getKey()] = $b;      
+      }
+    }
+    
+    // some entries have been removed
+    foreach ($this->bibdb as $e) {
+      if (!isset($result[$e->getKey()])) {
+        unset($this->bibdb[$e->getKey()]);
+      }
+    }
+      
   }
 
   /** Creates a new empty database */
@@ -2931,7 +2985,7 @@ class RSSDisplay {
 
 
 
-
+  
 class Dispatcher {
 
   /** this is the query */
@@ -3032,7 +3086,7 @@ class Dispatcher {
 
   function keywords() { $this->query[Q_TAG]=$_GET[Q_TAG]; }
 
-  function author() {
+  function author() {    
     // Friday, October 29 2010
     // changed fomr 'author' to '_author'
     // because '_author' is already formatted
