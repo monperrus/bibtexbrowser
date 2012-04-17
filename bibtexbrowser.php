@@ -303,7 +303,7 @@ define('BIBTEXBROWSER','v__MTIME__');
 // change the following parameter
 @define('ENCODING','UTF-8');//@define('ENCODING','iso-8859-1');//define('ENCODING','windows-1252');
 // number of bib items per page
-@define('PAGE_SIZE',isset($_GET['nopage'])?10000:25);
+@define('PAGE_SIZE',isset($_GET['nopage'])?(preg_match('/^\d+$/',$_GET['nopage'])?$_GET['nopage']:10000):25);
 // bibtexbrowser uses a small piece of Javascript to improve the user experience
 // see http://en.wikipedia.org/wiki/Progressive_enhancement
 // if you don't like it, you can be disable it by adding in bibtexbrowser.local.php
