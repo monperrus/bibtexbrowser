@@ -155,7 +155,7 @@ function default_message() {
   You may browse:<br/>
   <?php
   foreach (glob("*.bib") as $bibfile) {
-    $url="?bib=".$bibfile; echo '<a href="'.$url.'">'.$bibfile.'</a><br/>';
+    $url="?bib=".$bibfile; echo '<a href="'.$url.'" rel="nofollow">'.$bibfile.'</a><br/>';
   }
   echo "</div>";
 }
