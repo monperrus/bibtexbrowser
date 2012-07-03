@@ -61,6 +61,8 @@ define('BIBTEXBROWSER','v__MTIME__');
 // only displaying the n newest entries
 @define('BIBTEXBROWSER_NEWEST',5);
 
+@define('BIBTEXBROWSER_NO_DEFAULT', false);
+
 // do we add [bibtex] links ?
 // suggested by Sascha Schnepp
 @define('BIBTEXBROWSER_BIBTEX_LINKS',true);
@@ -142,6 +144,23 @@ function zetDB($bibtex_filenames) {
 }
 
 /** @nodoc */
+function default_message() {
+
+  if (BIBTEXBROWSER_NO_DEFAULT) { return; }
+
+  ?>
+  <div id="bibtexbrowser_message">
+  Congratulations! bibtexbrowser is correctly installed!<br/>
+  Now you have to pass the name of the bibtex file as parameter (e.g. bibtexbrowser.php?bib=mybib.php)<br/>
+  You may browse:<br/>
+  <?php
+  foreach (glob("*.bib") as $bibfile) {
+    $url="?bib=".$bibfile; echo '<a href="'.$url.'">'.$bibfile.'</a><br/>';
+  }
+  echo "</div>";
+}
+
+/** @nodoc */
 function _zetDB($bibtex_filenames) {
 
   $db = null;
@@ -155,17 +174,8 @@ function _zetDB($bibtex_filenames) {
   
   // default bib file, if no file is specified in the query string.
   if (!isset($bibtex_filenames) || $bibtex_filenames == "") {
-  ?>
-  <div id="bibtexbrowser_message">
-  Congratulations! bibtexbrowser is correctly installed!<br/>
-  Now you have to pass the name of the bibtex file as parameter (e.g. bibtexbrowser.php?bib=mybib.php)<br/>
-  You may browse:<br/>
-  <?php
-  foreach (glob("*.bib") as $bibfile) {
-    $url="?bib=".$bibfile; echo '<a href="'.$url.'">'.$bibfile.'</a><br/>';
-  }
-  echo "</div>";
-  return; // we cannot set the db wtihout a bibfile
+    default_message();
+    exit;
   }
 
   // first does the bibfiles exist:
