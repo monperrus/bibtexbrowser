@@ -1,4 +1,6 @@
-bibtexbrowser
-=============
+This is the github repository of bibtexbrowser.
 
-bibtexbrowser: publication lists with bibtex and PHP
+It is used to collect patches and extensions as pull requests.
+
+The official home page of bibtexbrowser is <http://www.monperrus.net/martin/bibtexbrowser/>.
+
