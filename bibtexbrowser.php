@@ -1592,6 +1592,8 @@ function DefaultBibliographyStyle(&$bibentry) {
 
   if ($bibentry->hasField('volume')) $entry[] =  "volume ".$bibentry->getField("volume");
 
+  if ($bibentry->hasField('pages')) $entry[] = str_replace("--", "-", "pp. ".$bibentry->getField("pages"));
+
 
   if ($bibentry->hasField(YEAR)) $entry[] = $bibentry->getYear();
 
