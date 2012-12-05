@@ -1,5 +1,5 @@
 <?php /* bibtexbrowser: publication lists with bibtex and PHP
-<!--this is version v20121027 -->
+<!--this is version v20121205 -->
 URL: http://www.monperrus.net/martin/bibtexbrowser/ 
 Feedback & Bug Reports: martin.monperrus@gmail.com
 
@@ -16,7 +16,7 @@ License, or (at your option) any later version.
 // added on Wednesday, June 01 2011, bug found by Carlos Bras
 if (!defined('BIBTEXBROWSER')) {
 // this if block ends at the very end of this file, after all class and function declarations.
-define('BIBTEXBROWSER','v20121027');
+define('BIBTEXBROWSER','v20121205');
 
 
 // *************** CONFIGURATION
@@ -72,6 +72,12 @@ define('BIBTEXBROWSER','v20121027');
 // do we add [bibtex] links ?
 // suggested by Sascha Schnepp
 @define('BIBTEXBROWSER_BIBTEX_LINKS',true);
+
+// should authors be linked to [none/homepage/resultpage]
+// none: nothing
+// their homepage if defined as @strings
+// their publication lists according to this bibtex 
+@define('BIBTEXBROWSER_AUTHOR_LINKS','homepage');
 
 @define('BIBTEXBROWSER_DEBUG',false);
 
@@ -227,15 +233,13 @@ function _zetDB($bibtex_filenames) {
   // we try to save a "compiled" in a txt file
   $compiledbib = 'bibtexbrowser_'.md5($bibtex_filenames).'.dat';
 
-  $parse=filemtime(__FILE__)>filemtime($compiledbib);
+  $parse=filemtime(__FILE__)>@filemtime($compiledbib);
   
-  foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
   // do we have a compiled version ?
   if (is_file($compiledbib) 
      && is_readable($compiledbib) 
      && filesize($compiledbib)>0
    ) {
-
     $f = fopen($compiledbib,'r');
     //we use a lock to avoid that a call to bibbtexbrowser made while we write the object loads an incorrect object
     if (flock($f,LOCK_EX)) { 
@@ -253,7 +257,6 @@ function _zetDB($bibtex_filenames) {
       $parse=true;
     }
   } else {$parse=true;}
-  } // end for each
 
   // we don't have a compiled version
   if ($parse) {
@@ -274,14 +277,14 @@ function _zetDB($bibtex_filenames) {
       // is it up to date ? wrt to the bib file and the script
     // then upgrading with a new version of bibtexbrowser triggers a new compilation of the bib file
     if (filemtime($bib)>filemtime($compiledbib) || filemtime(__FILE__)>filemtime($compiledbib)) {
-      //echo "updating...";
+//       echo "updating  ".$bib;
       $db->update($bib);
       $updated = true;
     }
   }
   
-  //echo var_export($parse);
-  //echo var_export($updated);
+//   echo var_export($parse);
+//   echo var_export($updated);
 
   $saved = false;
   // are we able to save the compiled version ?
@@ -767,10 +770,16 @@ function xtrim($line) {
 It expects a **lower-case** char.
 */
 function char2html($line,$latexmodifier,$char,$entitiyfragment) {
-  $line = str_replace('\\'.$latexmodifier.$char,'&'.$char.''.$entitiyfragment.';', $line);
-  $line = str_replace('\\'.$latexmodifier.'{'.$char.'}','&'.$char.''.$entitiyfragment.';', $line);
-  $line = str_replace('\\'.$latexmodifier.strtoupper($char),'&'.strtoupper($char).''.$entitiyfragment.';', $line);
-  $line = str_replace('\\'.$latexmodifier.'{'.strtoupper($char).'}','&'.strtoupper($char).''.$entitiyfragment.';', $line);
+  $line = char2html_case_sensitive($line,$latexmodifier,strtoupper($char),$entitiyfragment);
+  return char2html_case_sensitive($line,$latexmodifier,strtolower($char),$entitiyfragment);
+}
+
+function char2html_case_sensitive($line,$latexmodifier,$char,$entitiyfragment) {
+// old version
+//   $line = str_replace('\\'.$latexmodifier.$char,'&'.$char.''.$entitiyfragment.';', $line);
+//   $line = str_replace('\\'.$latexmodifier.' '.$char,'&'.$char.''.$entitiyfragment.';', $line);
+//   $line = str_replace('\\'.$latexmodifier.'{'.$char.'}','&'.$char.''.$entitiyfragment.';', $line);
+  $line = preg_replace('/\\\\'.preg_quote($latexmodifier,'/').' ?\\{?'.$char.'\\}?/','&'.$char.''.$entitiyfragment.';', $line);
   return $line;
 }
 
@@ -834,6 +843,7 @@ function latex2html($line) {
   $line = char2html($line,'.','a',"ring");
 
   $line = char2html($line,'c','c',"cedil");
+  $line = char2html($line,'v','s',"caron");
 
   $line = str_replace('\\ae','&aelig;', $line);
   $line = str_replace('\\ss','&szlig;', $line);
@@ -901,6 +911,11 @@ class BibEntry {
   
   /** The index in a list of publications (e.g. [1] Foo */
   var $index = '';
+  
+  /** returns a debug string representation */
+  function __toString() {
+    return $this->getType()." ".$this->getKey();
+  }
   
   /** Creates an empty new bib entry. Each bib entry is assigned a unique
    * identification number. */
@@ -1110,18 +1125,35 @@ class BibEntry {
   */
   function formattedAuthors() {  return $this->getFormattedAuthorsImproved(); }
   
-  /** Adds to getFormattedAuthors() the home page links and returns a string (not an array)
+  /** Adds to getFormattedAuthors() the home page links and returns a string (not an array). Is configured with BIBTEXBROWSER_AUTHOR_LINKS and COMMA_NAMES.
   */
   function getFormattedAuthorsImproved() {
     $array_authors = $this->getFormattedAuthors();
-    foreach ($array_authors as $k => $author) {
-      $array_authors[$k]=$this->addHomepageLink($author);
+    
+    if (BIBTEXBROWSER_AUTHOR_LINKS=='homepage') {
+      foreach ($array_authors as $k => $author) {
+        $array_authors[$k]=$this->addHomepageLink($author);
+      }
+    }
+    
+    if (BIBTEXBROWSER_AUTHOR_LINKS=='resultpage') {
+      foreach ($array_authors as $k => $author) {
+        $array_authors[$k]=$this->addAuthorPageLink($author);
+      }
     }
     
     if (COMMA_NAMES) {$sep = '; ';} else {$sep = ', ';}
+    
     return implode($sep ,$array_authors);
   }
 
+    /** adds a link to the author page */
+  function addAuthorPageLink($author) {
+    $link = makeHref(array(Q_AUTHOR => $author));
+    return "<a {$link}>$author</a>";
+  }
+
+  
   /** Returns the authors of this entry as an array in a canonical form */
   function getCanonicalAuthors() {
     $authors = array();
@@ -1186,8 +1218,7 @@ class BibEntry {
     if (COMMA_NAMES) {$sep = '; ';} else {$sep = ', ';}
     return implode($sep, $editors).', '.(count($editors)>1?'eds.':'ed.');
   }
-
-
+  
   /** Returns the year of this entry? */
   function getYear() {
     return $this->getField('year');
@@ -1637,7 +1668,6 @@ function DefaultBibliographyStyle(&$bibentry) {
 usage:
 Add the following line in "bibtexbrowser.local.php"
 <pre>
-include( 'bibtexbrowser-style-janos.php' );
 define('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
 </pre>
 */
@@ -1822,7 +1852,7 @@ class IndependentYearMenu  {
 function poweredby() {
   $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
   $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
-  $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v20121027-->';
+  $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v20121205-->';
   $poweredby .= '</div>'."\n";
   return $poweredby;
   }
@@ -2106,11 +2136,11 @@ function query2title(&$query) {
         // and we remove the regexp modifiers ^ $
         $v = preg_replace('/[$^]/','',$v); 
       }
-      $headers[$k] = ucwords($k).': '.ucwords($v);
+      $headers[$k] = ucwords($k).': '.ucwords(htmlspecialchars($v));
   }
     // special cases
-    if (isset($headers[Q_ALL])) $headers[Q_ALL] = 'Publications in '.$_GET[Q_FILE];
-    if (isset($headers[Q_AUTHOR])) $headers[Q_AUTHOR] = 'Publications of '.$_GET[Q_AUTHOR];
+    if (isset($headers[Q_ALL])) $headers[Q_ALL] = 'Publications in '.htmlspecialchars($_GET[Q_FILE]);
+    if (isset($headers[Q_AUTHOR])) $headers[Q_AUTHOR] = 'Publications of '.htmlspecialchars($_GET[Q_AUTHOR]);
     return join(' &amp; ',$headers);
 }
 }
@@ -2300,7 +2330,14 @@ function nonExistentBibEntryError() {
   exit;
 }
 
-
+/** handles queries with no result */
+class NotFoundDisplay {
+  function setTitle($title) { $this->title = $title; return $this; }
+  function getTitle() { return @$this->title ; }
+  function display() {
+    echo 'no result found, sorry.';
+  }
+}
 /** displays the publication records sorted by publication types (as configured by constant BIBLIOGRAPHYSECTIONS).
 usage:
 <pre>
@@ -2360,10 +2397,7 @@ class AcademicDisplay  {
 
     foreach (_DefaultBibliographySections() as $section) {
       $this->search2html($section['query'],$section['title']);
-    }
-
-    echo poweredby();
-    
+    }    
   }
 
 }
@@ -2425,7 +2459,6 @@ class BibEntryDisplay {
     echo '<div>';
     //echo $this->display_old();
     echo $this->displayOnSteroids();
-    echo poweredby();
     echo '</div>';
   }
 
@@ -2640,12 +2673,12 @@ class BibDataBase {
     $db->setData($empty_array, $this->stringdb);
     $db->build($filename);
     
-    $this->stringdb = $db->stringdb;
+    $this->stringdb = array_merge($this->stringdb, $db->stringdb);
+        
     $result = $db->builtdb;
     
     
     foreach ($result as $b) {
-       
       // new entries:
       if (!isset($this->bibdb[$b->getKey()])) {
         //echo 'adding...<br/>';
@@ -2660,7 +2693,9 @@ class BibDataBase {
     
     // some entries have been removed
     foreach ($this->bibdb as $e) {
-      if (!isset($result[$e->getKey()])) {
+      if (!isset($result[$e->getKey()]) 
+          && $e->filename==$filename // bug reported by Thomas on Dec 4 2012
+         ) {
         //echo 'deleting...<br/>';
         unset($this->bibdb[$e->getKey()]);
       }
@@ -2744,7 +2779,7 @@ class BibDataBase {
     $result = array();
     foreach ($this->bibdb as $bib) {
       if (!$bib->hasField("keywords")) continue;
-      $tags =preg_split('/[,;]/', $bib->getField("keywords"));
+      $tags =preg_split('/[,;\\/]/', $bib->getField("keywords"));
       foreach($tags as $a){
         $ta = trim($a);
         $result[$ta] = $ta;
@@ -2983,7 +3018,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
-<meta name="generator" content="bibtexbrowser v20121027" />
+<meta name="generator" content="bibtexbrowser v20121205" />
 <?php 
 // if ($content->getRSS()!='') echo '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.$content->getRSS().'&amp;rss" />'; 
 ?>
@@ -3023,6 +3058,7 @@ if (method_exists($content, 'getTitle')) {
 ?>
 <?php 
   $content->display();
+  echo poweredby();
 
   if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
     javascript();
@@ -3245,7 +3281,7 @@ class RSSDisplay {
       <link>http://<?php echo $_SERVER['HTTP_HOST'].htmlentities($_SERVER['REQUEST_URI']);?></link>
       <atom:link href="http://<?php echo $_SERVER['HTTP_HOST'].htmlentities($_SERVER['REQUEST_URI']);?>" rel="self" type="application/rss+xml" />
       <description></description>
-      <generator>bibtexbrowser v20121027</generator>
+      <generator>bibtexbrowser v20121205</generator>
 
 <?php
       foreach($this->entries as $bibentry) {
@@ -3340,6 +3376,10 @@ class Dispatcher {
        }
     
        $selectedEntries = $_GET[Q_DB]->multisearch($this->query);
+       
+       if (count($selectedEntries)==0) {
+         $this->displayer = 'NotFoundDisplay';
+       }
        
        // default order
        uasort($selectedEntries, ORDER_FUNCTION);
@@ -3499,7 +3539,7 @@ class Dispatcher {
   function diagnosis() {
     header('Content-type: text/plain');
     echo "php version: ".phpversion()."\n";
-    echo "bibtexbrowser version: 20121027\n";
+    echo "bibtexbrowser version: 20121205\n";
     echo "dir: ".decoct(fileperms(dirname(__FILE__)))."\n";
     echo "bibtex file: ".decoct(fileperms($_GET[Q_FILE]))."\n";
     exit;
@@ -3511,7 +3551,7 @@ class Dispatcher {
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
     <html  xmlns="http://www.w3.org/1999/xhtml">
     <head>
-    <meta name="generator" content="bibtexbrowser v20121027" />
+    <meta name="generator" content="bibtexbrowser v20121205" />
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
     <title>You are browsing <?php echo $_GET[Q_FILE]; ?> with bibtexbrowser</title>
     </head>
