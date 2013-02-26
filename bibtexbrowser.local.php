@@ -123,153 +123,34 @@ function MGBibliographyStyle(&$bibentry) {
 
 /** Class to display a bibliography of a page. */
 class BibliographyDisplay  {
-  /** the bib entries to display. */
-  var $result;
-
-  /** the content strategy (cf. pattern strategy) */
-  var $contentStrategy;
-
-  /** the query to reinject in links to different pages */
-  var $filter;
-
-  /** Creates an instance with the given entries and header. */
-  function BibliographyDisplay(&$result, $filter) {
-    $this->result = $result;
-    $this->filter = $filter;
-    // requesting a different page of the result view?
-    $this->setTitle();
-    $this->contentStrategy = new BibliographyContentStrategy();
+  function setDB(&$bibdatabase) {
+    $this->setEntries($bibdatabase->bibdb);
   }
 
-  /** sets the $this->title of BibtexBrowserDisplay based on the $filter */
-  function setTitle() {
-    $this->title = query2title($this->filter);
+  /** sets the entries to be shown */
+  function setEntries(&$entries) {
+    $this->entries = $entries;
   }
 
-  /** overrides */
-  function  formatedHeader() { return '<div class="rheader">'.$this->title.' '.createRSSLink($this->filter).'</div>';}
+  function setTitle($title) { $this->title = $title; return $this; }
+  function getTitle() { return @$this->title ; }
 
-  /** overrides */
-  function getURL() { return '?'.createQueryString($this->filter);}
-
-  /** overrides */
-  function getRSS() { return BIBTEXBROWSER_URL.'?'.createQueryString($this->filter).'&amp;rss';}
-
-  /** Displays the entries preceded with the header. */
+  /** Displays a set of bibtex entries in an HTML table */
   function display() {
-    // print error message if no entry.
-    if (empty($this->result)) {
-      echo "No references.\n";
-      return;
-    }
-    $this->contentStrategy->display($this);
-    echo $this->poweredby();
-    if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
-      $this->javascript();
-    }
-  }
 
+    ksort($this->entries); //, ORDER_FUNCTION);
 
-  function poweredby() {
-    $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
-    $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
-    $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v20111211-->';
-    $poweredby .= '</div>'."\n";
-    return $poweredby;
-   }
+    layoutHeaderHTML();
 
-  /** Adds a touch of AJAX in bibtexbrowser to display bibtex entries inline.
-   * It uses the HIJAX design pattern: the Javascript code fetches the normal bibtex HTML page
-   * and extracts the bibtex.
-   * In other terms, URLs and content are left perfectly optimized for crawlers 
-   * Note how beautiful is this piece of code thanks to JQuery.
-   */
-  function javascript() {
-  // we use jquery with the official content delivery URLs
-  // Microsoft and Google also provide jquery with their content delivery networks
-?><script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script> 
-<script type="text/javascript" ><!--
-// Javascript progressive enhancement for bibtexbrowser
-$('a.biburl').each(function() { // for each url "[bib]"
-  var biburl = $(this);
-  if (biburl.attr('bibtexbrowser') === undefined)
-  {
-  biburl.click(function(ev) { // we change the click semantics
-    ev.preventDefault(); // no open url
-    if (biburl.nextAll('pre').length == 0) { // we don't have yet the bibtex data
-      var bibtexEntryUrl = $(this).attr('href');
-      $.ajax({url: bibtexEntryUrl,  dataType: 'xml', success: function (data) { // we download it
-        var elem = $('<pre class="purebibtex"/>'); // the element containing bibtex entry, creating a new element is required for Chrome and IE
-        elem.text($('.purebibtex', data).text()); // both text() are required for IE
-        // we add a link so that users clearly see that even with AJAX
-        // there is still one URL per paper (which is important for crawlers and metadata)
-        elem.append(
-           $('<div>%% Bibtex entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></div>')
-           ).appendTo(biburl.parent());
-      }, error: function() {window.location.href = biburl.attr('href');}});
-    } else {biburl.nextAll('pre').toggle();}  // we toggle the view    
-  });
-  biburl.attr('bibtexbrowser','done');
-  } // end if biburl.bibtexbrowser;
-});
-
-
---></script><?php
-  }
-
-}
-
-class BibliographyContentStrategy  {
-
-  /** $display: an instance of PagedDisplay */
-  function display(&$display) {
-    switch(LAYOUT) { /* MG: added switch for different layouts */
-      case 'list':
-        ?>
-        <ol class="result">
-        <?php
-        break;
-      case 'table':
-        ?>
-        <table class="result">
-        <?php
-        break;
-      case 'deflist':
-        ?>
-        <div class="result">
-        <?php
-        break;
-    }
-
-    $entries = $display->result;
-    $refnum = count($display->result);
-
-    foreach ($entries as $value => $bib) {
-          $bib->setAbbrv($value);
-          switch(LAYOUT) {
-             case 'list': $bib->toLI(); break;
-             case 'table': $bib->toTR(); break;
-             case 'deflist': $bib->toDD(); break;
-          }
+    $count = count($this->entries);
+    $i=0;
+    foreach ($this->entries as $ref => $bib) {
+      $bib->setIndex($ref);
+      $bib->toHTML();
     } // end foreach
-    
-      switch(LAYOUT) {
-      case 'list':
-        ?>
-        </ol>
-        <?php
-        break;
-      case 'table':
-        ?>
-        </table>
-        <?php
-        break;
-      case 'deflist':
-        ?>
-        </div>
-        <?php
-        break;
-    }
+
+    layoutFooterHTML();
+
   } // end function
 } // end class
 
