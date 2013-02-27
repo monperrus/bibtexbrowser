@@ -3,6 +3,7 @@
 URL: http://www.monperrus.net/martin/bibtexbrowser/ 
 Feedback & Bug Reports: martin.monperrus@gmail.com
 
+(C) 2013 Matthieu Guillaumin
 (C) 2006-2012 Martin Monperrus
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 This program is free software; you can redistribute it and/or
@@ -116,6 +117,8 @@ define('BIBTEXBROWSER','v20121205');
 @define('METADATA_GS',true);
 @define('METADATA_DC',true);
 @define('METADATA_EPRINTS',false);
+
+@define('LAYOUT','table'); // may be table/list/deflist. defines the HTML rendering options (<table>, <ol>/<ul>, <dl>, resp.). 'list' only works with 'ABBRV_TYPE'='index' (ordered list) and 'none' (unordered list, the default if another choice than 'list' is made).
 
 // in embedded mode, we still need a URL for displaying bibtex entries alone
 // this is usually resolved to bibtexbrowser.php
@@ -240,7 +243,7 @@ function _zetDB($bibtex_filenames) {
      && is_readable($compiledbib) 
      && filesize($compiledbib)>0
    ) {
-    $f = fopen($compiledbib,'r');
+    $f = fopen($compiledbib,'r+'); // my Unix seems to consider flock as a writing operation
     //we use a lock to avoid that a call to bibbtexbrowser made while we write the object loads an incorrect object
     if (flock($f,LOCK_EX)) { 
       $s = filesize($compiledbib);
@@ -1244,7 +1247,13 @@ class BibEntry {
     
   /** Returns the abbreviation. */
   function getAbbrv() {
-    if (ABBRV_TYPE == 'index') return $this->index;
+    if (ABBRV_TYPE == 'index') {
+       if ( LAYOUT == 'list' ) { // <ul> expects a raw number
+           return $this->index;
+       } else {
+           return '['.$this->index.']';
+       }
+    }
     if (ABBRV_TYPE == 'none') return '';
     if (ABBRV_TYPE == 'key') return '['.$this->getKey().']';
     if (ABBRV_TYPE == 'year') return '['.$this->getYear().']';
@@ -1296,37 +1305,48 @@ class BibEntry {
   }
 
 
-  /** Outputs an HTML line (<tr>)with two TDS inside
+  /** Outputs HTML line according to layout */
+  function toHTML() {
+      switch(LAYOUT) {
+        case 'list': $this->toLI(); break;
+        case 'table': $this->toTR(); break;
+        case 'deflist': $this->toDD(); break;
+      }
+  }
+
+  /** Create the entry anchor */
+  function anchor() {
+        echo '<a name="'.$this->getAbbrv().'"></a>';
+  }
+
+  /** Outputs an TR line with two TDS inside
   */
   function toTR() {
         echo '<tr class="bibline">';
         echo '<td  class="bibref">';
-        //echo '<a name="'.$this->getId().'"></a>';
- 
+        $this->anchor();
         echo $this->getAbbrv().'</td> ';
         echo '<td class="bibitem">';
         echo bib2html($this);
+        echo "</td></tr>\n"; // toTR() must be self-contained
+  }
 
-        $href = 'href="'.$this->getURL().'"';
 
-        if (BIBTEXBROWSER_BIBTEX_LINKS) {
-          // we add biburl and title to be able to retrieve this important information
-          // using Xpath expressions on the XHTML source
-          echo " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bibtex]</a>";
-        }
-        
-        // returns an empty string if no url present
-        echo $this->getUrlLink();
+  /** Outputs an LI line with SPANs for each element, setting the item value according to getAbbrv(). */
+  function toLI() {
+        echo '<li class="bibline" value="'.$this->getAbbrv().'">';
+        $this->anchor();
+        echo bib2html($this);
+        echo "</li>\n";
+  }
 
-        if ($this->hasField('doi')) {
-            echo ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
-        }
-        
-        // Google Scholar ID
-        if ($this->hasField('gsid')) {
-            echo ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">[cites]</a>';
-        }
-        echo "</td></tr>\n";
+  /** Outputs an DL line (<dt>+<dd>) */
+  function toDD() {
+        echo '<dl class="bibline"><dt class="bibref">';
+        $this->anchor();
+        echo $this->getAbbrv().'</dt><dd class="bibitem">';
+        echo bib2html($this);
+        echo "</dd></dl>\n";
   }
 
   /** Outputs an coins URL: see http://ocoins.info/cobg.html
@@ -1436,10 +1456,58 @@ class BibEntry {
 }
 
 
+function layoutHeaderHTML() {
+    $tag = '';
+    switch(LAYOUT) { /* switch for different layouts */
+      case 'list':
+        if (ABBRV_TYPE=='index') {
+            $tag='ol';
+        } else { // assume none
+            $tag='ul';
+        }
+        break;
+      case 'table':
+        $tag = 'table';
+        break;
+      case 'deflist':
+        $tag = 'div';
+        break;
+      default:
+        die('Unknown LAYOUT');
+    }
+    echo '<' . $tag . ' class="result">';
+    return $tag;
+}
+
+function layoutFooterHTML($tag) {
+    echo '</' . $tag . '>';
+}
+
 /** this function encapsulates the user-defined name for bib to HTML*/
 function bib2html(&$bibentry) {
   $function = BIBLIOGRAPHYSTYLE;
-  return $function($bibentry);
+  $str = $function($bibentry);
+  $href = 'href="'.$bibentry->getURL().'"';
+
+  if (BIBTEXBROWSER_BIBTEX_LINKS) {
+    // we add biburl and title to be able to retrieve this important information
+    // using Xpath expressions on the XHTML source
+    $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$bibentry->getKey()."\" {$href}>[bibtex]</a>";
+  }
+ 
+  // returns an empty string if no url present
+  $str .= $bibentry->getUrlLink();
+
+  if ($bibentry->hasField('doi')) {
+      $str .= ' <a href="http://dx.doi.org/'.$bibentry->getField("doi").'">[doi]</a>';
+  }
+ 
+  // Google Scholar ID
+  if ($bibentry->hasField('gsid')) {
+      $str .= ' <a href="http://scholar.google.com/scholar?cites='.$bibentry->getField("gsid").'">[cites]</a>';
+  }
+
+  return $str;
 }
 
 /** encapsulates the user-defined sections. @nodoc */
@@ -2301,21 +2369,19 @@ class SimpleDisplay  {
       echo 'Options: '.@implode(',',$this->options).'<br/>';      
     }
     
-    ?>
+    $tag = layoutHeaderHTML();
     
-    <table class="result" >
-    <?php
     $count = count($this->entries);
     $i=0;
     foreach ($this->entries as $bib) {    
-      // by default, index are in decrasing order
+      // by default, index are in decreasing order
       // so that when you add a publicaton recent , the indices of preceding publications don't change
-      $bib->setIndex('['.($count-($i++)).']');
-      $bib->toTR();
+      $bib->setIndex($count-($i++));
+      $bib->toHTML();
     } // end foreach
-    ?>
-    </table>
-    <?php    
+
+    layoutFooterHTML($tag);
+
   } // end function
 } // end class
 
@@ -2371,9 +2437,9 @@ class AcademicDisplay  {
     uasort($entries, ORDER_FUNCTION);
     if (count($entries)>0) {
     echo "\n".'<div class="btb-header">'.$title.'</div>'."\n";
-    echo '<table class="result">'."\n";
+    $tag = layoutHeaderHTML();
 
-    // by default the abbreviation is incermented over all 
+    // by default the abbreviation is incremented over all 
     // searches
     
     // since we don't know before hand all section, we can not index in decreasing order
@@ -2381,11 +2447,11 @@ class AcademicDisplay  {
     if ($count == NULL) { $count = 1; } // init
     $id = $count;
     foreach ($entries as $bib) {
-        $bib->setIndex('['.($id++).']');
-        $bib->toTR();
+        $bib->setIndex($id++);
+        $bib->toHTML();
     } // end foreach
     $count = @$count + count($entries);
-    echo '</table>';
+    layoutFooterHTML($tag);
     }
 
   }
@@ -2397,7 +2463,7 @@ class AcademicDisplay  {
 
     foreach (_DefaultBibliographySections() as $section) {
       $this->search2html($section['query'],$section['title']);
-    }    
+    }
   }
 
 }
@@ -3176,18 +3242,18 @@ class PagedDisplay {
     }
     
     $this->menu($less, $more);    
-    echo '<table class="result" >';
+    $tag = layoutHeaderHTML();
     for ($i = 0; $i < PAGE_SIZE; $i++) { 
       $index = ($this->page-1)*PAGE_SIZE + $i;
       if (isset($this->entries[$index])) {
         $bib = $this->entries[$index];       
-        $bib->toTR(); 
+        $bib->toHTML(); 
         
       } else {
         //break;
       }
     } // end foreach
-    echo '</table>';
+    layoutFooterHTML($tag);
     
     $this->menu($less, $more);    
   }
@@ -3478,7 +3544,7 @@ class Dispatcher {
 
   function keywords() { $this->query[Q_TAG]=$_GET[Q_TAG]; }
 
-  function author() {    
+  function author() {
     // Friday, October 29 2010
     // changed from 'author' to '_author'
     // in order to search at the same time "Joe Dupont" an "Dupont, Joe"
