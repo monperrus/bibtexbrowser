@@ -100,12 +100,12 @@ define('BIBTEXBROWSER','v20130206');
 @define('Q_ALL', 'all');
 @define('Q_ENTRY', 'entry');
 @define('Q_KEY', 'key');
-@define('Q_KEYS', 'keys'); // select entries using a list of bibtex entries
+@define('Q_KEYS', 'keys'); // select entries using a JSON array of bibtex keys (if an associative array is used, the keys of this array are used as item abbrv)
 @define('Q_SEARCH', 'search');
-@define('Q_BIBLIOGRAPHY', 'bibliography'); // select entries and their index using a JSON associative array
 @define('Q_EXCLUDE', 'exclude');
 @define('Q_RESULT', 'result');
 @define('Q_ACADEMIC', 'academic');
+@define('Q_BIBLIOGRAPHY', 'bibliography');
 @define('Q_DB', 'bibdb');
 @define('Q_LATEST', 'latest');
 @define('AUTHOR', 'author');
@@ -2999,23 +2999,25 @@ class BibDataBase {
     if (count($query)<1) {return array();}
     if (isset($query[Q_ALL])) return array_values($this->bibdb);
 
-    if (array_key_exists( Q_BIBLIOGRAPHY, $query )) {
-      $citations = array();
-      foreach ($query[Q_BIBLIOGRAPHY] as $key => $value) {
-         $citations[$key] = $value;
-      }
-    }
     if (array_key_exists( Q_KEYS, $query )) {
-      $citations = array();
-      foreach ($query[Q_KEYS] as $id => $key) {
-         $citations[] = $key;
+      $keylist = array();
+      $is_assoc = (bool)count(array_filter(array_keys($query[Q_KEYS]), 'is_string'));
+      foreach ($query[Q_KEYS] as $ref => $key) {
+         if ($is_assoc) {
+             $keylist[$ref] = $key;
+         } else {
+             $keylist[] = $key;
+         }
       }
+    } else {
+      $is_assoc = false;
     }
 
     $result = array();
 
     foreach ($this->bibdb as $bib) {
         $entryisselected = true;
+        $akey = -1;
         foreach ($query as $field => $fragment) {
           $field = strtolower($field);
           if ($field==Q_SEARCH) {
@@ -3042,14 +3044,11 @@ class BibDataBase {
               break;
             }
           }
-          else if ($field==Q_BIBLIOGRAPHY) {
-            if ( !array_key_exists( $bib->getKey(), $citations ) ) {
-              $entryisselected = false;
-              break;
-            }
-          }
           else if ($field==Q_KEYS) {
-            if ( ! in_array( $bib->getKey(), $citations ) ) {
+            if ( ! in_array( $bib->getKey(), $keylist ) ) {
+              if ($is_assoc) {
+                $akey = array_search( $bib->getKey(), $keylist );
+              }
               $entryisselected = false;
               break;
             } 
@@ -3063,9 +3062,7 @@ class BibDataBase {
 
         }
         if ($entryisselected) {
-          if ($field==Q_BIBLIOGRAPHY) {
-              $akey = $citations[$bib->getKey()];
-          } else {
+          if ($akey<0) {
               $akey = count($result)+1;
           }
           $result[$akey] = $bib;
@@ -3743,10 +3740,6 @@ class Dispatcher {
 
   function bibliography() {
     $this->displayer='BibliographyDisplay';    
-    if (preg_match('/utf-?8/i',ENCODING)) {
-      $_GET[Q_BIBLIOGRAPHY] = json_decode($_GET[Q_BIBLIOGRAPHY]);
-    }
-    $this->query[Q_BIBLIOGRAPHY]=$_GET[Q_BIBLIOGRAPHY];
   }
 
   function layout() { $this->query[LAYOUT]=$_GET[LAYOUT]; }
@@ -3754,7 +3747,7 @@ class Dispatcher {
   function keys() {
     if (preg_match('/utf-?8/i',ENCODING)) {
       // Create array from list of bibtex entries
-      $_GET[Q_KEYS] = array_filter(explode(',',strtr($_GET[Q_KEYS]," ",",")),'strlen');
+      $_GET[Q_KEYS] = json_decode($_GET[Q_KEYS]);
     }
     $this->query[Q_KEYS]=$_GET[Q_KEYS];
   }

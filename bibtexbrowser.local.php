@@ -138,17 +138,13 @@ class BibliographyDisplay  {
   /** Displays a set of bibtex entries in an HTML table */
   function display() {
 
-    ksort($this->entries); //, ORDER_FUNCTION);
+    ksort($this->entries); // sort the keys, not the values
 
     layoutHeaderHTML();
-
-    $count = count($this->entries);
-    $i=0;
     foreach ($this->entries as $ref => $bib) {
       $bib->setIndex($ref);
       $bib->toHTML();
     } // end foreach
-
     layoutFooterHTML();
 
   } // end function

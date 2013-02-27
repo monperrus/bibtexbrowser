@@ -1,5 +1,11 @@
 <?php
 
+// TODO: improve by loading bibtexbrowser DB first, then cite() checks whether the entry is in the DB (prints "?" if not found). this also allows for non-numeric refs.
+
+@define('LAYOUT','list');
+@define('USEBIBTHUMBNAIL',0);
+@define('BIBLIOGRAPHYSTYLE','MGBibliographyStyle');
+
 // Keep track of all citations and their reference numbers (order of appearance)
 $citations = array();
 
@@ -29,9 +35,23 @@ function cite() {
     echo "[" . implode(",",$links) . "]" ;
 }
 
-function make_bibtexbrowser_bibliography() {
+// prepare bibtexbrowser query
+function make_bibtexbrowser_bibliography_keys() {
     global $citations;
-    return json_encode($citations) ;
+    $keylist = array();
+    foreach ( $citation as $entry => $ref ) {
+        $keylist["$ref"] = $entry; // make sure keys are strings
+    }
+    return json_encode($keylist) ;
+}
+
+function make_bibliography() {
+    global $_GET;
+    $_GET = array();
+    $_GET['bib']='mg.bib';
+    $_GET['bibliography']=1;
+    $_GET['keys']=make_bibtexbrowser_bibliography_keys();
+    include( 'bibtexbrowser.php' );
 }
 
 ?>
