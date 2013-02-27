@@ -122,6 +122,8 @@ define('BIBTEXBROWSER','v20130206');
 @define('METADATA_EPRINTS',false);
 
 @define('LAYOUT','table'); // may be table/list/deflist. defines the HTML rendering options (<table>, <ol>, <dl>, resp.). 'list' only works with 'ABBRV_TYPE'='index'.
+@define('ICONS','[]');
+@define('Q_ICONS','icons');
 
 // in embedded mode, we still need a URL for displaying bibtex entries alone
 // this is usually resolved to bibtexbrowser.php
@@ -153,6 +155,7 @@ See also zetDB().
 function setDB() {
   list($db, $parsed, $updated, $saved) = _zetDB(@$_GET[Q_FILE]);
   $_GET[Q_DB] = $db;
+  $_GET[Q_ICONS] = (array) json_decode(ICONS);
   return $updated;
 }
 
@@ -1055,17 +1058,15 @@ class BibEntry {
   }
 
   /** replace [$ext] with an icon whose url is defined in a string
-   *  e.g. getIconOrTxt('pdf') will show the icon defined by @string{icon_pdf="<insert-url-here>"} or print '[pdf]'
-   *  or   getIconOrTxt('pdf','paper') will show the icon defined by @string{icon_pdf="<insert-url-here>"} or print '[paper]'
+   *  e.g. getIconOrTxt('pdf') will show the icon defined in $_GET[Q_ICONS]['pdf'] or print '[pdf]'
+   *  or   getIconOrTxt('pdf','paper') will show the icon defined by $_GET[Q_ICONS]['pdf'] or print '[paper]'
    * The replacement text is also used if the url does not point to a valid file (using the "alt" property of the "img" html tag)
-   * Warning: by convention @string are case sensitive
    */
   function getIconOrTxt($ext,$def=NULL) {
-    // e.g. @STRING{icon_pdf="http://mywebsite/pdf.png"}
     if ($def==NULL) { $def=$ext; }
-    $stringkey = strtolower('icon_'.$ext);
-    if (isset($_GET[Q_DB]->stringdb[$stringkey])){
-      $str='<img class="icon" src="'.$_GET[Q_DB]->stringdb[$stringkey].'" alt="['.$def.']" title="'.$def.'"/>';
+    $icons = $_GET[Q_ICONS]; 
+    if ( array_key_exists($ext,$icons) ) { 
+      $str='<img class="icon" src="'.$icons[$ext].'" alt="['.$def.']" title="'.$def.'"/>';
     } else {
       $str='['.$def.']';
     }
@@ -2419,7 +2420,6 @@ class SimpleDisplay  {
     } // end foreach
 
     layoutFooterHTML();
-
   } // end function
 } // end class
 

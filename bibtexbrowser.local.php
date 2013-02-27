@@ -4,6 +4,18 @@
 @define('USEBIBTHUMBNAIL',0);
 @define('BIBTHUMBNAIL','thumbnail');
 
+/** does nothing but calls method display() on the content and use javascript if needed. 
+*/
+class JsWrapper {
+  function JsWrapper(&$content) {
+    echo $content->display();
+    if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
+      javascript();
+    }
+  }
+}
+
+
 function MGBibliographyStyle(&$bibentry) {
   $title = $bibentry->getTitle();
   $type = $bibentry->getType();
@@ -142,6 +154,7 @@ class BibliographyDisplay  {
     layoutFooterHTML();
   } // end function
 } // end class
+
 
 
 ?>
