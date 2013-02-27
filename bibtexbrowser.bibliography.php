@@ -1,17 +1,20 @@
 <?php
 
-/* TODO: improve by loading bibtexbrowser DB first, then cite() checks whether the entry is in the DB (prints "?" if not found). this also allows for using other ABBRV than indices.
-*/
-
-@define('LAYOUT','list');
-@define('USEBIBTHUMBNAIL',0);
-@define('BIBLIOGRAPHYSTYLE','MGBibliographyStyle');
+// Load the database without doing anything else
+function load_DB() {
+    $_GET['library']=1;
+    include( 'bibtexbrowser.php' );
+    setDB();
+    return $_GET[Q_DB];
+}
+$DB = load_DB();
 
 // Keep track of all citations and their reference numbers (order of appearance)
 $citations = array();
 
-// Create the link to the bibtex entry in reference list
+// Function to create a link for a bibtex entry
 function linkify($a) {
+  if ( empty($a) ) { return "<b>?</b>"; }
   return '<a href="#' . $a . '">' . $a . '</a>' ;
 }
 
@@ -20,34 +23,42 @@ function linkify($a) {
 */
 function cite() {
     global $citations;
+    global $DB;
     $entries = func_get_args(); // list of bibtex entries
     $refs = array(); // corresponding references
     foreach ($entries as $entry) {
-        if ( array_key_exists ( $entry , $citations ) ) {
-            $ref = $citations[$entry] ;
-        } else {
-            $ref = count( $citations ) + 1 ;
-            $citations[$entry] = $ref ;
-        }
-        $refs[] = $ref;
+          $bib = $DB->getEntryByKey($entry);
+          if ( empty($bib) ) {
+             $ref = array(); // empty ref for detection by linkify, while getting last with sort()
+             $refs[] = $ref;
+             continue;
+          }
+          if (ABBRV_TYPE != 'index') {
+              $ref = $bib->getAbbrv();
+              $citations[$entry] = $ref;
+          } else {
+            if ( array_key_exists ( $entry , $citations ) ) {
+                $ref = $citations[$entry] ;
+            } else {
+                $ref = count( $citations ) + 1 ;
+                $citations[$entry] = $ref ;
+            }
+          }
+          $refs[] = $ref;
     }
     sort( $refs );
     $links = array_map( 'linkify', $refs );
     echo "[" . implode(",",$links) . "]" ;
 }
 
-// prepare bibtexbrowser query
-function make_bibtexbrowser_bibliography_keys() {
-    global $citations;
-    return json_encode(array_flip($citations)) ;
-}
-
+// Function to print out the table/list of references
 function make_bibliography() {
-    global $_GET;
+    global $citations;
+    $bibfile = $_GET[Q_FILE]; // save bibfilename before resetting $_GET
     $_GET = array();
-    $_GET['bib']='mg.bib';
-    $_GET['bibliography']=1; // sets assoc_keys
-    $_GET['keys']=make_bibtexbrowser_bibliography_keys();
+    $_GET['bib'] = $bibfile;
+    $_GET['bibliography']=1; // also sets $_GET['assoc_keys']=1
+    $_GET['keys'] = json_encode(array_flip($citations));
     //print_r($_GET);
     include( 'bibtexbrowser.php' );
 }
