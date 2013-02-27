@@ -100,7 +100,8 @@ define('BIBTEXBROWSER','v20130206');
 @define('Q_ALL', 'all');
 @define('Q_ENTRY', 'entry');
 @define('Q_KEY', 'key');
-@define('Q_KEYS', 'keys'); // select entries using a JSON array of bibtex keys (if an associative array is used, the keys of this array are used as item abbrv)
+@define('Q_KEYS', 'keys'); // select entries using a JSON array of bibtex keys
+@define('Q_ASSOCKEYS', 'assoc_keys'); // consider Q_KEYS as an associative array, and use the keys of Q_KEYS as item abbrv
 @define('Q_SEARCH', 'search');
 @define('Q_EXCLUDE', 'exclude');
 @define('Q_RESULT', 'result');
@@ -3000,24 +3001,21 @@ class BibDataBase {
     if (isset($query[Q_ALL])) return array_values($this->bibdb);
 
     if (array_key_exists( Q_KEYS, $query )) {
-      $keylist = array();
-      $is_assoc = (bool)count(array_filter(array_keys($query[Q_KEYS]), 'is_string'));
-      foreach ($query[Q_KEYS] as $ref => $key) {
-         if ($is_assoc) {
-             $keylist[$ref] = $key;
-         } else {
-             $keylist[] = $key;
-         }
-      }
+      $keylist = (array) $query[Q_KEYS];
+      $reflist = array_flip($keylist);
+      $is_assoc = array_key_exists( Q_ASSOCKEYS, $query ); //array_values($query[Q_KEYS]) !== $query[Q_KEYS];
+      //if ($is_assoc) echo "Assoc";
+      //print_r($keylist);
     } else {
       $is_assoc = false;
     }
+    unset($query[Q_ASSOCKEYS]); // not used for filtering the bibtex entries
 
     $result = array();
 
     foreach ($this->bibdb as $bib) {
         $entryisselected = true;
-        $akey = -1;
+        $akey = '';
         foreach ($query as $field => $fragment) {
           $field = strtolower($field);
           if ($field==Q_SEARCH) {
@@ -3046,12 +3044,11 @@ class BibDataBase {
           }
           else if ($field==Q_KEYS) {
             if ( ! in_array( $bib->getKey(), $keylist ) ) {
-              if ($is_assoc) {
-                $akey = array_search( $bib->getKey(), $keylist );
-              }
+              //echo $bib->getKey() . " not in list<br/>\n";
               $entryisselected = false;
               break;
-            } 
+            }
+            //echo $bib->getKey() . " in list<br/>\n";
           }
           else {
             if (!$bib->hasPhrase($fragment, $field))  {
@@ -3062,13 +3059,16 @@ class BibDataBase {
 
         }
         if ($entryisselected) {
-          if ($akey<0) {
-              $akey = count($result)+1;
+          if ( $is_assoc ) {
+              $result[$reflist[$bib->getKey()]] = $bib;
+          } else {
+              $result[] = $bib;
           }
-          $result[$akey] = $bib;
-        } 
+        } else {
+          //echo "entry ".$bib->getKey()." not selected\n";
+        }
       }
-      
+      //foreach ($result as $ref=>$bib) {echo $ref." => ".$bib->getKey()." ";}
       return $result;
   }
 } // end class
@@ -3739,7 +3739,8 @@ class Dispatcher {
   }
 
   function bibliography() {
-    $this->displayer='BibliographyDisplay';    
+    $this->displayer='BibliographyDisplay';
+    $this->query[Q_ASSOCKEYS]=1;
   }
 
   function layout() { $this->query[LAYOUT]=$_GET[LAYOUT]; }
@@ -3750,6 +3751,10 @@ class Dispatcher {
       $_GET[Q_KEYS] = json_decode($_GET[Q_KEYS]);
     }
     $this->query[Q_KEYS]=$_GET[Q_KEYS];
+  }
+
+  function assoc_keys() {
+    $this->query[Q_ASSOCKEYS]=$_GET[Q_ASSOCKEYS];
   }
 
   /** is used to remotely analyzed a situation */

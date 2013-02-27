@@ -119,37 +119,29 @@ function MGBibliographyStyle(&$bibentry) {
   $result .= '<hr style="visibility: hidden; height:0; clear:both;"/>';
 
   return $result;
-}
+} // end style function
 
 /** Class to display a bibliography of a page. */
 class BibliographyDisplay  {
-  function setDB(&$bibdatabase) {
-    $this->setEntries($bibdatabase->bibdb);
-  }
+  function setDB(&$bibdatabase) { $this->setEntries($bibdatabase->bibdb); }
 
   /** sets the entries to be shown */
-  function setEntries(&$entries) {
-    $this->entries = $entries;
-  }
+  function setEntries(&$entries) { $this->entries = $entries; }
 
   function setTitle($title) { $this->title = $title; return $this; }
   function getTitle() { return @$this->title ; }
 
   /** Displays a set of bibtex entries in an HTML table */
   function display() {
-
     ksort($this->entries); // sort the keys, not the values
-
     layoutHeaderHTML();
     foreach ($this->entries as $ref => $bib) {
       $bib->setIndex($ref);
       $bib->toHTML();
     } // end foreach
     layoutFooterHTML();
-
   } // end function
 } // end class
-
 
 
 ?>

@@ -1,6 +1,7 @@
 <?php
 
-// TODO: improve by loading bibtexbrowser DB first, then cite() checks whether the entry is in the DB (prints "?" if not found). this also allows for non-numeric refs.
+/* TODO: improve by loading bibtexbrowser DB first, then cite() checks whether the entry is in the DB (prints "?" if not found). this also allows for using other ABBRV than indices.
+*/
 
 @define('LAYOUT','list');
 @define('USEBIBTHUMBNAIL',0);
@@ -15,7 +16,7 @@ function linkify($a) {
 }
 
 // Create citations from bibtex entries. One argument per bibtex entry.
-/* Example:  As shown in <?php cite("MyBibtexEntry2013");?> , one can cite 
+/* Example:  As shown in <?php cite("MyBibtexEntry2013","MyOtherRef2013");?> , one can use bibtex within HTML/PHP.
 */
 function cite() {
     global $citations;
@@ -38,19 +39,16 @@ function cite() {
 // prepare bibtexbrowser query
 function make_bibtexbrowser_bibliography_keys() {
     global $citations;
-    $keylist = array();
-    foreach ( $citation as $entry => $ref ) {
-        $keylist["$ref"] = $entry; // make sure keys are strings
-    }
-    return json_encode($keylist) ;
+    return json_encode(array_flip($citations)) ;
 }
 
 function make_bibliography() {
     global $_GET;
     $_GET = array();
     $_GET['bib']='mg.bib';
-    $_GET['bibliography']=1;
+    $_GET['bibliography']=1; // sets assoc_keys
     $_GET['keys']=make_bibtexbrowser_bibliography_keys();
+    //print_r($_GET);
     include( 'bibtexbrowser.php' );
 }
 
