@@ -117,6 +117,13 @@ define('BIBTEXBROWSER','v20121205');
 @define('METADATA_DC',true);
 @define('METADATA_EPRINTS',false);
 
+/* to use provided icons, uncomment the next three lines */
+function e2i($e) { return "icons/".$e.".png"; }
+$icons = json_encode(array("pdf" => e2i("pdf"), "bib" => e2i("bib"), "doi" => e2i("doi"), "url" => e2i("url"), "slides" => e2i("slides"), "poster" => e2i("slides"), "gsc" => e2i("google_scholar") ));
+@define('ICONS',$icons);
+@define('ICONS','[]');
+@define('Q_ICONS','icons');
+
 // in embedded mode, we still need a URL for displaying bibtex entries alone
 // this is usually resolved to bibtexbrowser.php
 // but can be overridden in bibtexbrowser.local.php 
@@ -147,6 +154,7 @@ See also zetDB().
 function setDB() {
   list($db, $parsed, $updated, $saved) = _zetDB(@$_GET[Q_FILE]);
   $_GET[Q_DB] = $db;
+  $_GET[Q_ICONS] = (array) json_decode(ICONS); // not sure this is the best place for this action
   return $updated;
 }
 
@@ -240,7 +248,7 @@ function _zetDB($bibtex_filenames) {
      && is_readable($compiledbib) 
      && filesize($compiledbib)>0
    ) {
-    $f = fopen($compiledbib,'r');
+    $f = fopen($compiledbib,'r+');
     //we use a lock to avoid that a call to bibbtexbrowser made while we write the object loads an incorrect object
     if (flock($f,LOCK_EX)) { 
       $s = filesize($compiledbib);
@@ -999,10 +1007,69 @@ class BibEntry {
     return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/'.$this->getURL();
   }
 
-  /** returns a "[pdf]" link if relevant */
-  function getUrlLink() {
-    if ($this->hasField('url')) return ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField('url').'">[pdf]</a>';
+  /** Read the bibtex field $bibfield and return a link with icon or text
+   * e.g. given the bibtex entry: @article{myarticle, pdf={myarticle.pdf}},
+   * $bibtexentry->getLink('pdf') creates a link to myarticle.pdf using the text '[pdf]' or the pdf icon specified in the bibtex file (cf. getIconOrTxt)
+   * getLink($bibfield,$icon,$def) specifies the icon key $icon and default text $def.
+  */
+  function getLink($bibfield,$icon=NULL,$def=NULL) {
+    if ($icon==NULL) { $icon=$bibfield; }
+    $str = $this->getIconOrTxt($icon,$def);
+    if ($this->hasField($bibfield)) {
+       return ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField($bibfield).'">'.$str.'</a>';
+    }
     return '';
+  }
+
+  /* a few specializations of getLink */
+
+  /** returns a "[url]" link if relevant. modified to exploit the new method, while keeping backward compatibility */ 
+  function getUrlLink() {
+    return $this->getLink('url');
+  }
+
+  /** returns a "[bib]" link if relevant */ 
+  function getBibLink() {
+    $bibstr = $this->getIconOrTxt('bib');
+    $href = 'href="'.$this->getURL().'"';
+    $link = "<a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>$bibstr</a>";
+    return $link;
+  }
+
+
+  /** DOI are a special kind of links, where the url depends on the doi */
+  function getDoiLink() {
+    $str = $this->getIconOrTxt('doi');
+    if ($this->hasField('doi')) {
+        return ' <a href="http://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
+    }
+    return '';
+  } 
+
+  /** GS are a special kind of links, where the url depends on the google scholar id */
+  function getGSLink() {
+    $str = $this->getIconOrTxt('gsc','cites');
+    // Google Scholar ID
+    if ($this->hasField('gsid')) {
+        return ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
+    }
+    return '';
+  }
+
+  /** replace [$ext] with an icon whose url is defined in a string
+   *  e.g. getIconOrTxt('pdf') will show the icon defined in $_GET[Q_ICONS]['pdf'] or print '[pdf]'
+   *  or   getIconOrTxt('pdf','paper') will show the icon defined by $_GET[Q_ICONS]['pdf'] or print '[paper]'
+   * The replacement text is also used if the url does not point to a valid file (using the "alt" property of the "img" html tag)
+   */
+  function getIconOrTxt($ext,$def=NULL) {
+    if ($def==NULL) { $def=$ext; }
+    $icons = $_GET[Q_ICONS]; 
+    if ( array_key_exists($ext,$icons) ) { 
+      $str='<img class="icon" src="'.$icons[$ext].'" alt="['.$def.']" title="'.$def.'"/>';
+    } else {
+      $str='['.$def.']';
+    }
+    return $str;
   }
 
   /** Reruns the abstract */
@@ -1307,25 +1374,22 @@ class BibEntry {
         echo '<td class="bibitem">';
         echo bib2html($this);
 
-        $href = 'href="'.$this->getURL().'"';
-
-        if (BIBTEXBROWSER_BIBTEX_LINKS) {
-          // we add biburl and title to be able to retrieve this important information
-          // using Xpath expressions on the XHTML source
-          echo " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bibtex]</a>";
-        }
-        
+        // we add biburl and title to be able to retrieve this important information
+        // using Xpath expressions on the XHTML source
+        echo $this->getBibLink();
+        // returns an empty string if no pdf present
+        echo $this->getLink('pdf');
         // returns an empty string if no url present
-        echo $this->getUrlLink();
+        echo $this->getLink('url');
+        // returns an empty string if no slides present
+        echo $this->getLink('slides');
+        // returns an empty string if no poster present
+        echo $this->getLink('poster');
+        // Google Scholar ID. empty string if no gsid present
+        echo $this->getGSLink();
+        // returns an empty string if no doi present
+        echo $this->getDoiLink();
 
-        if ($this->hasField('doi')) {
-            echo ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
-        }
-        
-        // Google Scholar ID
-        if ($this->hasField('gsid')) {
-            echo ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">[cites]</a>';
-        }
         echo "</td></tr>\n";
   }
 
@@ -2987,6 +3051,8 @@ function bibtexbrowserDefaultCSS() {
 .bibentry-reference { margin-bottom:15px; padding:10px; background: none repeat scroll 0 0 #F5F5F5; border: 1px solid #DDDDDD; }
 
 .btb-nav { text-align: right; }
+
+.bibitem img.icon { height: 1em; }
 
 <?php
 } // end function bibtexbrowserDefaultCSS
