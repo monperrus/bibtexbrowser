@@ -99,6 +99,8 @@ define('BIBTEXBROWSER','v20121205');
 @define('Q_ALL', 'all');
 @define('Q_ENTRY', 'entry');
 @define('Q_KEY', 'key');
+@define('Q_KEYS', 'keys'); // select entries using a JSON array of bibtex keys
+@define('Q_ASSOCKEYS', 'assoc_keys'); // consider Q_KEYS as an associative array, and use the keys of Q_KEYS as item abbrv
 @define('Q_SEARCH', 'search');
 @define('Q_EXCLUDE', 'exclude');
 @define('Q_RESULT', 'result');
@@ -240,7 +242,7 @@ function _zetDB($bibtex_filenames) {
      && is_readable($compiledbib) 
      && filesize($compiledbib)>0
    ) {
-    $f = fopen($compiledbib,'r');
+    $f = fopen($compiledbib,'r+');
     //we use a lock to avoid that a call to bibbtexbrowser made while we write the object loads an incorrect object
     if (flock($f,LOCK_EX)) { 
       $s = filesize($compiledbib);
@@ -2827,6 +2829,17 @@ class BibDataBase {
     if (count($query)<1) {return array();}
     if (isset($query[Q_ALL])) return array_values($this->bibdb);
 
+    if (array_key_exists( Q_KEYS, $query )) {
+      $bibkeylist = $query[Q_KEYS];
+      $is_assoc = array_key_exists( Q_ASSOCKEYS, $query );
+    } else {
+      $is_assoc = false;
+    }
+    if ( $is_assoc ) { // if the array is associative, flip it to efficiently retrieve the abbrv from the bibkey
+      $abbrvlist = array_flip($bibkeylist);
+    }
+    unset($query[Q_ASSOCKEYS]); // not used for filtering the bibtex entries
+
     $result = array();
 
     foreach ($this->bibdb as $bib) {
@@ -2837,11 +2850,13 @@ class BibDataBase {
             // we search in the whole bib entry
             if (!$bib->hasPhrase($fragment)) {
               $entryisselected = false;
+              break;
             }
           }
           else if ($field==Q_EXCLUDE) {
             if ($bib->hasPhrase($fragment)) {
               $entryisselected = false;
+              break;
             }
           }
           else if ($field==Q_TYPE || $field==Q_INNER_TYPE) {
@@ -2852,11 +2867,22 @@ class BibDataBase {
             // moved here so that it is also used by AcademicDisplay:search2html()
             if (!$bib->hasPhrase('^('.$fragment.')$', Q_INNER_TYPE))  {
               $entryisselected = false;
+              break;
+            }
+          }
+          else if ($field==Q_KEYS) {
+            if ( ! in_array( $bib->getKey(), $bibkeylist ) ) {
+              $entryisselected = false;
+              break;
+            }
+            if ( $is_assoc ) {
+              $bib->setAbbrv($abbrvlist[$bib->getKey()]);
             }
           }
           else {
             if (!$bib->hasPhrase($fragment, $field))  {
               $entryisselected = false;
+              break;
             }
           }
 
@@ -2865,7 +2891,6 @@ class BibDataBase {
           $result[] = $bib;
         }
       }
-      
       return $result;
   }
 } // end class
@@ -3533,6 +3558,18 @@ class Dispatcher {
       return 'END_DISPATCH';
     }
     else { nonExistentBibEntryError(); }
+  }
+
+  function keys() {
+    if (preg_match('/utf-?8/i',ENCODING)) {
+      // Create array from list of bibtex entries
+      $_GET[Q_KEYS] = (array) json_decode($_GET[Q_KEYS]); // decode and cast the object into an (associative) array
+    }
+    $this->query[Q_KEYS]=$_GET[Q_KEYS];
+  }
+
+  function assoc_keys() {
+    $this->query[Q_ASSOCKEYS]=$_GET[Q_ASSOCKEYS];
   }
 
   /** is used to remotely analyzed a situation */
