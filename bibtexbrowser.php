@@ -1246,25 +1246,27 @@ class BibEntry {
   }
     
   /** Returns the abbreviation. */
-  function getAbbrv() {
-    if (ABBRV_TYPE == 'index') {
-       if ( LAYOUT == 'list' ) { // <ul> expects a raw number
-           return $this->index;
-       } else {
-           return '['.$this->index.']';
-       }
-    }
+  function getRawAbbrv() {
+    if (ABBRV_TYPE == 'index') return $this->index;
     if (ABBRV_TYPE == 'none') return '';
-    if (ABBRV_TYPE == 'key') return '['.$this->getKey().']';
-    if (ABBRV_TYPE == 'year') return '['.$this->getYear().']';
+    if (ABBRV_TYPE == 'key') return $this->getKey();
+    if (ABBRV_TYPE == 'year') return $this->getYear();
     if (ABBRV_TYPE == 'x-abbrv') {
       if ($this->hasField('x-abbrv')) {return $this->getField('x-abbrv');}
       return $this->abbrv;
     }
-    
     // otherwise it is a user-defined function in bibtexbrowser.local.php
     $f = ABBRV_TYPE;
     return $f($this);
+  }
+
+  /** Returns the abbreviation. */
+  function getAbbrv() {
+    $abbrv = $this->getRawAbbrv();
+    if ( ABBRV_TYPE == 'key' || ABBRV_TYPE == 'year' || ( ABBRV_TYPE == 'index' &&  LAYOUT != 'list' ) ) {
+       $abbrv = '['.$abbrv.']';
+    }
+    return $abbrv;
   }
 
 
@@ -1307,46 +1309,43 @@ class BibEntry {
 
   /** Outputs HTML line according to layout */
   function toHTML() {
-      switch(LAYOUT) {
-        case 'list': $this->toLI(); break;
-        case 'table': $this->toTR(); break;
-        case 'deflist': $this->toDD(); break;
+      switch(LAYOUT) { // open row
+        case 'list':
+          echo '<li class="bibline" value="'.$this->getAbbrv().'">';
+          break;
+        case 'table':
+          echo '<tr class="bibline"><td class="bibref">';
+          break;
+        case 'deflist':
+          echo '<dl class="bibline"><dt class="bibref">'; break;
+      }
+      $this->anchor();
+      switch(LAYOUT) { // close bibref and open bibitem
+        case 'table':
+          echo $this->getAbbrv().'</td><td class="bibitem">';
+          break;
+        case 'deflist':
+          echo $this->getAbbrv().'</dt><dd class="bibitem">';
+          break;
+      }
+      echo bib2html($this);
+      echo bib2links($this);
+      switch(LAYOUT) { // close row
+        case 'list':
+          echo '</li>';
+          break;
+        case 'table':
+          echo '</td></tr>';
+          break;
+        case 'deflist':
+          echo '</dd></dl>';
+          break;
       }
   }
 
   /** Create the entry anchor */
   function anchor() {
         echo '<a name="'.$this->getAbbrv().'"></a>';
-  }
-
-  /** Outputs an TR line with two TDS inside
-  */
-  function toTR() {
-        echo '<tr class="bibline">';
-        echo '<td  class="bibref">';
-        $this->anchor();
-        echo $this->getAbbrv().'</td> ';
-        echo '<td class="bibitem">';
-        echo bib2html($this);
-        echo "</td></tr>\n"; // toTR() must be self-contained
-  }
-
-
-  /** Outputs an LI line with SPANs for each element, setting the item value according to getAbbrv(). */
-  function toLI() {
-        echo '<li class="bibline" value="'.$this->getAbbrv().'">';
-        $this->anchor();
-        echo bib2html($this);
-        echo "</li>\n";
-  }
-
-  /** Outputs an DL line (<dt>+<dd>) */
-  function toDD() {
-        echo '<dl class="bibline"><dt class="bibref">';
-        $this->anchor();
-        echo $this->getAbbrv().'</dt><dd class="bibitem">';
-        echo bib2html($this);
-        echo "</dd></dl>\n";
   }
 
   /** Outputs an coins URL: see http://ocoins.info/cobg.html
@@ -1486,7 +1485,10 @@ function layoutFooterHTML($tag) {
 /** this function encapsulates the user-defined name for bib to HTML*/
 function bib2html(&$bibentry) {
   $function = BIBLIOGRAPHYSTYLE;
-  $str = $function($bibentry);
+  return $function($bibentry);
+}
+
+function bib2links(&$bibentry) {
   $href = 'href="'.$bibentry->getURL().'"';
 
   if (BIBTEXBROWSER_BIBTEX_LINKS) {
@@ -1494,14 +1496,14 @@ function bib2html(&$bibentry) {
     // using Xpath expressions on the XHTML source
     $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$bibentry->getKey()."\" {$href}>[bibtex]</a>";
   }
- 
+
   // returns an empty string if no url present
   $str .= $bibentry->getUrlLink();
 
   if ($bibentry->hasField('doi')) {
       $str .= ' <a href="http://dx.doi.org/'.$bibentry->getField("doi").'">[doi]</a>';
   }
- 
+
   // Google Scholar ID
   if ($bibentry->hasField('gsid')) {
       $str .= ' <a href="http://scholar.google.com/scholar?cites='.$bibentry->getField("gsid").'">[cites]</a>';
@@ -2439,8 +2441,7 @@ class AcademicDisplay  {
     echo "\n".'<div class="btb-header">'.$title.'</div>'."\n";
     $tag = layoutHeaderHTML();
 
-    // by default the abbreviation is incremented over all 
-    // searches
+    // by default the abbreviation is incremented over all searches
     
     // since we don't know before hand all section, we can not index in decreasing order
     static $count;
@@ -3247,7 +3248,7 @@ class PagedDisplay {
       $index = ($this->page-1)*PAGE_SIZE + $i;
       if (isset($this->entries[$index])) {
         $bib = $this->entries[$index];       
-        $bib->toHTML(); 
+        $bib->toHTML();
         
       } else {
         //break;
