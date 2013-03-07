@@ -13,9 +13,9 @@ $DB = load_DB();
 $citations = array();
 
 // Function to create a link for a bibtex entry
-function linkify($a) {
-  if ( empty($a) ) { return "<b>?</b>"; }
-  return '<a href="#' . $a . '">' . $a . '</a>' ;
+function linkify($txt,$a) {
+  if ( empty($a) ) { return '<b><abbr title="'.$txt.'">?</abbr></b>'; }
+  return '<a href="#' . $a . '" class="bibreflink"><abbr title="'.$txt.'">' . $a . '</abbr></a>' ;
 }
 
 // Create citations from bibtex entries. One argument per bibtex entry.
@@ -30,7 +30,8 @@ function cite() {
           $bib = $DB->getEntryByKey($entry);
           if ( empty($bib) ) {
              $ref = array(); // empty ref for detection by linkify, while getting last with sort()
-             $refs[] = $ref;
+             $txt = "Unknown key &#171;$entry&#187;";
+             $refs[$txt] = $ref;
              continue;
           }
           if (ABBRV_TYPE != 'index') {
@@ -44,10 +45,14 @@ function cite() {
                 $citations[$entry] = $ref ;
             }
           }
-          $refs[] = $ref;
+          $txt = $bib->getVeryCompactedAuthors() . ", &#171;" . $bib->getTitle() . "&#187;, " . $bib->getYear() ;
+          $refs[$txt] = $ref;
     }
-    sort( $refs );
-    $links = array_map( 'linkify', $refs );
+    asort( $refs );
+    $links = array();
+    foreach ( $refs as $txt => $ref ) {
+        $links[] = linkify($txt,$ref);
+    }
     echo "[" . implode(",",$links) . "]" ;
 }
 
@@ -57,10 +62,23 @@ function make_bibliography() {
     $bibfile = $_GET[Q_FILE]; // save bibfilename before resetting $_GET
     $_GET = array();
     $_GET['bib'] = $bibfile;
-    $_GET['bibliography']=1; // also sets $_GET['assoc_keys']=1
+    $_GET['bibliography'] = 1; // also sets $_GET['assoc_keys']=1
     $_GET['keys'] = json_encode(array_flip($citations));
     //print_r($_GET);
     include( 'bibtexbrowser.php' );
+?>
+<script type="text/javascript" ><!--
+updateCitation = function () { //detect hash change
+    var hash = window.location.hash.slice(1); //hash to string
+    $('.bibline').each(function() {$(this).removeClass("bibline-active");});
+    if (hash) {
+        $('[name='+hash+']').parents('.bibline').each(function() {$(this).addClass("bibline-active");});
+    }
+};
+$(window).bind('hashchange',updateCitation);
+updateCitation();
+--></script>
+<?php
 }
 
 ?>
