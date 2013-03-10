@@ -4,7 +4,7 @@ URL: http://www.monperrus.net/martin/bibtexbrowser/
 Feedback & Bug Reports: martin.monperrus@gmail.com
 
 (C) 2013 Matthieu Guillaumin
-(C) 2006-2012 Martin Monperrus
+(C) 2006-2013 Martin Monperrus
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -80,6 +80,12 @@ define('BIBTEXBROWSER','v__GITHUB__');
 // their publication lists according to this bibtex 
 @define('BIBTEXBROWSER_AUTHOR_LINKS','homepage');
 
+// BIBTEXBROWSER_LAYOUT defines the HTML rendering layout of the produced HTML
+// may be table/list/ordered_list/definition (for <table>, <ol>, <dl> resp.).
+// for list/ordered_list, the abbrevations are not taken into account (see ABBRV_TYPE)
+// for ordered_list, the index is given by HTML directly (in increasing order)
+@define('BIBTEXBROWSER_LAYOUT','table');
+
 @define('BIBTEXBROWSER_DEBUG',false);
 
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
@@ -117,8 +123,6 @@ define('BIBTEXBROWSER','v__GITHUB__');
 @define('METADATA_GS',true);
 @define('METADATA_DC',true);
 @define('METADATA_EPRINTS',false);
-
-@define('LAYOUT','table'); // may be table/list/deflist. defines the HTML rendering options (<table>, <ol>/<ul>, <dl>, resp.). 'list' only works with 'ABBRV_TYPE'='index' (ordered list) and 'none' (unordered list, the default if another choice than 'list' is made).
 
 // in embedded mode, we still need a URL for displaying bibtex entries alone
 // this is usually resolved to bibtexbrowser.php
@@ -243,7 +247,7 @@ function _zetDB($bibtex_filenames) {
      && is_readable($compiledbib) 
      && filesize($compiledbib)>0
    ) {
-    $f = fopen($compiledbib,'r+'); // my Unix seems to consider flock as a writing operation
+    $f = fopen($compiledbib,'r+'); // some Unix seem to consider flock as a writing operation
     //we use a lock to avoid that a call to bibbtexbrowser made while we write the object loads an incorrect object
     if (flock($f,LOCK_EX)) { 
       $s = filesize($compiledbib);
@@ -1245,7 +1249,7 @@ class BibEntry {
     return $this->fields;
   }
     
-  /** Returns the abbreviation. */
+  /** Returns the raw, undecorated abbreviation depending on ABBRV_TYPE. */
   function getRawAbbrv() {
     if (ABBRV_TYPE == 'index') return $this->index;
     if (ABBRV_TYPE == 'none') return '';
@@ -1260,10 +1264,10 @@ class BibEntry {
     return $f($this);
   }
 
-  /** Returns the abbreviation. */
+  /** Returns the abbreviation, etc [1] if ABBRV_TYPE='index'. */
   function getAbbrv() {
     $abbrv = $this->getRawAbbrv();
-    if ( ABBRV_TYPE == 'key' || ABBRV_TYPE == 'year' || ( ABBRV_TYPE == 'index' &&  LAYOUT != 'list' ) ) {
+    if ( ABBRV_TYPE != 'none' ) {
        $abbrv = '['.$abbrv.']';
     }
     return $abbrv;
@@ -1309,44 +1313,48 @@ class BibEntry {
 
   /** Outputs HTML line according to layout */
   function toHTML() {
-      switch(LAYOUT) { // open row
+      switch(BIBTEXBROWSER_LAYOUT) { // open row
         case 'list':
-          echo '<li class="bibline" value="'.$this->getAbbrv().'">';
+          echo '<li class="bibline">';
+          break;
+        case 'ordered_list':
+          echo '<li class="bibline">';
           break;
         case 'table':
           echo '<tr class="bibline"><td class="bibref">';
           break;
-        case 'deflist':
-          echo '<dl class="bibline"><dt class="bibref">'; break;
+        case 'definition':
+          echo '<dl class="bibline"><dt class="bibref">';
+          if (ABBRV_TYPE=='none') { die ('Cannot define an empty term!'); }
+          break;
       }
-      $this->anchor();
-      switch(LAYOUT) { // close bibref and open bibitem
+      echo $this->anchor();
+      switch(BIBTEXBROWSER_LAYOUT) { // close bibref and open bibitem
         case 'table':
           echo $this->getAbbrv().'</td><td class="bibitem">';
           break;
-        case 'deflist':
+        case 'definition':
           echo $this->getAbbrv().'</dt><dd class="bibitem">';
           break;
       }
       echo bib2html($this);
-      echo bib2links($this);
-      switch(LAYOUT) { // close row
+      echo $this->bib2links();
+      switch(BIBTEXBROWSER_LAYOUT) { // close row
         case 'list':
-          echo '</li>';
+          echo '</li>'."\n";
+          break;
+        case 'ordered_list':
+          echo '</li>'."\n";
           break;
         case 'table':
-          echo '</td></tr>';
+          echo '</td></tr>'."\n";
           break;
-        case 'deflist':
-          echo '</dd></dl>';
+        case 'definition':
+          echo '</dd></dl>'."\n";
           break;
       }
   }
 
-  /** Create the entry anchor */
-  function anchor() {
-        echo '<a name="'.$this->getAbbrv().'"></a>';
-  }
 
   /** Outputs an coins URL: see http://ocoins.info/cobg.html
    * Used by Zotero, mendeley, etc.
@@ -1409,6 +1417,40 @@ class BibEntry {
 
   }
 
+  /** Returns an anchor for this entry.  */
+  function anchor() {
+        return '<a name="'.$this->getRawAbbrv().'"></a>';
+  }
+
+  /** returns a collection of links for the given bibtex entry
+   *  e.g. [bibtex] [doi][pdf]
+   */
+  function bib2links() {
+    $href = 'href="'.$this->getURL().'"';
+
+    $str = '';
+  
+    if (BIBTEXBROWSER_BIBTEX_LINKS) {
+      // we add biburl and title to be able to retrieve this important information
+      // using Xpath expressions on the XHTML source
+      $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bibtex]</a>";
+    }
+
+    // returns an empty string if no url present
+    $str .= $this->getUrlLink();
+
+    if ($this->hasField('doi')) {
+      $str .= ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
+    }
+
+    // Google Scholar ID
+    if ($this->hasField('gsid')) {
+      $str .= ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">[cites]</a>';
+    }
+
+    return $str;
+  }
+
 
 
    /**
@@ -1454,62 +1496,42 @@ class BibEntry {
   }
 }
 
-
-function layoutHeaderHTML() {
-    $tag = '';
-    switch(LAYOUT) { /* switch for different layouts */
-      case 'list':
-        if (ABBRV_TYPE=='index') {
-            $tag='ol';
-        } else { // assume none
-            $tag='ul';
-        }
-        break;
-      case 'table':
-        $tag = 'table';
-        break;
-      case 'deflist':
-        $tag = 'div';
-        break;
-      default:
-        die('Unknown LAYOUT');
-    }
-    echo '<' . $tag . ' class="result">';
-    return $tag;
+/** returns an HTML tag depending on BIBTEXBROWSER_LAYOUT e.g. <TABLE> */
+function get_HTML_tag_for_layout() {
+  switch(BIBTEXBROWSER_LAYOUT) { /* switch for different layouts */
+    case 'list':
+      $tag='ul';
+      break;
+    case 'ordered_list':
+      $tag='ol';
+      break;
+    case 'table':
+      $tag = 'table';
+      break;
+    case 'definition':
+      $tag = 'div';
+      break;
+    default:
+      die('Unknown BIBTEXBROWSER_LAYOUT');
+  }
+  return $tag;
 }
 
-function layoutFooterHTML($tag) {
-    echo '</' . $tag . '>';
+
+/** prints the header of a layouted HTML, depending on BIBTEXBROWSER_LAYOUT e.g. <TABLE> */
+function print_header_layout() {
+  echo '<' . get_HTML_tag_for_layout() . ' class="result">'."\n";
+}
+
+/** prints the footer of a layouted HTML, depending on BIBTEXBROWSER_LAYOUT e.g. </TABLE> */
+function print_footer_layout() {
+  echo '</' . get_HTML_tag_for_layout() . '>';
 }
 
 /** this function encapsulates the user-defined name for bib to HTML*/
 function bib2html(&$bibentry) {
   $function = BIBLIOGRAPHYSTYLE;
   return $function($bibentry);
-}
-
-function bib2links(&$bibentry) {
-  $href = 'href="'.$bibentry->getURL().'"';
-
-  if (BIBTEXBROWSER_BIBTEX_LINKS) {
-    // we add biburl and title to be able to retrieve this important information
-    // using Xpath expressions on the XHTML source
-    $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$bibentry->getKey()."\" {$href}>[bibtex]</a>";
-  }
-
-  // returns an empty string if no url present
-  $str .= $bibentry->getUrlLink();
-
-  if ($bibentry->hasField('doi')) {
-      $str .= ' <a href="http://dx.doi.org/'.$bibentry->getField("doi").'">[doi]</a>';
-  }
-
-  // Google Scholar ID
-  if ($bibentry->hasField('gsid')) {
-      $str .= ' <a href="http://scholar.google.com/scholar?cites='.$bibentry->getField("gsid").'">[cites]</a>';
-  }
-
-  return $str;
 }
 
 /** encapsulates the user-defined sections. @nodoc */
@@ -1727,7 +1749,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   }
 
   // add the Coin URL
-  $result .=  "\n".$bibentry->toCoins();
+  $result .=  $bibentry->toCoins();
 
   return $result;
 }
@@ -2371,7 +2393,7 @@ class SimpleDisplay  {
       echo 'Options: '.@implode(',',$this->options).'<br/>';      
     }
     
-    $tag = layoutHeaderHTML();
+    print_header_layout();
     
     $count = count($this->entries);
     $i=0;
@@ -2382,7 +2404,7 @@ class SimpleDisplay  {
       $bib->toHTML();
     } // end foreach
 
-    layoutFooterHTML($tag);
+    print_footer_layout();
 
   } // end function
 } // end class
@@ -2438,21 +2460,21 @@ class AcademicDisplay  {
     
     uasort($entries, ORDER_FUNCTION);
     if (count($entries)>0) {
-    echo "\n".'<div class="btb-header">'.$title.'</div>'."\n";
-    $tag = layoutHeaderHTML();
+      echo "\n".'<div class="btb-header">'.$title.'</div>'."\n";
+      print_header_layout();
 
-    // by default the abbreviation is incremented over all searches
-    
-    // since we don't know before hand all section, we can not index in decreasing order
-    static $count;
-    if ($count == NULL) { $count = 1; } // init
-    $id = $count;
-    foreach ($entries as $bib) {
-        $bib->setIndex($id++);
-        $bib->toHTML();
-    } // end foreach
-    $count = @$count + count($entries);
-    layoutFooterHTML($tag);
+      // by default the abbreviation is incremented over all searches
+      
+      // since we don't know before hand all section, we can not index in decreasing order
+      static $count;
+      if ($count == NULL) { $count = 1; } // init
+      $id = $count;
+      foreach ($entries as $bib) {
+          $bib->setIndex($id++);
+          $bib->toHTML();
+      } // end foreach
+      $count = @$count + count($entries);
+      print_footer_layout();
     }
 
   }
@@ -3243,7 +3265,7 @@ class PagedDisplay {
     }
     
     $this->menu($less, $more);    
-    $tag = layoutHeaderHTML();
+    print_header_layout();
     for ($i = 0; $i < PAGE_SIZE; $i++) { 
       $index = ($this->page-1)*PAGE_SIZE + $i;
       if (isset($this->entries[$index])) {
@@ -3254,7 +3276,8 @@ class PagedDisplay {
         //break;
       }
     } // end foreach
-    layoutFooterHTML($tag);
+    
+    print_footer_layout();
     
     $this->menu($less, $more);    
   }
