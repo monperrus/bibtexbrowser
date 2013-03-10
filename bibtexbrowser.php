@@ -3016,14 +3016,19 @@ function bibtexbrowserDefaultCSS() {
   color: #ff6633;
 }
 
+.bibitem {
+  display: inline; /* for <dt> if BIBTEXBROWSER_LAYOUT='definition' */
+  margin-left:5px;
+}
+
 .bibref {
   padding:7px;
   padding-left:15px;
   vertical-align:text-top; 
+  display: inline; /* for <dt> if BIBTEXBROWSER_LAYOUT='definition' */
 }
 
 .result {
-  padding:0px;
   border: 1px solid #000000;
   margin:0px;
   background-color: #ffffff;
