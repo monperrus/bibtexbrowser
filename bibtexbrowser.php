@@ -1,9 +1,10 @@
 <?php /* bibtexbrowser: publication lists with bibtex and PHP
-<!--this is version v20121205 -->
+<!--this is version v__GITHUB__ -->
 URL: http://www.monperrus.net/martin/bibtexbrowser/ 
 Feedback & Bug Reports: martin.monperrus@gmail.com
 
-(C) 2006-2012 Martin Monperrus
+(C) 2013 Matthieu Guillaumin
+(C) 2006-2013 Martin Monperrus
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -16,7 +17,7 @@ License, or (at your option) any later version.
 // added on Wednesday, June 01 2011, bug found by Carlos Bras
 if (!defined('BIBTEXBROWSER')) {
 // this if block ends at the very end of this file, after all class and function declarations.
-define('BIBTEXBROWSER','v20121205');
+define('BIBTEXBROWSER','v__GITHUB__');
 
 
 // *************** CONFIGURATION
@@ -52,7 +53,7 @@ define('BIBTEXBROWSER','v20121205');
 // the target frame of menu links
 @define('BIBTEXBROWSER_MENU_TARGET','main'); // might be define('BIBTEXBROWSER_MENU_TARGET','_self'); in bibtexbrowser.local.php 
 
-@define('ABBRV_TYPE','index');// may be year/x-abbrv/key/none/index
+@define('ABBRV_TYPE','index');// may be year/x-abbrv/key/none/index/keys-index
 
 // Wrapper to use when we are included by another script 
 @define('BIBTEXBROWSER_EMBEDDED_WRAPPER', 'NoWrapper');
@@ -79,6 +80,12 @@ define('BIBTEXBROWSER','v20121205');
 // their publication lists according to this bibtex 
 @define('BIBTEXBROWSER_AUTHOR_LINKS','homepage');
 
+// BIBTEXBROWSER_LAYOUT defines the HTML rendering layout of the produced HTML
+// may be table/list/ordered_list/definition (for <table>, <ol>, <dl> resp.).
+// for list/ordered_list, the abbrevations are not taken into account (see ABBRV_TYPE)
+// for ordered_list, the index is given by HTML directly (in increasing order)
+@define('BIBTEXBROWSER_LAYOUT','table');
+
 @define('BIBTEXBROWSER_DEBUG',false);
 
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
@@ -99,8 +106,7 @@ define('BIBTEXBROWSER','v20121205');
 @define('Q_ALL', 'all');
 @define('Q_ENTRY', 'entry');
 @define('Q_KEY', 'key');
-@define('Q_KEYS', 'keys'); // select entries using a JSON array of bibtex keys
-@define('Q_ASSOCKEYS', 'assoc_keys'); // consider Q_KEYS as an associative array, and use the keys of Q_KEYS as item abbrv
+@define('Q_KEYS', 'keys'); // filter entries using a url-encoded, JSON-encoded array of bibtex keys
 @define('Q_SEARCH', 'search');
 @define('Q_EXCLUDE', 'exclude');
 @define('Q_RESULT', 'result');
@@ -129,6 +135,7 @@ define('BIBTEXBROWSER','v20121205');
 
 define('Q_INNER_AUTHOR', '_author');// internally used for representing the author
 define('Q_INNER_TYPE', 'x-bibtex-type');// used for representing the type of the bibtex entry internally
+@define('Q_INNER_KEYS_INDEX', '_keys-index');// used for storing indices in $_GET[Q_KEYS] array
 
 // for clean search engine links
 // we disable url rewriting
@@ -140,7 +147,7 @@ define('Q_INNER_TYPE', 'x-bibtex-type');// used for representing the type of the
 // we ensure that the pages won't get polluted
 // if future versions of PHP change warning mechanisms...
 
-@error_reporting(E_ERROR);
+@error_reporting(/*pp4php:serl*/E_ALL/*lres*/);
 
 
 /** parses $_GET[Q_FILE] and puts the result (an object of type BibDataBase) in $_GET[Q_DB].
@@ -242,7 +249,7 @@ function _zetDB($bibtex_filenames) {
      && is_readable($compiledbib) 
      && filesize($compiledbib)>0
    ) {
-    $f = fopen($compiledbib,'r+');
+    $f = fopen($compiledbib,'r+'); // some Unix seem to consider flock as a writing operation
     //we use a lock to avoid that a call to bibbtexbrowser made while we write the object loads an incorrect object
     if (flock($f,LOCK_EX)) { 
       $s = filesize($compiledbib);
@@ -1244,20 +1251,33 @@ class BibEntry {
     return $this->fields;
   }
     
-  /** Returns the abbreviation. */
-  function getAbbrv() {
+  /** Returns the raw, undecorated abbreviation depending on ABBRV_TYPE. */
+  function getRawAbbrv() {
     if (ABBRV_TYPE == 'index') return $this->index;
     if (ABBRV_TYPE == 'none') return '';
-    if (ABBRV_TYPE == 'key') return '['.$this->getKey().']';
-    if (ABBRV_TYPE == 'year') return '['.$this->getYear().']';
+    if (ABBRV_TYPE == 'key') return $this->getKey();
+    if (ABBRV_TYPE == 'year') return $this->getYear();
     if (ABBRV_TYPE == 'x-abbrv') {
       if ($this->hasField('x-abbrv')) {return $this->getField('x-abbrv');}
       return $this->abbrv;
     }
-    
+    if (ABBRV_TYPE == 'keys-index') {
+      if (isset($_GET[Q_INNER_KEYS_INDEX])) {return $_GET[Q_INNER_KEYS_INDEX][$this->getKey()]; }
+      return '';
+    }
+
     // otherwise it is a user-defined function in bibtexbrowser.local.php
     $f = ABBRV_TYPE;
     return $f($this);
+  }
+
+  /** Returns the abbreviation, etc [1] if ABBRV_TYPE='index'. */
+  function getAbbrv() {
+    $abbrv = $this->getRawAbbrv();
+    if ( ABBRV_TYPE != 'none' ) {
+       $abbrv = '['.$abbrv.']';
+    }
+    return $abbrv;
   }
 
 
@@ -1298,38 +1318,50 @@ class BibEntry {
   }
 
 
-  /** Outputs an HTML line (<tr>)with two TDS inside
-  */
-  function toTR() {
-        echo '<tr class="bibline">';
-        echo '<td  class="bibref">';
-        //echo '<a name="'.$this->getId().'"></a>';
- 
-        echo $this->getAbbrv().'</td> ';
-        echo '<td class="bibitem">';
-        echo bib2html($this);
-
-        $href = 'href="'.$this->getURL().'"';
-
-        if (BIBTEXBROWSER_BIBTEX_LINKS) {
-          // we add biburl and title to be able to retrieve this important information
-          // using Xpath expressions on the XHTML source
-          echo " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bibtex]</a>";
-        }
-        
-        // returns an empty string if no url present
-        echo $this->getUrlLink();
-
-        if ($this->hasField('doi')) {
-            echo ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
-        }
-        
-        // Google Scholar ID
-        if ($this->hasField('gsid')) {
-            echo ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">[cites]</a>';
-        }
-        echo "</td></tr>\n";
+  /** Outputs HTML line according to layout */
+  function toHTML() {
+      switch(BIBTEXBROWSER_LAYOUT) { // open row
+        case 'list':
+          echo '<li class="bibline">';
+          break;
+        case 'ordered_list':
+          echo '<li class="bibline">';
+          break;
+        case 'table':
+          echo '<tr class="bibline"><td class="bibref">';
+          break;
+        case 'definition':
+          echo '<dl class="bibline"><dt class="bibref">';
+          if (ABBRV_TYPE=='none') { die ('Cannot define an empty term!'); }
+          break;
+      }
+      echo $this->anchor();
+      switch(BIBTEXBROWSER_LAYOUT) { // close bibref and open bibitem
+        case 'table':
+          echo $this->getAbbrv().'</td><td class="bibitem">';
+          break;
+        case 'definition':
+          echo $this->getAbbrv().'</dt><dd class="bibitem">';
+          break;
+      }
+      echo bib2html($this);
+      echo $this->bib2links();
+      switch(BIBTEXBROWSER_LAYOUT) { // close row
+        case 'list':
+          echo '</li>'."\n";
+          break;
+        case 'ordered_list':
+          echo '</li>'."\n";
+          break;
+        case 'table':
+          echo '</td></tr>'."\n";
+          break;
+        case 'definition':
+          echo '</dd></dl>'."\n";
+          break;
+      }
   }
+
 
   /** Outputs an coins URL: see http://ocoins.info/cobg.html
    * Used by Zotero, mendeley, etc.
@@ -1381,7 +1413,7 @@ class BibEntry {
 
     // referrer, the id pf a collection of objects
     // see also http://www.openurl.info/registry/docs/pdf/info-sid.pdf    
-    $url_parts[]='rfr_id='.s3988('info:sid/'.$_SERVER['HTTP_HOST'].':'.@$_GET[Q_FILE]);
+    $url_parts[]='rfr_id='.s3988('info:sid/'.@$_SERVER['HTTP_HOST'].':'.@$_GET[Q_FILE]);
 
     $url_parts[]='rft.date='.s3988($this->getYear());
 
@@ -1390,6 +1422,40 @@ class BibEntry {
 
     return '<span class="Z3988" title="'.implode('&amp;',$url_parts).'"></span>';
 
+  }
+
+  /** Returns an anchor for this entry.  */
+  function anchor() {
+        return '<a name="'.$this->getRawAbbrv().'"></a>';
+  }
+
+  /** returns a collection of links for the given bibtex entry
+   *  e.g. [bibtex] [doi][pdf]
+   */
+  function bib2links() {
+    $href = 'href="'.$this->getURL().'"';
+
+    $str = '';
+  
+    if (BIBTEXBROWSER_BIBTEX_LINKS) {
+      // we add biburl and title to be able to retrieve this important information
+      // using Xpath expressions on the XHTML source
+      $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bibtex]</a>";
+    }
+
+    // returns an empty string if no url present
+    $str .= $this->getUrlLink();
+
+    if ($this->hasField('doi')) {
+      $str .= ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
+    }
+
+    // Google Scholar ID
+    if ($this->hasField('gsid')) {
+      $str .= ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">[cites]</a>';
+    }
+
+    return $str;
   }
 
 
@@ -1437,6 +1503,37 @@ class BibEntry {
   }
 }
 
+/** returns an HTML tag depending on BIBTEXBROWSER_LAYOUT e.g. <TABLE> */
+function get_HTML_tag_for_layout() {
+  switch(BIBTEXBROWSER_LAYOUT) { /* switch for different layouts */
+    case 'list':
+      $tag='ul';
+      break;
+    case 'ordered_list':
+      $tag='ol';
+      break;
+    case 'table':
+      $tag = 'table';
+      break;
+    case 'definition':
+      $tag = 'div';
+      break;
+    default:
+      die('Unknown BIBTEXBROWSER_LAYOUT');
+  }
+  return $tag;
+}
+
+
+/** prints the header of a layouted HTML, depending on BIBTEXBROWSER_LAYOUT e.g. <TABLE> */
+function print_header_layout() {
+  echo '<' . get_HTML_tag_for_layout() . ' class="result">'."\n";
+}
+
+/** prints the footer of a layouted HTML, depending on BIBTEXBROWSER_LAYOUT e.g. </TABLE> */
+function print_footer_layout() {
+  echo '</' . get_HTML_tag_for_layout() . '>';
+}
 
 /** this function encapsulates the user-defined name for bib to HTML*/
 function bib2html(&$bibentry) {
@@ -1471,6 +1568,13 @@ function compare_bib_entry_by_year_and_month($a, $b)
 function compare_bib_entry_by_title($a, $b)
 {
   return strcmp($a->getTitle(),$b->getTitle());
+}
+
+/** compares two instances of BibEntry by undecorated Abbrv
+ */
+function compare_bib_entry_by_raw_abbrv($a, $b)
+{
+  return strcmp($a->getRawAbbrv(),$b->getRawAbbrv());
 }
 
 
@@ -1659,7 +1763,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   }
 
   // add the Coin URL
-  $result .=  "\n".$bibentry->toCoins();
+  $result .=  $bibentry->toCoins();
 
   return $result;
 }
@@ -1785,6 +1889,8 @@ function createQueryString($array_param) {
       // the inverse transformation should also be implemented into query2title
       if($key == Q_INNER_AUTHOR) { $key = Q_AUTHOR; }
       if($key == Q_INNER_TYPE) { $key = Q_TYPE; }
+      if($key == Q_KEYS) { $val = urlencode(json_encode($val)); }
+      if($key == Q_INNER_KEYS_INDEX) {continue;}
       $array_param[$key]=$key .'='. urlencode($val);
  }
  return implode("&amp;",$array_param);
@@ -1854,7 +1960,7 @@ class IndependentYearMenu  {
 function poweredby() {
   $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
   $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
-  $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v20121205-->';
+  $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v__GITHUB__-->';
   $poweredby .= '</div>'."\n";
   return $poweredby;
   }
@@ -2138,6 +2244,7 @@ function query2title(&$query) {
         // and we remove the regexp modifiers ^ $
         $v = preg_replace('/[$^]/','',$v); 
       }
+      if($k == Q_KEYS) { $v=json_encode(array_values($v)); }
       $headers[$k] = ucwords($k).': '.ucwords(htmlspecialchars($v));
   }
     // special cases
@@ -2303,21 +2410,19 @@ class SimpleDisplay  {
       echo 'Options: '.@implode(',',$this->options).'<br/>';      
     }
     
-    ?>
+    print_header_layout();
     
-    <table class="result" >
-    <?php
     $count = count($this->entries);
     $i=0;
     foreach ($this->entries as $bib) {    
-      // by default, index are in decrasing order
+      // by default, index are in decreasing order
       // so that when you add a publicaton recent , the indices of preceding publications don't change
-      $bib->setIndex('['.($count-($i++)).']');
-      $bib->toTR();
+      $bib->setIndex($count-($i++));
+      $bib->toHTML();
     } // end foreach
-    ?>
-    </table>
-    <?php    
+
+    print_footer_layout();
+
   } // end function
 } // end class
 
@@ -2372,22 +2477,21 @@ class AcademicDisplay  {
     
     uasort($entries, ORDER_FUNCTION);
     if (count($entries)>0) {
-    echo "\n".'<div class="btb-header">'.$title.'</div>'."\n";
-    echo '<table class="result">'."\n";
+      echo "\n".'<div class="btb-header">'.$title.'</div>'."\n";
+      print_header_layout();
 
-    // by default the abbreviation is incermented over all 
-    // searches
-    
-    // since we don't know before hand all section, we can not index in decreasing order
-    static $count;
-    if ($count == NULL) { $count = 1; } // init
-    $id = $count;
-    foreach ($entries as $bib) {
-        $bib->setIndex('['.($id++).']');
-        $bib->toTR();
-    } // end foreach
-    $count = @$count + count($entries);
-    echo '</table>';
+      // by default the abbreviation is incremented over all searches
+      
+      // since we don't know before hand all section, we can not index in decreasing order
+      static $count;
+      if ($count == NULL) { $count = 1; } // init
+      $id = $count;
+      foreach ($entries as $bib) {
+          $bib->setIndex($id++);
+          $bib->toHTML();
+      } // end foreach
+      $count = @$count + count($entries);
+      print_footer_layout();
     }
 
   }
@@ -2399,7 +2503,7 @@ class AcademicDisplay  {
 
     foreach (_DefaultBibliographySections() as $section) {
       $this->search2html($section['query'],$section['title']);
-    }    
+    }
   }
 
 }
@@ -2829,17 +2933,6 @@ class BibDataBase {
     if (count($query)<1) {return array();}
     if (isset($query[Q_ALL])) return array_values($this->bibdb);
 
-    if (array_key_exists( Q_KEYS, $query )) {
-      $bibkeylist = $query[Q_KEYS];
-      $is_assoc = array_key_exists( Q_ASSOCKEYS, $query );
-    } else {
-      $is_assoc = false;
-    }
-    if ( $is_assoc ) { // if the array is associative, flip it to efficiently retrieve the abbrv from the bibkey
-      $abbrvlist = array_flip($bibkeylist);
-    }
-    unset($query[Q_ASSOCKEYS]); // not used for filtering the bibtex entries
-
     $result = array();
 
     foreach ($this->bibdb as $bib) {
@@ -2871,12 +2964,9 @@ class BibDataBase {
             }
           }
           else if ($field==Q_KEYS) {
-            if ( ! in_array( $bib->getKey(), $bibkeylist ) ) {
+            if ( ! in_array( $bib->getKey(), $query[Q_KEYS] ) ) {
               $entryisselected = false;
               break;
-            }
-            if ( $is_assoc ) {
-              $bib->setAbbrv($abbrvlist[$bib->getKey()]);
             }
           }
           else {
@@ -3043,7 +3133,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
-<meta name="generator" content="bibtexbrowser v20121205" />
+<meta name="generator" content="bibtexbrowser v__GITHUB__" />
 <?php 
 // if ($content->getRSS()!='') echo '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.$content->getRSS().'&amp;rss" />'; 
 ?>
@@ -3201,18 +3291,19 @@ class PagedDisplay {
     }
     
     $this->menu($less, $more);    
-    echo '<table class="result" >';
+    print_header_layout();
     for ($i = 0; $i < PAGE_SIZE; $i++) { 
       $index = ($this->page-1)*PAGE_SIZE + $i;
       if (isset($this->entries[$index])) {
         $bib = $this->entries[$index];       
-        $bib->toTR(); 
+        $bib->toHTML();
         
       } else {
         //break;
       }
     } // end foreach
-    echo '</table>';
+    
+    print_footer_layout();
     
     $this->menu($less, $more);    
   }
@@ -3306,7 +3397,7 @@ class RSSDisplay {
       <link>http://<?php echo $_SERVER['HTTP_HOST'].htmlentities($_SERVER['REQUEST_URI']);?></link>
       <atom:link href="http://<?php echo $_SERVER['HTTP_HOST'].htmlentities($_SERVER['REQUEST_URI']);?>" rel="self" type="application/rss+xml" />
       <description></description>
-      <generator>bibtexbrowser v20121205</generator>
+      <generator>bibtexbrowser v__GITHUB__</generator>
 
 <?php
       foreach($this->entries as $bibentry) {
@@ -3503,7 +3594,7 @@ class Dispatcher {
 
   function keywords() { $this->query[Q_TAG]=$_GET[Q_TAG]; }
 
-  function author() {    
+  function author() {
     // Friday, October 29 2010
     // changed from 'author' to '_author'
     // in order to search at the same time "Joe Dupont" an "Dupont, Joe"
@@ -3561,22 +3652,24 @@ class Dispatcher {
   }
 
   function keys() {
-    if (preg_match('/utf-?8/i',ENCODING)) {
-      // Create array from list of bibtex entries
-      $_GET[Q_KEYS] = (array) json_decode($_GET[Q_KEYS]); // decode and cast the object into an (associative) array
+    // Create array from list of bibtex entries
+    if (get_magic_quotes_gpc()) {
+      $_GET[Q_KEYS] = stripslashes($_GET[Q_KEYS]);
     }
+    $_GET[Q_KEYS] = (array) json_decode(urldecode($_GET[Q_KEYS])); // decode and cast the object into an (associative) array
+    // Make the array 1-based (keeps the string keys unchanged)
+    array_unshift($_GET[Q_KEYS],"__DUMMY__");
+    unset($_GET[Q_KEYS][0]);
+    // Keep a flipped version for efficient search in getRawAbbrv()
+    $_GET[Q_INNER_KEYS_INDEX] = array_flip($_GET[Q_KEYS]);
     $this->query[Q_KEYS]=$_GET[Q_KEYS];
-  }
-
-  function assoc_keys() {
-    $this->query[Q_ASSOCKEYS]=$_GET[Q_ASSOCKEYS];
   }
 
   /** is used to remotely analyzed a situation */
   function diagnosis() {
     header('Content-type: text/plain');
     echo "php version: ".phpversion()."\n";
-    echo "bibtexbrowser version: 20121205\n";
+    echo "bibtexbrowser version: __GITHUB__\n";
     echo "dir: ".decoct(fileperms(dirname(__FILE__)))."\n";
     echo "bibtex file: ".decoct(fileperms($_GET[Q_FILE]))."\n";
     exit;
@@ -3588,7 +3681,7 @@ class Dispatcher {
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
     <html  xmlns="http://www.w3.org/1999/xhtml">
     <head>
-    <meta name="generator" content="bibtexbrowser v20121205" />
+    <meta name="generator" content="bibtexbrowser v__GITHUB__" />
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
     <title>You are browsing <?php echo $_GET[Q_FILE]; ?> with bibtexbrowser</title>
     </head>
