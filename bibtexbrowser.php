@@ -62,8 +62,10 @@ define('BIBTEXBROWSER','v__GITHUB__');
 @define('BIBTEXBROWSER_MAIN', 'Dispatcher');
 
 // default order functions
-@define('ORDER_FUNCTION','compare_bib_entry_by_year_and_month');
+// Contract Returns < 0 if str1 is less than str2; > 0 if str1 is greater than str2, and 0 if they are equal. 
 // can be @define('ORDER_FUNCTION','compare_bib_entry_by_title');
+@define('ORDER_FUNCTION','compare_bib_entry_by_year');
+@define('ORDER_FUNCTION_FINE','compare_bib_entry_by_month');
 
 // only displaying the n newest entries
 @define('BIBTEXBROWSER_NEWEST',5);
@@ -1549,11 +1551,9 @@ function compare_bib_entry_by_mtime($a, $b)
 
 /** compares two instances of BibEntry by year
  */
-function compare_bib_entry_by_year_and_month($a, $b)
-{
-  $year_cmp =  -strcmp($a->getYear(),$b->getYear());
-  if ($year_cmp==0) { return compare_bib_entry_by_month($a, $b);}
-  return $year_cmp;
+function compare_bib_entry_by_year($a, $b)
+{ 
+  return -strcmp($a->getYear(),$b->getYear());
 }
 
 /** compares two instances of BibEntry by title
@@ -1861,7 +1861,18 @@ function JanosBibliographyStyle(&$bibentry) {
 // ----------------------------------------------------------------------
 // DISPLAY MANAGEMENT
 // ----------------------------------------------------------------------
-
+/** orders two BibEntry as defined by ORDER_FUNCTION 
+ * (by default compares two instances of BibEntry by year and then month)
+ */
+function compare_bib_entries($bib1, $bib2) {
+  $f1 = ORDER_FUNCTION;
+  $cmp = $f1($bib1, $bib2);
+  if ($cmp ==0) {
+    $f2 = ORDER_FUNCTION_FINE;
+    $cmp = $f2($bib1, $bib2);
+  } 
+  return $cmp;
+}
 
 /** creates a query string given an array of parameter, with all specifities of bibtexbrowser_ (such as adding the bibtex file name &bib=foo.bib
  */
@@ -2040,7 +2051,7 @@ class MenuManager {
     ?>
     <table>
       <tr>
-        <td class="title">Generated from <?php echo $_GET[Q_FILE]; ?></td>
+        <td class="rheader">Generated from <?php echo $_GET[Q_FILE]; ?></td>
       </tr>
     </table>
     <?php
@@ -2319,7 +2330,7 @@ class YearDisplay {
       }
       
       if (count($x)>0) {
-        echo '<div  class="btb-header">'.$year.'</div>';
+        echo '<div  class="theader">'.$year.'</div>';
         $delegate->setEntries($x);
         $delegate->display();
       }
@@ -2340,6 +2351,8 @@ usage:
 </pre>
   */
 class SimpleDisplay  {
+ 
+  var $headerCSS = 'sheader';
  
   var $options = array();
   
@@ -2378,7 +2391,7 @@ class SimpleDisplay  {
   /** Displays a set of bibtex entries in an HTML table */
   function display() {
    
-    uasort($this->entries, ORDER_FUNCTION);
+    uasort($this->entries, 'compare_bib_entries');
 
     if ($this->options) {
       foreach($this->options as $fname=>$opt) {
@@ -2397,16 +2410,45 @@ class SimpleDisplay  {
     
     $count = count($this->entries);
     $i=0;
-    foreach ($this->entries as $bib) {    
+    $pred = NULL;
+    foreach ($this->entries as $bib) {
+      if ($this->changeSection($pred, $bib)) {
+        echo $this->sectionHeader($bib);
+      }
       // by default, index are in decreasing order
       // so that when you add a publicaton recent , the indices of preceding publications don't change
       $bib->setIndex($count-($i++));
       $bib->toHTML();
+      
+      $pred = $bib;
     } // end foreach
 
     print_footer_layout();
 
   } // end function
+  
+  function changeSection($pred, $bib) {
+  
+    // for the first one we output the header
+    if ($pred == NULL) { return true; }
+    
+    $f = ORDER_FUNCTION;
+    return $f($pred, $bib) != 0;
+  }
+  
+  function sectionHeader($bib) {
+    switch(BIBTEXBROWSER_LAYOUT) { 
+      case 'table':
+        return '<tr><td colspan="2" class="'.$this->headerCSS.'">'.$bib->getYear().'</td></tr>'."\n";
+        break;
+      case 'definition':
+        return '<div class="'.$this->headerCSS.'">'.$bib->getYear().'</div>'."\n";
+        break;
+      default:
+        return '';
+    }
+  }
+  
 } // end class
 
 
@@ -2457,32 +2499,19 @@ class AcademicDisplay  {
    */
   function search2html($query, $title) {
     $entries = $this->db->multisearch($query);
-    
-    uasort($entries, ORDER_FUNCTION);
     if (count($entries)>0) {
-      echo "\n".'<div class="btb-header">'.$title.'</div>'."\n";
-      print_header_layout();
-
-      // by default the abbreviation is incremented over all searches
-      
-      // since we don't know before hand all section, we can not index in decreasing order
-      static $count;
-      if ($count == NULL) { $count = 1; } // init
-      $id = $count;
-      foreach ($entries as $bib) {
-          $bib->setIndex($id++);
-          $bib->toHTML();
-      } // end foreach
-      $count = @$count + count($entries);
-      print_footer_layout();
+      echo "\n".'<div class="sheader">'.$title.'</div>'."\n";
     }
-
+    $display = createBasicDisplay();
+    $display->setEntries($entries);
+    $display->headerCSS = 'theader';
+    $display->display();
+    
   }
   
   function display() {
     $this->db = createBibDataBase();
     $this->db->bibdb = $this->entries;
-
 
     foreach (_DefaultBibliographySections() as $section) {
       $this->search2html($section['query'],$section['title']);
@@ -2973,14 +3002,27 @@ function bibtexbrowserDefaultCSS() {
 .bibpublisher { /* nothing by default */ }
 
 
-.title {
+/* 1st level headers, equivalent H1  */
+.rheader {
   color: #003366;
   font-size: large;
   font-weight: bold;
-  text-align: right;
 }
 
-.btb-header {
+/* 2nd level headers, equivalent H2  */
+.sheader {
+  font-weight: bold;
+  background-color: #003366;
+  color: #ffffff;
+  padding: 2px;
+  margin-bottom: 0px;
+  margin-top: 7px;
+  border-bottom: #ff6633 2px solid;
+
+}
+
+/* 3rd level headers, equivalent H3  */
+.theader {
   background-color: #995124;
   color: #FFFFFF;
   padding: 1px 2px 1px 2px;
@@ -2992,15 +3034,6 @@ function bibtexbrowserDefaultCSS() {
   padding: 1px 2px 1px 2px;
 }
 
-.rheader {
-  font-weight: bold;
-  background-color: #003366;
-  color: #ffffff;
-  padding: 2px;
-  margin-bottom: 10px;
-  border-bottom: #ff6633 2px solid;
-
-}
 .menu {
   font-size: x-small;
   background-color: #EFDDB4;
@@ -3016,8 +3049,11 @@ function bibtexbrowserDefaultCSS() {
   color: #ff6633;
 }
 
-.bibitem {
+dd {
   display: inline; /* for <dt> if BIBTEXBROWSER_LAYOUT='definition' */
+}
+
+.bibitem {
   margin-left:5px;
 }
 
@@ -3236,7 +3272,7 @@ class PagedDisplay {
   
     /** sets the entries to be shown */
   function setEntries(&$entries) {
-    uasort($entries, ORDER_FUNCTION);
+    uasort($entries, 'compare_bib_entries');
     $this->entries = array_values($entries);
   }
 
@@ -3477,7 +3513,7 @@ class Dispatcher {
        }
        
        // default order
-       uasort($selectedEntries, ORDER_FUNCTION);
+       uasort($selectedEntries, 'compare_bib_entries');
        $selectedEntries = array_values($selectedEntries);
        
        //echo '<pre>';print_r($selectedEntries);echo '</pre>';
