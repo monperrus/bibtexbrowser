@@ -331,6 +331,14 @@ function _zetDB($bibtex_filenames) {
   return array(&$db, $parse, $updated, $saved);
 } // end function setDB
 
+// internationalization
+function __($msg) {
+  global $BIBTEXBROWSER_LANG;
+  if (isset($BIBTEXBROWSER_LANG[$msg])) { 
+    return $BIBTEXBROWSER_LANG[$msg]; 
+  }
+  return $msg;
+}
 
 // factories
 // may be overridden in bibtexbrowser.local.php
@@ -1427,7 +1435,7 @@ class BibEntry {
       $url_parts[]='rft_id='.s3988('info:doi/'.$this->getField("doi"));
     }
 
-    // referrer, the id pf a collection of objects
+    // referrer, the id of a collection of objects
     // see also http://www.openurl.info/registry/docs/pdf/info-sid.pdf    
     $url_parts[]='rfr_id='.s3988('info:sid/'.@$_SERVER['HTTP_HOST'].':'.@$_GET[Q_FILE]);
 
@@ -1644,32 +1652,32 @@ return
   // Books
     array(
       'query' => array(Q_TYPE=>'book|proceedings'),
-      'title' => 'Books'
+      'title' => __('Books')
     ),
   // Book chapters
     array(
       'query' => array(Q_TYPE=>'incollection|inbook'),
-      'title' => 'Book Chapters'
+      'title' => __('Book Chapters')
     ),
   // Journal / Bookchapters
     array(
       'query' => array(Q_TYPE=>'article'),
-      'title' => 'Refereed Articles'
+      'title' => __('Refereed Articles')
     ),
   // conference papers
     array(
       'query' => array(Q_TYPE=>'inproceedings|conference',Q_EXCLUDE=>'workshop'),
-      'title' => 'Refereed Conference Papers'
+      'title' => __('Refereed Conference Papers')
     ),
   // workshop papers
     array(
       'query' => array(Q_TYPE=>'inproceedings',Q_SEARCH=>'workshop'),
-      'title' => 'Refereed Workshop Papers'
+      'title' => __('Refereed Workshop Papers')
     ),
   // misc and thesis
     array(
       'query' => array(Q_TYPE=>'misc|phdthesis|mastersthesis|bachelorsthesis|techreport'),
-      'title' => 'Other Publications'
+      'title' => __('Other Publications')
     )
   );
 }
@@ -1707,13 +1715,13 @@ function DefaultBibliographyStyle(&$bibentry) {
   // now the book title
   $booktitle = '';
   if ($type=="inproceedings") {
-      $booktitle = 'In '.$bibentry->getField(BOOKTITLE); }
+      $booktitle = __('In').' '.$bibentry->getField(BOOKTITLE); }
   if ($type=="incollection") {
-      $booktitle = 'Chapter in '.$bibentry->getField(BOOKTITLE);}
+      $booktitle = __('Chapter in').' '.$bibentry->getField(BOOKTITLE);}
   if ($type=="inbook") {
-      $booktitle = 'Chapter in '.$bibentry->getField('chapter');}
+      $booktitle = __('Chapter in').' '.$bibentry->getField('chapter');}
   if ($type=="article") {
-      $booktitle = 'In '.$bibentry->getField("journal");}
+      $booktitle = __('In').' '.$bibentry->getField("journal");}
 
   //// we may add the editor names to the booktitle
   $editor='';
@@ -1731,16 +1739,16 @@ function DefaultBibliographyStyle(&$bibentry) {
 
   $publisher='';
   if ($type=="phdthesis") {
-      $publisher = 'PhD thesis, '.$bibentry->getField(SCHOOL);
+      $publisher = __('PhD thesis').', '.$bibentry->getField(SCHOOL);
   }
   if ($type=="mastersthesis") {
-      $publisher = 'Master\'s thesis, '.$bibentry->getField(SCHOOL);
+      $publisher = __('Master\'s thesis').', '.$bibentry->getField(SCHOOL);
   }
   if ($type=="bachelorsthesis") {
-      $publisher = 'Bachelor\'s thesis, '.$bibentry->getField(SCHOOL);
+      $publisher = __('Bachelor\'s thesis').', '.$bibentry->getField(SCHOOL);
   }
   if ($type=="techreport") {
-      $publisher = 'Technical report, '.$bibentry->getField("institution");
+      $publisher = __('Technical report').', '.$bibentry->getField("institution");
   }
   
   if ($type=="misc") {
@@ -1754,7 +1762,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   if ($publisher!='') $entry[] = '<span class="bibpublisher">'.$publisher.'</span>';
 
 
-  if ($bibentry->hasField('volume')) $entry[] =  "volume ".$bibentry->getField("volume");
+  if ($bibentry->hasField('volume')) $entry[] =  __('volume').' '.$bibentry->getField("volume");
 
 
   if ($bibentry->hasField(YEAR)) $entry[] = $bibentry->getYear();
@@ -2260,11 +2268,12 @@ function query2title(&$query) {
         // and we remove the regexp modifiers ^ $
         $v = preg_replace('/[$^]/','',$v); 
       }
-      $headers[$k] = ucwords($k).': '.ucwords(htmlspecialchars($v));
+      $headers[$k] = __(ucwords($k)).': '.ucwords(htmlspecialchars($v));
   }
     // special cases
-    if (isset($headers[Q_ALL])) $headers[Q_ALL] = 'Publications in '.htmlspecialchars($_GET[Q_FILE]);
-    if (isset($headers[Q_AUTHOR])) $headers[Q_AUTHOR] = 'Publications of '.htmlspecialchars($_GET[Q_AUTHOR]);
+    if (isset($headers[Q_ALL])) $headers[Q_ALL] = __('Publications in').' '.htmlspecialchars($_GET[Q_FILE]);
+    if (isset($headers[Q_AUTHOR])) $headers[Q_AUTHOR] = __('Publications of')
+                                        .' '.htmlspecialchars($_GET[Q_AUTHOR]);
     return join(' &amp; ',$headers);
 }
 }
@@ -3500,8 +3509,10 @@ class Dispatcher {
       return;
     }
     
+    if (!isset($_GET[Q_FILE])) { die('$_GET[\''.Q_FILE.'\'] is not set!'); }
+
     // first we set the database (load from disk or parse the bibtex file)
-    if (!isset($_GET[Q_DB])) { setDB(); }
+    if (!isset($_GET[Q_DB])) { zetDB(Q_FILE); }
     
     // is the publication list included in another page?
     // strtr is used for Windows where __FILE__ contains C:\toto and SCRIPT_FILENAME contains C:/toto (bug reported by Marco)
