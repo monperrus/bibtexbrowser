@@ -66,7 +66,7 @@ function bibtexbrowser_configure($key, $value) {
 // Wrapper to use when we are included by another script 
 @define('BIBTEXBROWSER_EMBEDDED_WRAPPER', 'NoWrapper');
 
-// Wrapper to use when we are included by another script 
+// Main class to use
 @define('BIBTEXBROWSER_MAIN', 'Dispatcher');
 
 // default order functions
@@ -986,7 +986,9 @@ class BibEntry {
 
   /** Sets the key of this bib entry. */
   function setKey($value) {
-    $this->setField(Q_KEY,$value);
+    // Slashes are not allowed in keys because they don't play well with web servers
+    // if url-rewriting is used
+    $this->setField(Q_KEY,str_replace('/','-',$value));
   }
 
   /** Sets a field of this bib entry. */
@@ -1384,6 +1386,7 @@ class BibEntry {
           echo '</dd></dl>'."\n";
           break;
       }
+      return $result;
   }
 
 
