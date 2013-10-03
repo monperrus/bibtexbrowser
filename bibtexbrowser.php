@@ -1346,44 +1346,45 @@ class BibEntry {
 
   /** Outputs HTML line according to layout */
   function toHTML() {
+      $result = '';
       switch(BIBTEXBROWSER_LAYOUT) { // open row
         case 'list':
-          echo '<li class="bibline">';
+          $result .= '<li class="bibline">';
           break;
         case 'ordered_list':
-          echo '<li class="bibline">';
+          $result .= '<li class="bibline">';
           break;
         case 'table':
-          echo '<tr class="bibline"><td class="bibref">';
+          $result .= '<tr class="bibline"><td class="bibref">';
           break;
         case 'definition':
-          echo '<dl class="bibline"><dt class="bibref">';
+          $result .= '<dl class="bibline"><dt class="bibref">';
           if (ABBRV_TYPE=='none') { die ('Cannot define an empty term!'); }
           break;
       }
-      echo $this->anchor();
+      $result .= $this->anchor();
       switch(BIBTEXBROWSER_LAYOUT) { // close bibref and open bibitem
         case 'table':
-          echo $this->getAbbrv().'</td><td class="bibitem">';
+          $result .= $this->getAbbrv().'</td><td class="bibitem">';
           break;
         case 'definition':
-          echo $this->getAbbrv().'</dt><dd class="bibitem">';
+          $result .= $this->getAbbrv().'</dt><dd class="bibitem">';
           break;
       }
-      echo bib2html($this);
-      echo $this->bib2links();
+      $result .= bib2html($this);
+      $result .= $this->bib2links();
       switch(BIBTEXBROWSER_LAYOUT) { // close row
         case 'list':
-          echo '</li>'."\n";
+          $result .= '</li>'."\n";
           break;
         case 'ordered_list':
-          echo '</li>'."\n";
+          $result .= '</li>'."\n";
           break;
         case 'table':
-          echo '</td></tr>'."\n";
+          $result .= '</td></tr>'."\n";
           break;
         case 'definition':
-          echo '</dd></dl>'."\n";
+          $result .= '</dd></dl>'."\n";
           break;
       }
       return $result;
@@ -2451,7 +2452,7 @@ class SimpleDisplay  {
       // by default, index are in decreasing order
       // so that when you add a publicaton recent , the indices of preceding publications don't change
       $bib->setIndex($count-($i++));
-      $bib->toHTML();
+      echo $bib->toHTML();
       
       $pred = $bib;
     } // end foreach
@@ -3344,7 +3345,7 @@ class PagedDisplay {
       $index = ($this->page-1)*PAGE_SIZE + $i;
       if (isset($this->entries[$index])) {
         $bib = $this->entries[$index];       
-        $bib->toHTML();
+        echo $bib->toHTML();
         
       } else {
         //break;
