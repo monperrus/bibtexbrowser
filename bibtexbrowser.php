@@ -19,6 +19,14 @@ if (!defined('BIBTEXBROWSER')) {
 // this if block ends at the very end of this file, after all class and function declarations.
 define('BIBTEXBROWSER','v__GITHUB__');
 
+// support for configuration
+// you may have bibtexbrowser_configure('ENCODING', 'latin1) in bibtexbrowser.local.php
+global $CONFIGURATION;
+$CONFIGURATION = array();
+function bibtexbrowser_configure($key, $value) { 
+  global $CONFIGURATION;
+  $CONFIGURATION[$key]=$value;
+}
 
 // *************** CONFIGURATION
 // I recommend to put your changes in bibtexbrowser.local.php
@@ -149,6 +157,12 @@ define('Q_INNER_TYPE', 'x-bibtex-type');// used for representing the type of the
 
 @error_reporting(/*pp4php:serl*/E_ALL/*lres*/);
 
+function config_value($key) {
+  global $CONFIGURATION;
+  if (isset($CONFIGURATION[$key])) { return $CONFIGURATION[$key]; }
+  if (defined($key)) { return constant($key); }
+  die('no such configuration: '.$key);
+}
 
 /** parses $_GET[Q_FILE] and puts the result (an object of type BibDataBase) in $_GET[Q_DB].
 See also zetDB().
@@ -170,7 +184,7 @@ function zetDB($bibtex_filenames) {
 /** @nodoc */
 function default_message() {
 
-  if (BIBTEXBROWSER_NO_DEFAULT) { return; }
+  if (config_value('BIBTEXBROWSER_NO_DEFAULT')==true) { return; }
 
   ?>
   <div id="bibtexbrowser_message">
