@@ -367,7 +367,7 @@ class StateBasedBibtexParser {
     $this->delegate = &$delegate;
   }
 
-  function parse($bibfilename) {
+  function parse($handle) {
     $delegate = &$this->delegate;
     // STATE DEFINITIONS
     @define('NOTHING',1);
@@ -398,8 +398,6 @@ class StateBasedBibtexParser {
 
     $delegate->beginFile();
 
-    $handle = fopen($bibfilename, "r");
-    if (!$handle) die ('cannot open '.$bibfilename);
     // if you encounter this error "Allowed memory size of xxxxx bytes exhausted"
     // then decrease the size of the temp buffer below
     $bufsize=BUFFERSIZE;
@@ -566,7 +564,6 @@ class StateBasedBibtexParser {
     } // end for
     } // end while
     $delegate->endFile();
-    fclose($handle);
     //$d = &$this->delegate;print_r($d);
   } // end function
 } // end class
@@ -637,10 +634,20 @@ class BibDBBuilder {
     return $this;
   }
 
-  function build($filename) {
-    $this->filename = $filename;    
+  function build($bibfilename) {
+  
+    if (gettype($bibfilename)=='string') {
+      $this->filename = $bibfilename;    
+      $handle = fopen($bibfilename, "r");
+    } else {
+      $this->filename = uniqid(); 
+      $handle = $bibfilename;
+    }
+
+    if (!$handle) die ('cannot open '.$bibfilename);
     $parser = new StateBasedBibtexParser($this);
-    $parser->parse($filename);
+    $parser->parse($handle);
+    fclose($handle);
     //print_r(array_keys(&$this->builtdb));
     //print_r(&$this->builtdb);
   }
