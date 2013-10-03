@@ -656,17 +656,15 @@ class BibDBBuilder {
     return $this;
   }
 
-  function build($bibfilename) {
+  function build($bibfilename, $handle = NULL) {
   
-    if (gettype($bibfilename)=='string') {
-      $this->filename = $bibfilename;    
+    $this->filename = $bibfilename;    
+    if ($handle == NULL) {
       $handle = fopen($bibfilename, "r");
-    } else {
-      $this->filename = uniqid(); 
-      $handle = $bibfilename;
     }
 
     if (!$handle) die ('cannot open '.$bibfilename);
+    
     $parser = new StateBasedBibtexParser($this);
     $parser->parse($handle);
     fclose($handle);
@@ -751,7 +749,7 @@ class BibDBBuilder {
     $this->currentEntry->setTimestamp();
     
     // we add a key if there is no key
-    if (!$this->currentEntry->hasField(Q_KEY)) {
+    if (!$this->currentEntry->hasField(Q_KEY) && $this->currentEntry->getType()!='string') {
       $this->currentEntry->setField(Q_KEY,md5($this->currentEntry->getTitle().implode('',$this->currentEntry->getRawAuthors())));
     }
     
@@ -2818,12 +2816,16 @@ class BibDataBase {
   }
   
   /** Updates a database (replaces the new bibtex entries by the most recent ones) */ 
-  function update($filename) {
+  function update($filename) {  
+    $this->update_internal($filename, NULL);
+  }
   
+  /** See update */ 
+  function update_internal($resource_name, $resource) {
     $empty_array = array();
     $db = createBibDBBuilder();
     $db->setData($empty_array, $this->stringdb);
-    $db->build($filename);
+    $db->build($resource_name, $resource);
     
     $this->stringdb = array_merge($this->stringdb, $db->stringdb);
         
@@ -2846,7 +2848,7 @@ class BibDataBase {
     // some entries have been removed
     foreach ($this->bibdb as $e) {
       if (!isset($result[$e->getKey()]) 
-          && $e->filename==$filename // bug reported by Thomas on Dec 4 2012
+          && $e->filename==$resource_name // bug reported by Thomas on Dec 4 2012
          ) {
         //echo 'deleting...<br/>';
         unset($this->bibdb[$e->getKey()]);
