@@ -3565,8 +3565,7 @@ class Dispatcher {
        $selectedEntries = array_values($selectedEntries);
        
        //echo '<pre>';print_r($selectedEntries);echo '</pre>';
-       
-       
+              
        if ($this->displayer=='') {
          $this->displayer = BIBTEXBROWSER_DEFAULT_DISPLAY;
        }
@@ -3580,8 +3579,7 @@ class Dispatcher {
         $options = json_decode($_GET['dopt'],true);
       }     
        
-      // required for PHP4 to have this intermediate variable
-      
+      // required for PHP4 to have this intermediate variable      
       $x = new $this->displayer();
       
       if (method_exists($x,'setEntries')) {
@@ -3697,9 +3695,10 @@ class Dispatcher {
   }
 
   function key() {
+    $entries = array();
+    // case 1: this is a single key
     if ($_GET[Q_DB]->contains($_GET[Q_KEY])) {
-      $bibentry = $_GET[Q_DB]->getEntryByKey($_GET[Q_KEY]);
-      $entries = array($bibentry);
+      $entries[] = $_GET[Q_DB]->getEntryByKey($_GET[Q_KEY]);
       if (isset($_GET['astext'])) {
         $bibdisplay = new BibtexDisplay();
         $bibdisplay->setEntries($entries);
@@ -3708,10 +3707,14 @@ class Dispatcher {
         $bibdisplay = createBibEntryDisplay();
         $bibdisplay->setEntries($entries);
         new $this->wrapper($bibdisplay,$bibdisplay->metadata());
-      }
+      }      
       return 'END_DISPATCH';
     }
-    else { nonExistentBibEntryError(); }
+    
+    // case two: multiple keys
+    if (preg_match('/[|,]/',$_GET[Q_KEY])) {
+      $this->query[Q_SEARCH]=str_replace(',','|',$_GET[Q_KEY]);    
+    } else { nonExistentBibEntryError(); } 
   }
 
   /** is used to remotely analyzed a situation */
