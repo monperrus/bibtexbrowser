@@ -626,6 +626,15 @@ class XMLPrettyPrinter {
   }
 } // end class XMLPrettyPrinter
 
+/** represents @string{k=v} */
+class StringEntry {
+  function StringEntry($k, $v, $filename) {
+    $this->name=$k;
+    $this->value=$v;
+    $this->filename=$filename;
+  }
+} // end class StringEntry
+
 /** builds arrays of BibEntry objects from a bibtex file.
 usage:
 <pre>
@@ -649,12 +658,6 @@ class BibDBBuilder {
   var $filename;
 
   var $currentEntry;
-
-  function setData(&$builtdb, &$stringdb) {
-    $this->builtdb = $builtdb;
-    $this->stringdb = $stringdb;
-    return $this;
-  }
 
   function build($bibfilename, $handle = NULL) {
   
@@ -717,11 +720,11 @@ class BibDBBuilder {
       if (isset($this->stringdb[$stringKey]))
       {
         // this field will be formated later by xtrim and latex2html
-        $entryvalue_array[$k]=$this->stringdb[$stringKey];
+        $entryvalue_array[$k]=$this->stringdb[$stringKey]->value;
 
         // we keep a trace of this replacement
         // so as to produce correct bibtex snippets
-        $this->currentEntry->constants[$stringKey]=$this->stringdb[$stringKey];
+        $this->currentEntry->constants[$stringKey]=$this->stringdb[$stringKey]->value;
       }
     }
     $entryvalue=implode('',$entryvalue_array);
@@ -746,7 +749,7 @@ class BibDBBuilder {
   function endEntry($entrysource) {
   
     // we add a timestamp
-    $this->currentEntry->setTimestamp();
+    $this->currentEntry->timestamp();
     
     // we add a key if there is no key
     if (!$this->currentEntry->hasField(Q_KEY) && $this->currentEntry->getType()!='string') {
@@ -770,9 +773,9 @@ class BibDBBuilder {
     // we add it to the string database
     else if ($this->currentEntry->getType()=='string') {
       foreach($this->currentEntry->fields as $k => $v) {
-        $k!=Q_INNER_TYPE and $this->stringdb[$k]=$v;
+        $k!=Q_INNER_TYPE and $this->stringdb[$k]=new StringEntry($k,$v,$this->filename);
       }
-    } 
+    }
     
     // we add it to the database
     else {
@@ -968,7 +971,7 @@ class BibEntry {
   }
   
   /** Adds timestamp to this object */
-  function setTimestamp() {
+  function timestamp() {
     $this->timestamp = time();
   }
   /** Returns the timestamp of this object */
@@ -1233,7 +1236,7 @@ class BibEntry {
     // e.g. @STRING{hp_Jean-MarcJézéquel="http://www.irisa.fr/prive/jezequel/"}
     $homepage = strtolower('hp_'.preg_replace('/ /', '', $author));
     if (isset($_GET[Q_DB]->stringdb[$homepage]))
-      $author='<a href="'.$_GET[Q_DB]->stringdb[$homepage].'">'.$author.'</a>';
+      $author='<a href="'.$_GET[Q_DB]->stringdb[$homepage]->value.'">'.$author.'</a>';
     return $author;
   }
 
@@ -2824,7 +2827,6 @@ class BibDataBase {
   function update_internal($resource_name, $resource) {
     $empty_array = array();
     $db = createBibDBBuilder();
-    $db->setData($empty_array, $this->stringdb);
     $db->build($resource_name, $resource);
     
     $this->stringdb = array_merge($this->stringdb, $db->stringdb);
@@ -2854,7 +2856,15 @@ class BibDataBase {
         unset($this->bibdb[$e->getKey()]);
       }
     }
-      
+
+    // some @string have been removed
+    foreach ($this->stringdb as $k=>$e) {
+      if (!isset($db->stringdb[$k]) 
+          && $e->filename==$resource_name ) {
+        //echo 'deleting...<br/>';
+        unset($this->stringdb[$e->name]);
+      }
+    }
   }
 
   /** Creates a new empty database */
@@ -3518,7 +3528,7 @@ class Dispatcher {
     if (!isset($_GET[Q_FILE])) { die('$_GET[\''.Q_FILE.'\'] is not set!'); }
 
     // first we set the database (load from disk or parse the bibtex file)
-    if (!isset($_GET[Q_DB])) { zetDB(Q_FILE); }
+    if (!isset($_GET[Q_DB])) { setDB(); }
     
     // is the publication list included in another page?
     // strtr is used for Windows where __FILE__ contains C:\toto and SCRIPT_FILENAME contains C:/toto (bug reported by Marco)
