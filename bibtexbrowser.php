@@ -58,6 +58,9 @@ function bibtexbrowser_configure($key, $value) {
 // the default view in {SimpleDisplay,AcademicDisplay,RSSDisplay,BibtexDisplay}
 @define('BIBTEXBROWSER_DEFAULT_DISPLAY','SimpleDisplay');
 
+// the default template
+@define('BIBTEXBROWSER_DEFAULT_TEMPLATE','HTMLTemplate');
+
 // the target frame of menu links
 @define('BIBTEXBROWSER_MENU_TARGET','main'); // might be define('BIBTEXBROWSER_MENU_TARGET','_self'); in bibtexbrowser.local.php 
 
@@ -892,7 +895,8 @@ function latex2html($line) {
   $line = str_replace('\\aa','&aring;', $line);
   $line = str_replace('\\AA','&Aring;', $line);
 
-  // clean out extra tex curly brackets, usually used for preserving capitals
+
+// clean out extra tex curly brackets, usually used for preserving capitals
   $line = str_replace('}','', $line);
   $line = str_replace('{','', $line);
 
@@ -2071,7 +2075,7 @@ class MenuManager {
   } 
   
   
-  /** function called back by HTMLWrapper */
+  /** function called back by HTMLTemplate */
   function display() {
   echo $this->searchView().'<br/>';
   echo $this->typeVC().'<br/>';
@@ -3172,18 +3176,15 @@ usage:
 <pre>
   $db = zetDB('metrics.bib');
   $dis = new BibEntryDisplay($db->getEntryByKey('Schmietendorf2000'));
-  new HTMLWrapper($dis);
+  new HTMLTemplate($dis);
 </pre>
-*/
-class HTMLWrapper {
-/**
  * $content: an object with methods
       display() 
       getRSS()
       getTitle()
  * $title: title of the page
  */
-function HTMLWrapper(&$content,$metatags=array()/* an array name=>value*/) {
+function HTMLTemplate(&$content,$metatags=array()/* an array name=>value*/) {
 
 // when we load a page with AJAX
 // the HTTP header is taken into account, not the <meta http-equiv>
@@ -3239,16 +3240,12 @@ if (method_exists($content, 'getTitle')) {
   if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
     javascript();
   }
-
-
 ?>
 </body>
 </html>
 <?php
 //exit;
-} // end constructor
-
-}
+} // end function HTMLTemplate
 
 
 /** does nothing but calls method display() on the content. 
@@ -3259,10 +3256,8 @@ usage:
   new NoWrapper($dis);
 </pre>
 */
-class NoWrapper {
-  function NoWrapper(&$content) {
-    echo $content->display();
-  }
+function NoWrapper(&$content) {
+  echo $content->display();
 }
 
 /** is used to create an subset of a bibtex file.
@@ -3511,7 +3506,7 @@ class Dispatcher {
   /** the wrapper of selected entries. The default is an HTML wrapper
     *  It could also be a NoWrapper when you include your pub list in your home page
     */
-  var $wrapper = 'HTMLWrapper';
+  var $wrapper = BIBTEXBROWSER_DEFAULT_TEMPLATE;
 
   function Dispatcher() {}
   
@@ -3595,7 +3590,8 @@ class Dispatcher {
       }
 
       // should call method display() on $x
-      new $this->wrapper($x);
+      $fun = $this->wrapper;
+      $fun($x);
       
       $this->clearQuery();
     }
@@ -3669,7 +3665,8 @@ class Dispatcher {
   function menu() {
     $menu = createMenuManager();
     $menu->setDB($_GET[Q_DB]);
-    new $this->wrapper($menu,array(array('robots','noindex')));
+    $fun = $this->wrapper;
+    $fun($menu,array(array('robots','noindex')));
     return 'END_DISPATCH';
   }
 
@@ -3706,7 +3703,8 @@ class Dispatcher {
       } else {
         $bibdisplay = createBibEntryDisplay();
         $bibdisplay->setEntries($entries);
-        new $this->wrapper($bibdisplay,$bibdisplay->metadata());
+        $fun = $this->wrapper;
+        $fun($bibdisplay,$bibdisplay->metadata());
       }      
       return 'END_DISPATCH';
     }
