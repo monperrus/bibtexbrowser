@@ -710,13 +710,13 @@ class BibDBBuilder {
   }
 
   function setEntryField($finalkey,$entryvalue) {
-    // is it a constant? then we replace the value
-    // we support advanced features of bibtexbrowser
+    // support for Bibtex concatenation 
     // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
-    $entryvalue_array=explode('#',$entryvalue);
+    // (?<! is a negative look-behind assertion, see http://www.php.net/manual/en/regexp.reference.assertions.php
+    $entryvalue_array=preg_split('/(?<!\\\\)#/', $entryvalue);
     foreach ($entryvalue_array as $k=>$v) {
-      // spaces are allowed when using #, they are not taken into account
-      // however # is not istself replaced by a space
+      // spaces are allowed when using # and they are not taken into account
+      // however # is not itself replaced by a space
       // warning: @strings are not case sensitive
       // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
       $stringKey=strtolower(trim($v));
