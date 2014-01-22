@@ -213,6 +213,10 @@ function _zetDB($bibtex_filenames) {
       set_magic_quotes_runtime(false);
   }
   
+  // get file extension to only allow .bib files
+  $ext = pathinfo($bib, PATHINFO_EXTENSION);
+  // this is a security protection
+  if (BIBTEXBROWSER_LOCAL_BIB_ONLY && (!file_exists($bib) || strcasecmp($ext, 'bib') != 0)) {
   // default bib file, if no file is specified in the query string.
   if (!isset($bibtex_filenames) || $bibtex_filenames == "") {
     default_message();
