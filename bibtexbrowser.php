@@ -64,7 +64,7 @@ function bibtexbrowser_configure($key, $value) {
 // the target frame of menu links
 @define('BIBTEXBROWSER_MENU_TARGET','main'); // might be define('BIBTEXBROWSER_MENU_TARGET','_self'); in bibtexbrowser.local.php 
 
-@define('ABBRV_TYPE','index');// may be year/x-abbrv/key/none/index
+@define('ABBRV_TYPE','index');// may be year/x-abbrv/key/none/index/keys-index
 
 // Wrapper to use when we are included by another script 
 @define('BIBTEXBROWSER_EMBEDDED_WRAPPER', 'NoWrapper');
@@ -119,6 +119,7 @@ function bibtexbrowser_configure($key, $value) {
 @define('Q_ALL', 'all');
 @define('Q_ENTRY', 'entry');
 @define('Q_KEY', 'key');
+@define('Q_KEYS', 'keys'); // filter entries using a url-encoded, JSON-encoded array of bibtex keys
 @define('Q_SEARCH', 'search');
 @define('Q_EXCLUDE', 'exclude');
 @define('Q_RESULT', 'result');
@@ -147,6 +148,7 @@ function bibtexbrowser_configure($key, $value) {
 
 define('Q_INNER_AUTHOR', '_author');// internally used for representing the author
 define('Q_INNER_TYPE', 'x-bibtex-type');// used for representing the type of the bibtex entry internally
+@define('Q_INNER_KEYS_INDEX', '_keys-index');// used for storing indices in $_GET[Q_KEYS] array
 
 // for clean search engine links
 // we disable url rewriting
@@ -1300,6 +1302,11 @@ class BibEntry {
       if ($this->hasField('x-abbrv')) {return $this->getField('x-abbrv');}
       return $this->abbrv;
     }
+    if (ABBRV_TYPE == 'keys-index') {
+      if (isset($_GET[Q_INNER_KEYS_INDEX])) {return $_GET[Q_INNER_KEYS_INDEX][$this->getKey()]; }
+      return '';
+    }
+
     // otherwise it is a user-defined function in bibtexbrowser.local.php
     $f = ABBRV_TYPE;
     return $f($this);
@@ -1602,6 +1609,13 @@ function compare_bib_entry_by_year($a, $b)
 function compare_bib_entry_by_title($a, $b)
 {
   return strcmp($a->getTitle(),$b->getTitle());
+}
+
+/** compares two instances of BibEntry by undecorated Abbrv
+ */
+function compare_bib_entry_by_raw_abbrv($a, $b)
+{
+  return strcmp($a->getRawAbbrv(),$b->getRawAbbrv());
 }
 
 
@@ -1927,6 +1941,8 @@ function createQueryString($array_param) {
       // the inverse transformation should also be implemented into query2title
       if($key == Q_INNER_AUTHOR) { $key = Q_AUTHOR; }
       if($key == Q_INNER_TYPE) { $key = Q_TYPE; }
+      if($key == Q_KEYS) { $val = urlencode(json_encode($val)); }
+      if($key == Q_INNER_KEYS_INDEX) {continue;}
       $array_param[$key]=$key .'='. urlencode($val);
  }
  return implode("&amp;",$array_param);
@@ -2280,6 +2296,7 @@ function query2title(&$query) {
         // and we remove the regexp modifiers ^ $
         $v = preg_replace('/[$^]/','',$v); 
       }
+      if($k == Q_KEYS) { $v=json_encode(array_values($v)); }
       $headers[$k] = __(ucwords($k)).': '.ucwords(htmlspecialchars($v));
   }
     // special cases
@@ -3008,11 +3025,13 @@ class BibDataBase {
             // we search in the whole bib entry
             if (!$bib->hasPhrase($fragment)) {
               $entryisselected = false;
+              break;
             }
           }
           else if ($field==Q_EXCLUDE) {
             if ($bib->hasPhrase($fragment)) {
               $entryisselected = false;
+              break;
             }
           }
           else if ($field==Q_TYPE || $field==Q_INNER_TYPE) {
@@ -3023,11 +3042,19 @@ class BibDataBase {
             // moved here so that it is also used by AcademicDisplay:search2html()
             if (!$bib->hasPhrase('^('.$fragment.')$', Q_INNER_TYPE))  {
               $entryisselected = false;
+              break;
+            }
+          }
+          else if ($field==Q_KEYS) {
+            if ( ! in_array( $bib->getKey(), $query[Q_KEYS] ) ) {
+              $entryisselected = false;
+              break;
             }
           }
           else {
             if (!$bib->hasPhrase($fragment, $field))  {
               $entryisselected = false;
+              break;
             }
           }
 
@@ -3036,7 +3063,6 @@ class BibDataBase {
           $result[] = $bib;
         }
       }
-      
       return $result;
   }
 } // end class
@@ -3716,6 +3742,20 @@ class Dispatcher {
     if (preg_match('/[|,]/',$_GET[Q_KEY])) {
       $this->query[Q_SEARCH]=str_replace(',','|',$_GET[Q_KEY]);    
     } else { nonExistentBibEntryError(); } 
+  }
+
+  function keys() {
+    // Create array from list of bibtex entries
+    if (get_magic_quotes_gpc()) {
+      $_GET[Q_KEYS] = stripslashes($_GET[Q_KEYS]);
+    }
+    $_GET[Q_KEYS] = (array) json_decode(urldecode($_GET[Q_KEYS])); // decode and cast the object into an (associative) array
+    // Make the array 1-based (keeps the string keys unchanged)
+    array_unshift($_GET[Q_KEYS],"__DUMMY__");
+    unset($_GET[Q_KEYS][0]);
+    // Keep a flipped version for efficient search in getRawAbbrv()
+    $_GET[Q_INNER_KEYS_INDEX] = array_flip($_GET[Q_KEYS]);
+    $this->query[Q_KEYS]=$_GET[Q_KEYS];
   }
 
   /** is used to remotely analyzed a situation */
