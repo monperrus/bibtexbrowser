@@ -882,7 +882,7 @@ function latex2html($line) {
   $line = char2html($line,'^','o',"circ");
   $line = char2html($line,'^','u',"circ");
 
-  $line = char2html($line,'.','a',"ring");
+  $line = char2html($line,'r','a',"ring");
 
   $line = char2html($line,'c','c',"cedil");
   $line = char2html($line,'v','s',"caron");
