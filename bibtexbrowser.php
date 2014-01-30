@@ -86,6 +86,12 @@ function bibtexbrowser_configure($key, $value) {
 // do we add [bibtex] links ?
 // suggested by Sascha Schnepp
 @define('BIBTEXBROWSER_BIBTEX_LINKS',true);
+// do we add [pdf] links ?
+@define('BIBTEXBROWSER_PDF_LINKS',true);
+// do we add [doi] links ?
+@define('BIBTEXBROWSER_DOI_LINKS',true);
+// do we add [gsid] links (Google Scholar)?
+@define('BIBTEXBROWSER_GSID_LINKS',true);
 
 // should authors be linked to [none/homepage/resultpage]
 // none: nothing
@@ -229,8 +235,11 @@ function _zetDB($bibtex_filenames) {
   // ---------------------------- HANDLING unexistent files
   foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
   
+    // get file extension to only allow .bib files
+    $ext = pathinfo($bib, PATHINFO_EXTENSION);
     // this is a security protection
-    if (BIBTEXBROWSER_LOCAL_BIB_ONLY && !file_exists($bib)) {
+    if (BIBTEXBROWSER_LOCAL_BIB_ONLY && (!file_exists($bib) || strcasecmp($ext, 'bib') != 0)) {
+
      // to automate dectection of faulty links with tools such as webcheck
      header('HTTP/1.1 404 Not found');
      die('<b>the bib file '.$bib.' does not exist !</b>');
@@ -1486,15 +1495,17 @@ class BibEntry {
       $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bibtex]</a>";
     }
 
-    // returns an empty string if no url present
-    $str .= $this->getUrlLink();
+    if (BIBTEXBROWSER_PDF_LINKS) {
+      // returns an empty string if no url present
+      $str .= $this->getUrlLink();
+    }
 
-    if ($this->hasField('doi')) {
+    if (BIBTEXBROWSER_DOI_LINKS && $this->hasField('doi')) {
       $str .= ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
     }
 
     // Google Scholar ID
-    if ($this->hasField('gsid')) {
+    if (BIBTEXBROWSER_GSID_LINKS && $this->hasField('gsid')) {
       $str .= ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">[cites]</a>';
     }
 
@@ -3439,8 +3450,8 @@ class RSSDisplay {
     // first strip HTML tags 
     $desc = strip_tags($desc);
   
-    // then decode characters encoded by latex2html
-    $desc= html_entity_decode($desc);
+    // then decode characters encoded by latex2html, preserve ENCODING
+    $desc = html_entity_decode($desc, ENT_COMPAT, ENCODING);
 
     // some entities may still be here, we remove them
     // we replace html entities e.g. &eacute; by nothing
