@@ -3424,8 +3424,8 @@ class RSSDisplay {
     // first strip HTML tags 
     $desc = strip_tags($desc);
   
-    // then decode characters encoded by latex2html
-    $desc= html_entity_decode($desc);
+    // then decode characters encoded by latex2html, preserve ENCODING
+    $desc = html_entity_decode($desc, ENT_COMPAT, ENCODING);
 
     // some entities may still be here, we remove them
     // we replace html entities e.g. &eacute; by nothing
