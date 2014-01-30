@@ -66,6 +66,9 @@ function bibtexbrowser_configure($key, $value) {
 
 @define('ABBRV_TYPE','index');// may be year/x-abbrv/key/none/index/keys-index
 
+//the default view in the "main" (right hand side) frame
+@define('BIBTEXBROWSER_DEFAULT_FRAME','year=latest'); // year=latest,all and all valid bibtexbrowser queries
+
 // Wrapper to use when we are included by another script 
 @define('BIBTEXBROWSER_EMBEDDED_WRAPPER', 'NoWrapper');
 
@@ -3801,7 +3804,7 @@ class Dispatcher {
     </head>
     <frameset cols="15%,*">
     <frame name="menu" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;menu'; ?>" />
-    <frame name="main" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;year=latest'?>" />
+    <frame name="main" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;'.BIBTEXBROWSER_DEFAULT_FRAME?>" />
     </frameset>
     </html>
 
