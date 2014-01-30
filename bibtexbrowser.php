@@ -2847,15 +2847,25 @@ class BibDataBase {
   /** A hashtable of constant strings */
   var $stringdb;
 
+  /** A list of file names */
+  var $from_files;
+
   /** Creates a new database by parsing bib entries from the given
    * file. (backward compatibility) */
   function load($filename) {
+    $this->from_files[] = $filename;
     $this->update($filename);
   }
   
   /** Updates a database (replaces the new bibtex entries by the most recent ones) */ 
   function update($filename) {  
+    $this->from_files[] = $filename;
     $this->update_internal($filename, NULL);
+  }
+
+  /** returns true if this file is already loaded in this BibDataBase object */
+  function is_already_loaded($filename) {
+    return in_array($filename, $this->from_files);
   }
   
   /** See update */ 
@@ -3563,7 +3573,7 @@ class Dispatcher {
     if (!isset($_GET[Q_FILE])) { die('$_GET[\''.Q_FILE.'\'] is not set!'); }
 
     // first we set the database (load from disk or parse the bibtex file)
-    if (!isset($_GET[Q_DB])) { setDB(); }
+    if (!isset($_GET[Q_DB]) || !$_GET[Q_DB]->is_already_loaded($_GET[Q_FILE])) { setDB(); }
     
     // is the publication list included in another page?
     // strtr is used for Windows where __FILE__ contains C:\toto and SCRIPT_FILENAME contains C:/toto (bug reported by Marco)
