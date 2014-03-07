@@ -1041,7 +1041,7 @@ class BibEntry {
   
   function setIndex($index) { $this->index = $index; }
 
-  /** Tries to build a good URL for this entry */
+  /** Tries to build a good URL for this entry. The URL should be absolute (better for the generated RSS) */
   function getURL() {
     if (defined('BIBTEXBROWSER_URL_BUILDER')) {
       $f = BIBTEXBROWSER_URL_BUILDER;
@@ -1050,15 +1050,6 @@ class BibEntry {
 //     echo $this->filename;
 //     echo $this->getKey();
     return BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY=>$this->getKey(), Q_FILE=>$this->filename));
-  }
-
-  /** Tries to build a good absolute URL for this entry */
-  function getAbsoluteURL() {
-    if (defined('BIBTEXBROWSER_URL_BUILDER')) {
-      $f = BIBTEXBROWSER_URL_BUILDER;
-      return $f($this);
-    }
-    return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/'.$this->getURL();
   }
 
   /** returns a "[pdf]" link if relevant */
@@ -3547,7 +3538,7 @@ class RSSDisplay {
          ?>
          <item>
          <title><?php echo $this->text2rss($bibentry->getTitle());?></title>
-         <link><?php echo $bibentry->getAbsoluteURL();?></link>
+         <link><?php echo $bibentry->getURL();?></link>
          <description>
           <?php
             // we are in XML, so we cannot have HTML entitites
