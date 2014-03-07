@@ -1558,7 +1558,15 @@ class BibEntry {
     $s.=$this->getText();
     return $s;
   }
-}
+  
+  /** returns the first and last page of the entry as an array ([0]->first,  [2]->last) */
+  function getPages() {
+    preg_match('/([0-9]+).*?([0-9]+)/',$this->getField('pages'),$matches);
+    array_shift($matches);
+    return $matches;
+  }
+
+} // enc class BibEntry
 
 /** returns an HTML tag depending on BIBTEXBROWSER_LAYOUT e.g. <TABLE> */
 function get_HTML_tag_for_layout() {
@@ -2658,8 +2666,22 @@ class BibEntryDisplay {
     return $this->bib->toCoins().$this->bib->toEntryUnformatted();
   }
 
-  /** Creates metadata for Google Scholar
-   * + a description
+  /** Returns a dictionary of metadata. If the same metadata appears multiple times, it is concatenated with ";"
+   */
+  function metadata_dict() {
+    $result = array();
+    foreach($this->metadata() as $v) {
+      if (!in_array($v[0], $result)) {      
+        $result[$v[0]] = $v[1];
+      } else {
+        $result[$v[0]] .= ';'.$v[1];
+      }
+    }
+    return $result;
+  }
+  
+  /** Returns an array containing the metadata for Google Scholar
+   *    array (array('citation_title', 'foo'), ....)
    * @see http://scholar.google.com/intl/en/scholar/inclusion.html
    * @see http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar
    * */
@@ -2667,74 +2689,85 @@ class BibEntryDisplay {
     $result=array();
     
     if (METADATA_GS) {
-    // the description may mix with the Google Scholar tags
-    // we remove it
-    // $result[] = array('description',trim(strip_tags(str_replace('"','',bib2html($this->bib)))));
-    $result[] = array('citation_title',$this->bib->getTitle());
-    $authors = $this->bib->getArrayOfCommaSeparatedAuthors();
-    $result[] = array('citation_authors',implode("; ",$authors));
-    foreach($authors as $author) {
-      $result[] = array('citation_author',$author);
-    }
-    $result[] = array('citation_publication_date',$this->bib->getYear());
-
-    // this page
-    $result[] = array('citation_abstract_html_url','http://'.$_SERVER['HTTP_HOST'].($_SERVER['SERVER_PORT']=='80'?'':$_SERVER['SERVER_PORT']).str_replace('&','&amp;',$_SERVER['REQUEST_URI']));
-    
-    if ($this->bib->hasField("publisher")) {
-      $result[] = array('citation_publisher',$this->bib->getPublisher());
-    }
-
-    // BOOKTITLE: JOURNAL NAME OR PROCEEDINGS
-    if ($this->bib->getType()=="article") { // journal article
-      $result[] = array('citation_journal_title',$this->bib->getField("journal"));
-      $result[] = array('citation_volume',$this->bib->getField("volume"));
-      if ($this->bib->hasField("issue")) {
-        $result[] = array('citation_issue',$this->bib->getField("issue"));
+      // the description may mix with the Google Scholar tags
+      // we remove it
+      // $result[] = array('description',trim(strip_tags(str_replace('"','',bib2html($this->bib)))));
+      $result[] = array('citation_title',$this->bib->getTitle());
+      $authors = $this->bib->getArrayOfCommaSeparatedAuthors();
+      $result[] = array('citation_authors',implode("; ",$authors));
+      foreach($authors as $author) {
+        $result[] = array('citation_author',$author);
       }
-      if ($this->bib->hasField("issn")) {
-        $result[] = array('citation_issue',$this->bib->getField("issn"));
+      
+      // the date 
+      $result[] = array('citation_publication_date',$this->bib->getYear());
+      $result[] = array('citation_date',$this->bib->getYear());
+        $result[] = array('citation_year',$this->bib->getYear());
+
+      if ($this->bib->hasField("publisher")) {
+        $result[] = array('citation_publisher',$this->bib->getPublisher());
       }
-    } 
 
-    if ($this->bib->getType()=="inproceedings" || $this->bib->getType()=="conference") {
-       $result[] = array('citation_conference_title',$this->bib->getField(BOOKTITLE));
-       $result[] = array('citation_conference',$this->bib->getField(BOOKTITLE));
-    }
+      // BOOKTITLE: JOURNAL NAME OR PROCEEDINGS
+      if ($this->bib->getType()=="article") { // journal article
+        $result[] = array('citation_journal_title',$this->bib->getField("journal"));
+        $result[] = array('citation_volume',$this->bib->getField("volume"));
+        if ($this->bib->hasField("number")) {
+          // in bibtex, the issue number is usually in a field "number"
+          $result[] = array('citation_issue',$this->bib->getField("number"));
+        }
+        if ($this->bib->hasField("issue")) {
+          $result[] = array('citation_issue',$this->bib->getField("issue"));
+        }
+        if ($this->bib->hasField("issn")) {
+          $result[] = array('citation_issue',$this->bib->getField("issn"));
+        }
+      } 
 
-    if ($this->bib->getType()=="phdthesis"
-         || $this->bib->getType()=="mastersthesis"
-         || $this->bib->getType()=="bachelorsthesis"
-       )
-    {
-       $result[] = array('citation_dissertation_institution',$this->bib->getField('school'));
-    }
+      if ($this->bib->getType()=="inproceedings" || $this->bib->getType()=="conference") {
+         $result[] = array('citation_conference_title',$this->bib->getField(BOOKTITLE));
+         $result[] = array('citation_conference',$this->bib->getField(BOOKTITLE));
+      }
 
-    if ($this->bib->getType()=="techreport"
-         && $this->bib->hasField("number")
-       )
-    {
-       $result[] = array('citation_technical_report_number',$this->bib->getField('number'));
-    }
+      if ($this->bib->getType()=="phdthesis"
+           || $this->bib->getType()=="mastersthesis"
+           || $this->bib->getType()=="bachelorsthesis"
+         )
+      {
+         $result[] = array('citation_dissertation_institution',$this->bib->getField('school'));
+      }
 
-    if ($this->bib->getType()=="techreport"
-         && $this->bib->hasField("institution")
-       )
-    {
-       $result[] = array('citation_technical_report_institution',$this->bib->getField('institution'));
-    }
+      if ($this->bib->getType()=="techreport"
+           && $this->bib->hasField("number")
+         )
+      {
+         $result[] = array('citation_technical_report_number',$this->bib->getField('number'));
+      }
 
-    // generic
-    if ($this->bib->hasField("doi")) {
-      $result[] = array('citation_doi',$this->bib->getField("doi"));
-    }
+      if ($this->bib->getType()=="techreport"
+           && $this->bib->hasField("institution")
+         )
+      {
+         $result[] = array('citation_technical_report_institution',$this->bib->getField('institution'));
+      }
 
-    if ($this->bib->hasField("url")) {
-      $result[] = array('citation_pdf_url',$this->bib->getField("url"));
-    }
-    }
-    
-    
+      // generic
+      if ($this->bib->hasField("doi")) {
+        $result[] = array('citation_doi',$this->bib->getField("doi"));
+      }
+
+      if ($this->bib->hasField("url")) {
+        $result[] = array('citation_pdf_url',$this->bib->getField("url"));
+      }    
+      
+      if ($this->bib->hasField("pages")) {
+        $pages = $this->bib->getPages();
+        $result[] = array('citation_firstpage',$pages[0]);
+        $result[] = array('citation_lastpage',$pages[1]);
+      }
+
+    } // end Google Scholar
+
     // we don't introduce yet another kind of bibliographic metadata
     // the core bibtex metadata will simply be available as json
     // now adding the pure bibtex with no translation
@@ -2829,6 +2862,7 @@ class BibEntryDisplay {
 
   }
 }
+
 
 // ----------------------------------------------------------------------
 // DATABASE MANAGEMENT
