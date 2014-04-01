@@ -20,6 +20,7 @@ if (!defined('BIBTEXBROWSER')) {
 define('BIBTEXBROWSER','v__GITHUB__');
 
 // support for configuration
+// set with bibtexbrowser_configure, get with config_value
 // you may have bibtexbrowser_configure('ENCODING', 'latin1) in bibtexbrowser.local.php
 global $CONFIGURATION;
 $CONFIGURATION = array();
