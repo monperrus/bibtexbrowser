@@ -1230,7 +1230,7 @@ class BibEntry {
   * Returns a compacted string form of author names by throwing away
   * all author names except for the first one and appending ", et al."
   */
-  function getCompactedAuthors($author){
+  function getCompactedAuthors(){
     $authors = $this->getRawAuthors();
     $etal = count($authors) > 1 ? ', et al.' : '';
     return $this->formatAuthor($authors[0]) . $etal;
