@@ -1452,7 +1452,7 @@ class BibEntry {
 
     // referent
     if ($this->hasField('url')) {
-      $url_parts[]='rft_id='.s3988($this->getField("url"));
+      $url_parts[]='rft_id='.s3988($this->getField('url'));
     } else if ($this->hasField('doi')) {
       $url_parts[]='rft_id='.s3988('info:doi/'.$this->getField("doi"));
     }
@@ -1740,7 +1740,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   // title
   // usually in bold: .bibtitle { font-weight:bold; }
   $title = '<span class="bibtitle">'.$title.'</span>';
-  if ($bibentry->hasField('url')) $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField("url").'">'.$title.'</a>';
+  if ($bibentry->hasField('url')) $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField('url').'">'.$title.'</a>';
   
 
   // author
@@ -1844,7 +1844,7 @@ function JanosBibliographyStyle(&$bibentry) {
 
   // title
   $title = '"'.$title.'"';
-  if ($bibentry->hasField('url')) $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField("url").'">'.$title.'</a>';
+  if ($bibentry->hasField('url')) $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField('url').'">'.$title.'</a>';
   $entry[] = $title;
 
 
@@ -2747,8 +2747,8 @@ class BibEntryDisplay {
         $result[] = array('citation_doi',$this->bib->getField("doi"));
       }
 
-      if ($this->bib->hasField("url")) {
-        $result[] = array('citation_pdf_url',$this->bib->getField("url"));
+      if ($this->bib->hasField('url')) {
+        $result[] = array('citation_pdf_url',$this->bib->getField('url'));
       }    
       
       if ($this->bib->hasField("pages")) {
@@ -2843,8 +2843,8 @@ class BibEntryDisplay {
       $result[] = array('eprints.id_number',$this->bib->getField("doi"));
     }
 
-    if ($this->bib->hasField("url")) {
-      $result[] = array('eprints.official_url',$this->bib->getField("url"));
+    if ($this->bib->hasField('url')) {
+      $result[] = array('eprints.official_url',$this->bib->getField('url'));
     }
     }
     // --------------------------------- END METADATA EPRINTS
