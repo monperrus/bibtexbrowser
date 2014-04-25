@@ -1,6 +1,7 @@
-This is the github repository of bibtexbrowser.
+Custom changes to bibtexbrowser, including:
 
-It is used to collect patches and extensions as pull requests.
+* Custom index file to select among several bib files
+* Added a pdf link for bib databases exported from Zotero
 
 The official home page of bibtexbrowser is <http://www.monperrus.net/martin/bibtexbrowser/>.
 
