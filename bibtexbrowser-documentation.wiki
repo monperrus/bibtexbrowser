@@ -1,0 +1,299 @@
+<!-- 
+
+This is the documentation of bibtexbrowser.
+It uses the Wiki syntax of dokuwiki, as implemented in gakowiki.
+Is is rendered as HTML on http://www.monperrus.net/martin/bibtexbrowser/.
+
+This documentation is collaborative, don't hesitate to ask for pull requests by email or on Github: https://github.com/monperrus/bibtexbrowser
+
+Thanks!
+
+--Martin Monperrus
+
+-->
+
+bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
+ bibtexbrowser is stable, mature and easy to install. It is used in [[users|100+ different universities]] around the globe (in 329 different domains according to Google).
+
++++TOC+++
+
+=====Major features=====
+* bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar. 
+* More and more academics use bibliographic software like [[http://www.zotero.org/|Zotero]] or [[http://www.mendeley.com/|Mendeley]]. bibtexbrowser generates [[http://ocoins.info/|COinS]] for automatic import of bibliographic entries with [[http://www.zotero.org/|Zotero]] and [[http://www.mendeley.com/|Mendeley]].
+* People can subscribe to the RSS publication feed of an individual or a group so as to being kept up-to-date: bibtexbrowser generates RSS feeds for all queries (simply add &#38;rss at the end of the URL)! [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;all&amp;rss|demo]]
+* bibtexbrowser can display all entries for an author with an academic style (i.e book, articles, conference, workshop): [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;academic=Ducasse|demo]]
+* bibtexbrowser can be used to embed a publication list into another page: [[http://www.monperrus.net/martin/publications|demo]]
+* bibtexbrowser is easy to install: just a single file.
+
+=====Other features=====
+* **(10/2013)** support for localization (see below)
+* **(07/2012)** new label types (see config value ABBRV_TYPE)
+* **(10/2011)** if a bibtex entry contains a field gsid (like Google Scholar ID), bibtexbrowser includes a link [cites] to the cited-by page of Google Scholar (e.g. [[http://scholar.google.com/scholar?cites=15080874515065717592]])
+* **(03/2011)** bibtexbrowser includes a hide/show mechanism for bibtex entries (in Javascript, see configuration variable BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT)
+* **(10/2010)** bibtexbrowser now supports cross-references (Bibtex crossref)
+* **(09/2010)** bibtexbrowser now supports multiple bibtex files (''bibtexbrowser.php?bib=file1.bib;file2.bib'')
+* **(05/2010)** bibtexbrowser adds links to your co-author pages if you define the corresponding @string (see function addHomepageLink)
+* **(01/2010)** bibtexbrowser can handle user-defined bibliographic styles
+* **(10/2009)** bibtexbrowser is able to generate a bibtex file containing only the selected entries (simply add &#38;astext at the end of the link)
+* **(10/2009)** bibtexbrowser is now independent of the configuration of register_globals
+* **(01/2009)** bibtexbrowser allows multi criteria search, e.g.  [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;type=inproceedings&amp;year=2004|demo]]
+* bibtexbrowser replaces constants defined in @STRING
+* bibtexbrowser is very fast because it keeps a compiled version of the bibtex file (PHP object serialized)
+* bibtexbrowser is compatible with PHP 4.x and PHP 5.x
+* bibtexbrowser can display the menu and all entries without filtering from the file name passed as parameter [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|demo]]
+* bibtexbrowser can display all entries  out of a bibtex file [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;all|demo]]
+* bibtexbrowser can display all entries for a given year [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;year=2004|demo]]
+* bibtexbrowser can display a single bibtex entry [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;key=monperrus08d|demo]]
+* bibtexbrowser can display found entries with a search word (it can be in any bib field) [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;search=ocl|demo]]
+* bibtexbrowser can display all entries with a bib keyword e.g. "?keywords=components". It matches against the "keywords" bibtex field. [[http://bibtexbrowser.sourceforge.net/bibtexbrowser.php?bib=metrics.bib&keywords=components|demo]]
+* bibtexbrowser outputs valid XHTML 1.0 Transitional
+* bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;author=Barbara+A.+Kitchenham|demo]]
+* bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in UTF-8 ''define('ENCODING','UTF-8')'' )
+
+
+=====Download=====
+You may try bibtexbrowser without installation by uploading your bibtex file at [[http://my.publications.li]].
+For feature requests or bug reports, please comment this page below; patches can be contributed as pull requests on [[https://github.com/monperrus/bibtexbrowser|github]]:)
+
+<!-- //Release Candidate//: [[http://www.monperrus.net/martin/bibtexbrowser/bibtexbrowser-rc.php.txt]] -->
+//Stable Version//:  [[http://www.monperrus.net/martin/bibtexbrowser.php.txt|bibtexbrowser.php]]  
+[[http://www.monperrus.net/martin/bibtexbrowser/changelog|Changelog]]
+
+Don't hesitate to contact me to be added in the [[users|lists of bibtexbrowser users]]:-)
+
+=====Bibtexbrowser Ecosystem=====
+
+The following uses bibtexbrowser under the hood:
+* [[http://github.com/KaiBi/IEEEStyleForBibtexbrowser|A custom citation style for bibtexbrowser adhering to the IEEE citations guidelines (on github)]]
+* Generating publication lists in Latex using [[http://www.monperrus.net/martin/bibtex2latex]] 
+* [[http://www.monperrus.net/martin/feeding-mysql-database-with-bibtexbrowser|Feeding a MySQL database from the content of a bibtex file]]
+* Publication lists in Wordpress with [[http://www.monperrus.net/martin/wp-publications|wp-publications]]
+* Hosted publication lists at [[http://my.publications.li]]
+
+=====Demo and screenshot=====
+
+Demo: [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|Here, you can browse a bibtex file dedicated to software metrics]]
+
+<a href="bibtexbrowser-screenshot.png"><img height="500" src="bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/></a>
+
+=====Basic installation=====
+Create a bib file with the publication records (e.g. csgroup2008.bib) and upload it to your server.
+* Use the link ''bibtexbrowser.php?bib=csgroup2008.bib'' (frameset based view)
+* Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all'' (pub list sorted by year)
+* Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all&amp;academic'' (pub list  sorted by publication type, then by year, see "Sectioning in academic mode" below)
+
+** Warning **: bibtexbrowser maintains a cached version of the parsed bibtex, for high performance, check that PHP can write in the working directory of PHP.
+
+**Handling mutliple bibtex files**: If you want to include several bibtex files, just give bibtexbrowser the files separated by semi-columns e.g:
+''bibtexbrowser.php?bib=strings.bib;csgroup2008.bib''
+
+</div>
+
+=====FAQ=====
+
+====How to embed a publication list in an home page?====
+
+<table border="1">
+<tr><th></th><th>Sorted by year </th><th>Sorted by publication type</th></tr>
+<tr><td>For a group/team/lab</td>
+<td>
+&#60;?php
+$_GET&#91;'bib'&#93;='csgroup2008.bib';
+$_GET&#91;'all'&#93;=1;
+include( 'bibtexbrowser.php' );
+?>
+</td>
+<td>
+&#60;?php
+$_GET&#91;'bib'&#93;='csgroup2008.bib';
+$_GET&#91;'all'&#93;=1;
+$_GET&#91;'academic'&#93;=1;
+include( 'bibtexbrowser.php' );
+?>
+</td>
+</tr><!-- end group -->
+<tr><td>For an individual</td>
+<td>
+  &#60;?php
+$_GET&#91;'bib'&#93;='mybib.bib';
+$_GET&#91;'author'&#93;='Martin Monperrus';
+include( 'bibtexbrowser.php' );
+?>
+</td>
+<td>
+&#60;?php
+$_GET&#91;'bib'&#93;='mybib.bib';
+$_GET&#91;'author'&#93;='Martin Monperrus';
+$_GET&#91;'academic'&#93;=1;
+include( 'bibtexbrowser.php' );
+?>
+</td>
+</tr><!-- end individual -->
+</table>
+</div>
+
+
+====How to change the reference style?====
+
+**By modifying the CSS**
+
+If bibtexbrowser.css exists, it is used, otherwise bibtexbrowser uses its own embedded CSS style (see function bibtexbrowserDefaultCSS). An example of CSS tailoring is:
+<pre>
+.date {   background-color: blue; }
+.btb-header { }
+.rheader {  font-size: large }
+.bibref {  padding:3px; padding-left:15px;  vertical-align:top;}
+.bibtitle { font-weight:bold; }
+.bibbooktitle { font-style:italic; }
+</pre>
+</div>
+&nbsp;
+
+
+**By setting your own style function**
+The bibliography style is encapsulated in a function. If you want to modify the bibliography style, you can copy the default style in a new file, say ''bibtexbrowser-yourstyle.php'', and rename the function ''DefaultBibliographyStyle'' in say ''MyFancyBibliographyStyle''.
+Then, add in the file ''bibtexbrowser.local.php'':
+<pre>
+&#60;?php
+function MyFancyBibliographyStyle(&$bibentry) {
+  return $bibentry->getTitle().' ('.$bibentry->formattedAuthors(.')';
+}
+define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
+?>
+</pre>
+&nbsp;
+
+See Janos Tapolcai's style, which looks like IEEE references (see function JanosBibliographyStyle), and Kai's one [[http://github.com/KaiBi/IEEEStyleForBibtexbrowser|another custom citation style for bibtexbrowser adhering to the IEEE citations guidelines (on github)]].
+
+For contributing with a new style, [[http://www.monperrus.net/martin/|please drop me an email ]]
+
+
+====How to specify the encoding of bibtex files (UTF-8/ISO-8859-1/etc.)? ====
+
+
+By default, bibtexbrowser assumes that the bibtex file is UTF-8 encoded. If you want to change it to e.g. ISO-8859-1, add into ''bibtexbrowser.local.php'':
+ ''define('ENCODING','ISO-8859-1');'' 
+
+Note that if the bibtex only contains latex-encoded diacritics (e.g. ''\'e''), it does not matter. The encoding of the bibtex file and the one of the generated HTML is identical.
+
+
+====How to disable Javascript progressive enhancement?====
+add into ''bibtexbrowser.local.php'':
+''define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',false);''
+
+====How to remove the "[bibtex]" links?====
+''@define('BIBTEXBROWSER_BIBTEX_LINKS',false);''
+
+====How to change the reference indices?====
+<pre>
+
+// index => [1] The essence of metamodeling
+// year => [2005] The essence of metamodeling
+// x-abbrv => [SoSyM] The essence of metamodeling if the bibtex entry contains a field x-abbrv
+define('ABBRV_TYPE','year');// may be year/x-abbrv/key/none/index
+</pre>
+
+
+====How to use the "Academic style"?====
+
+The default academic mode creates four sections:
+- books
+- articles and book chapters
+- workshop papers (for entries containing "workshop" in the field booktitle)
+- others.
+
+You may create your own one in ''bibtexbrowser.local.php'' (see also "By creating a bibtexbrowser.local.php" below):
+<pre>
+define('BIBLIOGRAPHYSECTIONS','my_sectioning');
+function my_sectioning() {
+return  
+  array(
+  // Books
+    array(
+      'query' => array(Q_TYPE=>'book'),
+      'title' => 'Books'
+    ),
+  // Articles
+    array(
+      'query' => array(Q_TYPE=>'article'),
+      'title' => 'Refereed Articles'
+    ),
+  // Conference and Workshop papers
+    array(
+      'query' => array(Q_TYPE=>'inproceedings'),
+      'title' => 'Conference and Workshop  Papers'
+    ),
+  // others
+    array(
+      'query' => array(Q_TYPE=>'misc|phdthesis|mastersthesis|bachelorsthesis|techreport'),
+      'title' => 'Other Publications'
+    )
+  );
+}
+</pre>
+
+
+====How to get the  individual bib pages embedded as well?====
+''define('BIBTEXBROWSER_URL',""); ''
+
+
+====How to add links to the slides of a conference/workshop paper?====
+You can simply fill the ''comment'' field of the bib entry with an HTML link:
+<code>
+@inproceedings{foo,
+author="Jean Dupont",
+title="Bibtexbrowser",
+year=2009,
+booktitle="Proceedings of the BIB conference",
+comment={&lt;a href="myslides.pdf">[slides]&lt;/a>}
+}
+</code>
+
+This comment field can also be used to add acceptance rates and impact factors.
+
+====How to localize bibtexbrowser?====
+Add in ''bibtexbrowser.local.php'':
+<pre>
+&lt;?
+global $BIBTEXBROWSER_LANG;
+$BIBTEXBROWSER_LANG=array();
+$BIBTEXBROWSER_LANG['Refereed Conference Papers']="Conférences avec comité de lecture";
+... 
+$BIBTEXBROWSER_LANG['Year']="Année";
+?>
+</pre>
+
+====How to change the default frame?====
+Add in ''bibtexbrowser.local.php'':
+<pre>
+&lt;?
+// or any valid query: year=2010, author=Jane, etc.
+@define('BIBTEXBROWSER_DEFAULT_FRAME','all');
+?>
+</pre>
+
+
+=====Related tools=====
+
+Old-fashioned:
+[[http://nxg.me.uk/dist/bibhtml/|bibhtml]], [[http://www.litech.org/~wkiri/bib2html/|bib2html]], [[http://ilab.usc.edu/bibTOhtml/|bibtohtml]], [[http://people.csail.mit.edu/rahimi/bibtex/|bibtextohtml]], [[http://www.lri.fr/~filliatr/bibtex2html/|bibtex2html]], [[http://people.csail.mit.edu/mernst/software/bibtex2web.html |bibtex2web]], [[http://strategoxt.org/Stratego/BibtexTools|stratego bibtex module]]
+Unlike them, **bibtexbrowser is dynamic**.i.e.; generates the HTML pages on the fly. Thus, you do not need to regenerate the static HTML files each time the bib file is changed.
+
+Heavyweight:
+[[http://www.rennes.supelec.fr/ren/perso/etotel/PhpBibtexDbMng/|PHP BibTeX Database Manager]], [[http://gforge.inria.fr/projects/bibadmin/|bibadmin]], [[http://artis.imag.fr/Software/Basilic/|basilic]], [[http://phpbibman.sourceforge.net/|phpbibman]], [[http://www.aigaion.nl/|aigaion]], [[http://www.refbase.net/|refbase]], [[http://wikindx.sourceforge.net/|wikindx]], [[http://refdb.sourceforge.net/|refdb]]
+Unlike them, **bibtexbrowser does not need a MySQL database**
+
+
+Main competitor:
+[[http://code.google.com/p/simplybibtex/|SimplyBibtex]] has the same spirit, but the project seems dead since 2006
+
+Misc:
+[[http://www.sat.ltu.se/publications/publications.m|This matlab script is similar]]
+
+=====Copyright=====
+
+This script is a fork from an excellent script of Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon from the University of Texas at El Paso.
+
+Bibtexbrowser is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+
+=====Discussion/Comments/Feedback=====
