@@ -12,8 +12,7 @@ Thanks!
 
 -->
 
-bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
- bibtexbrowser is stable, mature and easy to install. It is used in [[users|100+ different universities]] around the globe (in 329 different domains according to Google).
+bibtexbrowser is a PHP script that creates publication lists from Bibtex files. bibtexbrowser is stable, mature and easy to install. It is used in [[http://www.monperrus.net/martin/bibtexbrowser/users|100+ different universities]] around the globe (in 329 different domains according to Google).
 
 +++TOC+++
 
@@ -52,14 +51,14 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files.
 
 
 =====Download=====
-You may try bibtexbrowser without installation by uploading your bibtex file at [[http://my.publications.li]].
+You may try bibtexbrowser without instllaation by uploading your bibtex file at [[http://my.publications.li]].
 For feature requests or bug reports, please comment this page below; patches can be contributed as pull requests on [[https://github.com/monperrus/bibtexbrowser|github]]:)
 
 <!-- //Release Candidate//: [[http://www.monperrus.net/martin/bibtexbrowser/bibtexbrowser-rc.php.txt]] -->
-//Stable Version//:  [[http://www.monperrus.net/martin/bibtexbrowser.php.txt|bibtexbrowser.php]]  
+'''Stable Version''':  [[http://www.monperrus.net/martin/bibtexbrowser.php.txt|bibtexbrowser.php]]  
 [[http://www.monperrus.net/martin/bibtexbrowser/changelog|Changelog]]
 
-Don't hesitate to contact me to be added in the [[users|lists of bibtexbrowser users]]:-)
+Don't hesitate to contact me to be added in the [[http://www.monperrus.net/martin/bibtexbrowser/users|lists of bibtexbrowser users]]:-)
 
 =====Bibtexbrowser Ecosystem=====
 
@@ -82,9 +81,9 @@ Create a bib file with the publication records (e.g. csgroup2008.bib) and upload
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all'' (pub list sorted by year)
 * Use the link ''bibtexbrowser.php?bib=csgroup2008.bib&amp;all&amp;academic'' (pub list  sorted by publication type, then by year, see "Sectioning in academic mode" below)
 
-** Warning **: bibtexbrowser maintains a cached version of the parsed bibtex, for high performance, check that PHP can write in the working directory of PHP.
+'''Warning''': bibtexbrowser maintains a cached version of the parsed bibtex, for high performance, check that PHP can write in the working directory of PHP.
 
-**Handling mutliple bibtex files**: If you want to include several bibtex files, just give bibtexbrowser the files separated by semi-columns e.g:
+'''Handling mutliple bibtex files''': If you want to include several bibtex files, just give bibtexbrowser the files separated by semi-columns e.g:
 ''bibtexbrowser.php?bib=strings.bib;csgroup2008.bib''
 
 </div>
@@ -135,7 +134,7 @@ include( 'bibtexbrowser.php' );
 
 ====How to change the reference style?====
 
-**By modifying the CSS**
+'''By modifying the CSS'''
 
 If bibtexbrowser.css exists, it is used, otherwise bibtexbrowser uses its own embedded CSS style (see function bibtexbrowserDefaultCSS). An example of CSS tailoring is:
 <pre>
@@ -150,7 +149,7 @@ If bibtexbrowser.css exists, it is used, otherwise bibtexbrowser uses its own em
 &nbsp;
 
 
-**By setting your own style function**
+'''By setting your own style function'''
 The bibliography style is encapsulated in a function. If you want to modify the bibliography style, you can copy the default style in a new file, say ''bibtexbrowser-yourstyle.php'', and rename the function ''DefaultBibliographyStyle'' in say ''MyFancyBibliographyStyle''.
 Then, add in the file ''bibtexbrowser.local.php'':
 <pre>
@@ -172,7 +171,7 @@ For contributing with a new style, [[http://www.monperrus.net/martin/|please dro
 
 
 By default, bibtexbrowser assumes that the bibtex file is UTF-8 encoded. If you want to change it to e.g. ISO-8859-1, add into ''bibtexbrowser.local.php'':
- ''define('ENCODING','ISO-8859-1');'' 
+<pre>define('ENCODING','ISO-8859-1');</pre>
 
 Note that if the bibtex only contains latex-encoded diacritics (e.g. ''\'e''), it does not matter. The encoding of the bibtex file and the one of the generated HTML is identical.
 
@@ -277,11 +276,11 @@ Add in ''bibtexbrowser.local.php'':
 
 Old-fashioned:
 [[http://nxg.me.uk/dist/bibhtml/|bibhtml]], [[http://www.litech.org/~wkiri/bib2html/|bib2html]], [[http://ilab.usc.edu/bibTOhtml/|bibtohtml]], [[http://people.csail.mit.edu/rahimi/bibtex/|bibtextohtml]], [[http://www.lri.fr/~filliatr/bibtex2html/|bibtex2html]], [[http://people.csail.mit.edu/mernst/software/bibtex2web.html |bibtex2web]], [[http://strategoxt.org/Stratego/BibtexTools|stratego bibtex module]]
-Unlike them, **bibtexbrowser is dynamic**.i.e.; generates the HTML pages on the fly. Thus, you do not need to regenerate the static HTML files each time the bib file is changed.
+Unlike them, bibtexbrowser is dynamic, i.e. generates the HTML pages on the fly. Thus, you do not need to regenerate the static HTML files each time the bib file is changed.
 
 Heavyweight:
 [[http://www.rennes.supelec.fr/ren/perso/etotel/PhpBibtexDbMng/|PHP BibTeX Database Manager]], [[http://gforge.inria.fr/projects/bibadmin/|bibadmin]], [[http://artis.imag.fr/Software/Basilic/|basilic]], [[http://phpbibman.sourceforge.net/|phpbibman]], [[http://www.aigaion.nl/|aigaion]], [[http://www.refbase.net/|refbase]], [[http://wikindx.sourceforge.net/|wikindx]], [[http://refdb.sourceforge.net/|refdb]]
-Unlike them, **bibtexbrowser does not need a MySQL database**
+Unlike them, bibtexbrowser does not need a MySQL database.
 
 
 Main competitor:
@@ -297,3 +296,4 @@ This script is a fork from an excellent script of Joel Garcia, Leonardo Ruiz, an
 Bibtexbrowser is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
 =====Discussion/Comments/Feedback=====
+<!-- rendered on http://www.monperrus.net/martin/bibtexbrowser/users -->
