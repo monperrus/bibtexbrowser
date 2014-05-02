@@ -1484,6 +1484,18 @@ class BibEntry {
 
     $str = '';
   
+  
+  #Adding link to PDF file exported by Zotero
+    if ($this->hasField('file')) {
+  
+  $file = $this->getField("file");
+  $file = explode(":", $file);
+    $file = $file[1];
+  
+      $str .= ' <a href="'.$file.'">[PDF file]</a>';
+    }
+  
+  
     if (BIBTEXBROWSER_BIBTEX_LINKS) {
       // we add biburl and title to be able to retrieve this important information
       // using Xpath expressions on the XHTML source
