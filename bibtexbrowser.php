@@ -238,15 +238,15 @@ function _zetDB($bibtex_filenames) {
 
   // ---------------------------- HANDLING unexistent files
   foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
-  
     // get file extension to only allow .bib files
     $ext = pathinfo($bib, PATHINFO_EXTENSION);
     // this is a security protection
     if (BIBTEXBROWSER_LOCAL_BIB_ONLY && (!file_exists($bib) || strcasecmp($ext, 'bib') != 0)) {
-
      // to automate dectection of faulty links with tools such as webcheck
      header('HTTP/1.1 404 Not found');
-     die('<b>the bib file '.$bib.' does not exist !</b>');
+    // escape $bib to prevent XSS
+  	$escapedBib = htmlEntities($bib, ENT_QUOTES);
+     die('<b>the bib file '.$escapedBib.' does not exist !</b>');
     }
   } // end for each
 
