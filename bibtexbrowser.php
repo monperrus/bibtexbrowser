@@ -1301,17 +1301,6 @@ class BibEntry {
     return $this->formatAuthor($authors[0]) . $etal;
   }
 
-  /**
-  * Returns a compacted string form of author names by throwing away
-  * all author names except for the first one and appending ", et al."
-  */
-  function getVeryCompactedAuthors(){
-    $authors = $this->getRawAuthors();
-    $etal = count($authors) > 1 ? ', et al.' : '';
-    list($firstname, $lastname) = splitFullName($authors[0]);
-    return $lastname . $etal;
-  }
-
   /** add the link to the homepage if it is defined in a string
    *  e.g. @string{hp_MartinMonperrus="http://www.monperrus.net/martin"}
    *  The string is a concatenation of firstname, lastname, prefixed by hp_ 
