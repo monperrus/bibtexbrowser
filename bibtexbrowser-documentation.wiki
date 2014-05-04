@@ -168,6 +168,42 @@ See Janos Tapolcai's style, which looks like IEEE references (see function Janos
 
 For contributing with a new style, [[http://www.monperrus.net/martin/|please drop me an email ]]
 
+====How to change the reference style for links?====
+
+'''Setting your own style function'''
+Beyond modifying the CSS of links (''.bibline a {}''), the style for links is also encapsulated in a function. If you want to modify the style for links, you can copy the default style in a new file, say ''bibtexbrowser-yourstyle.php'', and rename the function ''bib2links_default'' in say ''MyFancyBib2links''.
+Then, add in the file ''bibtexbrowser.local.php'':
+<pre>
+<?php
+function MyFancyBib2links(&$bibentry) {
+  // bib is a special type of link. without the url argument or with an invalid image, it prints '[bibtex]'
+  $result = $bibentry->getBibLink();
+  // returns an empty string if no url field present
+  $result .= $bibentry->getLink('url');
+  // Google Scholar ID. empty string if no gsid field present
+  $result .= $bibentry->getGSLink();
+  // returns an empty string if no doi field present
+  $result .= $bibentry->getDoiLink();
+  return $result;
+}
+define('BIBTEXBROWSER_LINK_STYLE','MyFancyBib2links');
+?>
+</pre>
+&nbsp;
+
+You can use your personalized function to add support for new fields in bibtex (''pdf'', ''file'', etc.). Check-out the functions ''getLink()'', ''getBibLink()'', ''getGSLink()'' and ''getDoiLink()''. They accept an optional argument for providing an image/icon instead of printing text.
+
+''
+  // returns an empty string if no pdf field present
+  $result .= $bibentry->getLink('pdf','http://url.to/icons/pdf.png');
+  // returns an empty string if no file field present
+  $result .= $bibentry->getLink('file');
+  // returns an empty string if no slides field present
+  $result .= $bibentry->getLink('slides');
+  // returns an empty string if no poster field present
+  $result .= $bibentry->getLink('poster');
+''
+
 
 ====How to specify the encoding of bibtex files (UTF-8/ISO-8859-1/etc.)? ====
 
