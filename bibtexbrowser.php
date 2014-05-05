@@ -238,7 +238,6 @@ function _zetDB($bibtex_filenames) {
 
   // ---------------------------- HANDLING unexistent files
   foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
-  
     // get file extension to only allow .bib files
     $ext = pathinfo($bib, PATHINFO_EXTENSION);
     // this is a security protection
