@@ -845,6 +845,17 @@ function char2html_case_sensitive($line,$latexmodifier,$char,$entitiyfragment) {
 (I still look for a comprehensive translation table from late chars to html, better than [[http://isdc.unige.ch/Newsletter/help.html]])
  */
 function latex2html($line) {
+
+  $maths = array();
+  $index = 0;
+  // first we escape the math env
+  preg_match_all('/\$.*?\$/', $line, $matches);
+  foreach ($matches[0] as $k) {
+    $maths[] = $k;
+    $line = str_replace($k, '__MATH'.$index.'__', $line);
+    $index++;
+  }
+    
   $line = preg_replace('/([^\\\\])~/','\\1&nbsp;', $line);
 
   // performance increases with this test
@@ -918,6 +929,11 @@ function latex2html($line) {
 // clean out extra tex curly brackets, usually used for preserving capitals
   $line = str_replace('}','', $line);
   $line = str_replace('{','', $line);
+
+  // we restore the math env
+  for($i = 0; $i < count($maths); $i++) {
+    $line = str_replace('__MATH'.$i.'__', $maths[$i], $line);
+  }
 
   return $line;
 }
