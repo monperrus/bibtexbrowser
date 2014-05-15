@@ -88,8 +88,6 @@ Create a bib file with the publication records (e.g. csgroup2008.bib) and upload
 '''Handling mutliple bibtex files''': If you want to include several bibtex files, just give bibtexbrowser the files separated by semi-columns e.g:
 ''bibtexbrowser.php?bib=strings.bib;csgroup2008.bib''
 
-</div>
-
 =====FAQ=====
 
 ====How to embed a publication list in an home page?====
@@ -131,7 +129,6 @@ include( 'bibtexbrowser.php' );
 </td>
 </tr><!-- end individual -->
 </table>
-</div>
 
 
 ====How to change the reference style?====
@@ -147,9 +144,16 @@ If bibtexbrowser.css exists, it is used, otherwise bibtexbrowser uses its own em
 .bibtitle { font-weight:bold; }
 .bibbooktitle { font-style:italic; }
 </pre>
-</div>
 &nbsp;
 
+For instance, one can tweak the output by disabling the display of some headers and pieces of information.
+<pre>
+.bibmenu {display:none} /* disables the [bibtex] and the like */
+.bibanchor {display:none} /* disables the index [1] or [Name2010], etc. depending on the value of the configuration value ABBRV_TYPE and BIBTEXBROWSER_LAYOUT
+.theader {display:none}
+.sheader {display:none} /* disables the year header e.g., 2001 */
+</pre>
+&nbsp;
 
 '''By setting your own style function'''
 The bibliography style is encapsulated in a function. If you want to modify the bibliography style, you can copy the default style in a new file, say ''bibtexbrowser-yourstyle.php'', and rename the function ''DefaultBibliographyStyle'' in say ''MyFancyBibliographyStyle''.

@@ -1392,7 +1392,7 @@ class BibEntry {
           break;
       }
       $result .= bib2html($this);
-      $result .= $this->bib2links();
+      $result .= ' '.$this->bib2links();
       switch(BIBTEXBROWSER_LAYOUT) { // close row
         case 'list':
           $result .= '</li>'."\n";
@@ -1474,7 +1474,7 @@ class BibEntry {
 
   /** Returns an anchor for this entry.  */
   function anchor() {
-        return '<a name="'.$this->getRawAbbrv().'"></a>';
+        return '<a class="bibanchor" name="'.$this->getRawAbbrv().'"></a>';
   }
 
   /** returns a collection of links for the given bibtex entry
@@ -1483,12 +1483,12 @@ class BibEntry {
   function bib2links() {
     $href = 'href="'.$this->getURL().'"';
 
-    $str = '';
+    $str = '<span class="bibmenu">';
   
     if (BIBTEXBROWSER_BIBTEX_LINKS) {
       // we add biburl and title to be able to retrieve this important information
       // using Xpath expressions on the XHTML source
-      $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bibtex]</a>";
+      $str .= "<a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bibtex]</a>";
     }
 
     if (BIBTEXBROWSER_PDF_LINKS) {
@@ -1505,7 +1505,7 @@ class BibEntry {
       $str .= ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">[cites]</a>';
     }
 
-    return $str;
+    return $str.'</span>';
   }
 
 
