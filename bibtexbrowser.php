@@ -1544,7 +1544,7 @@ class BibEntry {
   function toEntryUnformatted() {
     $result = "";
     $result .= '<pre class="purebibtex">'; // pre is nice when it is embedded with no CSS available
-    $entry = str_replace('<','&lt;',$this->getFullText());
+    $entry = htmlspecialchars($this->getFullText());
     if ($this->hasField('url')) {
       $url = $this->getField('url');
       // this is not a parsing but a simple replacement
