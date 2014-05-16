@@ -1828,7 +1828,7 @@ function DefaultBibliographyStyle(&$bibentry) {
 
   // some comments (e.g. acceptance rate)?
   if ($bibentry->hasField('comment')) {
-      $result .=  " (".$bibentry->getField("comment").")";
+      $result .=  " <span class=\"bibcomment\">(".$bibentry->getField("comment").")</span>";
   }
   if ($bibentry->hasField('note')) {
       $result .=  " (".$bibentry->getField("note").")";
