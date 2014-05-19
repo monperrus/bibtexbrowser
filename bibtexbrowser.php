@@ -1101,6 +1101,11 @@ class BibEntry {
     if ($this->hasField('pdf')) {
       return $this->getLink('pdf', $iconurl, $label);
     }
+    // Adding link to PDF file exported by Zotero
+    // ref: https://github.com/monperrus/bibtexbrowser/pull/14 
+    if ($this->hasField('file')) {
+      return $this->getLink('file', $iconurl, $label);
+    }
   }
 
   /** returns a "[bib]" link if relevant */
@@ -1659,7 +1664,7 @@ function bib2links_default(&$bibentry) {
 
   if (BIBTEXBROWSER_PDF_LINKS) {
     // returns an empty string if no url present
-    $str .= $bibentry->getUrlLink();
+    $str .= ' '.$bibentry->getUrlLink();
   }
 
   if (BIBTEXBROWSER_DOI_LINKS && $bibentry->hasField('doi')) {
