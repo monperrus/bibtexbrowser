@@ -1,20 +1,12 @@
 <!-- 
-
-This is the documentation of bibtexbrowser.
-It uses the Wiki syntax of dokuwiki, as implemented in gakowiki.
+This is the source file of the documentation of bibtexbrowser.
+It uses the Wiki syntax similar to dokuwiki and mediawiki.
 Is is rendered as HTML on http://www.monperrus.net/martin/bibtexbrowser/.
-
-This documentation is collaborative, don't hesitate to ask for pull requests by email or on Github: https://github.com/monperrus/bibtexbrowser
-
-Thanks!
-
---Martin Monperrus
-
 -->
 
 bibtexbrowser is a PHP script that creates publication lists from Bibtex files. bibtexbrowser is stable, mature and easy to install. It is used in [[http://www.monperrus.net/martin/bibtexbrowser/users|100+ different universities]] around the globe (in 329 different domains according to Google).
 
-You can improve this documentation using a pull request on GitHub (file ''bibtexbrowser-documentation.wiki'')
+This documentation is collaborative, you can improve it using a [[https://github.com/monperrus/bibtexbrowser/|pull request on GitHub]] (file ''bibtexbrowser-documentation.wiki'').
 
 +++TOC+++
 
