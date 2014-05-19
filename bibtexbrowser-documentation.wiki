@@ -172,6 +172,43 @@ See Janos Tapolcai's style, which looks like IEEE references (see function Janos
 
 For contributing with a new style, [[http://www.monperrus.net/martin/|please drop me an email ]]
 
+====How to change the link style?====
+
+By default each bibliographic entry is followed by 
+[bibtex] [pdf] [doi], etc.
+
+This can be tailored by configuring as follows (in the file ''bibtexbrowser.local.php'')
+<pre><?php
+define('BIBTEXBROWSER_LINK_STYLE','MyFancyBib2links');
+function MyFancyBib2links(&$bibentry) {
+  // bib is a special type of link. without the url argument or with an invalid image, it prints '[bibtex]'
+  $result = $bibentry->getBibLink();
+  
+  $result .= ' '.$bibentry->getLink('url');
+  
+  // Google Scholar ID. empty string if no gsid field present
+  $result .= ' '.$bibentry->getGSLink();
+  
+  // returns an empty string if no doi field present
+  $result .= ' '.$bibentry->getDoiLink();
+  
+  return $result;
+}
+?>
+</pre>
+&nbsp;
+
+You can use your personalized function to add support for new fields in bibtex (''pdf'', ''file'', etc.). Check-out the documentation of functions ''getLink()'', ''getBibLink()'', ''getGSLink()'' and ''getDoiLink()'': they accept an optional argument for providing an image/icon instead of printing text.
+
+<pre>
+  // returns an empty string if no pdf field present
+  $result .= $bibentry->getLink('pdf','http://url.to/icons/pdf.png');
+  // returns an empty string if no slides field present
+  $result .= $bibentry->getLink('slides');
+  // returns an empty string if no poster field present
+  $result .= $bibentry->getLink('poster');
+</pre>
+
 
 ====How to specify the encoding of bibtex files (UTF-8/ISO-8859-1/etc.)? ====
 

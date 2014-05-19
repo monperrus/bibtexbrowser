@@ -87,8 +87,10 @@ function bibtexbrowser_configure($key, $value) {
 
 @define('BIBTEXBROWSER_NO_DEFAULT', false);
 
+// BIBTEXBROWSER_LINK_STYLE defines which function to use to display the links of a bibtex entry
+@define('BIBTEXBROWSER_LINK_STYLE','bib2links_default');
+
 // do we add [bibtex] links ?
-// suggested by Sascha Schnepp
 @define('BIBTEXBROWSER_BIBTEX_LINKS',true);
 // do we add [pdf] links ?
 @define('BIBTEXBROWSER_PDF_LINKS',true);
@@ -1070,10 +1072,81 @@ class BibEntry {
     return BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY=>$this->getKey(), Q_FILE=>$this->filename));
   }
 
-  /** returns a "[pdf]" link if relevant */
-  function getUrlLink() {
-    if ($this->hasField('url')) return ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField('url').'">[pdf]</a>';
+  /** @see bib2links(), kept for backward compatibility */
+  function bib2links() {
+    return bib2links($this);
+  }
+
+  /** Read the bibtex field $bibfield and return a link with icon (if $iconurl is given) or text
+   * e.g. given the bibtex entry: @article{myarticle, pdf={myarticle.pdf}},
+   * $bibtexentry->getLink('pdf') creates a link to myarticle.pdf using the text '[pdf]'.
+   * $bibtexentry->getLink('pdf','pdficon.png') returns &lt;a href="myarticle.pdf">&lt;img src="pdficon.png"/>&lt;/a>
+   * if you want a label that is different from the bibtex field, add a third parameter.
+  */
+  function getLink($bibfield,$iconurl=NULL,$altlabel=NULL) {
+    $show = true;
+    if ($altlabel==NULL) { $altlabel=$bibfield; }
+    $str = $this->getIconOrTxt($altlabel,$iconurl);
+    if ($this->hasField($bibfield)) {
+       return '<a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField($bibfield).'">'.$str.'</a>';
+    }
     return '';
+  }
+
+  /** returns a "[pdf]" link if relevant. modified to exploit the new method, while keeping backward compatibility */ 
+  function getUrlLink($iconurl = NULL, $label = 'pdf') {
+    if ($this->hasField('url')) {
+      return $this->getLink('url', $iconurl, $label);
+    }
+    if ($this->hasField('pdf')) {
+      return $this->getLink('pdf', $iconurl, $label);
+    }
+  }
+
+  /** returns a "[bib]" link if relevant */
+  function getBibLink($iconurl=NULL) {
+    if (BIBTEXBROWSER_BIBTEX_LINKS) {
+      $bibstr = $this->getIconOrTxt('bibtex',$iconurl);
+      $href = 'href="'.$this->getURL().'"';
+      $link = "<a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>$bibstr</a>";
+      return $link;
+    } else {
+      return '';
+    }
+  }
+
+
+  /** DOI are a special kind of links, where the url depends on the doi */
+  function getDoiLink($iconurl=NULL) {
+    $str = $this->getIconOrTxt('doi',$iconurl);
+    if (BIBTEXBROWSER_DOI_LINKS && $this->hasField('doi')) {
+        return '<a href="http://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
+    }
+    return '';
+  }
+
+  /** GS are a special kind of links, where the url depends on the google scholar id */
+  function getGSLink($iconurl=NULL) {
+    $str = $this->getIconOrTxt('cites',$iconurl);
+    // Google Scholar ID
+    if (BIBTEXBROWSER_GSID_LINKS && $this->hasField('gsid')) {
+        return ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
+    }
+    return '';
+  }
+
+  /** replace [$ext] with an icon whose url is defined in a string
+   *  e.g. getIconOrTxt('pdf') will print '[pdf]'
+   *  or   getIconOrTxt('pdf','http://link/to/icon.png') will use the icon linked by the url, or print '[pdf'] 
+   *  if the url does not point to a valid file (using the "alt" property of the "img" html tag)
+   */
+  function getIconOrTxt($txt,$iconurl=NULL) {
+    if ( $iconurl==NULL ) {
+      $str='['.$txt.']';
+    } else {
+      $str='<img class="icon" src="'.$iconurl.'" alt="['.$txt.']" title="'.$txt.'"/>';
+    }
+    return $str;
   }
 
   /** Reruns the abstract */
@@ -1253,7 +1326,6 @@ class BibEntry {
     return $this->formatAuthor($authors[0]) . $etal;
   }
 
-
   /** add the link to the homepage if it is defined in a string
    *  e.g. @string{hp_MartinMonperrus="http://www.monperrus.net/martin"}
    *  The string is a concatenation of firstname, lastname, prefixed by hp_ 
@@ -1407,8 +1479,14 @@ class BibEntry {
           $result .= $this->getAbbrv().'</dt><dd class="bibitem">';
           break;
       }
+
+
+      // may be overridden using configuration value of BIBLIOGRAPHYSTYLE
       $result .= bib2html($this);
-      $result .= ' '.$this->bib2links();
+
+      // may be overridden using configuration value of BIBTEXBROWSER_LINK_STYLE
+      $result .= ' '.bib2links($this);
+
       switch(BIBTEXBROWSER_LAYOUT) { // close row
         case 'list':
           $result .= '</li>'."\n";
@@ -1493,39 +1571,6 @@ class BibEntry {
         return '<a class="bibanchor" name="'.$this->getRawAbbrv().'"></a>';
   }
 
-  /** returns a collection of links for the given bibtex entry
-   *  e.g. [bibtex] [doi][pdf]
-   */
-  function bib2links() {
-    $href = 'href="'.$this->getURL().'"';
-
-    $str = '<span class="bibmenu">';
-  
-    if (BIBTEXBROWSER_BIBTEX_LINKS) {
-      // we add biburl and title to be able to retrieve this important information
-      // using Xpath expressions on the XHTML source
-      $str .= "<a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bibtex]</a>";
-    }
-
-    if (BIBTEXBROWSER_PDF_LINKS) {
-      // returns an empty string if no url present
-      $str .= $this->getUrlLink();
-    }
-
-    if (BIBTEXBROWSER_DOI_LINKS && $this->hasField('doi')) {
-      $str .= ' <a href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
-    }
-
-    // Google Scholar ID
-    if (BIBTEXBROWSER_GSID_LINKS && $this->hasField('gsid')) {
-      $str .= ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">[cites]</a>';
-    }
-
-    return $str.'</span>';
-  }
-
-
-
    /**
    * rebuild the set of constants used if any as a string
    */
@@ -1598,6 +1643,39 @@ function get_HTML_tag_for_layout() {
   return $tag;
 }
 
+/** returns a collection of links for the given bibtex entry
+ *  e.g. [bibtex] [doi][pdf]
+ */
+function bib2links_default(&$bibentry) {
+  $href = 'href="'.$bibentry->getURL().'"';
+
+  $str = '<span class="bibmenu">';
+
+  if (BIBTEXBROWSER_BIBTEX_LINKS) {
+    // we add biburl and title to be able to retrieve this important information
+    // using Xpath expressions on the XHTML source
+    $str .= "<a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$bibentry->getKey()."\" {$href}>[bibtex]</a>";
+  }
+
+  if (BIBTEXBROWSER_PDF_LINKS) {
+    // returns an empty string if no url present
+    $str .= $bibentry->getUrlLink();
+  }
+
+  if (BIBTEXBROWSER_DOI_LINKS && $bibentry->hasField('doi')) {
+    $str .= ' <a href="http://dx.doi.org/'.$bibentry->getField("doi").'">[doi]</a>';
+  }
+
+  // Google Scholar ID
+  if (BIBTEXBROWSER_GSID_LINKS && $bibentry->hasField('gsid')) {
+    $str .= ' <a href="http://scholar.google.com/scholar?cites='.$bibentry->getField("gsid").'">[cites]</a>';
+  }
+
+  $str .= '</span>';
+  
+  return $str;
+}
+
 
 /** prints the header of a layouted HTML, depending on BIBTEXBROWSER_LAYOUT e.g. <TABLE> */
 function print_header_layout() {
@@ -1612,6 +1690,12 @@ function print_footer_layout() {
 /** this function encapsulates the user-defined name for bib to HTML*/
 function bib2html(&$bibentry) {
   $function = BIBLIOGRAPHYSTYLE;
+  return $function($bibentry);
+}
+
+/** this function encapsulates the user-defined name for bib2links */
+function bib2links(&$bibentry) {
+  $function = BIBTEXBROWSER_LINK_STYLE;
   return $function($bibentry);
 }
 
