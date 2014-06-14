@@ -353,12 +353,14 @@ function _zetDB($bibtex_filenames) {
 } // end function setDB
 
 // internationalization
-function __($msg) {
-  global $BIBTEXBROWSER_LANG;
-  if (isset($BIBTEXBROWSER_LANG[$msg])) { 
-    return $BIBTEXBROWSER_LANG[$msg]; 
+if (!function_exists('__')){
+  function __($msg) {
+    global $BIBTEXBROWSER_LANG;
+    if (isset($BIBTEXBROWSER_LANG[$msg])) {
+      return $BIBTEXBROWSER_LANG[$msg];
+    }
+    return $msg;
   }
-  return $msg;
 }
 
 // factories
