@@ -2160,7 +2160,7 @@ $('a.biburl').each(function() { // for each url "[bibtex]"
     ev.preventDefault(); // no open url
     if (biburl.nextAll('pre').length == 0) { // we don't have yet the bibtex data
       var bibtexEntryUrl = $(this).attr('href');
-      $.ajax({url: bibtexEntryUrl,  dataType: 'xml', success: function (data) { // we download it
+      $.ajax({url: bibtexEntryUrl,  dataType: 'html', success: function (data) { // we download it
         // elem is the element containing bibtex entry, creating a new element is required for Chrome and IE
         var elem = $('<pre class="purebibtex"/>');
         elem.text($('.purebibtex', data).text()); // both text() are required for IE
