@@ -1,10 +1,11 @@
 <?php /* bibtexbrowser: publication lists with bibtex and PHP
 <!--this is version v__GITHUB__ -->
 URL: http://www.monperrus.net/martin/bibtexbrowser/
-Feedback & Bug Reports: martin.monperrus@gmail.com
+Feedback & Bug Reports: martin.monperrus@gnieh.org
 
+(C) 2012-2014 Github contributors
+(C) 2006-2014 Martin Monperrus
 (C) 2013 Matthieu Guillaumin
-(C) 2006-2013 Martin Monperrus
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
