@@ -943,7 +943,10 @@ function latex2html($line) {
 }
 
 /** encodes strings for Z3988 URLs. Note that & are encoded as %26 and not as &amp. */
-function s3988($s) {return urlencode(utf8_encode($s));}
+function s3988($s) {
+  // first remove the HTML entities (e.g. &eacute;) then urlencode them
+  return urlencode(html_entity_decode($s, ENT_NOQUOTES, ENCODING));
+}
 
 /**
 see BibEntry->formatAuthor($author)
