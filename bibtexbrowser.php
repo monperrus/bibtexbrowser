@@ -155,6 +155,15 @@ function bibtexbrowser_configure($key, $value) {
 @define('METADATA_DC',true);
 @define('METADATA_EPRINTS',false);
 
+// define sort order for special values in 'year' field
+// highest number is sorted first
+// don't exceed 0 though, since the values are added to PHP_INT_MAX
+@define('ORDER_YEAR_INPRESS', -0);
+@define('ORDER_YEAR_ACCEPTED', -1);
+@define('ORDER_YEAR_SUBMITTED', -2);
+@define('ORDER_YEAR_OTHERNONINT', -3);
+
+
 // in embedded mode, we still need a URL for displaying bibtex entries alone
 // this is usually resolved to bibtexbrowser.php
 // but can be overridden in bibtexbrowser.local.php
@@ -1740,32 +1749,32 @@ function compare_bib_entry_by_year($a, $b)
   if ($yearA === 0) {
     switch (strtolower($a->getYearRaw())) {
       case Q_YEAR_INPRESS:
-        $yearA = PHP_INT_MAX;
+        $yearA = PHP_INT_MAX + ORDER_YEAR_INPRESS;
 	break;
       case Q_YEAR_ACCEPTED:
-        $yearA = PHP_INT_MAX - 1;
+        $yearA = PHP_INT_MAX + ORDER_YEAR_ACCEPTED;
 	break;
       case Q_YEAR_SUBMITTED:
-        $yearA = PHP_INT_MAX - 2;
+        $yearA = PHP_INT_MAX + ORDER_YEAR_SUBMITTED;
 	break;
       default:
-        $yearA = PHP_INT_MAX - 3;
+        $yearA = PHP_INT_MAX + ORDER_YEAR_OTHERNONINT;
     }
   }
 
   if ($yearB === 0) {
     switch (strtolower($b->getYearRaw())) {
-      case 'in press':
-        $yearB = PHP_INT_MAX;
+      case Q_YEAR_INPRESS:
+        $yearB = PHP_INT_MAX + ORDER_YEAR_INPRESS;
 	break;
-      case 'accepted':
-        $yearB = PHP_INT_MAX - 1;
+      case Q_YEAR_ACCEPTED:
+        $yearB = PHP_INT_MAX + ORDER_YEAR_ACCEPTED;
 	break;
-      case 'submitted':
-        $yearB = PHP_INT_MAX - 2;
+      case Q_YEAR_SUBMITTED:
+        $yearB = PHP_INT_MAX + ORDER_YEAR_SUBMITTED;
 	break;
       default:
-        $yearB = PHP_INT_MAX - 3;
+        $yearB = PHP_INT_MAX + ORDER_YEAR_OTHERNONINT;
     }
   }
 
