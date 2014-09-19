@@ -115,6 +115,9 @@ function bibtexbrowser_configure($key, $value) {
 // for ordered_list, the index is given by HTML directly (in increasing order)
 @define('BIBTEXBROWSER_LAYOUT','table');
 
+// Which is the first html <hN> level that should be used in embedded mode?
+@define('BIBTEXBROWSER_HTMLHEADINGLEVEL', 2);
+
 @define('BIBTEXBROWSER_DEBUG',false);
 
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
@@ -1711,6 +1714,7 @@ function bib2links_default(&$bibentry) {
 
 /** prints the header of a layouted HTML, depending on BIBTEXBROWSER_LAYOUT e.g. <TABLE> */
 function print_header_layout() {
+  if (BIBTEXBROWSER_LAYOUT == 'list') return;
   echo '<' . get_HTML_tag_for_layout() . ' class="result">'."\n";
 }
 
@@ -2632,6 +2636,14 @@ class SimpleDisplay  {
 
   var $options = array();
 
+  var $headingLevel = BIBTEXBROWSER_HTMLHEADINGLEVEL;
+  function incHeadingLevel ($by=1) {
+  	$this->headingLevel += $by;
+  }
+  function decHeadingLevel ($by=1) {
+  	$this->headingLevel -= $by;
+  }
+
   function setDB(&$bibdatabase) {
     $this->setEntries($bibdatabase->bibdb);
   }
@@ -2689,7 +2701,7 @@ class SimpleDisplay  {
     $pred = NULL;
     foreach ($this->entries as $bib) {
       if ($this->changeSection($pred, $bib)) {
-        echo $this->sectionHeader($bib);
+        echo $this->sectionHeader($bib, $pred);
       }
       // by default, index are in decreasing order
       // so that when you add a publicaton recent , the indices of preceding publications don't change
@@ -2712,13 +2724,22 @@ class SimpleDisplay  {
     return $f($pred, $bib) != 0;
   }
 
-  function sectionHeader($bib) {
+  function sectionHeader($bib, $pred) {
     switch(BIBTEXBROWSER_LAYOUT) {
       case 'table':
         return '<tr><td colspan="2" class="'.$this->headerCSS.'">'.$bib->getYear().'</td></tr>'."\n";
         break;
       case 'definition':
         return '<div class="'.$this->headerCSS.'">'.$bib->getYear().'</div>'."\n";
+        break;
+      case 'list':
+      	$string = '';
+        if ($pred) $string .= "</ul>\n";
+	if ($bib->hasField(YEAR))
+	  $year = $bib->getYear();
+	else
+	  $year = __('No date');
+        return $string.'<h'.$this->headingLevel.'>'.$year."</h".$this->headingLevel.">\n<ul class=\"result\">\n";
         break;
       default:
         return '';
