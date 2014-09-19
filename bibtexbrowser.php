@@ -2698,9 +2698,12 @@ class SimpleDisplay  {
     }
 
     if ($this->headingLevel == BIBTEXBROWSER_HTMLHEADINGLEVEL) {
-      echo "\n<span class=\"count\">".count($this->entries)." ";
-      if (count($this->entries) == 1) echo __('result');
-      else echo __('results');
+      echo "\n".'<span class="count">';
+      if (count($this->entries) == 1) {
+        echo count ($this->entries).' '.__('result');
+      } else if (count($this->entries) != 0) {
+        echo count ($this->entries).' '.__('results');
+      }
       echo "</span>\n";
     }
     print_header_layout();
