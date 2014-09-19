@@ -115,6 +115,7 @@ function bibtexbrowser_configure($key, $value) {
 @define('BIBTEXBROWSER_DEBUG',false);
 
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
+@define('FORCE_NAMELIST_SEPARATOR', ''); // if non-empty, use this to separate multiple names regardless of COMMA_NAMES
 @define('TYPES_SIZE',10); // number of entry types per table
 @define('YEAR_SIZE',20); // number of years per table
 @define('AUTHORS_SIZE',30); // number of authors per table
@@ -1312,6 +1313,7 @@ class BibEntry {
     }
 
     if (COMMA_NAMES) {$sep = '; ';} else {$sep = ', ';}
+    if (FORCE_NAMELIST_SEPARATOR !== '') {$sep = FORCE_NAMELIST_SEPARATOR;}
 
     return implode($sep ,$array_authors);
   }
@@ -1384,6 +1386,7 @@ class BibEntry {
       $editors[]=$this->addHomepageLink($this->formatAuthor($editor));
     }
     if (COMMA_NAMES) {$sep = '; ';} else {$sep = ', ';}
+    if (FORCE_NAMELIST_SEPARATOR !== '') {$sep = FORCE_NAMELIST_SEPARATOR;}
     return implode($sep, $editors).', '.(count($editors)>1?'eds.':'ed.');
   }
 
