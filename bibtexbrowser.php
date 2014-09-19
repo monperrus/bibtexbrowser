@@ -2694,6 +2694,12 @@ class SimpleDisplay  {
       echo 'Options: '.@implode(',',$this->options).'<br/>';
     }
 
+    if ($this->headingLevel == BIBTEXBROWSER_HTMLHEADINGLEVEL) {
+      echo "\n<span class=\"count\">".count($this->entries)." ";
+      if (count($this->entries) == 1) echo __('result');
+      else echo __('results');
+      echo "</span>\n";
+    }
     print_header_layout();
 
     $count = count($this->entries);
