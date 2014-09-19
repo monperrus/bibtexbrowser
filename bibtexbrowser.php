@@ -2457,9 +2457,13 @@ else $page = 1;
     $index = 0;
     foreach ($items as $key => $item) {
       if ($index >= $startIndex && $index < $endIndex) {
- $href = makeHref(array($queryKey => $key));
- echo '<a '. $href .' target="'.BIBTEXBROWSER_MENU_TARGET.'">'. $item ."</a>\n";
- echo "<div class=\"mini_se\"></div>\n";
+        if ($queryKey === 'year') {
+          $href = makeHref(array($queryKey => __($item)));
+	} else {
+          $href = makeHref(array($queryKey => $key));
+	}
+        echo '<a '. $href .' target="'.BIBTEXBROWSER_MENU_TARGET.'">'. $item ."</a>\n";
+        echo "<div class=\"mini_se\"></div>\n";
       }
       $index++;
     }
@@ -3203,10 +3207,31 @@ class BibDataBase {
     $result = array();
     foreach ($this->bibdb as $bib) {
       if (!$bib->hasField("year")) continue;
-      $year = $bib->getField("year");
-      $result[$year] = $year;
+      $year = strtolower($bib->getYearRaw());
+      $yearInt = (int) $year;
+
+      // Allow for ordering of non-string values ('in press' etc.)
+      switch ($year) {
+        case (string) $yearInt: // Sorry for this hacky type-casting
+          $key = $year;
+          break;
+        case Q_YEAR_INPRESS:
+          $key = PHP_INT_MAX + ORDER_YEAR_INPRESS;
+          break;
+        case Q_YEAR_ACCEPTED:
+          $key = PHP_INT_MAX + ORDER_YEAR_ACCEPTED;
+          break;
+        case Q_YEAR_SUBMITTED:
+          $key = PHP_INT_MAX + ORDER_YEAR_SUBMITTED;
+          break;
+        default:
+          $key = PHP_INT_MAX + ORDER_YEAR_OTHERNONINT;
       }
-    arsort($result);
+
+      $result[$key] = $year;
+    }
+    
+    krsort($result);
     return $result;
   }
 
