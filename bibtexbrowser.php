@@ -2718,7 +2718,7 @@ class NotFoundDisplay {
   function setTitle($title) { $this->title = $title; return $this; }
   function getTitle() { return @$this->title ; }
   function display() {
-    echo 'no result found, sorry.';
+    echo '<span class="count">'.__('No results').'</span>';
   }
 }
 /** displays the publication records sorted by publication types (as configured by constant BIBLIOGRAPHYSECTIONS).
