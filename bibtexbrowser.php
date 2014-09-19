@@ -139,6 +139,7 @@ function bibtexbrowser_configure($key, $value) {
 @define('Q_ACADEMIC', 'academic');
 @define('Q_DB', 'bibdb');
 @define('Q_LATEST', 'latest');
+@define('Q_RANGE', 'range');
 @define('AUTHOR', 'author');
 @define('EDITOR', 'editor');
 @define('SCHOOL', 'school');
@@ -3215,6 +3216,25 @@ class BibDataBase {
               break;
             }
           }
+	  else if ($field==Q_RANGE) {
+	    $year = $bib->getYear();
+	    $withinRange = false;
+
+	    foreach ($query[Q_RANGE] as $elements) {
+	      if ($elements[0] === "" && $elements[1] === "")
+	        $withinRange = true;
+              else if ($elements[0] === "" && $year <= $elements[1])
+	        $withinRange = true;
+              else if ($elements[1] === "" && $year >= $elements[0])
+	        $withinRange = true;
+              else if ($year <= $elements[1] && $year >= $elements[0]) {
+	        $withinRange = true;
+              }
+	    }
+
+	    if (!$withinRange)
+              $entryisselected = false;
+	  }
           else {
             if (!$bib->hasPhrase($fragment, $field))  {
               $entryisselected = false;
@@ -3853,6 +3873,68 @@ class Dispatcher {
 
   function type() {
     $this->query[Q_TYPE]= $_GET[Q_TYPE];
+  }
+  /**
+   * Allow the user to search for a range of dates
+   *
+   * The query string can comprise several elements separated by commas and
+   * optionally white-space.
+   * Each element can either be one number (a year) or two numbers
+   * (a range of years) separated by anything non-numerical.
+   *
+   */
+  function range() {
+    $ranges = explode(',', $_GET[Q_RANGE]);
+    $result = array();
+
+    $nextYear = 1 + (int) date('Y');
+    $nextYear2D = $nextYear % 100;
+    $thisCentury = $nextYear - $nextYear2D;
+
+    foreach ($ranges as $range) {
+      $range = trim($range);
+      preg_match('/([0-9]*)([^0-9]*)([0-9]*)/', $range, $matches);
+      array_shift($matches);
+
+      // If the number is empty, leave it empty - dont put it to 0
+      // If the number is two-digit, assume it to be within the last century or next year
+      if ($matches[0] === "") {
+        $lower = "";
+      } else if ($matches[0] < 100) {
+        if ($matches[0] > $nextYear2D) {
+          $lower = $thisCentury + $matches[0] - 100;
+	} else {
+	  $lower = $thisCentury + $matches[0];
+	}
+      } else {
+        $lower = $matches[0];
+      }
+
+      // If no separator to indicate a range of years was supplied,
+      // the upper and lower boundaries are the same.
+      //
+      // Otherwise, again:
+      // If the number is empty, leave it empty - dont put it to 0
+      // If the number is two-digit, assume it to be within the last century or next year
+      if ($matches[1] === "")
+        $upper = $lower;
+      else {
+        if ($matches[2] === "") {
+          $upper = "";
+        } else if ($matches[2] < 100) {
+          if ($matches[2] > $nextYear2D) {
+            $upper = $thisCentury + $matches[2] - 100;
+	  } else {
+	    $upper = $thisCentury + $matches[2];
+          }
+        } else {
+          $upper = $matches[2];
+        }
+      }
+
+      $result[] = array($lower, $upper);
+    }
+    $this->query[Q_RANGE] = $result;
   }
 
   function menu() {
