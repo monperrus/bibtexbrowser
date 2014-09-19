@@ -1805,6 +1805,26 @@ function compare_bib_entry_by_raw_abbrv($a, $b)
   return strcmp($a->getRawAbbrv(),$b->getRawAbbrv());
 }
 
+/** compares two instances of BibEntry by author or editor
+ */
+function compare_bib_entry_by_name($a, $b)
+{
+  if ($a->hasField(AUTHOR))
+    $namesA = $a->getAuthor();
+  else if ($a->hasField(EDITOR))
+    $namesA = $a->getField(EDITOR);
+  else
+    $namesA = __('No author');
+
+  if ($b->hasField(AUTHOR))
+    $namesB = $b->getAuthor();
+  else if ($b->hasField(EDITOR))
+    $namesB = $b->getField(EDITOR);
+  else
+    $namesB = __('No author');
+
+  return strcmp($namesA, $namesB);
+}
 
 /** compares two instances of BibEntry by month
  * @author Jan Geldmacher
