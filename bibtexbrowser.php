@@ -122,6 +122,9 @@ function bibtexbrowser_configure($key, $value) {
 @define('READLINE_LIMIT',1024);
 @define('Q_YEAR', 'year');
 @define('Q_YEAR_PAGE', 'year_page');
+@define('Q_YEAR_INPRESS', 'in press');
+@define('Q_YEAR_ACCEPTED', 'accepted');
+@define('Q_YEAR_SUBMITTED', 'submitted');
 @define('Q_FILE', 'bib');
 @define('Q_AUTHOR', 'author');
 @define('Q_AUTHOR_PAGE', 'author_page');
@@ -1376,6 +1379,9 @@ class BibEntry {
 
   /** Returns the year of this entry? */
   function getYear() {
+    return __(strtolower($this->getField('year')));
+  }
+  function getYearRaw() {
     return $this->getField('year');
   }
 
@@ -1728,7 +1734,47 @@ function compare_bib_entry_by_mtime($a, $b)
  */
 function compare_bib_entry_by_year($a, $b)
 {
-  return -strcmp($a->getYear(),$b->getYear());
+  $yearA = (int) $a->getYear();
+  $yearB = (int) $b->getYear();
+
+  if ($yearA === 0) {
+    switch (strtolower($a->getYearRaw())) {
+      case Q_YEAR_INPRESS:
+        $yearA = PHP_INT_MAX;
+	break;
+      case Q_YEAR_ACCEPTED:
+        $yearA = PHP_INT_MAX - 1;
+	break;
+      case Q_YEAR_SUBMITTED:
+        $yearA = PHP_INT_MAX - 2;
+	break;
+      default:
+        $yearA = PHP_INT_MAX - 3;
+    }
+  }
+
+  if ($yearB === 0) {
+    switch (strtolower($b->getYearRaw())) {
+      case 'in press':
+        $yearB = PHP_INT_MAX;
+	break;
+      case 'accepted':
+        $yearB = PHP_INT_MAX - 1;
+	break;
+      case 'submitted':
+        $yearB = PHP_INT_MAX - 2;
+	break;
+      default:
+        $yearB = PHP_INT_MAX - 3;
+    }
+  }
+
+  if ($yearA === $yearB)
+    return 0;
+  else if ($yearA > $yearB)
+    return -1;
+  else
+    return 1;
 }
 
 /** compares two instances of BibEntry by title
