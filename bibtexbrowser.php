@@ -920,6 +920,7 @@ function latex2html($line) {
   $line = char2html($line,'"','o',"uml");
   $line = char2html($line,'"','u',"uml");
   $line = char2html($line,'"','y',"uml");
+  $line = char2html($line,'"','s',"zlig");
 
   $line = char2html($line,'^','a',"circ");
   $line = char2html($line,'^','e',"circ");
