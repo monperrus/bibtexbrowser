@@ -100,6 +100,9 @@ function bibtexbrowser_configure($key, $value) {
 // do we add [gsid] links (Google Scholar)?
 @define('BIBTEXBROWSER_GSID_LINKS',true);
 
+// should pdf, doi, url, gsid links be opened in a new window?
+@define('BIBTEXBROWSER_LINKS_IN_NEW_WINDOW',true);
+
 // should authors be linked to [none/homepage/resultpage]
 // none: nothing
 // their homepage if defined as @strings
@@ -1109,9 +1112,19 @@ class BibEntry {
     if ($altlabel==NULL) { $altlabel=$bibfield; }
     $str = $this->getIconOrTxt($altlabel,$iconurl);
     if ($this->hasField($bibfield)) {
-       return '<a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField($bibfield).'">'.$str.'</a>';
+       return '<a'.(BIBTEXBROWSER_LINKS_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField($bibfield).'">'.$str.'</a>';
     }
     return '';
+  }
+
+  /** returns a "[bib]" link */
+  function getBibLink($iconurl=NULL) {
+    $bibstr = $this->getIconOrTxt('bibtex',$iconurl);
+    $href = 'href="'.$this->getURL().'"';
+    // we add biburl and title to be able to retrieve this important information
+    // using Xpath expressions on the XHTML source
+    $link = "<a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>$bibstr</a>";
+    return $link;
   }
 
   /** returns a "[pdf]" link if relevant. modified to exploit the new method, while keeping backward compatibility */
@@ -1129,34 +1142,22 @@ class BibEntry {
     }
   }
 
-  /** returns a "[bib]" link if relevant */
-  function getBibLink($iconurl=NULL) {
-    if (BIBTEXBROWSER_BIBTEX_LINKS) {
-      $bibstr = $this->getIconOrTxt('bibtex',$iconurl);
-      $href = 'href="'.$this->getURL().'"';
-      $link = "<a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>$bibstr</a>";
-      return $link;
-    } else {
-      return '';
-    }
-  }
 
 
   /** DOI are a special kind of links, where the url depends on the doi */
   function getDoiLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('doi',$iconurl);
-    if (BIBTEXBROWSER_DOI_LINKS && $this->hasField('doi')) {
-        return '<a href="http://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
+    if ($this->hasField('doi')) {
+        return '<a'.(BIBTEXBROWSER_LINKS_IN_NEW_WINDOW?' target="_blank" ':'').' href="http://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
     }
     return '';
   }
 
-  /** GS are a special kind of links, where the url depends on the google scholar id */
+  /** GS (Google Scholar) are a special kind of links, where the url depends on the google scholar id */
   function getGSLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('cites',$iconurl);
-    // Google Scholar ID
-    if (BIBTEXBROWSER_GSID_LINKS && $this->hasField('gsid')) {
-        return ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
+    if ($this->hasField('gsid')) {
+        return ' <a'.(BIBTEXBROWSER_LINKS_IN_NEW_WINDOW?' target="_blank" ':'').' href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
     }
     return '';
   }
@@ -1678,28 +1679,22 @@ function get_HTML_tag_for_layout() {
  *  e.g. [bibtex] [doi][pdf]
  */
 function bib2links_default(&$bibentry) {
-  $href = 'href="'.$bibentry->getURL().'"';
-
   $str = '<span class="bibmenu">';
 
   if (BIBTEXBROWSER_BIBTEX_LINKS) {
-    // we add biburl and title to be able to retrieve this important information
-    // using Xpath expressions on the XHTML source
-    $str .= "<a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$bibentry->getKey()."\" {$href}>[bibtex]</a>";
+    $str .= ' '.$bibentry->getBibLink();
   }
 
   if (BIBTEXBROWSER_PDF_LINKS) {
-    // returns an empty string if no url present
     $str .= ' '.$bibentry->getUrlLink();
   }
 
-  if (BIBTEXBROWSER_DOI_LINKS && $bibentry->hasField('doi')) {
-    $str .= ' <a href="http://dx.doi.org/'.$bibentry->getField("doi").'">[doi]</a>';
+  if (BIBTEXBROWSER_DOI_LINKS) {
+    $str .= ' '.$bibentry->getDoiLink();
   }
 
-  // Google Scholar ID
-  if (BIBTEXBROWSER_GSID_LINKS && $bibentry->hasField('gsid')) {
-    $str .= ' <a href="http://scholar.google.com/scholar?cites='.$bibentry->getField("gsid").'">[cites]</a>';
+  if (BIBTEXBROWSER_GSID_LINKS) {
+    $str .= ' '.$bibentry->getGSLink();
   }
 
   $str .= '</span>';
