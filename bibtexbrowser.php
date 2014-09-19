@@ -4,6 +4,7 @@ URL: http://www.monperrus.net/martin/bibtexbrowser/
 Feedback & Bug Reports: martin.monperrus@gnieh.org
 
 (C) 2012-2014 Github contributors
+(C) 2014 Markus Jochim
 (C) 2006-2014 Martin Monperrus
 (C) 2013 Matthieu Guillaumin
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
