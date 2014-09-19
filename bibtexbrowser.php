@@ -2483,6 +2483,12 @@ function query2title(&$query) {
         $v = preg_replace('/[$^]/','',$v);
       }
       if($k == Q_KEYS) { $v=json_encode(array_values($v)); }
+      if($k == Q_RANGE) {
+        foreach ($v as &$range) {
+	  $range = $range[0].'-'.$range[1];
+	}
+	$v = join($v, ',');
+      }
       $headers[$k] = __(ucwords($k)).': '.ucwords(htmlspecialchars($v));
   }
     // special cases
