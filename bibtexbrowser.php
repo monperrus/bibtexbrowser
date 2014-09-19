@@ -118,6 +118,8 @@ function bibtexbrowser_configure($key, $value) {
 // Which is the first html <hN> level that should be used in embedded mode?
 @define('BIBTEXBROWSER_HTMLHEADINGLEVEL', 2);
 
+@define('BIBTEXBROWSER_ACADEMIC_TOC', true);
+
 @define('BIBTEXBROWSER_DEBUG',false);
 
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
@@ -2816,11 +2818,45 @@ class AcademicDisplay  {
     $this->db = createBibDataBase();
     $this->db->bibdb = $this->entries;
 
-    foreach (_DefaultBibliographySections() as $section) {
-      $this->search2html($section['query'],$section['title']);
+    if (BIBTEXBROWSER_ACADEMIC_TOC != true) {
+      foreach (_DefaultBibliographySections() as $section) {
+        $this->search2html($section['query'],$section['title']);
+      }
+    } else {
+      $sections = array();
+      echo "<ul>";
+
+      foreach (_DefaultBibliographySections() as $section) {
+        $entries = $this->db->multisearch($section['query']);
+
+        if (count($entries)>0) {
+          $anchor = preg_replace("/[^a-zA-Z]/", "", $section['title']);
+          echo "<li><a href=\"#".$anchor."\">".$section['title']." (".count($entries).")</a></li>";
+
+          $display = createBasicDisplay();
+          $display->incHeadingLevel();
+          $display->setEntries($entries);
+          $display->headerCSS = 'theader';
+	
+          $sections[] = array (
+            'display' => $display,
+            'anchor' => $anchor,
+            'title' => $section['title'],
+            'count' => count($entries)
+          );
+        }
+      }
+      echo "</ul>";
+
+      foreach ($sections as $section) {
+        echo "\n<a name=\"".$section['anchor']."\"></a>";
+        echo "<h".BIBTEXBROWSER_HTMLHEADINGLEVEL.">";
+        echo $section['title']." (".$section['count'].")";
+        echo "</h".BIBTEXBROWSER_HTMLHEADINGLEVEL.">\n",
+        $section['display']->display();
+      }
     }
   }
-
 }
 
 
