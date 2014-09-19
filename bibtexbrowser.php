@@ -1622,10 +1622,16 @@ class BibEntry {
     $result = "";
     $result .= '<pre class="purebibtex">'; // pre is nice when it is embedded with no CSS available
     $entry = htmlspecialchars($this->getFullText());
-    if ($this->hasField('url')) {
-      $url = $this->getField('url');
-      // this is not a parsing but a simple replacement
-      $entry = str_replace($url,'<a href="'.$url.'">'.$url.'</a>', $entry);
+
+    // Fields that should be hyperlinks
+    $hyperlinks = array('url' => '%O', 'file' => '%O', 'pdf' => '%O', 'doi' => 'http://dx.doi.org/%O', 'gsid' => 'http://scholar.google.com/scholar?cites=%O');
+
+    foreach ($hyperlinks as $field => $url) {
+      if ($this->hasField($field)) {
+        $href = str_replace('%O', $this->getField($field), $url);
+        // this is not a parsing but a simple replacement
+        $entry = str_replace($this->getField($field), '<a'.(BIBTEXBROWSER_LINKS_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$href.'">'.$this->getField($field).'</a>', $entry);
+      }
     }
 
     $result .=  $entry;
