@@ -2866,8 +2866,10 @@ class BibEntryDisplay {
 
       if ($this->bib->hasField("pages")) {
         $pages = $this->bib->getPages();
-        $result[] = array('citation_firstpage',$pages[0]);
-        $result[] = array('citation_lastpage',$pages[1]);
+        if (count($pages)==2) {
+          $result[] = array('citation_firstpage',$pages[0]);
+          $result[] = array('citation_lastpage',$pages[1]);
+        }
       }
 
     } // end Google Scholar
