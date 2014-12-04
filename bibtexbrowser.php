@@ -102,7 +102,7 @@ function bibtexbrowser_configure($key, $value) {
 @define('BIBTEXBROWSER_GSID_LINKS',true);
 
 // should pdf, doi, url, gsid links be opened in a new window?
-@define('BIBTEXBROWSER_LINKS_IN_NEW_WINDOW',true);
+@define('BIBTEXBROWSER_LINKS_IN_NEW_WINDOW',false);
 
 // should authors be linked to [none/homepage/resultpage]
 // none: nothing
@@ -1691,27 +1691,29 @@ function get_HTML_tag_for_layout() {
  *  e.g. [bibtex] [doi][pdf]
  */
 function bib2links_default(&$bibentry) {
-  $str = '<span class="bibmenu">';
-
+  $links = array();
+  
   if (BIBTEXBROWSER_BIBTEX_LINKS) {
-    $str .= ' '.$bibentry->getBibLink();
+    $link = $bibentry->getBibLink();
+    if ($link != '') { $links[] = $link; };
   }
 
   if (BIBTEXBROWSER_PDF_LINKS) {
-    $str .= ' '.$bibentry->getUrlLink();
+    $link = $bibentry->getUrlLink();
+    if ($link != '') { $links[] = $link; };
   }
 
   if (BIBTEXBROWSER_DOI_LINKS) {
-    $str .= ' '.$bibentry->getDoiLink();
+    $link = $bibentry->getDoiLink();
+    if ($link != '') { $links[] = $link; };
   }
 
   if (BIBTEXBROWSER_GSID_LINKS) {
-    $str .= ' '.$bibentry->getGSLink();
+    $link = $bibentry->getGSLink();
+    if ($link != '') { $links[] = $link; };
   }
-
-  $str .= '</span>';
-
-  return $str;
+  
+  return '<span class="bibmenu">'.implode(" ",$links).'</span>';
 }
 
 
