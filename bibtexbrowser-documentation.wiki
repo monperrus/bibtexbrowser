@@ -306,6 +306,23 @@ Add in ''bibtexbrowser.local.php'':
 ?>
 </pre>
 
+====How to order a list of Bibtex entries?====
+<pre>
+&lt;?
+
+?>
+</pre>
+$_GET['library']=1;
+require_once('bibtexbrowser.php');
+$db = new BibDataBase();
+$db->load('biblio.bib');
+$query = array('year'=>'2014');
+$entries=$db->multisearch($query);
+uasort($entries, 'compare_bib_entries'); // comparison
+foreach ($entries as $bibentry) { 
+  echo $bibentry->getYear().'<br/>'; 
+}
+
 
 =====Related tools=====
 
