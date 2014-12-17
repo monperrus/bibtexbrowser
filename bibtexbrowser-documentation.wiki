@@ -1,7 +1,7 @@
 <!-- 
 This is the source file of the documentation of bibtexbrowser.
 It uses the Wiki syntax similar to dokuwiki and mediawiki.
-Is is rendered as HTML on http://www.monperrus.net/martin/bibtexbrowser/.
+Is is rendered as HTML on http://www.monperrus.net/martin/bibtcomexbrowser/.
 -->
 
 bibtexbrowser is a PHP script that creates publication lists from Bibtex files. bibtexbrowser is stable, mature and easy to install. It is used in [[http://www.monperrus.net/martin/bibtexbrowser/users|100+ different universities]] around the globe (in 329 different domains according to Google).
@@ -309,19 +309,18 @@ Add in ''bibtexbrowser.local.php'':
 ====How to order a list of Bibtex entries?====
 <pre>
 &lt;?
-
-?>
-</pre>
 $_GET['library']=1;
 require_once('bibtexbrowser.php');
 $db = new BibDataBase();
 $db->load('biblio.bib');
 $query = array('year'=>'2014');
 $entries=$db->multisearch($query);
-uasort($entries, 'compare_bib_entries'); // comparison
+uasort($entries, 'compare_bib_entries'); 
 foreach ($entries as $bibentry) { 
   echo $bibentry->getYear().'<br/>'; 
 }
+?>
+</pre>
 
 
 =====Related tools=====
