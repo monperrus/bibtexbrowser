@@ -231,10 +231,11 @@ define('ABBRV_TYPE','year');// may be year/x-abbrv/key/none/index
 ====How to use the "Academic style"?====
 
 The default academic mode creates four sections:
+
 - books
 - articles and book chapters
 - workshop papers (for entries containing "workshop" in the field booktitle)
-- others.
+- others
 
 You may create your own one in ''bibtexbrowser.local.php'' (see also "By creating a bibtexbrowser.local.php" below):
 <pre>
