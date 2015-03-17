@@ -45,7 +45,6 @@ This documentation is collaborative, you can improve it using a [[https://github
 
 
 =====Download=====
-You may try bibtexbrowser without instllaation by uploading your bibtex file at [[http://my.publications.li]].
 For feature requests or bug reports, please comment this page below; patches can be contributed as pull requests on [[https://github.com/monperrus/bibtexbrowser|github]]:)
 
 <!-- //Release Candidate//: [[http://www.monperrus.net/martin/bibtexbrowser/bibtexbrowser-rc.php.txt]] -->
@@ -61,7 +60,6 @@ The following uses bibtexbrowser under the hood:
 * Generating publication lists in Latex using [[http://www.monperrus.net/martin/bibtex2latex]] 
 * [[http://www.monperrus.net/martin/feeding-mysql-database-with-bibtexbrowser|Feeding a MySQL database from the content of a bibtex file]]
 * Publication lists in Wordpress with [[http://www.monperrus.net/martin/wp-publications|wp-publications]]
-* Hosted publication lists at [[http://my.publications.li]]
 
 =====Demo and screenshot=====
 
