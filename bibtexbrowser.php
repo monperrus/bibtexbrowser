@@ -886,6 +886,9 @@ function latex2html($line) {
 
   $line = preg_replace('/([^\\\\])~/','\\1&nbsp;', $line);
 
+  $line = str_replace('---','&mdash;',$line);
+  $line = str_replace('--','&ndash;',$line);
+
   // performance increases with this test
   // bug found by Serge Barral: what happens if we have curly braces only (typically to ensure case in Latex)
   // added && strpos($line,'{')===false
@@ -894,6 +897,9 @@ function latex2html($line) {
   // we should better replace this before the others
   // in order not to mix with the HTML entities coming after (just in case)
   $line = str_replace('\\&','&amp;', $line);
+
+  $line = str_replace('\_','_',$line);
+  $line = str_replace('\%','%',$line);
 
   // handling \url{....}
   // often used in howpublished for @misc
