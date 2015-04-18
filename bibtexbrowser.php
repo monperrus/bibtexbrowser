@@ -2248,7 +2248,7 @@ function VancouverBibliographyStyle(&$bibentry) {
   return $result;
 }
 
-?>
+
 
 
 
