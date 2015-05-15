@@ -235,7 +235,7 @@ The default academic mode creates four sections:
 - workshop papers (for entries containing "workshop" in the field booktitle)
 - others
 
-You may create your own one in ''bibtexbrowser.local.php'' (see also "By creating a bibtexbrowser.local.php" below):
+You may create your own one in ''bibtexbrowser.local.php'' (see also "creating a bibtexbrowser.local.php" below):
 <pre>
 define('BIBLIOGRAPHYSECTIONS','my_sectioning');
 function my_sectioning() {
@@ -265,6 +265,16 @@ return
 }
 </pre>
 
+====How to use the change the title of the result page?====
+
+You may create your own title function in ''bibtexbrowser.local.php'' (see "creating a bibtexbrowser.local.php" below):
+<pre>
+define('BIBLIOGRAPHYTITLE','my_title_function');
+function my_title_function($query) {
+  return "Publications of the Nuclear Research Group";
+}
+</pre>
+See function DefaultBibliographyTitle for inspiration.
 
 ====How to get the  individual bib pages embedded as well?====
 ''define('BIBTEXBROWSER_URL',""); ''

@@ -55,6 +55,7 @@ function bibtexbrowser_configure($key, $value) {
 @define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',false);
 @define('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');// this is the name of a function
 @define('BIBLIOGRAPHYSECTIONS','DefaultBibliographySections');// this is the name of a function
+@define('BIBLIOGRAPHYTITLE','DefaultBibliographyTitle');// this is the name of a function
 // can we load bibtex files on external servers?
 @define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
 
@@ -1746,6 +1747,23 @@ function _DefaultBibliographySections() {
   return $function();
 }
 
+/** encapsulates the user-defined sections. @nodoc */
+function _DefaultBibliographyTitle($query) {
+  $function = BIBLIOGRAPHYTITLE;
+  return $function($query);
+}
+
+function DefaultBibliographyTitle($query) {
+  $result = 'Publications in '.$_GET[Q_FILE];
+  if (isset($query['all'])) {
+    unset($query['all']);
+  }
+  if (count($query)>0) {
+    $result .= ' - '.query2title($query);
+  }
+  return $result;
+}
+
 /** compares two instances of BibEntry by modification time
  */
 function compare_bib_entry_by_mtime($a, $b)
@@ -2533,13 +2551,9 @@ function query2title(&$query) {
       }
       $headers[$k] = __(ucwords($k)).': '.ucwords(htmlspecialchars($v));
   }
-    // special cases
-    if (isset($headers[Q_ALL])) $headers[Q_ALL] = __('Publications in').' '.htmlspecialchars($_GET[Q_FILE]);
-    if (isset($headers[Q_AUTHOR])) $headers[Q_AUTHOR] = __('Publications of')
-                                        .' '.htmlspecialchars($_GET[Q_AUTHOR]);
-    return join(' &amp; ',$headers);
+  return join(' &amp; ',$headers);
 }
-}
+} // if (!function_exists('query2title'))
 
 /** displays the latest modified bibtex entries.
 usage:
@@ -2686,8 +2700,12 @@ class SimpleDisplay  {
     return $this->entries;
   }
 
-  function setTitle($title) { $this->title = $title; return $this; }
-  function getTitle() { return @$this->title ; }
+  function setQuery($query) {
+    $this->query = $query;
+  }
+  function getTitle() { 
+    return _DefaultBibliographyTitle($this->query); 
+  }
 
   /** Displays a set of bibtex entries in an HTML table */
   function display() {
@@ -2783,10 +2801,8 @@ function nonExistentBibEntryError() {
 
 /** handles queries with no result */
 class NotFoundDisplay {
-  function setTitle($title) { $this->title = $title; return $this; }
-  function getTitle() { return @$this->title ; }
   function display() {
-    echo '<span class="count">'.__('No results').'</span>';
+    echo '<span class="count">'.__('Sorry, no results for this query').'</span>';
   }
 }
 /** displays the publication records sorted by publication types (as configured by constant BIBLIOGRAPHYSECTIONS).
@@ -3726,7 +3742,7 @@ class PagedDisplay {
     }
   }
 
-  function setQuery($query = array()) {
+  function setQuery($query) {
     $this->query = $query;
   }
 
