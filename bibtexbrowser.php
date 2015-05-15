@@ -1990,7 +1990,11 @@ function DefaultBibliographyStyle(&$bibentry) {
       $publisher = __('Bachelor\'s thesis').', '.$bibentry->getField(SCHOOL);
   }
   if ($type=="techreport") {
-      $publisher = __('Technical report').', '.$bibentry->getField("institution");
+      $publisher = __('Technical report');
+      if ($bibentry->hasField("number")) {
+          $publisher .= ' '.$bibentry->getField("number");
+      }
+      $publisher .= ', '.$bibentry->getField("institution");
   }
 
   if ($type=="misc") {
@@ -2093,7 +2097,11 @@ function JanosBibliographyStyle(&$bibentry) {
       $publisher = 'Master\'s thesis, '.$bibentry->getField(SCHOOL);
   }
   if ($type=="techreport") {
-      $publisher = 'Technical report, '.$bibentry->getField("institution");
+      $publisher = 'Technical report';
+      if ($bibentry->hasField("number")) {
+        $publisher = $bibentry->getField("number");
+      }
+      $publisher .=', '.$bibentry->getField("institution");
   }
   if ($bibentry->hasField("publisher")) {
     $publisher = $bibentry->getField("publisher");
