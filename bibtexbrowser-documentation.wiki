@@ -338,8 +338,18 @@ Add in ''bibtexbrowser.local.php'' (see "creating a bibtexbrowser.local.php" bel
 define('BIBTEXBROWSER_ROBOTS_NOINDEX', true);
 </pre>
 
+====How to load Bibtex from a dynamic string?====
 
+You can use the special ''php://memory'' feature as follows:
+<pre>
+$test_data = fopen('php://memory','x+');
+fwrite($test_data, "@book{aKey,title={A Book},author={Jan Doe},publisher={Springer},year=2009}\n");
+fseek($test_data,0);
+$this->btb = new BibDataBase();
+$this->btb->update_internal("inline", $test_data);
+</pre>
 
+    
 =====Related tools=====
 
 Old-fashioned:
