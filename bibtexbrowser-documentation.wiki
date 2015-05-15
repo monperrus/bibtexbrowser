@@ -265,17 +265,6 @@ return
 }
 </pre>
 
-====How to use the change the title of the result page?====
-
-You may create your own title function in ''bibtexbrowser.local.php'' (see "creating a bibtexbrowser.local.php" below):
-<pre>
-define('BIBLIOGRAPHYTITLE','my_title_function');
-function my_title_function($query) {
-  return "Publications of the Nuclear Research Group";
-}
-</pre>
-See function DefaultBibliographyTitle for inspiration.
-
 ====How to get the  individual bib pages embedded as well?====
 ''define('BIBTEXBROWSER_URL',""); ''
 
@@ -330,6 +319,25 @@ foreach ($entries as $bibentry) {
 }
 ?>
 </pre>
+
+====How to use the change the title of the result page?====
+
+You may create your own title function in ''bibtexbrowser.local.php'' (see "creating a bibtexbrowser.local.php" below):
+<pre>
+define('BIBLIOGRAPHYTITLE','my_title_function');
+function my_title_function($query) {
+  return "Publications of the Nuclear Research Group";
+}
+</pre>
+See function DefaultBibliographyTitle for inspiration.
+
+====How to disallow crawler indexing?====
+
+Add in ''bibtexbrowser.local.php'' (see "creating a bibtexbrowser.local.php" below):
+<pre>
+define('BIBTEXBROWSER_ROBOTS_NOINDEX', true);
+</pre>
+
 
 
 =====Related tools=====

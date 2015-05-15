@@ -70,6 +70,9 @@ function bibtexbrowser_configure($key, $value) {
 
 @define('ABBRV_TYPE','index');// may be year/x-abbrv/key/none/index/keys-index
 
+// are robots allowed to crawl and index bibtexbrowser generated pages?
+@define('BIBTEXBROWSER_ROBOTS_NOINDEX',false);
+
 //the default view in the "main" (right hand side) frame
 @define('BIBTEXBROWSER_DEFAULT_FRAME','year=latest'); // year=latest,all and all valid bibtexbrowser queries
 
@@ -2335,7 +2338,10 @@ class MenuManager {
     return '';
   }
 
-
+  function metadata() {
+    return array(array('robots','noindex'));
+  }
+  
   /** function called back by HTMLTemplate */
   function display() {
   echo $this->searchView().'<br/>';
@@ -2675,6 +2681,12 @@ class SimpleDisplay  {
     $this->setEntries($bibdatabase->bibdb);
   }
 
+  function metadata() {
+    if (BIBTEXBROWSER_ROBOTS_NOINDEX) {
+      return array(array('robots','noindex'));
+    }
+  }
+  
   /** sets the entries to be shown */
   function setEntries(&$entries) {
     $this->entries = $entries;
@@ -2975,6 +2987,10 @@ class BibEntryDisplay {
    * */
   function metadata() {
     $result=array();
+
+    if (BIBTEXBROWSER_ROBOTS_NOINDEX) {
+      $result[] = array('robots','noindex');
+    }
 
     if (METADATA_GS) {
       // the description may mix with the Google Scholar tags
@@ -3601,7 +3617,7 @@ usage:
       getTitle()
  * $title: title of the page
  */
-function HTMLTemplate(&$content,$metatags=array()/* an array name=>value*/) {
+function HTMLTemplate(&$content) {
 
 // when we load a page with AJAX
 // the HTTP header is taken into account, not the <meta http-equiv>
@@ -3618,6 +3634,11 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
 ?>
 <?php
 
+// we may add new metadata tags
+$metatags = array();
+if (method_exists($content, 'metadata')) {
+  $metatags = $content->metadata();
+}
 foreach($metatags as $item) {
   list($name,$value) = $item;
   echo '<meta name="'.$name.'" content="'.$value.'"/>'."\n";
@@ -3707,6 +3728,7 @@ class BibtexDisplay {
     foreach($this->entries as $bibentry) { echo $bibentry->getText()."\n"; }
     exit;
   }
+  
 }
 
 /** creates paged output, e.g: [[http://localhost/bibtexbrowser/testPagedDisplay.php?page=1]]
@@ -4145,7 +4167,7 @@ class Dispatcher {
     $menu = createMenuManager();
     $menu->setDB($_GET[Q_DB]);
     $fun = $this->wrapper;
-    $fun($menu,array(array('robots','noindex')));
+    $fun($menu);
     return 'END_DISPATCH';
   }
 
@@ -4183,7 +4205,7 @@ class Dispatcher {
         $bibdisplay = createBibEntryDisplay();
         $bibdisplay->setEntries($entries);
         $fun = $this->wrapper;
-        $fun($bibdisplay,$bibdisplay->metadata());
+        $fun($bibdisplay);
       }
       return 'END_DISPATCH';
     }
