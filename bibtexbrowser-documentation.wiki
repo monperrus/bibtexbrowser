@@ -363,6 +363,42 @@ class DynamicDispatcher extends Dispatcher {
 ?>
 </pre>
 
+====How to load bibliographic data in other formats?====
+
+If your bibliographic data comes from XML or a database, you can still browse it with bibtexbrowser as follows:
+Add in ''bibtexbrowser.local.php'':
+<pre>
+define("BIBTEXBROWSER_MAIN", 'PgmDispatcher');
+</pre>
+
+and then in ''bibtexbrowser.after.php'':
+<pre>
+&lt;?php
+class PgmDispatcher extends Dispatcher {
+  function getDB() {
+    $db = new BibDataBase();
+    
+    // builds the first entry
+    $entry = new BibEntry();
+    $entry->setType("article");
+    $entry->setField("title", "foo");
+    $entry->setField("year", "2014");
+    $entry->setKey("kolp");
+    $db->addEntry($entry);
+    
+    // builds the second entry
+    $entry2 = new BibEntry();
+    $entry2->setType("article");
+    $entry2->setField("title", "bar");
+    $entry2->setField("year", "2013");
+    $entry2->setKey("tili");
+    $db->addEntry($entry2);
+    
+    return $db;
+  }
+}
+?>
+</pre>
     
 =====Related tools=====
 

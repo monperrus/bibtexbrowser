@@ -1080,7 +1080,6 @@ class BibEntry {
     } else {
       //echo "xx".$value."xx\n";
     }
-
     $this->fields[$name] = $value;
   }
 
@@ -3378,6 +3377,15 @@ class BibDataBase {
   function getEntryByKey($key) {
     return $this->bibdb[$key];
   }
+
+  /** Adds a new bib entry to the database. */
+  function addEntry($entry) {
+    if (!$entry->hasField('key')) {
+      die('error: a bibliographic entry must have a key');
+    }
+    $this->bibdb[$entry->getKey()] = $entry;
+  }
+
 
   /**
    * Returns an array containing all bib entries matching the given
