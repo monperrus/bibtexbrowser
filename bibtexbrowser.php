@@ -2233,13 +2233,12 @@ usage:
   $_GET['all']=1;
   include( 'bibtexbrowser.php' );
   setDB();
-  new IndependentYearMenu();
+  new IndependentYearMenu($_GET[Q_DB]);
 </pre>
  */
 class IndependentYearMenu  {
-  function IndependentYearMenu() {
-    if (!isset($_GET[Q_DB])) {die('Did you forget to call setDB() before instantiating this class?');}
-    $yearIndex = $_GET[Q_DB]->yearIndex();
+  function IndependentYearMenu($db) {
+    $yearIndex = $db->yearIndex();
     echo '<div id="yearmenu">Year: ';
     $formatedYearIndex = array();
     $formatedYearIndex[] = '<a '.makeHref(array(Q_YEAR=>'.*')).'>All</a>';
@@ -2329,7 +2328,7 @@ class MenuManager {
   }
 
   /** sets the database that is used to create the menu */
-  function setDB(&$db) {
+  function setDB($db) {
     $this->db =$db;
     return $this;
   }
@@ -3947,8 +3946,22 @@ class Dispatcher {
     */
   var $wrapper = BIBTEXBROWSER_DEFAULT_TEMPLATE;
 
+  /** The BibDataBase object */
+  var $db = null;
+  
   function Dispatcher() {}
 
+  /** returns the underlying BibDataBase object */
+  function getDB() {
+    // by default set it from $_GET[Q_FILE]
+    // first we set the database (load from disk or parse the bibtex file)
+    if ($this->db == null) { 
+      list($db, $parsed, $updated, $saved) = _zetDB($_GET[Q_FILE]);
+      $this->db = $db;
+    }
+    return $this->db;
+  }
+   
   function main() {
     // are we in test mode, or libray mode
     // then this file is just a library
@@ -3960,9 +3973,6 @@ class Dispatcher {
     }
 
     if (!isset($_GET[Q_FILE])) { die('$_GET[\''.Q_FILE.'\'] is not set!'); }
-
-    // first we set the database (load from disk or parse the bibtex file)
-    if (!isset($_GET[Q_DB]) || !$_GET[Q_DB]->is_already_loaded($_GET[Q_FILE])) { setDB(); }
 
     // is the publication list included in another page?
     // strtr is used for Windows where __FILE__ contains C:\toto and SCRIPT_FILENAME contains C:/toto (bug reported by Marco)
@@ -3988,7 +3998,7 @@ class Dispatcher {
          unset($this->query[Q_ALL]);
        }
 
-       $selectedEntries = $_GET[Q_DB]->multisearch($this->query);
+       $selectedEntries = $this->getDB()->multisearch($this->query);
 
        if (count($selectedEntries)==0) {
          $this->displayer = 'NotFoundDisplay';
@@ -4080,7 +4090,7 @@ class Dispatcher {
   function year() {
     // we may want the latest
     if ($_GET[Q_YEAR]=='latest') {
-      $years = $_GET[Q_DB]->yearIndex();
+      $years = $this->getDB()->yearIndex();
       $_GET[Q_YEAR]=array_shift($years);
     }
     $this->query[Q_YEAR]=$_GET[Q_YEAR];
@@ -4165,7 +4175,7 @@ class Dispatcher {
 
   function menu() {
     $menu = createMenuManager();
-    $menu->setDB($_GET[Q_DB]);
+    $menu->setDB($this->getDB());
     $fun = $this->wrapper;
     $fun($menu);
     return 'END_DISPATCH';
@@ -4195,8 +4205,8 @@ class Dispatcher {
   function key() {
     $entries = array();
     // case 1: this is a single key
-    if ($_GET[Q_DB]->contains($_GET[Q_KEY])) {
-      $entries[] = $_GET[Q_DB]->getEntryByKey($_GET[Q_KEY]);
+    if ($this->getDB()->contains($_GET[Q_KEY])) {
+      $entries[] = $this->getDB()->getEntryByKey($_GET[Q_KEY]);
       if (isset($_GET['astext'])) {
         $bibdisplay = new BibtexDisplay();
         $bibdisplay->setEntries($entries);

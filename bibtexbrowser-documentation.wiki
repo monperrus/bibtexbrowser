@@ -286,7 +286,7 @@ This comment field can also be used to add acceptance rates and impact factors.
 ====How to localize bibtexbrowser?====
 Add in ''bibtexbrowser.local.php'':
 <pre>
-&lt;?
+&lt;?php
 global $BIBTEXBROWSER_LANG;
 $BIBTEXBROWSER_LANG=array();
 $BIBTEXBROWSER_LANG['Refereed Conference Papers']="Conférences avec comité de lecture";
@@ -298,7 +298,7 @@ $BIBTEXBROWSER_LANG['Year']="Année";
 ====How to change the default frame?====
 Add in ''bibtexbrowser.local.php'':
 <pre>
-&lt;?
+&lt;?php
 // or any valid query: year=2010, author=Jane, etc.
 @define('BIBTEXBROWSER_DEFAULT_FRAME','all');
 ?>
@@ -306,7 +306,7 @@ Add in ''bibtexbrowser.local.php'':
 
 ====How to order a list of Bibtex entries?====
 <pre>
-&lt;?
+&lt;?php
 $_GET['library']=1;
 require_once('bibtexbrowser.php');
 $db = new BibDataBase();
@@ -340,13 +340,27 @@ define('BIBTEXBROWSER_ROBOTS_NOINDEX', true);
 
 ====How to load Bibtex from a dynamic string?====
 
-You can use the special ''php://memory'' feature as follows:
+You can use the special ''php://memory'' feature in a new dispatcher.
+Add in ''bibtexbrowser.local.php'':
 <pre>
-$test_data = fopen('php://memory','x+');
-fwrite($test_data, "@book{aKey,title={A Book},author={Jan Doe},publisher={Springer},year=2009}\n");
-fseek($test_data,0);
-$this->btb = new BibDataBase();
-$this->btb->update_internal("inline", $test_data);
+define("BIBTEXBROWSER_MAIN", 'DynamicDispatcher');
+</pre>
+
+and then in ''bibtexbrowser.after.php'':
+<pre>
+&lt;?php
+class DynamicDispatcher extends Dispatcher {
+  function getDB() {
+    $data = fopen('php://memory','x+');
+    $dynamic_string = "@book{aKey,title={A Book},author={Jan Doe},publisher={Springer},year=2009}\n";
+    fwrite($data, $dynamic_string);
+    fseek($data,0);
+    $db = new BibDataBase();
+    $db->update_internal("inline", $data);
+    return $db;
+  }
+}
+?>
 </pre>
 
     
