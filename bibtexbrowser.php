@@ -5,7 +5,7 @@ Feedback & Bug Reports: martin.monperrus@gnieh.org
 
 (C) 2012-2014 Github contributors
 (C) 2014 Markus Jochim
-(C) 2006-2014 Martin Monperrus
+(C) 2006-2015 Martin Monperrus
 (C) 2013 Matthieu Guillaumin
 (C) 2005-2006 The University of Texas at El Paso / Joel Garcia, Leonardo Ruiz, and Yoonsik Cheon
 This program is free software; you can redistribute it and/or
@@ -85,6 +85,7 @@ function bibtexbrowser_configure($key, $value) {
 // default order functions
 // Contract Returns < 0 if str1 is less than str2; > 0 if str1 is greater than str2, and 0 if they are equal.
 // can be @define('ORDER_FUNCTION','compare_bib_entry_by_title');
+// can be @define('ORDER_FUNCTION','compare_bib_entry_by_bibtex_order');
 @define('ORDER_FUNCTION','compare_bib_entry_by_year');
 @define('ORDER_FUNCTION_FINE','compare_bib_entry_by_month');
 
@@ -1026,6 +1027,9 @@ class BibEntry {
   /** The index in a list of publications (e.g. [1] Foo */
   var $index = '';
 
+  /** The location in the original bibtex file (set by addEntry) */
+  var $order = -1;
+
   /** returns a debug string representation */
   function __toString() {
     return $this->getType()." ".$this->getKey();
@@ -1771,6 +1775,13 @@ function DefaultBibliographyTitle($query) {
 function compare_bib_entry_by_mtime($a, $b)
 {
   return -($a->getTimestamp()-$b->getTimestamp());
+}
+
+/** compares two instances of BibEntry by order in Bibtex file
+ */
+function compare_bib_entry_by_bibtex_order($a, $b)
+{
+  return $a->order-$b->order;
 }
 
 /** compares two instances of BibEntry by year
@@ -3224,7 +3235,7 @@ class BibDataBase {
       // new entries:
       if (!isset($this->bibdb[$b->getKey()])) {
         //echo 'adding...<br/>';
-        $this->bibdb[$b->getKey()] = $b;
+        $this->addEntry($b);
       }
       // update entry
       else if (isset($this->bibdb[$b->getKey()]) && ($b->getText() !== $this->bibdb[$b->getKey()]->getText())) {
@@ -3383,6 +3394,8 @@ class BibDataBase {
     if (!$entry->hasField('key')) {
       die('error: a bibliographic entry must have a key');
     }
+    // we keep its insertion order
+    $entry->order = count($this->bibdb);
     $this->bibdb[$entry->getKey()] = $entry;
   }
 
