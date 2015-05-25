@@ -129,6 +129,7 @@ function bibtexbrowser_configure($key, $value) {
 @define('BIBTEXBROWSER_DEBUG',false);
 
 @define('COMMA_NAMES',false);// do have authors in a comma separated form?
+@define('INITIAL_NAMES',false); // use only initials for all first names
 @define('FORCE_NAMELIST_SEPARATOR', ''); // if non-empty, use this to separate multiple names regardless of COMMA_NAMES
 @define('TYPES_SIZE',10); // number of entry types per table
 @define('YEAR_SIZE',20); // number of years per table
@@ -891,6 +892,9 @@ function latex2html($line) {
 
   $line = preg_replace('/([^\\\\])~/','\\1&nbsp;', $line);
 
+  $line = str_replace('---','&mdash;',$line);
+  $line = str_replace('--','&ndash;',$line);
+
   // performance increases with this test
   // bug found by Serge Barral: what happens if we have curly braces only (typically to ensure case in Latex)
   // added && strpos($line,'{')===false
@@ -899,6 +903,9 @@ function latex2html($line) {
   // we should better replace this before the others
   // in order not to mix with the HTML entities coming after (just in case)
   $line = str_replace('\\&','&amp;', $line);
+
+  $line = str_replace('\_','_',$line);
+  $line = str_replace('\%','%',$line);
 
   // handling \url{....}
   // often used in howpublished for @misc
@@ -1273,6 +1280,9 @@ class BibEntry {
     if (COMMA_NAMES) {
       return $this->formatAuthorCommaSeparated($author);
     }
+    else if (INITIAL_NAMES) {
+      return $this->formatAuthorInitials($author);
+    }	
     else return $this->formatAuthorCanonical($author);
   }
 
@@ -1282,6 +1292,16 @@ class BibEntry {
   function formatAuthorCanonical($author){
       list($firstname, $lastname) = splitFullName($author);
       if ($firstname!='') return $firstname.' '.$lastname;
+      else return $lastname;
+  }
+
+  /**
+  * Returns the formated author name as "LastName Initials".
+  * e.g. for Vancouver-style used by PubMed.
+  */
+  function formatAuthorInitials($author){
+      list($firstname, $lastname) = splitFullName($author);
+      if ($firstname!='') return $lastname.' '.preg_replace("/(\p{Lu})\w*[- ]*/S","$1", $firstname);
       else return $lastname;
   }
 
@@ -2167,6 +2187,109 @@ function JanosBibliographyStyle(&$bibentry) {
 
 
 
+/** Bibtexbrowser style producing vancouver style often used in medicine.
+ *
+ *  See: Patrias K. Citing medicine: the NLM style guide for authors, editors,
+ *  and publishers [Internet]. 2nd ed. Wendling DL, technical editor.
+ *  Bethesda (MD): National Library of Medicine (US); 2007 -
+ *  [updated 2011 Sep 15; cited 2015 April 18].
+ *  Available from: http://www.nlm.nih.gov/citingmedicine
+ *
+ * usage: Add the following lines to "bibtexbrowser.local.php"
+<pre>
+define('BIBLIOGRAPHYSTYLE','VancouverBibliographyStyle');
+define('INITIAL_NAMES',true);
+</pre>
+*/
+
+function VancouverBibliographyStyle(&$bibentry) {
+  $title = $bibentry->getTitle();
+  $type = $bibentry->getType();
+
+  $entry=array();
+
+  // author
+  if ($bibentry->hasField('author')) {
+    $entry[] = $bibentry->formattedAuthors().'. ';
+  }
+
+  // Ensure punctuation mark at title's end
+  if (strpos(":.;,?!", substr(rtrim($title), -1)) > 0) {
+    $title = $title . ' ';
+  } else {
+    $title = $title . '. ';
+  }
+  if ($bibentry->hasField('url')) {
+    $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField('url').'">'.$title.'</a>';
+  }
+
+  $entry[] = $title;
+
+  $booktitle = '';
+
+  //// ******* EDITOR
+  $editor='';
+  if ($bibentry->hasField(EDITOR)) {
+    $editor = $bibentry->getFormattedEditors() . ' ';
+  }
+
+  if (($type=="misc") && $bibentry->hasField("note")) {
+    $booktitle = $editor;
+    $booktitle = $bibentry->getField("note");
+  } else if ($type=="inproceedings") {
+      $booktitle = 'In: ' . $editor . $bibentry->getField(BOOKTITLE);
+  } else if ($type=="incollection") {
+      $booktitle = 'Chapter in ';
+      if ($editor!='') $booktitle .= $editor;
+      $booktitle .= $bibentry->getField(BOOKTITLE);
+  } else if ($type=="article") {
+      $booktitle = $bibentry->getField("journal");
+  }
+  if ($booktitle!='') {
+    $entry[] = $booktitle . '. ';
+  }
+
+
+  $publisher='';
+  if ($type=="phdthesis") {
+      $publisher = 'PhD thesis, '.$bibentry->getField(SCHOOL);
+  } else if ($type=="mastersthesis") {
+      $publisher = 'Master\'s thesis, '.$bibentry->getField(SCHOOL);
+  } else if ($type=="techreport") {
+      $publisher = 'Technical report, '.$bibentry->getField("institution");
+  } 
+  if ($bibentry->hasField("publisher")) {
+    $publisher = $bibentry->getField("publisher");
+  }
+  if ($publisher!='') {
+    if ($bibentry->hasField('address')) {
+      $entry[] =  $bibentry->getField("address").': ';
+    }
+    $entry[] = $publisher . "; ";
+  }
+
+
+  if ($bibentry->hasField(YEAR)) $entry[] = $bibentry->getYear();
+
+  if ($bibentry->hasField('volume')) $entry[] =  ";".$bibentry->getField("volume");
+  if ($bibentry->hasField('number')) $entry[] =  '('.$bibentry->getField("number").')';
+
+  if ($bibentry->hasField('pages')) $entry[] = str_replace("--", "-", ":".$bibentry->getField("pages"));
+
+  $result = implode($entry).'.';
+
+  // some comments (e.g. acceptance rate)?
+  if ($bibentry->hasField('comment')) {
+      $result .=  " (".$bibentry->getField("comment").")";
+  }
+
+  // add the Coin URL
+  $result .=  "\n".$bibentry->toCoins();
+
+  return $result;
+}
+
+?>
 
 
 
