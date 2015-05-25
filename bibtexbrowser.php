@@ -1299,7 +1299,7 @@ class BibEntry {
   function getFormattedAuthors() {
     $authors = array();
     foreach ($this->getRawAuthors() as $author) {
-      $authors[]=$this->formatAuthor($author);
+      $authors[]='<span itemprop="author"  itemtype="http://schema.org/Person">'.$this->formatAuthor($author).'</span>';
     }
     return $authors;
   }
@@ -1963,6 +1963,8 @@ return
   .bibbooktitle { font-style:italic; }
   .bibauthor { }
   .bibpublisher { }
+  
+  See http://schema.org/ScholarlyArticle for the metadata
 */
 function DefaultBibliographyStyle(&$bibentry) {
   $title = $bibentry->getTitle();
@@ -1973,13 +1975,13 @@ function DefaultBibliographyStyle(&$bibentry) {
 
   // title
   // usually in bold: .bibtitle { font-weight:bold; }
-  $title = '<span class="bibtitle">'.$title.'</span>';
+  $title = '<span class="bibtitle"  itemprop="name">'.$title.'</span>';
   if ($bibentry->hasField('url')) $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField('url').'">'.$title.'</a>';
 
 
   // author
   if ($bibentry->hasField('author')) {
-    $coreInfo = $title . ' <span class="bibauthor">('.$bibentry->getFormattedAuthorsImproved().')</span>';}
+    $coreInfo = $title . ' (<span class="bibauthor">'.$bibentry->getFormattedAuthorsImproved().'</span>)';}
   else $coreInfo = $title;
 
   // core info usually contains title + author
@@ -1988,13 +1990,13 @@ function DefaultBibliographyStyle(&$bibentry) {
   // now the book title
   $booktitle = '';
   if ($type=="inproceedings") {
-      $booktitle = __('In').' '.$bibentry->getField(BOOKTITLE); }
+      $booktitle = __('In').' '.'<span itemprop="isPartOf">'.$bibentry->getField(BOOKTITLE).'</span>'; }
   if ($type=="incollection") {
-      $booktitle = __('Chapter in').' '.$bibentry->getField(BOOKTITLE);}
+      $booktitle = __('Chapter in').' '.'<span itemprop="isPartOf">'.$bibentry->getField(BOOKTITLE).'</span>';}
   if ($type=="inbook") {
       $booktitle = __('Chapter in').' '.$bibentry->getField('chapter');}
   if ($type=="article") {
-      $booktitle = __('In').' '.$bibentry->getField("journal");}
+      $booktitle = __('In').' '.'<span itemprop="isPartOf">'.$bibentry->getField("journal").'</span>';}
 
   //// we may add the editor names to the booktitle
   $editor='';
@@ -2042,7 +2044,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   if ($bibentry->hasField('volume')) $entry[] =  __('volume').' '.$bibentry->getField("volume");
 
 
-  if ($bibentry->hasField(YEAR)) $entry[] = $bibentry->getYear();
+  if ($bibentry->hasField(YEAR)) $entry[] = '<span itemprop="datePublished">'.$bibentry->getYear().'</span>';
 
   $result = implode(", ",$entry).'.';
 
@@ -2057,7 +2059,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   // add the Coin URL
   $result .=  $bibentry->toCoins();
 
-  return $result;
+  return '<span itemscope itemtype="http://schema.org/ScholarlyArticle">'.$result.'</span>';
 }
 
 
@@ -2187,7 +2189,7 @@ function compare_bib_entries($bib1, $bib2) {
 /** creates a query string given an array of parameter, with all specifities of bibtexbrowser_ (such as adding the bibtex file name &bib=foo.bib
  */
 function createQueryString($array_param) {
- // first a simple common transformation 
+ // then a simple transformation and implode
  foreach ($array_param as $key => $val) {
       if ($key == Q_FILE) { continue; }
       // the inverse transformation should also be implemented into query2title
