@@ -2187,12 +2187,9 @@ function compare_bib_entries($bib1, $bib2) {
 /** creates a query string given an array of parameter, with all specifities of bibtexbrowser_ (such as adding the bibtex file name &bib=foo.bib
  */
 function createQueryString($array_param) {
-  if (isset($_GET[Q_FILE]) && !isset($array_param[Q_FILE])) {
-    // first we add the name of the bib file
-    $array_param[Q_FILE] = urlencode($_GET[Q_FILE]);
-  }
- // then a simple transformation and implode
+ // first a simple common transformation 
  foreach ($array_param as $key => $val) {
+      if ($key == Q_FILE) { continue; }
       // the inverse transformation should also be implemented into query2title
       if($key == Q_INNER_AUTHOR) { $key = Q_AUTHOR; }
       if($key == Q_INNER_TYPE) { $key = Q_TYPE; }
@@ -2200,6 +2197,13 @@ function createQueryString($array_param) {
       if($key == Q_INNER_KEYS_INDEX) {continue;}
       $array_param[$key]=$key .'='. urlencode($val);
  }
+ 
+ // adding the bibtex file name is not already there
+ if (isset($_GET[Q_FILE]) && !isset($array_param[Q_FILE])) {
+    // first we add the name of the bib file
+    $array_param[Q_FILE] = Q_FILE .'='. urlencode($_GET[Q_FILE]);
+  }
+
  return implode("&amp;",$array_param);
 }
 
