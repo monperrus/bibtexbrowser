@@ -56,6 +56,11 @@ function bibtexbrowser_configure($key, $value) {
 @define('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');// this is the name of a function
 @define('BIBLIOGRAPHYSECTIONS','DefaultBibliographySections');// this is the name of a function
 @define('BIBLIOGRAPHYTITLE','DefaultBibliographyTitle');// this is the name of a function
+
+// shall we load MathJax to render math in $…$ in HTML?
+@define('BIBTEXBROWSER_RENDER_MATH', true);
+@define('MATHJAX_URI', '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js');
+
 // can we load bibtex files on external servers?
 @define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
 
@@ -879,6 +884,13 @@ function char2html_case_sensitive($line,$latexmodifier,$char,$entitiyfragment) {
  */
 function latex2html($line) {
 
+  $line = preg_replace('/([^\\\\])~/','\\1&nbsp;', $line);
+
+  // performance increases with this test
+  // bug found by Serge Barral: what happens if we have curly braces only (typically to ensure case in Latex)
+  // added && strpos($line,'{')===false
+  if (strpos($line,'\\')===false && strpos($line,'{')===false) return $line;
+
   $maths = array();
   $index = 0;
   // first we escape the math env
@@ -888,13 +900,6 @@ function latex2html($line) {
     $line = str_replace($k, '__MATH'.$index.'__', $line);
     $index++;
   }
-
-  $line = preg_replace('/([^\\\\])~/','\\1&nbsp;', $line);
-
-  // performance increases with this test
-  // bug found by Serge Barral: what happens if we have curly braces only (typically to ensure case in Latex)
-  // added && strpos($line,'{')===false
-  if (strpos($line,'\\')===false && strpos($line,'{')===false) return $line;
 
   // we should better replace this before the others
   // in order not to mix with the HTML entities coming after (just in case)
@@ -1699,7 +1704,7 @@ function get_HTML_tag_for_layout() {
  */
 function bib2links_default(&$bibentry) {
   $links = array();
-  
+
   if (BIBTEXBROWSER_BIBTEX_LINKS) {
     $link = $bibentry->getBibLink();
     if ($link != '') { $links[] = $link; };
@@ -1719,7 +1724,7 @@ function bib2links_default(&$bibentry) {
     $link = $bibentry->getGSLink();
     if ($link != '') { $links[] = $link; };
   }
-  
+
   return '<span class="bibmenu">'.implode(" ",$links).'</span>';
 }
 
@@ -1963,7 +1968,7 @@ return
   .bibbooktitle { font-style:italic; }
   .bibauthor { }
   .bibpublisher { }
-  
+
   See http://schema.org/ScholarlyArticle for the metadata
 */
 function DefaultBibliographyStyle(&$bibentry) {
@@ -2199,7 +2204,7 @@ function createQueryString($array_param) {
       if($key == Q_INNER_KEYS_INDEX) {continue;}
       $array_param[$key]=$key .'='. urlencode($val);
  }
- 
+
  // adding the bibtex file name is not already there
  if (isset($_GET[Q_FILE]) && !isset($array_param[Q_FILE])) {
     // first we add the name of the bib file
@@ -2319,6 +2324,19 @@ $('a.biburl').each(function() { // for each url "[bibtex]"
 } // end function javascript
 
 
+if (!function_exists('javascript_math')) {
+  function javascript_math() {
+    ?>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [["$","$"]]}
+      });
+    </script>
+    <script src="<?php echo MATHJAX_URI ?>"></script>
+    <?php
+  }
+}
+
 
 /** is used for creating menus (by type, by year, by author, etc.).
 usage:
@@ -2356,7 +2374,7 @@ class MenuManager {
   function metadata() {
     return array(array('robots','noindex'));
   }
-  
+
   /** function called back by HTMLTemplate */
   function display() {
   echo $this->searchView().'<br/>';
@@ -2701,7 +2719,7 @@ class SimpleDisplay  {
       return array(array('robots','noindex'));
     }
   }
-  
+
   /** sets the entries to be shown */
   function setEntries(&$entries) {
     $this->entries = $entries;
@@ -2730,8 +2748,8 @@ class SimpleDisplay  {
   function setQuery($query) {
     $this->query = $query;
   }
-  function getTitle() { 
-    return _DefaultBibliographyTitle($this->query); 
+  function getTitle() {
+    return _DefaultBibliographyTitle($this->query);
   }
 
   /** Displays a set of bibtex entries in an HTML table */
@@ -2894,7 +2912,7 @@ class AcademicDisplay  {
           $display->incHeadingLevel();
           $display->setEntries($entries);
           $display->headerCSS = 'theader';
-	
+
           $sections[] = array (
             'display' => $display,
             'anchor' => $anchor,
@@ -3385,7 +3403,7 @@ class BibDataBase {
 
       $result[$key] = $year;
     }
-    
+
     krsort($result);
     return $result;
   }
@@ -3704,6 +3722,10 @@ if (method_exists($content, 'getTitle')) {
   if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
     javascript();
   }
+
+  if (BIBTEXBROWSER_RENDER_MATH) {
+    javascript_math();
+  }
 ?>
 </body>
 </html>
@@ -3754,7 +3776,7 @@ class BibtexDisplay {
     foreach($this->entries as $bibentry) { echo $bibentry->getText()."\n"; }
     exit;
   }
-  
+
 }
 
 /** creates paged output, e.g: [[http://localhost/bibtexbrowser/testPagedDisplay.php?page=1]]
@@ -3975,20 +3997,20 @@ class Dispatcher {
 
   /** The BibDataBase object */
   var $db = null;
-  
+
   function Dispatcher() {}
 
   /** returns the underlying BibDataBase object */
   function getDB() {
     // by default set it from $_GET[Q_FILE]
     // first we set the database (load from disk or parse the bibtex file)
-    if ($this->db == null) { 
+    if ($this->db == null) {
       list($db, $parsed, $updated, $saved) = _zetDB($_GET[Q_FILE]);
       $this->db = $db;
     }
     return $this->db;
   }
-   
+
   function main() {
     // are we in test mode, or libray mode
     // then this file is just a library
