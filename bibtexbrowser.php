@@ -2191,7 +2191,6 @@ function compare_bib_entries($bib1, $bib2) {
 function createQueryString($array_param) {
  // then a simple transformation and implode
  foreach ($array_param as $key => $val) {
-      if ($key == Q_FILE) { continue; }
       // the inverse transformation should also be implemented into query2title
       if($key == Q_INNER_AUTHOR) { $key = Q_AUTHOR; }
       if($key == Q_INNER_TYPE) { $key = Q_TYPE; }
