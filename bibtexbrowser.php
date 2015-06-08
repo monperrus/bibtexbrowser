@@ -905,6 +905,12 @@ function latex2html($line) {
   // in order not to mix with the HTML entities coming after (just in case)
   $line = str_replace('\\&','&amp;', $line);
 
+  $line = str_replace('\_','_',$line);
+  $line = str_replace('\%','%',$line);
+
+  $line = str_replace('---','&mdash;',$line);
+  $line = str_replace('--','&ndash;',$line);
+
   // handling \url{....}
   // often used in howpublished for @misc
   $line = preg_replace('/\\\\url\{(.*)\}/U','<a href="\\1">\\1</a>', $line);
