@@ -49,7 +49,7 @@ For feature requests or bug reports, please comment this page below; patches can
 
 <!-- //Release Candidate//: [[http://www.monperrus.net/martin/bibtexbrowser/bibtexbrowser-rc.php.txt]] -->
 '''Stable Version''':  [[http://www.monperrus.net/martin/bibtexbrowser.php.txt|bibtexbrowser.php]]  
-[[http://www.monperrus.net/martin/bibtexbrowser/changelog|Changelog]]
+[[https://github.com/monperrus/bibtexbrowser/commits/master|Changelog]]
 
 Don't hesitate to contact me to be added in the [[http://www.monperrus.net/martin/bibtexbrowser/users|lists of bibtexbrowser users]]:-)
 
