@@ -2837,6 +2837,8 @@ class SimpleDisplay  {
   function metadata() {
     if (BIBTEXBROWSER_ROBOTS_NOINDEX) {
       return array(array('robots','noindex'));
+    } else {
+      return array();
     }
   }
 
