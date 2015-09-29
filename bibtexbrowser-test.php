@@ -193,6 +193,21 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getUrlLink());    
   }
 
+  // https://github.com/monperrus/bibtexbrowser/issues/40
+  function test_doi_url() {
+      $test_data = fopen('php://memory','x+');
+    fwrite($test_data, "@Article{Baldwin2014Quantum,Doi={10.1103/PhysRevA.90.012110},Url={http://link.aps.org/doi/10.1103/PhysRevA.90.012110}}"
+    );
+    fseek($test_data,0);
+    $btb = new BibDataBase();
+    $btb->update_internal("inline", $test_data);    
+    $first_entry=$btb->bibdb[array_keys($btb->bibdb)[0]];
+    $this->assertEquals('<pre class="purebibtex">@Article{Baldwin2014Quantum,Doi={<a href="http://dx.doi.org/10.1103/PhysRevA.90.012110">10.1103/PhysRevA.90.012110</a>},Url={<a href="http://link.aps.org/doi/10.1103/PhysRevA.90.012110">http://link.aps.org/doi/10.1103/PhysRevA.90.012110</a>}}</pre>',$first_entry->toEntryUnformatted());    
+  }
+    
+  
+
+
 } // end class
 
 ?>
