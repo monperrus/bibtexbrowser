@@ -41,7 +41,7 @@ This documentation is collaborative, you can improve it using a [[https://github
 * bibtexbrowser can display all entries with a bib keyword e.g. "?keywords=components". It matches against the "keywords" bibtex field. [[http://bibtexbrowser.sourceforge.net/bibtexbrowser.php?bib=metrics.bib&keywords=components|demo]]
 * bibtexbrowser outputs valid XHTML 1.0 Transitional
 * bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;author=Barbara+A.+Kitchenham|demo]]
-* bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in UTF-8 ''define('ENCODING','UTF-8')'' )
+* bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in UTF-8 ''define('BIBTEX_INPUT_ENCODING','UTF-8')'' )
 
 
 =====Download=====
@@ -202,10 +202,8 @@ You can use your personalized function to add support for new fields in bibtex (
 
 
 ====How to specify the encoding of bibtex files (UTF-8/ISO-8859-1/etc.)? ====
-
-
 By default, bibtexbrowser assumes that the bibtex file is UTF-8 encoded. If you want to change it to e.g. ISO-8859-1, add into ''bibtexbrowser.local.php'':
-<pre>define('ENCODING','ISO-8859-1');</pre>
+<pre>define('BIBTEX_INPUT_ENCODING','ISO-8859-1');</pre>
 
 Note that if the bibtex only contains latex-encoded diacritics (e.g. ''\'e''), it does not matter. The encoding of the bibtex file and the one of the generated HTML is identical.
 
@@ -410,6 +408,15 @@ class PgmDispatcher extends Dispatcher {
 ?>
 </pre>
     
+====How to remove fields from the bibtex text?====
+
+If you want to remove some fields (e.g. abbrv and comment) from the resulting bibtex, add in ''bibtexbrowser.local.php'':
+<pre>
+define('BIBTEXBROWSER_BIBTEX_VIEW','reconstructed');
+define('BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT','abbrv|comment');
+</pre>
+
+
 =====Related tools=====
 
 Old-fashioned:
