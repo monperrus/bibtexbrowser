@@ -12,6 +12,9 @@ $ phpunit --coverage-html ./coverage btb-test.php
 
 $_GET['library']=1;
 
+copy('bibtexbrowser.local.php','bibtexbrowser.local.php.bak');
+unlink('bibtexbrowser.local.php');
+
 require_once ('bibtexbrowser.php');
 
 error_reporting(E_ALL);
