@@ -1315,7 +1315,7 @@ class BibEntry {
   */
   function formatAuthorInitials($author){
       list($firstname, $lastname) = splitFullName($author);
-      if ($firstname!='') return $lastname.' '.preg_replace("/(\p{Lu})\w*[- ]*/S","$1", $firstname);
+      if ($firstname!='') return $lastname.' '.preg_replace("/(\p{Lu})\w*[- ]*/Su","$1", $firstname);
       else return $lastname;
   }
 
