@@ -41,6 +41,12 @@ function bibtexbrowser_configure($key, $value) {
 @define('BIBTEX_INPUT_ENCODING','UTF-8');//@define('BIBTEX_INPUT_ENCODING','iso-8859-1');//define('BIBTEX_INPUT_ENCODING','windows-1252');
 // the encoding of the HTML output
 @define('OUTPUT_ENCODING','UTF-8');
+
+// print a warning if deprecated variable is used
+if (defined('ENCODING')) {
+  echo 'ENCODING has been replaced by BIBTEX_INPUT_ENCODING and OUTPUT_ENCODING';
+}
+
 // number of bib items per page
 // we use the same parameter 'num' as Google
 @define('PAGE_SIZE',isset($_GET['num'])?(preg_match('/^\d+$/',$_GET['num'])?$_GET['num']:10000):14);
