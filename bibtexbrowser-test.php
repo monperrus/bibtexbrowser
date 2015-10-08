@@ -224,6 +224,27 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals("@article{aKey,\n title = {A Book},\n author = {Martin Monperrus},\n publisher = {Springer},\n year = {2009},\n}\n",    $dis->getText());
   }
 
+  function test_BIBTEXBROWSER_USE_LATEX2HTML() {
+    $bibtex = "@article{aKey,title={\`a Book},author={Martin Monperrus},publisher={Springer},year=2009,pages={42--4242},number=1}\n";
+   
+    bibtexbrowser_configure('BIBTEXBROWSER_USE_LATEX2HTML', true);
+    $test_data = fopen('php://memory','x+');
+    fwrite($test_data, $bibtex);
+    fseek($test_data,0);
+    $db = new BibDataBase();
+    $db->update_internal("inline", $test_data);
+    $dis = $db->getEntryByKey('aKey');
+    $this->assertEquals("à Book",$dis->getTitle());
+    
+    bibtexbrowser_configure('BIBTEXBROWSER_USE_LATEX2HTML', false);
+    $test_data = fopen('php://memory','x+');
+    fwrite($test_data, $bibtex);
+    fseek($test_data,0);
+    $db = new BibDataBase();
+    $db->update_internal("inline", $test_data);
+    $dis = $db->getEntryByKey('aKey');
+    $this->assertEquals("\`a Book",$dis->getTitle());
+  }
 
 } // end class
 

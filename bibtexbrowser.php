@@ -149,6 +149,8 @@ if (defined('ENCODING')) {
 // a list of fields that will not be shown in the bibtex view if BIBTEXBROWSER_BIBTEX_VIEW=reconstructed
 @define('BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT','comment|note|file');
 
+// should Latex macros be executed (e.g. \'e -> é
+@define('BIBTEXBROWSER_USE_LATEX2HTML',true);
 
 // Which is the first html <hN> level that should be used in embedded mode?
 @define('BIBTEXBROWSER_HTMLHEADINGLEVEL', 2);
@@ -1118,17 +1120,20 @@ class BibEntry {
      // 1. trim space
       $value = xtrim($value);
       
-      // 2. transform Latex markup to HTML entities (easier than a one to one mapping to each character)
-      // HTML entity is an intermediate format
-      $value = latex2html($value);
+      if (c('BIBTEXBROWSER_USE_LATEX2HTML')) {
+        // 2. transform Latex markup to HTML entities (easier than a one to one mapping to each character)
+        // HTML entity is an intermediate format
+        $value = latex2html($value);
+        
+        // 3. transform to the target output encoding
+        $value = html_entity_decode($value, ENT_QUOTES|ENT_XHTML, OUTPUT_ENCODING);
+      }
       
-      // 3. transform existing encoded character in the new format
+      // 4. transform existing encoded character in the new format
       if (function_exists('mb_convert_encoding') && OUTPUT_ENCODING != BIBTEX_INPUT_ENCODING) {
         $vaue = mb_convert_encoding($value, OUTPUT_ENCODING, BIBTEX_INPUT_ENCODING);
       }
 
-      // 4. transform to the target output encoding
-      $value = html_entity_decode($value, ENT_QUOTES|ENT_XHTML, OUTPUT_ENCODING);
     } else {
       //echo "xx".$value."xx\n";
     }
