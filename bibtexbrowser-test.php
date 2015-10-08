@@ -209,6 +209,20 @@ class BTBTest extends PHPUnit_Framework_TestCase {
   }
     
   
+  function test_filter_view() {
+    $test_data = fopen('php://memory','x+');
+    fwrite($test_data, "@article{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009,pages={42--4242},number=1}\n");
+    fseek($test_data,0);
+    $db = new BibDataBase();
+    $db->update_internal("inline", $test_data);
+    $dis = $db->getEntryByKey('aKey');
+    $this->assertEquals("@article{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009,pages={42--4242},number=1}",$dis->getText());
+    
+    // now ith option
+    bibtexbrowser_configure('BIBTEXBROWSER_BIBTEX_VIEW', 'reconstructed');
+    bibtexbrowser_configure('BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT', 'pages|number');
+    $this->assertEquals("@article{aKey,\n title = {A Book},\n author = {Martin Monperrus},\n publisher = {Springer},\n year = {2009},\n}\n",    $dis->getText());
+  }
 
 
 } // end class

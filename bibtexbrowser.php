@@ -29,6 +29,16 @@ $CONFIGURATION = array();
 function bibtexbrowser_configure($key, $value) {
   global $CONFIGURATION;
   $CONFIGURATION[$key]=$value;
+  if (!defined($key)) { define($key, $value); } // for backward compatibility
+}
+function bibtexbrowser_configuration($key) {
+  global $CONFIGURATION;
+  if (isset($CONFIGURATION[$key])) {return $CONFIGURATION[$key];}
+  if (defined($key)) {return constant($key);}
+  throw new Exception('no such configuration parameter: '.$key);
+}
+function c($key) { // shortcut
+  return bibtexbrowser_configuration($key);
 }
 
 // *************** CONFIGURATION
@@ -1521,13 +1531,13 @@ class BibEntry {
 
   /** Returns the verbatim text of this bib entry. */
   function getText() {
-    if (BIBTEXBROWSER_BIBTEX_VIEW == 'original') {
+    if (c('BIBTEXBROWSER_BIBTEX_VIEW') == 'original') {
         return $this->text;
     }
-    if (BIBTEXBROWSER_BIBTEX_VIEW == 'reconstructed') {
+    if (c('BIBTEXBROWSER_BIBTEX_VIEW') == 'reconstructed') {
         $result = '@'.$this->getType().'{'.$this->getKey().",\n";
         foreach ($this->fields as $k=>$v) {
-          if ( !preg_match('/^('.BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT.')$/i', $k)
+          if ( !preg_match('/^('.c('BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT').')$/i', $k)
              && !preg_match('/^(key|'.Q_INNER_AUTHOR.'|'.Q_INNER_TYPE.')$/i', $k) ) 
              {
               $result .= ' '.$k.' = {'.$v.'},'."\n";
