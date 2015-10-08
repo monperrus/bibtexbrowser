@@ -19,6 +19,7 @@ This documentation is collaborative, you can improve it using a [[https://github
 * bibtexbrowser is easy to install: just a single file.
 
 =====Other features=====
+* **(10/2015)** support for filtering bibtex fields
 * **(10/2013)** support for localization (see below)
 * **(07/2012)** new label types (see config value ABBRV_TYPE)
 * **(10/2011)** if a bibtex entry contains a field gsid (like Google Scholar ID), bibtexbrowser includes a link [cites] to the cited-by page of Google Scholar (e.g. [[http://scholar.google.com/scholar?cites=15080874515065717592]])
@@ -56,6 +57,7 @@ Don't hesitate to contact me to be added in the [[http://www.monperrus.net/marti
 =====Bibtexbrowser Ecosystem=====
 
 The following uses bibtexbrowser under the hood:
+* [[http://www.monperrus.net/martin/bibtex-prettyprint|A pretty-printer and cleaner for Bibtex]]
 * [[http://github.com/KaiBi/IEEEStyleForBibtexbrowser|A custom citation style for bibtexbrowser adhering to the IEEE citations guidelines (on github)]]
 * Generating publication lists in Latex using [[http://www.monperrus.net/martin/bibtex2latex]] 
 * [[http://www.monperrus.net/martin/feeding-mysql-database-with-bibtexbrowser|Feeding a MySQL database from the content of a bibtex file]]
