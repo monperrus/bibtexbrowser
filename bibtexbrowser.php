@@ -155,7 +155,7 @@ if (defined('ENCODING')) {
 // Which is the first html <hN> level that should be used in embedded mode?
 @define('BIBTEXBROWSER_HTMLHEADINGLEVEL', 2);
 
-@define('BIBTEXBROWSER_ACADEMIC_TOC', true);
+@define('BIBTEXBROWSER_ACADEMIC_TOC', false);
 
 @define('BIBTEXBROWSER_DEBUG',false);
 
