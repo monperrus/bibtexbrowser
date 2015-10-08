@@ -21,34 +21,38 @@ error_reporting(E_ALL);
 
 class BTBTest extends PHPUnit_Framework_TestCase {
 
-  function setUp() {
+  function createDB() {
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, "@book{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n".
     "@book{aKey/withSlash,title={Slash Dangerous for web servers},author={Ap Ache},publisher={Springer},year=2009}\n"
     );
     fseek($test_data,0);
-    $this->btb = new BibDataBase();
-    $this->btb->update_internal("inline", $test_data);
+    $btb = new BibDataBase();
+    $btb->update_internal("inline", $test_data);
+    return $btb;
   }
 
 
   function test_bibentry_to_html() {
-    $first_entry=$this->btb->bibdb[array_keys($this->btb->bibdb)[0]];
+    $btb = $this->createDB();
+    $first_entry=$btb->bibdb[array_keys($btb->bibdb)[0]];
     $this->assertEquals('<span class="bibmenu"><a class="biburl" title="aKey" href="bibtexbrowser.php?key=aKey&amp;bib=inline">[bibtex]</a></span>',$first_entry->bib2links());
     $this->assertEquals('<a class="bibanchor" name=""></a>',$first_entry->anchor());
   }
 
   function testMultiSearch() {
+    $btb = $this->createDB();
     $q=array(Q_AUTHOR=>'monperrus');
-    $results=$this->btb->multisearch($q);
+    $results=$btb->multisearch($q);
     $entry = $results[0];
     $this->assertTrue(count($results) == 1);
     $this->assertTrue($entry->getTitle() == 'A Book');
   }
   
   function testMultiSearch2() {
+    $btb = $this->createDB();
     $q=array(Q_AUTHOR=>'monperrus|ducasse');
-    $results=$this->btb->multisearch($q);
+    $results=$btb->multisearch($q);
     $entry = $results[0];
     $this->assertTrue(count($results) == 1);
     $this->assertTrue($entry->getTitle() == 'A Book');
@@ -74,6 +78,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
   }
 
   function testInternationalization() {
+    $btb = $this->createDB();
     global $BIBTEXBROWSER_LANG;
     $BIBTEXBROWSER_LANG=array();
     $BIBTEXBROWSER_LANG['Refereed Conference Papers']="foo";
@@ -81,7 +86,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     
     $BIBTEXBROWSER_LANG['Books']="Livres";
     $d = new AcademicDisplay();
-    $d->setDB($this->btb);
+    $d->setDB($btb);
     ob_start();
     $d->display();
     $data = ob_get_flush();
@@ -90,14 +95,15 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
   
   function testNoSlashInKey() {
+    $btb = $this->createDB();
     $q=array(Q_SEARCH=>'Slash');
-    $results=$this->btb->multisearch($q);
+    $results=$btb->multisearch($q);
     $this->assertTrue(count($results) == 1);
     $entry = $results[0];
     $this->assertContains("aKey-withSlash",$entry->toHTML());
 
     $q=array(Q_KEY=>'aKey-withSlash');
-    $results=$this->btb->multisearch($q);
+    $results=$btb->multisearch($q);
     $entry2 = $results[0];
     $this->assertSame($entry2,$entry);
   }
@@ -207,8 +213,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $first_entry=$btb->bibdb[array_keys($btb->bibdb)[0]];
     $this->assertEquals('<pre class="purebibtex">@Article{Baldwin2014Quantum,Doi={<a href="http://dx.doi.org/10.1103/PhysRevA.90.012110">10.1103/PhysRevA.90.012110</a>},Url={<a href="http://link.aps.org/doi/10.1103/PhysRevA.90.012110">http://link.aps.org/doi/10.1103/PhysRevA.90.012110</a>}}</pre>',$first_entry->toEntryUnformatted());    
   }
-    
-  
+
   function test_filter_view() {
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, "@article{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009,pages={42--4242},number=1}\n");
