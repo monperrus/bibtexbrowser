@@ -1,0 +1,7 @@
+language: php
+
+php: 5.4
+  
+script: phpunit bibtexbrowser-test.php
+
+sudo: false
