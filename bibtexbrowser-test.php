@@ -251,6 +251,20 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals("\`a Book",$dis->getTitle());
   }
 
+    function test_PagedDisplay() {
+        $PAGE_SIZE = 3;
+        bibtexbrowser_configure('BIBTEXBROWSER_DEFAULT_DISPLAY', 'PagedDisplay');
+        bibtexbrowser_configure('PAGE_SIZE', $PAGE_SIZE);
+        $_GET['bib'] = 'bibacid-utf8.bib';
+        $_GET['all'] = 1;
+        $d = new Dispatcher();
+        ob_start();
+        $d->main();
+        $content = "<div>".ob_get_flush()."</div>";
+        $xml = new SimpleXMLElement($content);
+        $result = $xml->xpath('//td[@class=\'bibref\']');
+        $this->assertEquals($PAGE_SIZE,count($result));        
+    }
 } // end class
 
 ?>

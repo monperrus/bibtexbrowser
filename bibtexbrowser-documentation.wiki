@@ -414,10 +414,21 @@ class PgmDispatcher extends Dispatcher {
 
 If you want to remove some fields (e.g. abbrv and comment) from the resulting bibtex, add in ''bibtexbrowser.local.php'':
 <pre>
+&lt;?php
 define('BIBTEXBROWSER_BIBTEX_VIEW','reconstructed');
 define('BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT','abbrv|comment');
+?>
 </pre>
 
+====How to activate page numbering in the output?====
+
+Add in ''bibtexbrowser.local.php'':
+<pre>
+&lt;?php
+bibtexbrowser_configure('BIBTEXBROWSER_DEFAULT_DISPLAY','PagedDisplay');
+bibtexbrowser_configure('PAGE_SIZE','3');
+?>
+</pre>
 
 =====Related tools=====
 

@@ -2145,7 +2145,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   // add the Coin URL
   $result .=  $bibentry->toCoins();
 
-  return '<span itemscope itemtype="http://schema.org/ScholarlyArticle">'.$result.'</span>';
+  return '<span itemscope="" itemtype="http://schema.org/ScholarlyArticle">'.$result.'</span>';
 }
 
 
@@ -4011,15 +4011,15 @@ class PagedDisplay {
     $more = true;
 
     // computing $more
-    $index = ($this->page)*PAGE_SIZE;
+    $index = ($this->page)*bibtexbrowser_configuration('PAGE_SIZE');
     if (!isset($this->entries[$index])) {
       $more = false;
     }
 
     $this->menu($less, $more);
     print_header_layout();
-    for ($i = 0; $i < PAGE_SIZE; $i++) {
-      $index = ($this->page-1)*PAGE_SIZE + $i;
+    for ($i = 0; $i < bibtexbrowser_configuration('PAGE_SIZE'); $i++) {
+      $index = ($this->page-1)*bibtexbrowser_configuration('PAGE_SIZE') + $i;
       if (isset($this->entries[$index])) {
         $bib = $this->entries[$index];
         echo $bib->toHTML();
@@ -4040,13 +4040,13 @@ class PagedDisplay {
 
     $prev = $this->query;
     $prev['page'] = $this->page-1;
-    if ($less == true) { echo '<a '.makeHref($prev).'">Prev Page</a>'; }
+    if ($less == true) { echo '<a '.makeHref($prev).'>Prev Page</a>'; }
 
     if ($less && $more) { echo '&nbsp;|&nbsp;'; }
 
     $next = $this->query;
     $next['page'] = $this->page+1;
-    if ($more == true) { echo '<a '.makeHref($next).'">Next Page</a>'; }
+    if ($more == true) { echo '<a '.makeHref($next).'>Next Page</a>'; }
     echo '</span>';
 
   }
@@ -4239,7 +4239,7 @@ class Dispatcher {
        //echo '<pre>';print_r($selectedEntries);echo '</pre>';
 
        if ($this->displayer=='') {
-         $this->displayer = BIBTEXBROWSER_DEFAULT_DISPLAY;
+         $this->displayer = bibtexbrowser_configuration('BIBTEXBROWSER_DEFAULT_DISPLAY');
        }
     } // otherwise the query is left empty
 
