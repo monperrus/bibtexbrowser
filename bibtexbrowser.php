@@ -2489,7 +2489,7 @@ $('a.biburl').each(function() { // for each url "[bibtex]"
         var elem = $('<pre class="purebibtex"/>');
         elem.text($('.purebibtex', data).text()); // both text() are required for IE
         // we add a link so that users clearly see that even with AJAX
-        // there is still one URL per paper (which is important for crawlers and metadata)
+        // there is still one URL per paper.
         elem.append(
            $('<div>%% Bibtex entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></div>')
            ).appendTo(biburl.parent());
