@@ -2491,8 +2491,8 @@ $('a.biburl').each(function() { // for each url "[bibtex]"
         // we add a link so that users clearly see that even with AJAX
         // there is still one URL per paper (which is important for crawlers and metadata)
         elem.append(
-           $('<div>%% Bibtex entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></div>')
-           ).appendTo(biburl.parent());
+          $('<div class="bibtex_entry_url">%% Bibtex entry URL: <a href="'+bibtexEntryUrl+'">'+bibtexEntryUrl+'</a></div>')
+          ).appendTo(biburl.parent());
       }, error: function() {window.location.href = biburl.attr('href');}});
     } else {biburl.nextAll('pre').toggle();}  // we toggle the view
   });
