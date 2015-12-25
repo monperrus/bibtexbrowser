@@ -997,6 +997,7 @@ function latex2html($line) {
   $line = str_replace('\\l','&#322',$line);
   $line = str_replace('\\L','&#321',$line);
   $line = str_replace('\\k{a}','&#261',$line);
+  $line = str_replace('\\\'{c}','&#263',$line);
 
 // clean out extra tex curly brackets, usually used for preserving capitals
   $line = str_replace('}','', $line);
