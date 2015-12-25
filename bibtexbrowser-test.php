@@ -204,7 +204,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $btb->update_internal("inline", $test_data);    
     $first_entry=$btb->bibdb[array_keys($btb->bibdb)[0]];
     $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getLink('pdf'));    
-    $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getUrlLink());    
+    $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getPdfLink());    
     $this->assertEquals('<a href="myarticle.pdf"><img class="icon" src="pdficon.png" alt="[pdf]" title="pdf"/></a>',$first_entry->getLink('pdf','pdficon.png'));
     $this->assertEquals('<a href="myarticle.pdf">[see]</a>',$first_entry->getLink('pdf',NULL,'see'));    
   }
@@ -218,7 +218,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $btb = new BibDataBase();
     $btb->update_internal("inline", $test_data);    
     $first_entry=$btb->bibdb[array_keys($btb->bibdb)[0]];
-    $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getUrlLink());    
+    $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getPdfLink());    
   }
 
   // https://github.com/monperrus/bibtexbrowser/issues/40
