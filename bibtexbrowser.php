@@ -2181,15 +2181,15 @@ function JanosBibliographyStyle(&$bibentry) {
     $booktitle = $bibentry->getField("note");
   }
 
-  if ($type=="inproceedings") {
+  if ($type=="inproceedings" && $bibentry->hasField(BOOKTITLE)) {
       $booktitle = 'In '.$bibentry->getField(BOOKTITLE);
   }
 
-  if ($type=="incollection") {
+  if ($type=="incollection" && $bibentry->hasField(BOOKTITLE)) {
       $booktitle = 'Chapter in '.$bibentry->getField(BOOKTITLE);
   }
 
-  if ($type=="article") {
+  if ($type=="article" && $bibentry->hasField("journal")) {
       $booktitle = 'In '.$bibentry->getField("journal");
   }
 
