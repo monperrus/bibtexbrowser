@@ -1198,7 +1198,9 @@ class BibEntry {
     return $link;
   }
 
-  /** returns a "[pdf]" link if relevant. modified to exploit the new method, while keeping backward compatibility */
+  /** returns a "[pdf]" link for the entry, if possible.
+      Tries to get the target URL from the 'pdf' field first, then from 'url' or 'file'.
+    */
   function getPdfLink($iconurl = NULL, $label = 'pdf') {
     if ($this->hasField('pdf')) {
       return $this->getLink('pdf', $iconurl, $label);
