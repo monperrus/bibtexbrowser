@@ -4094,7 +4094,7 @@ class RSSDisplay {
 
     // final test with encoding:
     if (function_exists('mb_check_encoding')) { // (PHP 4 >= 4.4.3, PHP 5 >= 5.1.3)
-      if (!mb_check_encoding($desc,OUTPUT_ENCODING,BIBTEX_INPUT_ENCODING)) {
+      if (!mb_check_encoding($desc,OUTPUT_ENCODING)) {
         return 'encoding error: please check the content of OUTPUT_ENCODING';
       }
     }
