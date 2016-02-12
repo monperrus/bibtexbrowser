@@ -2455,15 +2455,16 @@ class IndependentYearMenu  {
   }
 }
 
-/** Returns the powered by part. @nodoc */
-function poweredby() {
-  $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
-  $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
-  $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v__GITHUB__-->';
-  $poweredby .= '</div>'."\n";
-  return $poweredby;
+if (!function_exists('poweredby')) {
+  /** Returns the powered by part. @nodoc */
+  function poweredby() {
+    $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
+    $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
+    $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v__GITHUB__-->';
+    $poweredby .= '</div>'."\n";
+    return $poweredby;
   }
-
+}
 
 /** ^^adds a touch of AJAX in bibtexbrowser to display bibtex entries inline.
    It uses the HIJAX design pattern: the Javascript code fetches the normal bibtex HTML page
