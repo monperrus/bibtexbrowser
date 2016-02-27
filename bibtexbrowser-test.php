@@ -163,6 +163,25 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     
   }
   
+    function test_metadata_opengraph() {
+    $test_data = fopen('php://memory','x+');
+    fwrite($test_data, "@article{aKey,title={A Book},author={Martin Monperrus},url={http://foo.com/},publisher={Springer},year=2009,pages={42--4242},number=1}\n".
+    "@String{x=2008}\n"
+    );
+    fseek($test_data,0);
+    $db = new BibDataBase();
+    $db->update_internal("inline", $test_data);
+    $dis = new BibEntryDisplay($db->getEntryByKey('aKey'));
+    $metadata = $dis->metadata_dict();
+    
+    //print_r($metadata);
+    $this->assertEquals("A Book",$metadata['og:title']);
+    $this->assertEquals("article",$metadata['og:type']);
+    $this->assertTrue(1 == preg_match("/http:.*author=Martin\+Monperrus/",$metadata['og:author']));
+    $this->assertEquals("2009",$metadata['og:published_time']);    
+  }
+
+  
   function test_math_cal() {
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, "@book{aKey,title={{A Book{} $\mbox{foo}$ tt $\boo{t}$}} ,author={Martin Monperrus},publisher={Springer},year=2009}\n".

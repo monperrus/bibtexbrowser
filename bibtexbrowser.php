@@ -200,6 +200,7 @@ if (defined('ENCODING')) {
 @define('MULTIPLE_BIB_SEPARATOR',';');
 @define('METADATA_GS',true);
 @define('METADATA_DC',true);
+@define('METADATA_OPENGRAPH',true);
 @define('METADATA_EPRINTS',false);
 
 // define sort order for special values in 'year' field
@@ -1257,6 +1258,13 @@ class BibEntry {
       return $lastname;
   }
 
+  /**
+    * Returns the first name of an author name.
+    */
+  function getFirstName($author){
+      list($firstname, $lastname) = splitFullName($author);
+      return $firstname;
+  }
 
   /** Has this entry the given field? */
   function hasField($name) {
@@ -3219,12 +3227,30 @@ class BibEntryDisplay {
       $result = $this->metadata_dublin_core($result);
     }
     
+    if (METADATA_OPENGRAPH) {
+      $result = $this->metadata_opengraph($result);
+    }
+    
     if (METADATA_EPRINTS) {
       $result = $this->metadata_eprints($result);
     }
 
     return $result;    
   } // end function metadata
+  
+  function metadata_opengraph($result) {
+    // Facebook metadata
+    // see http://ogp.me
+    // https://developers.facebook.com/tools/debug/og/object/
+    $result[] = array('og:type','article');  
+    $result[] = array('og:title',$this->bib->getTitle());
+    foreach($this->bib->getRawAuthors() as $author) {
+    // opengraph requires a URL as author value
+    $result[] = array('og:author',"http://".@$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?bib='.urlencode($this->bib->filename).'&amp;author='.urlencode($author));
+    }
+    $result[] = array('og:published_time',$this->bib->getYear());
+    return $result;
+  } // end function metadata_opengraph
   
   function metadata_dublin_core($result) {
     // Dublin Core should not be used for bibliographic metadata
@@ -3874,7 +3900,7 @@ if (method_exists($content, 'metadata')) {
 }
 foreach($metatags as $item) {
   list($name,$value) = $item;
-  echo '<meta name="'.$name.'" content="'.$value.'"/>'."\n";
+  echo '<meta name="'.$name.'" property="'.$name.'" content="'.$value.'"/>'."\n";
 } // end foreach
 
 
