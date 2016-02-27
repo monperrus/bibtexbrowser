@@ -3211,112 +3211,120 @@ class BibEntryDisplay {
     }
 
     if (METADATA_GS) {
-      // the description may mix with the Google Scholar tags
-      // we remove it
-      // $result[] = array('description',trim(strip_tags(str_replace('"','',bib2html($this->bib)))));
-      $result[] = array('citation_title',$this->bib->getTitle());
-      $authors = $this->bib->getArrayOfCommaSeparatedAuthors();
-      $result[] = array('citation_authors',implode("; ",$authors));
-      foreach($authors as $author) {
-        $result[] = array('citation_author',$author);
-      }
-
-      // the date
-      $result[] = array('citation_publication_date',$this->bib->getYear());
-      $result[] = array('citation_date',$this->bib->getYear());
-        $result[] = array('citation_year',$this->bib->getYear());
-
-      if ($this->bib->hasField("publisher")) {
-        $result[] = array('citation_publisher',$this->bib->getPublisher());
-      }
-
-      // BOOKTITLE: JOURNAL NAME OR PROCEEDINGS
-      if ($this->bib->getType()=="article") { // journal article
-        $result[] = array('citation_journal_title',$this->bib->getField("journal"));
-        $result[] = array('citation_volume',$this->bib->getField("volume"));
-        if ($this->bib->hasField("number")) {
-          // in bibtex, the issue number is usually in a field "number"
-          $result[] = array('citation_issue',$this->bib->getField("number"));
-        }
-        if ($this->bib->hasField("issue")) {
-          $result[] = array('citation_issue',$this->bib->getField("issue"));
-        }
-        if ($this->bib->hasField("issn")) {
-          $result[] = array('citation_issue',$this->bib->getField("issn"));
-        }
-      }
-
-      if ($this->bib->getType()=="inproceedings" || $this->bib->getType()=="conference") {
-         $result[] = array('citation_conference_title',$this->bib->getField(BOOKTITLE));
-         $result[] = array('citation_conference',$this->bib->getField(BOOKTITLE));
-      }
-
-      if ($this->bib->getType()=="phdthesis"
-           || $this->bib->getType()=="mastersthesis"
-           || $this->bib->getType()=="bachelorsthesis"
-         )
-      {
-         $result[] = array('citation_dissertation_institution',$this->bib->getField('school'));
-      }
-
-      if ($this->bib->getType()=="techreport"
-           && $this->bib->hasField("number")
-         )
-      {
-         $result[] = array('citation_technical_report_number',$this->bib->getField('number'));
-      }
-
-      if ($this->bib->getType()=="techreport"
-           && $this->bib->hasField("institution")
-         )
-      {
-         $result[] = array('citation_technical_report_institution',$this->bib->getField('institution'));
-      }
-
-      // generic
-      if ($this->bib->hasField("doi")) {
-        $result[] = array('citation_doi',$this->bib->getField("doi"));
-      }
-
-      if ($this->bib->hasField('url')) {
-        $result[] = array('citation_pdf_url',$this->bib->getField('url'));
-      }
-
-      if ($this->bib->hasField("pages")) {
-        $pages = $this->bib->getPages();
-        if (count($pages)==2) {
-          $result[] = array('citation_firstpage',$pages[0]);
-          $result[] = array('citation_lastpage',$pages[1]);
-        }
-      }
-
+      $result = $this->metadata_google_scholar($result);
     } // end Google Scholar
 
-    // we don't introduce yet another kind of bibliographic metadata
-    // the core bibtex metadata will simply be available as json
-    // now adding the pure bibtex with no translation
-    //foreach ($this->bib->getFields() as $k => $v) {
-    //  if (!preg_match("/^_/",$k)) {
-    //    $result[] = array("bibtex:".$k,$v);
-    //  }
-    //}
-
-
     // a fallback to essential dublin core
+    if (METADATA_DC) {
+      $result = $this->metadata_dublin_core($result);
+    }
+    
+    if (METADATA_EPRINTS) {
+      $result = $this->metadata_eprints($result);
+    }
+
+    return $result;    
+  } // end function metadata
+  
+  function metadata_dublin_core($result) {
     // Dublin Core should not be used for bibliographic metadata
     // according to several sources
     //  * Google Scholar: "Use Dublin Core tags (e.g., DC.title) as a last resort - they work poorly for journal papers"
     //  * http://reprog.wordpress.com/2010/09/03/bibliographic-data-part-2-dublin-cores-dirty-little-secret/
     // however it seems that Google Scholar needs at least DC.Title to trigger referencing
     // reference documentation: http://dublincore.org/documents/dc-citation-guidelines/
-    if (METADATA_DC) {
     $result[] = array('DC.Title',$this->bib->getTitle());
     foreach($this->bib->getArrayOfCommaSeparatedAuthors() as $author) {
       $result[] = array('DC.Creator',$author);
     }
     $result[] = array('DC.Issued',$this->bib->getYear());
+    return $result;
+  }
+  
+  function metadata_google_scholar($result) {
+    // the description may mix with the Google Scholar tags
+    // we remove it
+    // $result[] = array('description',trim(strip_tags(str_replace('"','',bib2html($this->bib)))));
+    $result[] = array('citation_title',$this->bib->getTitle());
+    $authors = $this->bib->getArrayOfCommaSeparatedAuthors();
+    $result[] = array('citation_authors',implode("; ",$authors));
+    foreach($authors as $author) {
+    $result[] = array('citation_author',$author);
     }
 
+    // the date
+    $result[] = array('citation_publication_date',$this->bib->getYear());
+    $result[] = array('citation_date',$this->bib->getYear());
+    $result[] = array('citation_year',$this->bib->getYear());
+
+    if ($this->bib->hasField("publisher")) {
+    $result[] = array('citation_publisher',$this->bib->getPublisher());
+    }
+
+    // BOOKTITLE: JOURNAL NAME OR PROCEEDINGS
+    if ($this->bib->getType()=="article") { // journal article
+    $result[] = array('citation_journal_title',$this->bib->getField("journal"));
+    $result[] = array('citation_volume',$this->bib->getField("volume"));
+    if ($this->bib->hasField("number")) {
+        // in bibtex, the issue number is usually in a field "number"
+        $result[] = array('citation_issue',$this->bib->getField("number"));
+    }
+    if ($this->bib->hasField("issue")) {
+        $result[] = array('citation_issue',$this->bib->getField("issue"));
+    }
+    if ($this->bib->hasField("issn")) {
+        $result[] = array('citation_issue',$this->bib->getField("issn"));
+    }
+    }
+
+    if ($this->bib->getType()=="inproceedings" || $this->bib->getType()=="conference") {
+        $result[] = array('citation_conference_title',$this->bib->getField(BOOKTITLE));
+        $result[] = array('citation_conference',$this->bib->getField(BOOKTITLE));
+    }
+
+    if ($this->bib->getType()=="phdthesis"
+        || $this->bib->getType()=="mastersthesis"
+        || $this->bib->getType()=="bachelorsthesis"
+        )
+    {
+        $result[] = array('citation_dissertation_institution',$this->bib->getField('school'));
+    }
+
+    if ($this->bib->getType()=="techreport"
+        && $this->bib->hasField("number")
+        )
+    {
+        $result[] = array('citation_technical_report_number',$this->bib->getField('number'));
+    }
+
+    if ($this->bib->getType()=="techreport"
+        && $this->bib->hasField("institution")
+        )
+    {
+        $result[] = array('citation_technical_report_institution',$this->bib->getField('institution'));
+    }
+
+    // generic
+    if ($this->bib->hasField("doi")) {
+    $result[] = array('citation_doi',$this->bib->getField("doi"));
+    }
+
+    if ($this->bib->hasField('url')) {
+    $result[] = array('citation_pdf_url',$this->bib->getField('url'));
+    }
+
+    if ($this->bib->hasField("pages")) {
+    $pages = $this->bib->getPages();
+    if (count($pages)==2) {
+        $result[] = array('citation_firstpage',$pages[0]);
+        $result[] = array('citation_lastpage',$pages[1]);
+    }
+    }
+      
+    return $result;
+  }
+  
+  function metadata_eprints($result) {
     // --------------------------------- BEGIN METADATA EPRINTS
     // and now adding eprints metadata
     // why adding eprints metadata?
@@ -3326,7 +3334,6 @@ class BibEntryDisplay {
     // reference documentation: the eprints source code (./perl_lib/EPrints/Plugin/Export/Simple.pm)
     // examples: conference paper: http://tubiblio.ulb.tu-darmstadt.de/44344/
     //           journal paper: http://tubiblio.ulb.tu-darmstadt.de/44344/
-    if (METADATA_EPRINTS) {
     $result[] = array('eprints.title',$this->bib->getTitle());
     $authors = $this->bib->getArrayOfCommaSeparatedAuthors();
     foreach($authors as $author) {
@@ -3379,13 +3386,10 @@ class BibEntryDisplay {
     if ($this->bib->hasField('url')) {
       $result[] = array('eprints.official_url',$this->bib->getField('url'));
     }
-    }
     // --------------------------------- END METADATA EPRINTS
-
     return $result;
-
-  }
-}
+  } // end method metatada_eprints;
+} // end class BibEntryDisplay
 
 
 // ----------------------------------------------------------------------
@@ -4093,7 +4097,7 @@ class RSSDisplay {
     // be careful of <
     $desc = str_replace('<','&#60;',$desc);
 
-    // final test with encoding:
+    // final test with encoding:    
     if (function_exists('mb_check_encoding')) { // (PHP 4 >= 4.4.3, PHP 5 >= 5.1.3)
       if (!mb_check_encoding($desc,OUTPUT_ENCODING)) {
         return 'encoding error: please check the content of OUTPUT_ENCODING';
