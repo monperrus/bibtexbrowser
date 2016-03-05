@@ -77,6 +77,9 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_RENDER_MATH', true);
 @define('MATHJAX_URI', '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js');
 
+// the default jquery URI
+@define('JQUERY_URI', '//code.jquery.com/jquery-1.5.1.min.js');
+
 // can we load bibtex files on external servers?
 @define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
 
@@ -1121,16 +1124,16 @@ class BibEntry {
     if ($name!='url' && $name!='comment') {
      // 1. trim space
       $value = xtrim($value);
-      
+
       if (c('BIBTEXBROWSER_USE_LATEX2HTML')) {
         // 2. transform Latex markup to HTML entities (easier than a one to one mapping to each character)
         // HTML entity is an intermediate format
         $value = latex2html($value);
-        
+
         // 3. transform to the target output encoding
         $value = html_entity_decode($value, ENT_QUOTES|ENT_XHTML, OUTPUT_ENCODING);
       }
-      
+
       // 4. transform existing encoded character in the new format
       if (function_exists('mb_convert_encoding') && OUTPUT_ENCODING != BIBTEX_INPUT_ENCODING) {
         $vaue = mb_convert_encoding($value, OUTPUT_ENCODING, BIBTEX_INPUT_ENCODING);
@@ -1336,7 +1339,7 @@ class BibEntry {
       return $this->formatAuthorCommaSeparated($author);
     } else if (USE_INITIALS_FOR_NAMES) {
       return $this->formatAuthorInitials($author);
-    }	
+    }
 
     else return $this->formatAuthorCanonical($author);
   }
@@ -1552,7 +1555,7 @@ class BibEntry {
         $result = '@'.$this->getType().'{'.$this->getKey().",\n";
         foreach ($this->fields as $k=>$v) {
           if ( !preg_match('/^('.c('BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT').')$/i', $k)
-             && !preg_match('/^(key|'.Q_INNER_AUTHOR.'|'.Q_INNER_TYPE.')$/i', $k) ) 
+             && !preg_match('/^(key|'.Q_INNER_AUTHOR.'|'.Q_INNER_TYPE.')$/i', $k) )
              {
               $result .= ' '.$k.' = {'.$v.'},'."\n";
           }
@@ -1560,7 +1563,7 @@ class BibEntry {
         $result .= "}\n";
         return $result;
     }
-    throw new Exception('incorrect value of BIBTEXBROWSER_BIBTEX_VIEW: '+BIBTEXBROWSER_BIBTEX_VIEW);    
+    throw new Exception('incorrect value of BIBTEXBROWSER_BIBTEX_VIEW: '+BIBTEXBROWSER_BIBTEX_VIEW);
   }
 
   /** Returns true if this bib entry contains the given phrase (PREG regexp)
@@ -2331,7 +2334,7 @@ function VancouverBibliographyStyle(&$bibentry) {
       $publisher = 'Master\'s thesis, '.$bibentry->getField(SCHOOL);
   } else if ($type=="techreport") {
       $publisher = 'Technical report, '.$bibentry->getField("institution");
-  } 
+  }
   if ($bibentry->hasField("publisher")) {
     $publisher = $bibentry->getField("publisher");
   }
@@ -2483,7 +2486,7 @@ if (!function_exists('poweredby')) {
 function javascript() {
   // we use jquery with the official content delivery URLs
   // Microsoft and Google also provide jquery with their content delivery networks
-?><script type="text/javascript" src="//code.jquery.com/jquery-1.5.1.min.js"></script>
+?><script type="text/javascript" src="<?php echo JQUERY_URI ?>"></script>
 <script type="text/javascript" ><!--
 // Javascript progressive enhancement for bibtexbrowser
 $('a.biburl').each(function() { // for each url "[bibtex]"
@@ -3226,23 +3229,23 @@ class BibEntryDisplay {
     if (METADATA_DC) {
       $result = $this->metadata_dublin_core($result);
     }
-    
+
     if (METADATA_OPENGRAPH) {
       $result = $this->metadata_opengraph($result);
     }
-    
+
     if (METADATA_EPRINTS) {
       $result = $this->metadata_eprints($result);
     }
 
-    return $result;    
+    return $result;
   } // end function metadata
-  
+
   function metadata_opengraph($result) {
     // Facebook metadata
     // see http://ogp.me
     // https://developers.facebook.com/tools/debug/og/object/
-    $result[] = array('og:type','article');  
+    $result[] = array('og:type','article');
     $result[] = array('og:title',$this->bib->getTitle());
     foreach($this->bib->getRawAuthors() as $author) {
     // opengraph requires a URL as author value
@@ -3251,7 +3254,7 @@ class BibEntryDisplay {
     $result[] = array('og:published_time',$this->bib->getYear());
     return $result;
   } // end function metadata_opengraph
-  
+
   function metadata_dublin_core($result) {
     // Dublin Core should not be used for bibliographic metadata
     // according to several sources
@@ -3266,7 +3269,7 @@ class BibEntryDisplay {
     $result[] = array('DC.Issued',$this->bib->getYear());
     return $result;
   }
-  
+
   function metadata_google_scholar($result) {
     // the description may mix with the Google Scholar tags
     // we remove it
@@ -3346,10 +3349,10 @@ class BibEntryDisplay {
         $result[] = array('citation_lastpage',$pages[1]);
     }
     }
-      
+
     return $result;
   }
-  
+
   function metadata_eprints($result) {
     // --------------------------------- BEGIN METADATA EPRINTS
     // and now adding eprints metadata
@@ -4123,7 +4126,7 @@ class RSSDisplay {
     // be careful of <
     $desc = str_replace('<','&#60;',$desc);
 
-    // final test with encoding:    
+    // final test with encoding:
     if (function_exists('mb_check_encoding')) { // (PHP 4 >= 4.4.3, PHP 5 >= 5.1.3)
       if (!mb_check_encoding($desc,OUTPUT_ENCODING)) {
         return 'encoding error: please check the content of OUTPUT_ENCODING';
