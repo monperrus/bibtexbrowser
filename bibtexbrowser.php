@@ -77,6 +77,9 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_RENDER_MATH', true);
 @define('MATHJAX_URI', '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js');
 
+// the default jquery URI
+@define('JQUERY_URI', '//code.jquery.com/jquery-1.5.1.min.js');
+
 // can we load bibtex files on external servers?
 @define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
 
@@ -2483,7 +2486,7 @@ if (!function_exists('poweredby')) {
 function javascript() {
   // we use jquery with the official content delivery URLs
   // Microsoft and Google also provide jquery with their content delivery networks
-?><script type="text/javascript" src="//code.jquery.com/jquery-1.5.1.min.js"></script>
+?><script type="text/javascript" src="<?php echo JQUERY_URI ?>"></script>
 <script type="text/javascript" ><!--
 // Javascript progressive enhancement for bibtexbrowser
 $('a.biburl').each(function() { // for each url "[bibtex]"
