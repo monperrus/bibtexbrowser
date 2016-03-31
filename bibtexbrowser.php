@@ -1490,6 +1490,11 @@ class BibEntry {
     return $this->getField('year');
   }
 
+  /** returns the array of keywords */
+  function getKeywords() {
+    return preg_split('/[,;\\/]/', $bib->getField("keywords"));
+  }
+  
   /** Returns the value of the given field? */
   function getField($name) {
     // 2010-06-07: profiling showed that this is very costly
@@ -3589,7 +3594,7 @@ class BibDataBase {
     $result = array();
     foreach ($this->bibdb as $bib) {
       if (!$bib->hasField("keywords")) continue;
-      $tags =preg_split('/[,;\\/]/', $bib->getField("keywords"));
+      $tags = $bib->getKeywords();
       foreach($tags as $a){
         $ta = trim($a);
         $result[$ta] = $ta;
