@@ -140,7 +140,7 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_AUTHOR_LINKS','homepage');
 
 // BIBTEXBROWSER_LAYOUT defines the HTML rendering layout of the produced HTML
-// may be table/list/ordered_list/definition (for <table>, <ol>, <dl> resp.).
+// may be table/list/ordered_list/definition/none (for <table>, <ol>, <dl>, nothing resp.).
 // for list/ordered_list, the abbrevations are not taken into account (see ABBRV_TYPE)
 // for ordered_list, the index is given by HTML directly (in increasing order)
 @define('BIBTEXBROWSER_LAYOUT','table');
@@ -1587,8 +1587,9 @@ class BibEntry {
 
 
   /** Outputs HTML line according to layout */
-  function toHTML() {
+  function toHTML($wrapped=false) {
       $result = '';
+      if ($wrapped) {
       switch(BIBTEXBROWSER_LAYOUT) { // open row
         case 'list':
           $result .= '<li class="bibline">';
@@ -1603,6 +1604,8 @@ class BibEntry {
           $result .= '<dl class="bibline"><dt class="bibref">';
           if (ABBRV_TYPE=='none') { die ('Cannot define an empty term!'); }
           break;
+        case 'none':
+          break;
       }
       $result .= $this->anchor();
       switch(BIBTEXBROWSER_LAYOUT) { // close bibref and open bibitem
@@ -1613,7 +1616,7 @@ class BibEntry {
           $result .= $this->getAbbrv().'</dt><dd class="bibitem">';
           break;
       }
-
+      }
 
       // may be overridden using configuration value of BIBLIOGRAPHYSTYLE
       $result .= bib2html($this);
@@ -1621,6 +1624,7 @@ class BibEntry {
       // may be overridden using configuration value of BIBTEXBROWSER_LINK_STYLE
       $result .= ' '.bib2links($this);
 
+      if ($wrapped) {
       switch(BIBTEXBROWSER_LAYOUT) { // close row
         case 'list':
           $result .= '</li>'."\n";
@@ -1634,6 +1638,9 @@ class BibEntry {
         case 'definition':
           $result .= '</dd></dl>'."\n";
           break;
+        case 'none':
+          break;
+      }
       }
       return $result;
   }
@@ -2987,7 +2994,7 @@ class SimpleDisplay  {
       // by default, index are in decreasing order
       // so that when you add a publicaton recent , the indices of preceding publications don't change
       $bib->setIndex($count-($i++));
-      echo $bib->toHTML();
+      echo $bib->toHTML(true);
 
       $pred = $bib;
     } // end foreach
@@ -4057,7 +4064,7 @@ class PagedDisplay {
       $index = ($this->page-1)*bibtexbrowser_configuration('PAGE_SIZE') + $i;
       if (isset($this->entries[$index])) {
         $bib = $this->entries[$index];
-        echo $bib->toHTML();
+        echo $bib->toHTML(true);
 
       } else {
         //break;

@@ -82,27 +82,25 @@ Create a bib file with the publication records (e.g. csgroup2008.bib) and upload
 =====FAQ=====
 
 ====How to embed Bibtexbrowser into a website?====
-To embed Bibtexbrowser into a website, you need to use it as a library:
+To embed Bibtexbrowser into a website, you car use it as a library:
 
 <pre>
 &lt;?php
 $_GET['library']=1;
+define('BIBTEXBROWSER_BIBTEX_LINKS',false); // no [bibtex] link by default
 require_once('bibtexbrowser.php');
 global $db;
 $db = new BibDataBase();
 $db->load('biblio.bib');
-?>
-</pre>
 
-Then, you have to call bibtexbrowser on you own:
-<pre>
-&lt;?php
 // printing all 2014 entries
+// can also be $query = array('year'=>'.*');
 $query = array('year'=>'2014');
 $entries=$db->multisearch($query);
 uasort($entries, 'compare_bib_entries'); 
+
 foreach ($entries as $bibentry) { 
-  echo $bibentry->toHTML(); 
+  echo $bibentry->toHTML()."&lt;br/>"; 
 }
 ?>
 </pre>
