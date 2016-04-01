@@ -284,6 +284,19 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $result = $xml->xpath('//td[@class=\'bibref\']');
         $this->assertEquals($PAGE_SIZE,count($result));        
     }
+
+    function test_getKeywords() {
+        $bibtex = "@article{aKey,title={\`a Book},keywords={foo,bar},author={Martin Monperrus},publisher={Springer},year=2009,pages={42--4242},number=1}\n";
+
+        bibtexbrowser_configure('BIBTEXBROWSER_USE_LATEX2HTML', true);
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+        $dis = $db->getEntryByKey('aKey');
+        $this->assertEquals(2,count($dis->getKeywords()));
+    }
 } // end class
 
 ?>

@@ -1492,7 +1492,7 @@ class BibEntry {
 
   /** returns the array of keywords */
   function getKeywords() {
-    return preg_split('/[,;\\/]/', $bib->getField("keywords"));
+    return preg_split('/[,;\\/]/', $this->getField("keywords"));
   }
   
   /** Returns the value of the given field? */
