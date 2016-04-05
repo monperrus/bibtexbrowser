@@ -353,7 +353,7 @@ foreach ($entries as $bibentry) {
 ?>
 </pre>
 
-====How to use the change the title of the result page?====
+====How to change the title of the result page?====
 
 You may create your own title function in ''bibtexbrowser.local.php'' (see "creating a bibtexbrowser.local.php" below):
 <pre>
