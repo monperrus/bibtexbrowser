@@ -29,7 +29,7 @@ You can add your group/name by [[https://github.com/monperrus/bibtexbrowser/edit
 * [[http://www.imlau.physik.uni-osnabrueck.de/Publikationen/index.php| Nichtlineare Molekül- und Festkörperoptik, University of Osnabrück, Germany]]
 * [[http://las.ethz.ch/publications.php?all&bib=laspub.bib|Learning & Adaptive Systems Group, ETH Zurich, Switzerland]]
 * [[http://www.math.umanitoba.ca/research/publications.php|Department of Mathematics, University of Manitoba, Canada]]
-* [[http://fcl.uncc.edu/index.php?option=com_wrapper&view=wrapper&Itemid=56|Future Computing Lab, UNC Charlotte, USA]] 
+* [[http://fcl.uncc.edu/index.php?option=com_wrapper&view=wrapper&Itemid=56|Future Computing Lab, UNC Charlotte, USA]]
 * [[http://tu-dresden.de/die_tu_dresden/fakultaeten/fakultaet_informatik/sysa/se/publications/|Systems Engineering Group, Technische Universität Dresden, Germany]]
 * [[http://turbo.che.ncsu.edu/publications.html|Statistical Thermodynamics and Molecular Simulation, North Carolina State University, USA]]
 * [[http://www.quimica.urv.es/quimio/ang/maincat.html|Chemometrics and Qualimetrics Group, Universitat Rovira i Virgili, Spain]]
@@ -53,9 +53,10 @@ You can add your group/name by [[https://github.com/monperrus/bibtexbrowser/edit
 * [[http://www.drhe.drk.hu/etn/modulok/okt_profil/bibtexbrowser.php| Elektronikus Tanulmányi Nyilvántartás, DRHE, Hungarn]]
 * [[http://bioinfo.lri.fr/publi/bibtexbrowser.php|Bioinformatics Group of LRI, Paris, France]]
 * [[http://ccm.uma.pt/index.php?lab=pura&m=publications|Centro de Ciências Matemáticas, Portugal]]
+* [[https://stonelab.princeton.edu/index.php?id=publications|Complex Fluid Group, Princeton, USA]]
 
 ==== Indiviudals ====
-* [[http://cgi.csc.liv.ac.uk/~ash/Publications/|Ayesh Alshukri, University of Liverpool, UK]] 
+* [[http://cgi.csc.liv.ac.uk/~ash/Publications/|Ayesh Alshukri, University of Liverpool, UK]]
 * [[http://www.physics.purdue.edu/~richa152/publications.php|Joseph L. Richards, Department of Physics, Purdue University, USA]]
 * [[http://people.cas.uab.edu/~weikard/papers/mybibtexbrowser.php?bib=all.bib&author=Rudi+Weikard|Rudi Weikard, Department of Mathematics, University of Alabama at Birmingham, USA]]
 * [[http://www.astro.gla.ac.uk/users/eduard/papers/bibtexbrowser.php?bib=eduard.bib&all|Eduard P. Kontar, University of Glasgow, UK]]
@@ -93,7 +94,7 @@ You can add your group/name by [[https://github.com/monperrus/bibtexbrowser/edit
 * [[http://attila.sdsu.edu/~engin/publications.php|A. Ege Engin, San Diego State University, USA]]
 * [[http://srl.informatik.uni-freiburg.de/~tipaldi/Publications.html|Gian Diego Tipaldi, Albert-Ludwigs-Universität Freiburg, Germany]]
 * [[http://landau.uma.pt/nelson/Research/Pub/bibtexbrowser.php?frameset&bib=nelson.bib| Nelson Alexandre Almeida, Universidade da Madeira, Portugal]]
-* [[http://jorgecardoso.eu/publications.php|Jorge Cardoso, University of Minho, Portugal]] 
+* [[http://jorgecardoso.eu/publications.php|Jorge Cardoso, University of Minho, Portugal]]
 * [[http://jdariasl.zobyhost.com/publications.php|Julián D. Arias Londoño, Universidad Nacional de Colombia Sede Manizales]]
 * [[http://www.f-systems.it/#pubbl|Marco Falda, University of Padova, Italy]]
 * [[http://www.docentes.unal.edu.co/morozcoa/docs/publications.php|Mauricio Orozco-Alzate, Universidad Nacional de Colombia]]
@@ -105,11 +106,12 @@ You can add your group/name by [[https://github.com/monperrus/bibtexbrowser/edit
 * [[http://www.cs.usask.ca/home/eramian/bib/Refereed_Journal_Articles.php|Mark Eramian, University of Saskatchewan, Canada]]
 * [[http://grapple.dcs.warwick.ac.uk/bibtexbrowser/maurice.php|Maurice Hendrix, University of Warwick, UK]]
 * [[http://telecom.inescporto.pt/~jsc/bibtexbrowser.php|Jaime dos Santos Cardoso, INESC, Portugal]]
+* [[https://www.sciunto.org/index.php?id=recherche&setlang=en|François Boulogne, Paris-Saclay University, France]]
 
 ==== Misc ====
 * [[http://kovarik.felk.cvut.cz/ant-algorithms/bibtexbrowser-original.php|Ant algorithms bibliography, Czech Technical University, Czech Republic]]
 * [[http://www.monperrus.net/martin/bibtexbrowser/comments|The comments on the bibtexbrowser webpage. Some of them are bug reports and feature requests.]]
 
-==== Blog posts ==== 
+==== Blog posts ====
 [[http://murmurlydian.blogspot.com/2009/03/bib-browser.html|Thanks Lydian!]]
 [[http://jorgecardoso.eu/blog/index.php?/archives/154-Bibtexbrowser.html|Thanks Jorge for this kind post]]
