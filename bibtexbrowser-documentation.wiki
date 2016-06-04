@@ -24,21 +24,20 @@ This documentation is collaborative, you can improve it using a [[https://github
 * bibtexbrowser generates publication RSS feeds (simply add &#38;rss at the end of the URL)! [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;all&amp;rss|demo]]
 * **(10/2009)** bibtexbrowser is able to generate a bibtex file containing only the selected entries (simply add &#38;astext at the end of the link)
 * **(10/2009)** bibtexbrowser is now independent of the configuration of register_globals
-* **(01/2009)** bibtexbrowser allows multi criteria search, e.g.  [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;type=inproceedings&amp;year=2004|demo]]
+* **(01/2009)** bibtexbrowser allows multi criteria search, e.g.  [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;type=inproceedings&amp;year=20013|demo]]
 * bibtexbrowser generates [[http://ocoins.info/|COinS]] for automatic import of bibliographic entries with [[http://www.zotero.org/|Zotero]] and [[http://www.mendeley.com/|Mendeley]].
 * bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar. 
 * bibtexbrowser replaces constants defined in @STRING
 * bibtexbrowser is very fast because it keeps a compiled version of the bibtex file (PHP object serialized)
 * bibtexbrowser is compatible with PHP 4.x and PHP 5.x
-* bibtexbrowser can display the menu and all entries without filtering from the file name passed as parameter [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|demo]]
-* bibtexbrowser can display all entries for an author with an academic style (i.e book, articles, conference, workshop): [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;academic=Ducasse|demo]]
-* bibtexbrowser can display all entries  out of a bibtex file [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;all|demo]]
-* bibtexbrowser can display all entries for a given year [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;year=2004|demo]]
-* bibtexbrowser can display a single bibtex entry [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;key=monperrus08d|demo]]
-* bibtexbrowser can display found entries with a search word (it can be in any bib field) [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;search=ocl|demo]]
-* bibtexbrowser can display all entries with a bib keyword e.g. "?keywords=components". It matches against the "keywords" bibtex field. [[http://bibtexbrowser.sourceforge.net/bibtexbrowser.php?bib=metrics.bib&keywords=components|demo]]
+* bibtexbrowser can display the menu and all entries with framesets [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib|demo]]
+* bibtexbrowser can display all entries  out of a bibtex file [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;all|demo]]
+* bibtexbrowser can display all entries for a given year [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;year=2014|demo]]
+* bibtexbrowser can display a single bibtex entry [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;key=monperrus08d|demo]]
+* bibtexbrowser can display found entries with a search word (it can be in any bib field) [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;search=repair|demo]]
+* bibtexbrowser can display all entries with a bib keyword e.g. "?keywords=components". It matches against the "keywords" bibtex field. [[http://bibtexbrowser.sourceforge.net/bibtexbrowser.php?bib=monperrus.bib&keywords=repair|demo]]
 * bibtexbrowser outputs valid XHTML 1.0 Transitional
-* bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib&amp;author=Barbara+A.+Kitchenham|demo]]
+* bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;author=Bartel|demo]]
 * bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in UTF-8 ''define('BIBTEX_INPUT_ENCODING','UTF-8')'' )
 * bibtexbrowser is easy to install: just a single file.
 
@@ -64,7 +63,7 @@ The following uses bibtexbrowser under the hood:
 
 =====Demo and screenshot=====
 
-Demo: [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=metrics.bib|Here, you can browse a bibtex file dedicated to software metrics]]
+Demo: [[http://bibtexbrowser.sourceforge.net/bibtexbrowser.php?bib=metrics.bib|Here, you can browse a bibtex file dedicated to software metrics]]
 
 <a href="bibtexbrowser-screenshot.png"><img height="500" src="bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/></a>
 
