@@ -1213,6 +1213,7 @@ class BibEntry {
     if ($this->hasField('file')) {
       return $this->getLink('file', $iconurl, $label);
     }
+    return "";
   }
 
 

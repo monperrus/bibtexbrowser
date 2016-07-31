@@ -297,6 +297,38 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $dis = $db->getEntryByKey('aKey');
         $this->assertEquals(2,count($dis->getKeywords()));
     }
+
+    # https://github.com/monperrus/bibtexbrowser/pull/51
+    function test_emptyGetPdfLink() {
+        $bibtex = "
+        @article{aKey,
+            title={\`a Book},
+            author={Martin Monperrus},
+            publisher={Springer},
+            year=2009,
+            pages={42--4242},
+            number=1
+        }
+        @article{bKey,
+            url={magic},
+        }
+        @article{cKey,
+            pdf={magic2},
+            url={magic3}
+        }";
+        bibtexbrowser_configure('BIBTEXBROWSER_USE_LATEX2HTML', true);
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+        $dis = $db->getEntryByKey('aKey');
+        $this->assertEquals("",$dis->GetPdfLink());
+        $dis = $db->getEntryByKey('bKey');
+        $this->assertEquals('<a href="magic">[pdf]</a>',$dis->GetPdfLink());
+        $dis = $db->getEntryByKey('cKey');
+        $this->assertEquals('<a href="magic2">[pdf]</a>',$dis->GetPdfLink());
+    }
 } // end class
 
 ?>
