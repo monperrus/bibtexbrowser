@@ -237,7 +237,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $btb->update_internal("inline", $test_data);    
     $first_entry=$btb->bibdb[array_keys($btb->bibdb)[0]];
     $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getLink('pdf'));    
-    $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getUrlLink());    
+    $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getPdfLink());    
     $this->assertEquals('<a href="myarticle.pdf"><img class="icon" src="pdficon.png" alt="[pdf]" title="pdf"/></a>',$first_entry->getLink('pdf','pdficon.png'));
     $this->assertEquals('<a href="myarticle.pdf">[see]</a>',$first_entry->getLink('pdf',NULL,'see'));    
   }
@@ -251,7 +251,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $btb = new BibDataBase();
     $btb->update_internal("inline", $test_data);    
     $first_entry=$btb->bibdb[array_keys($btb->bibdb)[0]];
-    $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getUrlLink());    
+    $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getPdfLink());    
   }
 
   // https://github.com/monperrus/bibtexbrowser/issues/40
@@ -330,6 +330,40 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $db->update_internal("inline", $test_data);
         $dis = $db->getEntryByKey('aKey');
         $this->assertEquals(2,count($dis->getKeywords()));
+    }
+
+    # https://github.com/monperrus/bibtexbrowser/pull/51
+    function test_emptyGetPdfLink() {
+        $bibtex = "
+        @article{aKey,
+            title={\`a Book},
+            author={Martin Monperrus},
+            publisher={Springer},
+            year=2009,
+            pages={42--4242},
+            number=1
+        }
+        @article{bKey,
+            url={magic.pdf},
+        }
+        @article{cKey,
+            pdf={magic2.pdf},
+            url={magic3}
+        }";
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+        
+        $dis = $db->getEntryByKey('aKey');
+        $this->assertEquals("",$dis->getPdfLink());
+        
+        $dis = $db->getEntryByKey('bKey');
+        $this->assertEquals('<a href="magic.pdf">[pdf]</a>',$dis->getPdfLink());
+        
+        $dis = $db->getEntryByKey('cKey');
+        $this->assertEquals('<a href="magic2.pdf">[pdf]</a>',$dis->getPdfLink());
     }
 
     function test_formatting() {
@@ -426,7 +460,6 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Foo Bar", $authors[2]);
    }
    
-    
 } // end class
 
 ?>
