@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/monperrus/bibtexbrowser.svg?branch=master)](https://travis-ci.org/monperrus/bibtexbrowser)
+
 This is the github repository of bibtexbrowser.
 
 It is used to collect patches and extensions as pull requests.
