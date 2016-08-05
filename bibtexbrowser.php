@@ -1273,19 +1273,27 @@ class BibEntry {
     return $link;
   }
 
-  /** returns a "[pdf]" link if relevant. modified to exploit the new method, while keeping backward compatibility */
-  function getUrlLink($iconurl = NULL, $label = 'pdf') {
-    if ($this->hasField('url')) {
-      return $this->getLink('url', $iconurl, $label);
-    }
+  /** same as `getPdfLink`, kept for backward compatibility */
+  function getUrlLink($iconurl, $label) {
+    return $this->getPdfLink($iconurl, $label);
+  }
+  
+  /** returns a "[pdf]" link for the entry, if possible.
+      Tries to get the target URL from the 'pdf' field first, then from 'url' or 'file'.
+    */
+  function getPdfLink($iconurl = NULL, $label = 'pdf') {
     if ($this->hasField('pdf')) {
       return $this->getLink('pdf', $iconurl, $label);
+    }
+    if ($this->hasField('url')) {
+      return $this->getLink('url', $iconurl, $label);
     }
     // Adding link to PDF file exported by Zotero
     // ref: https://github.com/monperrus/bibtexbrowser/pull/14
     if ($this->hasField('file')) {
       return $this->getLink('file', $iconurl, $label);
     }
+    return "";
   }
 
 
@@ -1913,7 +1921,7 @@ function bib2links_default(&$bibentry) {
   }
 
   if (BIBTEXBROWSER_PDF_LINKS) {
-    $link = $bibentry->getUrlLink();
+    $link = $bibentry->getPdfLink();
     if ($link != '') { $links[] = $link; };
   }
 
