@@ -2539,7 +2539,7 @@ Based on createQueryString.
 @nodoc
  */
 function makeHref($query = NULL) {
-  return 'href="?'. createQueryString($query) .'"';
+  return 'href="'.bibtexbrowser_configuration('BIBTEXBROWSER_URL').'?'. createQueryString($query) .'"';
 }
 
 

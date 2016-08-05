@@ -452,6 +452,49 @@ bibtexbrowser_configure('PAGE_SIZE','3');
 ?>
 </pre>
 
+====How to override framesets and headers?====
+
+You can customize every view as follows, in particular by playing with ''BIBTEXBROWSER_URL''.
+
+''frameset.html'':
+<pre>
+&lt;html>
+&lt;frameset cols="15%,*">
+&lt;frame name="menu" src="menu.php" />
+&lt;frame name="main" src="output.php" />
+&lt;/frameset>
+&lt;/html>
+</pre>
+
+''menu.php'':
+<pre>
+MENU (no header sent)
+&lt;?php
+define('BIBTEXBROWSER_URL','output.php');
+$_GET['menu']=1;
+$_GET['bib']='foo.bib';
+include('bibtexbrowser.php');
+?>
+</pre>
+
+''output.php'':
+<pre>
+OUTPUT (no header sent)
+&lt;?php 
+define('BIBTEXBROWSER_URL','elem.php');
+include('bibtexbrowser.php');
+?>
+</pre>
+
+''elem.php'':
+<pre>
+ELEM (no header sent)
+&lt;?php 
+include('bibtexbrowser.php'); 
+?>
+</pre>
+
+
 =====Related tools=====
 
 Old-fashioned:
