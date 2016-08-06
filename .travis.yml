@@ -2,6 +2,8 @@ language: php
 
 php: 5.4
   
-script: phpunit bibtexbrowser-test.php
+script:
+    - curl -o gakowiki-syntax.php http://www.monperrus.net/martin/gakowiki-syntax.php.txt
+    - phpunit bibtexbrowser-test.php
 
 sudo: false

@@ -910,6 +910,13 @@ class BibDBBuilder extends ParserDelegate {
     // to enable search
     if ($this->currentEntry->hasField('author')) {
       $this->currentEntry->setField(Q_INNER_AUTHOR,$this->currentEntry->getFormattedAuthorsString());
+      
+      foreach($this->currentEntry->split_authors() as $author) {
+        $homepage_key = $this->currentEntry->getHomePageKey($author);
+        if (isset($this->stringdb[$homepage_key])) {
+            $this->currentEntry->homepages[$homepage_key] = $this->stringdb[$homepage_key]->value;
+        }
+      }
     }
 
     // ignoring jabref comments
@@ -928,21 +935,6 @@ class BibDBBuilder extends ParserDelegate {
     else {
       $this->builtdb[$this->currentEntry->getKey()] = $this->currentEntry;
     }    
-  }
-
-
-  function entryValuePart($key, $value, $type) {
-    if (preg_match('/^author$/i',trim($key)) && strlen($value)>0) {
-      if ($type == 'CURLYTOP') {
-        foreach (preg_split('/\s+and\s+/i', $value) as $author) {
-          if (strlen($author)>0) {
-            $this->currentEntry->addAuthor($author, $this);
-          }
-        }
-      } else { // 'CURLYONE', nnon-breakable
-        $this->currentEntry->addAuthor($value, $this);
-      }
-    }
   }
   
 } // end class BibDBBuilder
@@ -1114,16 +1106,19 @@ notes:
 class BibEntry {
 
   /** The fields (fieldName -> value) of this bib entry. */
-  var $fields;
+  var $fields = array();
 
   /** The constants @STRINGS referred to by this entry */
-  var $constants;
+  var $constants = array();
+
+  /** The homepages of authors if any */
+  var $homepages = array();
 
   /** The crossref entry if there is one */
   var $crossref;
 
   /** The verbatim copy (i.e., whole text) of this bib entry. */
-  var $text;
+  var $text = '';
 
   /** A timestamp to trace when entries have been created */
   var $timestamp;
@@ -1140,9 +1135,6 @@ class BibEntry {
   /** The location in the original bibtex file (set by addEntry) */
   var $order = -1;
 
-  /** the authors (split at parsing time) */
-  var $author_array = array();
-
 
   /** returns a debug string representation */
   function __toString() {
@@ -1152,9 +1144,6 @@ class BibEntry {
   /** Creates an empty new bib entry. Each bib entry is assigned a unique
    * identification number. */
   function BibEntry() {
-    $this->fields = array();
-    $this->constants = array();
-    $this->text ='';
   }
 
   /** Sets the name of the file containing this entry */
@@ -1210,9 +1199,9 @@ class BibEntry {
         $value = mb_convert_encoding($value, OUTPUT_ENCODING, BIBTEX_INPUT_ENCODING);
       }
 
+      
       // clean extra tex curly brackets, usually used for preserving capitals
-      $value = preg_replace('/^\{/','', $value);
-      $value = preg_replace('/\}$/','', $value);
+      $value = $this->clean_top_curly($value);
       
     } else {
       //echo "xx".$value."xx\n";
@@ -1221,6 +1210,12 @@ class BibEntry {
 
 
     $this->fields[$name] = $value;
+  }
+  
+  function clean_top_curly($value) {
+    $value = preg_replace('/^\{/','', $value);
+    $value = preg_replace('/\}$/','', $value);
+    return $value;
   }
 
   /** Sets a type of this bib entry. */
@@ -1360,16 +1355,6 @@ class BibEntry {
     return isset($this->fields[strtolower($name)]);
   }
 
-  /** adds an author to this entry */
-  function addAuthor($author, $db) {
-    $this->author_array[] = trim($author);
-    
-    $homepage_key = $this->getHomePageKey($author);
-    if (isset($db->stringdb[$homepage_key])) {
-        $this->constants[$homepage_key] = $db->stringdb[$homepage_key]->value;
-    }
-  }
-  
   /** Returns the authors of this entry. If "author" is not given,
    * return a string 'Unknown'. */
   function getAuthor() {
@@ -1420,7 +1405,25 @@ class BibEntry {
 
   /** Returns the authors of this entry as an array (split by " and ") */
   function getRawAuthors() {
-    return $this->author_array;
+    return $this->split_authors();
+  }
+  
+  function split_authors() {
+    $array = preg_split('/ and /i', $this->getField(Q_AUTHOR));
+    $res = array();    
+    // we merge the remaining ones
+    for ($i=0; $i < count($array)-1; $i++) {
+      if (strpos( latex2html($array[$i]), '{') !== FALSE && strpos(latex2html($array[$i+1]),'}') !== FALSE) {
+        $res[] = $this->clean_top_curly($array[$i]." and ".$array[$i+1]);
+        $i = $i + 1;
+      } else {
+        $res[] = $array[$i];
+      }
+    }
+    if (strpos($array[count($array)-1], '}')===FALSE) {
+        $res[] = $array[count($array)-1];    
+    }
+    return $res;
   }
 
   /**
@@ -1481,6 +1484,7 @@ class BibEntry {
    */
   function getFormattedAuthorsArray() {
     $array_authors = array();
+    
     
     // first we use formatAuthor
     foreach ($this->getRawAuthors() as $author) {
@@ -1574,8 +1578,8 @@ class BibEntry {
     // accents are normally handled 
     // e.g. @STRING{hp_Jean-MarcJézéquel="http://www.irisa.fr/prive/jezequel/"}
     $homepage = $this->getHomePageKey($author);
-    if (isset($this->constants[$homepage]))
-      $author='<a href="'.$this->constants[$homepage].'">'.$author.'</a>';
+    if (isset($this->homepages[$homepage]))
+      $author='<a href="'.$this->homepages[$homepage].'">'.$author.'</a>';
     return $author;
   }
 
@@ -1841,7 +1845,6 @@ class BibEntry {
   function getConstants() {
     $result='';
     foreach ($this->constants as $k=>$v) {
-      if (preg_match('/^hp_/',$k)) continue;
       $result.='@string{'.$k.'="'.$v."\"}\n";
     }
     return $result;

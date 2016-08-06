@@ -503,7 +503,7 @@ You must add a ''@string'' block in the bibtex file, which contains the links. T
   hp_ericfoo      = {http://www.foo.de/},
   hp_joebar      = {http://www.joebar.me/},
 }
-</per>
+</pre>
 
 =====Related tools=====
 

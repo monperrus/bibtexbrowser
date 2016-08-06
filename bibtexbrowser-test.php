@@ -21,6 +21,11 @@ error_reporting(E_ALL);
 
 class BTBTest extends PHPUnit_Framework_TestCase {
 
+  function test_checkdoc() {
+    include('gakowiki-syntax.php');
+    create_wiki_parser()->parse(file_get_contents('bibtexbrowser-documentation.wiki'));
+  }
+  
   function createDB() {
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, "@book{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n"
@@ -445,7 +450,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Meyer, Heribert and Foo Bar", $entry->getFormattedAuthorsString());
         
         // Github issue 61
-        $bibtex = "@article{aKey61,title={An article Book},author = {Meyer, Heribert  and   {Advanced Air and Ground Research Team} and Foo Bar}}\n";
+        $bibtex = "@article{aKey61,title={An article Book},author = {Meyer, Heribert  and   {Advanced Air and Ground Research Team} and Foo Bar and J{\'e} Ko}}\n";
         // wrong parsing of author names
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, $bibtex);
@@ -454,10 +459,11 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $db->update_internal("inline", $test_data);
         $entry = $db->getEntryByKey('aKey61');
         $authors = $entry->getRawAuthors();
-        $this->assertEquals(3, count($authors));
+        $this->assertEquals(4, count($authors));
         $this->assertEquals("Meyer, Heribert", $authors[0]);
         $this->assertEquals("Advanced Air and Ground Research Team", $authors[1]);
         $this->assertEquals("Foo Bar", $authors[2]);
+        $this->assertEquals("Jé Ko", $authors[3]);
     }
     
     function test_latex2html() {
