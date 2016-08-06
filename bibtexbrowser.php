@@ -927,7 +927,8 @@ class BibDBBuilder extends ParserDelegate {
       $this->builtdb[$this->currentEntry->getKey()] = $this->currentEntry;
     }    
   }
-  
+
+
   function entryValuePart($key, $value, $type) {
     if (preg_match('/^author$/i',trim($key)) && strlen($value)>0) {
       if ($type == 'CURLYTOP') {
@@ -941,6 +942,7 @@ class BibDBBuilder extends ParserDelegate {
       }
     }
   }
+  
 } // end class BibDBBuilder
 
 
@@ -973,11 +975,7 @@ function char2html($line,$latexmodifier,$char,$entitiyfragment) {
 }
 
 function char2html_case_sensitive($line,$latexmodifier,$char,$entitiyfragment) {
-// old version
-//   $line = str_replace('\\'.$latexmodifier.$char,'&'.$char.''.$entitiyfragment.';', $line);
-//   $line = str_replace('\\'.$latexmodifier.' '.$char,'&'.$char.''.$entitiyfragment.';', $line);
-//   $line = str_replace('\\'.$latexmodifier.'{'.$char.'}','&'.$char.''.$entitiyfragment.';', $line);
-  $line = preg_replace('/\\\\'.preg_quote($latexmodifier,'/').' ?\\{?'.$char.'\\}?/','&'.$char.''.$entitiyfragment.';', $line);
+  $line = preg_replace('/\\{?\\\\'.preg_quote($latexmodifier,'/').' ?\\{?'.$char.'\\}?/','&'.$char.''.$entitiyfragment.';', $line);
   return $line;
 }
 
