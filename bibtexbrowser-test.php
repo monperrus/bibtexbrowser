@@ -217,7 +217,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
   
   function test_math_cal() {
     $test_data = fopen('php://memory','x+');
-    fwrite($test_data, "@book{aKey,title={{A Book{} $\mbox{foo}$ tt $\boo{t}$}} ,author={Martin Monperrus},publisher={Springer},year=2009}\n".
+    fwrite($test_data, "@book{aKey,title={{A Book $\mbox{foo}$ tt $\boo{t}$}} ,author={Martin Monperrus},publisher={Springer},year=2009}\n".
     "@String{x=2008}\n"
     );
     fseek($test_data,0);
@@ -458,8 +458,26 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Meyer, Heribert", $authors[0]);
         $this->assertEquals("Advanced Air and Ground Research Team", $authors[1]);
         $this->assertEquals("Foo Bar", $authors[2]);
-   }
-   
+    }
+    
+    function test_latex2html() {
+        $this->assertEquals('&eacute;', latex2html("\'e"));    
+    }
+
+    function test_homepage_link() {
+        $bibtex = "@string{hp_MartinMonperrus={http://www.monperrus.net/martin},hp_FooAcé={http://example.net/}},@article{aKey61,title={An article Book},author = {Martin Monperrus and Foo Acé and Monperrus, Martin}}\n";
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+        $entry = $db->getEntryByKey('aKey61');
+        $authors = $entry->getFormattedAuthorsArray();
+        $this->assertEquals('<a href="http://www.monperrus.net/martin">Martin Monperrus</a>', $authors[0]);
+        $this->assertEquals('<a href="http://example.net/">Foo Acé</a>', $authors[1]);
+        $this->assertEquals('<a href="http://www.monperrus.net/martin">Monperrus, Martin</a>', $authors[2]);
+    }
+
 } // end class
 
 ?>

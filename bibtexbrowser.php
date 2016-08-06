@@ -918,7 +918,7 @@ class BibDBBuilder extends ParserDelegate {
     // we add it to the string database
     else if ($this->currentEntry->getType()=='string') {
       foreach($this->currentEntry->fields as $k => $v) {
-        $k!=Q_INNER_TYPE and $this->stringdb[$k]=new StringEntry($k,$v,$this->filename);
+        $k!=Q_INNER_TYPE and $this->stringdb[$k] = new StringEntry($k,$v,$this->filename);
       }
     }
 
@@ -933,11 +933,11 @@ class BibDBBuilder extends ParserDelegate {
       if ($type == 'CURLYTOP') {
         foreach (preg_split('/\s+and\s+/i', $value) as $author) {
           if (strlen($author)>0) {
-            $this->currentEntry->addAuthor($author);
+            $this->currentEntry->addAuthor($author, $this);
           }
         }
       } else { // 'CURLYONE', nnon-breakable
-        $this->currentEntry->addAuthor($value);
+        $this->currentEntry->addAuthor($value, $this);
       }
     }
   }
@@ -1074,10 +1074,6 @@ function latex2html($line) {
   $line = str_replace('\\k{a}','&#261',$line);
   $line = str_replace('\\\'{c}','&#263',$line);
 
-// clean out extra tex curly brackets, usually used for preserving capitals
-  $line = str_replace('}','', $line);
-  $line = str_replace('{','', $line);
-
   // we restore the math env
   for($i = 0; $i < count($maths); $i++) {
     $line = str_replace('__MATH'.$i.'__', $maths[$i], $line);
@@ -1211,12 +1207,19 @@ class BibEntry {
       
       // 4. transform existing encoded character in the new format
       if (function_exists('mb_convert_encoding') && OUTPUT_ENCODING != BIBTEX_INPUT_ENCODING) {
-        $vaue = mb_convert_encoding($value, OUTPUT_ENCODING, BIBTEX_INPUT_ENCODING);
+        $value = mb_convert_encoding($value, OUTPUT_ENCODING, BIBTEX_INPUT_ENCODING);
       }
 
+      // clean extra tex curly brackets, usually used for preserving capitals
+      $value = preg_replace('/^\{/','', $value);
+      $value = preg_replace('/\}$/','', $value);
+      
     } else {
       //echo "xx".$value."xx\n";
     }
+    
+
+
     $this->fields[$name] = $value;
   }
 
@@ -1358,8 +1361,13 @@ class BibEntry {
   }
 
   /** adds an author to this entry */
-  function addAuthor($author) {
+  function addAuthor($author, $db) {
     $this->author_array[] = trim($author);
+    
+    $homepage_key = $this->getHomePageKey($author);
+    if (isset($db->stringdb[$homepage_key])) {
+        $this->constants[$homepage_key] = $db->stringdb[$homepage_key]->value;
+    }
   }
   
   /** Returns the authors of this entry. If "author" is not given,
@@ -1550,6 +1558,11 @@ class BibEntry {
     return $this->formatAuthor($authors[0]) . $etal;
   }
 
+  function getHomePageKey($author) {
+  
+    return strtolower('hp_'.preg_replace('/ /', '', $this->formatAuthorCanonical(latex2html($author))));
+  }
+  
   /** add the link to the homepage if it is defined in a string
    *  e.g. @string{hp_MartinMonperrus="http://www.monperrus.net/martin"}
    *  The string is a concatenation of firstname, lastname, prefixed by hp_
@@ -1558,11 +1571,11 @@ class BibEntry {
    */
   function addHomepageLink($author) {
     // hp as home page
-    // accents are handled normally
+    // accents are normally handled 
     // e.g. @STRING{hp_Jean-MarcJézéquel="http://www.irisa.fr/prive/jezequel/"}
-    $homepage = strtolower('hp_'.preg_replace('/ /', '', $author));
-    if (isset($_GET[Q_DB]->stringdb[$homepage]))
-      $author='<a href="'.$_GET[Q_DB]->stringdb[$homepage]->value.'">'.$author.'</a>';
+    $homepage = $this->getHomePageKey($author);
+    if (isset($this->constants[$homepage]))
+      $author='<a href="'.$this->constants[$homepage].'">'.$author.'</a>';
     return $author;
   }
 
@@ -1580,7 +1593,7 @@ class BibEntry {
   function getFormattedEditors() {
     $editors = array();
     foreach ($this->getEditors() as $editor) {
-      $editors[]=$this->addHomepageLink($this->formatAuthor($editor));
+      $editors[]=$this->formatAuthor($editor);
     }
     if (bibtexbrowser_configuration('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT')) {$sep = '; ';} else {$sep = ', ';}
     if (FORCE_NAMELIST_SEPARATOR !== '') {$sep = FORCE_NAMELIST_SEPARATOR;}
@@ -1828,6 +1841,7 @@ class BibEntry {
   function getConstants() {
     $result='';
     foreach ($this->constants as $k=>$v) {
+      if (preg_match('/^hp_/',$k)) continue;
       $result.='@string{'.$k.'="'.$v."\"}\n";
     }
     return $result;

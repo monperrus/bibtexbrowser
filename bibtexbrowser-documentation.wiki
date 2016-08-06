@@ -494,6 +494,16 @@ include('bibtexbrowser.php');
 ?>
 </pre>
 
+====How to add hyperlink to the authors' web pages?====
+
+You must add a ''@string'' block in the bibtex file, which contains the links. The key is a concatenation of ''hp_'' and then ''FirstNameLastName'' (no space). For instance:
+
+<pre>
+@String { 
+  hp_ericfoo      = {http://www.foo.de/},
+  hp_joebar      = {http://www.joebar.me/},
+}
+</per>
 
 =====Related tools=====
 
