@@ -30,7 +30,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, "@book{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n"
     ."@book{aKey/withSlash,title={Slash Dangerous for web servers},author={Ap Ache},publisher={Springer},year=2009}\n"
-    ."@article{aKeyA,title={An Article},author={Foo Bar and Jane Doe},volume=5,journal=\"New Results\",year=2009}\n"
+    ."@article{aKeyA,title={An Article},author={Foo Bar and Jane Doe},volume=5,journal=\"New Results\",year=2009,pages={1-2}}\n"
     );
     fseek($test_data,0);
     $btb = new BibDataBase();
@@ -63,6 +63,9 @@ class BTBTest extends PHPUnit_Framework_TestCase {
   function test_bibentry_to_html_article() {
     $btb = $this->createDB();
     $first_entry=$btb->getEntryByKey('aKeyA');
+    $this->assertEquals("1-2",$first_entry->getField("pages"));
+    $this->assertEquals("1",$first_entry->getPages()[0]);
+    $this->assertEquals("2",$first_entry->getPages()[1]);
     
     // default style
     $this->assertEquals("An Article (Foo Bar and Jane Doe), In New Results, volume 5, 2009. [bibtex]",strip_tags($first_entry->toHTML()));
@@ -70,11 +73,11 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
     // IEEE style
     bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
-    $this->assertEquals("Foo Bar and Jane Doe, \"An Article\", In New Results, vol. 5, 2009.\n [bibtex]",strip_tags($first_entry->toHTML()));
+    $this->assertEquals("Foo Bar and Jane Doe, \"An Article\", In New Results, vol. 5, pp. 1-2, 2009.\n [bibtex]",strip_tags($first_entry->toHTML()));
     
     // Vancouver style
     bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','VancouverBibliographyStyle');
-    $this->assertEquals("Foo Bar and Jane Doe. An Article. New Results. 2009;5.\n [bibtex]",strip_tags($first_entry->toHTML()));
+    $this->assertEquals("Foo Bar and Jane Doe. An Article. New Results. 2009;5:1-2.\n [bibtex]",strip_tags($first_entry->toHTML()));
   }
 
   function testMultiSearch() {
