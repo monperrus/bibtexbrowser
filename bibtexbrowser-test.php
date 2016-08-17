@@ -27,11 +27,14 @@ class BTBTest extends PHPUnit_Framework_TestCase {
   }
   
   function createDB() {
-    $test_data = fopen('php://memory','x+');
-    fwrite($test_data, "@book{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n"
+    return $this->_createDB("@book{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n"
     ."@book{aKey/withSlash,title={Slash Dangerous for web servers},author={Ap Ache},publisher={Springer},year=2009}\n"
-    ."@article{aKeyA,title={An Article},author={Foo Bar and Jane Doe},volume=5,journal=\"New Results\",year=2009,pages={1-2}}\n"
-    );
+    ."@article{aKeyA,title={An Article},author={Foo Bar and Jane Doe},volume=5,journal=\"New Results\",year=2009,pages={1-2}}\n");
+  }
+  
+  function _createDB($content) {
+    $test_data = fopen('php://memory','x+');
+    fwrite($test_data, $content);
     fseek($test_data,0);
     $btb = new BibDataBase();
     $btb->update_internal("inline", $test_data);
@@ -486,6 +489,37 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('<a href="http://www.monperrus.net/martin">Martin Monperrus</a>', $authors[0]);
         $this->assertEquals('<a href="http://example.net/">Foo Acé</a>', $authors[1]);
         $this->assertEquals('<a href="http://www.monperrus.net/martin">Monperrus, Martin</a>', $authors[2]);
+    }
+    
+    function test_identity() {
+        $btb = new BibDataBase();
+        $btb->load('bibacid-utf8.bib');
+        $nref = count($btb->bibdb);
+        $bibtex = $btb->toBibtex();
+        // reparsing the new content
+        $btb2 = $this->_createDB($bibtex);
+        // there is the same number of entries
+        $this->assertEquals($nref, count($btb2->bibdb));
+        $this->assertEquals($bibtex, $btb2->toBibtex());
+    }
+
+    function test_cli() {    
+        $test_file="test_cli.bib";
+        copy('bibacid-utf8.bib', $test_file);
+        system('php bibtexbrowser-cli.php '.$test_file." --id classical --set-title \"a new title\"");
+        $db = new BibDataBase();
+        $db->load($test_file);
+        $this->assertEquals("a new title", $db->getEntryByKey('classical')->getField('title'));
+        
+        // multiple changes
+        system('php bibtexbrowser-cli.php '.$test_file." --id classical --set-title \"a new title\" --id with_abstract --set-title \"a new title\" --set-year 1990");
+        $db = new BibDataBase();
+        $db->load($test_file);
+        $this->assertEquals("a new title", $db->getEntryByKey('classical')->getField('title'));
+        $this->assertEquals("a new title", $db->getEntryByKey('with_abstract')->getField('title'));
+        $this->assertEquals("1990", $db->getEntryByKey('with_abstract')->getField('year'));
+
+        unlink($test_file);
     }
 
 } // end class

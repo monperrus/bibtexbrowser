@@ -1905,6 +1905,12 @@ class BibEntry {
 
 } // enc class BibEntry
 
+class RawBibEntry extends BibEntry {
+  function setField($name, $value) {
+    $this->fields[$name]=$value;
+  }
+}
+
 /** returns an HTML tag depending on BIBTEXBROWSER_LAYOUT e.g. <TABLE> */
 function get_HTML_tag_for_layout() {
   switch(BIBTEXBROWSER_LAYOUT) { /* switch for different layouts */
@@ -3778,7 +3784,7 @@ class BibDataBase {
   /** Adds a new bib entry to the database. */
   function addEntry($entry) {
     if (!$entry->hasField('key')) {
-      die('error: a bibliographic entry must have a key');
+      die('error: a bibliographic entry must have a key '.$entry->getText());
     }
     // we keep its insertion order
     $entry->order = count($this->bibdb);
@@ -3875,6 +3881,13 @@ class BibDataBase {
       }
       return $result;
   }
+  
+  function toBibtex() {
+    $s = "";
+    foreach($this->bibdb as $bibentry) { $s.=$bibentry->getText()."\n"; }
+    return $s;
+  }
+  
 } // end class
 
 /** returns the default CSS of bibtexbrowser */
@@ -4678,6 +4691,25 @@ class Dispatcher {
 }
 
 } // end class Dispatcher
+
+function bibtexbrowser_cli($arguments) {
+  $db = new BibDataBase();
+  $db->load($arguments[1]);
+  $current_entry=NULL;
+  $current_field=NULL;
+  for ($i=2;$i<count($arguments); $i++) {
+    $arg=$arguments[$i];
+    if ($arg=='--id') {
+      $current_entry = $db->getEntryByKey($arguments[$i+1]);
+      $i=$i+1;
+    }
+    if (preg_match('/^--set-(.*)/',$arg,$matches)) {
+      $current_entry->setField($matches[1],$arguments[$i+1]);
+      $i=$i+1;
+    }
+  }
+  file_put_contents($arguments[1],$db->toBibtex());
+}
 
 } // end if (!defined('BIBTEXBROWSER'))
 

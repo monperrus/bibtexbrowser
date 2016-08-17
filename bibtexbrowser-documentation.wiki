@@ -505,6 +505,14 @@ You must add a ''@string'' block in the bibtex file, which contains the links. T
 }
 </pre>
 
+====How to modify bibtex entries on the command line?====
+
+Use ''bibtexbrowser-cli.php''. For instance:
+
+<pre>
+php bibtexbrowser-cli.php mybib.bib --id classical --set-title \"a new title\" --id with_abstract --set-title \"a new title\" --set-year 1990
+</pre>
+
 =====Related tools=====
 
 Old-fashioned:
