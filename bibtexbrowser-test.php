@@ -470,6 +470,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Advanced Air and Ground Research Team", $authors[1]);
         $this->assertEquals("Foo Bar", $authors[2]);
         $this->assertEquals("J{\'e} Ko", $authors[3]);
+        $this->assertEquals("Jé Ko", $entry->getFormattedAuthorsArray()[3]);
     }
     
     function test_latex2html() {
@@ -493,6 +494,20 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('<a href="http://www.monperrus.net/martin">Monperrus, Martin</a>', $authors[2]);
     }
     
+    function test_author_index() {
+        bibtexbrowser_configure('USE_FIRST_THEN_LAST', true);        
+
+        $bibtex = "@string{hp_MartinMonperrus={http://www.monperrus.net/martin},hp_FooAcé={http://example.net/}},@article{aKey61,title={An article Book},author = {Martin Monperrus and Foo Ac\'e and Monperrus, Martin}}\n";
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+
+        $index = var_export($db->authorIndex(), true);
+        $this->assertEquals("array (\n  'Foo Acé' => 'Foo Acé',\n  'Martin Monperrus' => 'Martin Monperrus',\n)", $index);
+    }
+
     function test_identity() {
         $btb = new BibDataBase();
         $btb->load('bibacid-utf8.bib');

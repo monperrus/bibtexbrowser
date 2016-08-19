@@ -1187,6 +1187,19 @@ class BibEntry {
     $this->setField(Q_KEY,str_replace('/','-',$value));
   }
 
+  function transformValue($value) {
+    // trim space
+    $value = xtrim($value);
+
+    // transform Latex markup to HTML entities (easier than a one to one mapping to each character)
+    // HTML entity is an intermediate format
+    $value = latex2html($value);
+    
+    // transform to the target output encoding
+    $value = html_entity_decode($value, ENT_QUOTES|ENT_XHTML, OUTPUT_ENCODING);
+    return $value;
+  }
+  
   /** Sets a field of this bib entry. */
   function setField($name, $value) {
     $name = strtolower($name);
@@ -1197,16 +1210,9 @@ class BibEntry {
     // but instead could contain HTML code (with links using the character "~" for example)
     // so "comment" is not transformed too
     if ($name!='url' && $name!='comment') {
-     // 1. trim space
-      $value = xtrim($value);
       
       if (c('BIBTEXBROWSER_USE_LATEX2HTML')) {
-        // 2. transform Latex markup to HTML entities (easier than a one to one mapping to each character)
-        // HTML entity is an intermediate format
-        $value = latex2html($value);
-        
-        // 3. transform to the target output encoding
-        $value = html_entity_decode($value, ENT_QUOTES|ENT_XHTML, OUTPUT_ENCODING);
+          $value = $this->transformValue($value); 
       }
       
       // 4. transform existing encoded character in the new format
@@ -1442,16 +1448,20 @@ class BibEntry {
    * encoded in USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT and USE_INITIALS_FOR_NAMES
    */
   function formatAuthor($author){
+    $author = $this->transformValue($author);
     if (bibtexbrowser_configuration('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT')) {
       return $this->formatAuthorCommaSeparated($author);
-    } else if (bibtexbrowser_configuration('USE_INITIALS_FOR_NAMES')) {
+    } 
+    
+    if (bibtexbrowser_configuration('USE_INITIALS_FOR_NAMES')) {
       return $this->formatAuthorInitials($author);
-    } else if (bibtexbrowser_configuration('USE_FIRST_THEN_LAST')) {
+    } 
+    
+    if (bibtexbrowser_configuration('USE_FIRST_THEN_LAST')) {
       return $this->formatAuthorCanonical($author);
-    }	
-
-    // otherwise to formatting
-    else return $author;
+    }
+    
+    return $author;
   }
 
   /**
@@ -3718,24 +3728,21 @@ class BibDataBase {
    * and values <LastName, FirstName>.
    */
   function authorIndex(){
-    $result = array();
+    $tmp = array();
     foreach ($this->bibdb as $bib) {
-      foreach($bib->getRawAuthors() as $a){
+      foreach($bib->getFormattedAuthorsArray() as $a){
+        $a = strip_tags($a);
         //we use an array because several authors can have the same lastname
-        @$result[$bib->getLastName($a)][$bib->formatAuthor($a)]++;
+        @$tmp[$bib->getLastName($a)]=$a;
       }
     }
-    ksort($result);
-
-    // now authors are sorted by last name
-    // we rebuild a new array for having good keys in author page
-    $realresult = array();
-    foreach($result as $x) {
-        ksort($x);
-        foreach($x as $v => $tmp) $realresult[$v] = $v;
+    ksort($tmp);
+    $result=array();
+    foreach ($tmp as $k=>$v) {
+      $result[$v]=$v;
     }
 
-    return $realresult;
+    return $result;
   }
 
   /** Generates and returns an array consisting of all tags.
