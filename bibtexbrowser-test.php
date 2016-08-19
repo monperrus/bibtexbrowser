@@ -473,6 +473,8 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     }
     
     function test_latex2html() {
+        $this->assertEquals('"', latex2html("``"));    
+        $this->assertEquals('"', latex2html("''"));    
         $this->assertEquals('&eacute;', latex2html("\'e"));    
         $this->assertEquals('&eacute;', latex2html("{\'e}"));    
     }

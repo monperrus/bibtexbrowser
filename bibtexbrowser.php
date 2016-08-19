@@ -983,6 +983,9 @@ function latex2html($line) {
   $line = str_replace('---','&mdash;',$line);
   $line = str_replace('--','&ndash;',$line);
 
+  $line = str_replace('``','"', $line);
+  $line = str_replace("''",'"', $line);
+
   // performance increases with this test
   // bug found by Serge Barral: what happens if we have curly braces only (typically to ensure case in Latex)
   // added && strpos($line,'{')===false
@@ -1015,6 +1018,7 @@ function latex2html($line) {
   // see http://en.wikibooks.org/wiki/LaTeX/Accents
   // " the letters "i" and "j" require special treatment when they are given accents because it is often desirable to replace the dot with the accent. For this purpose, the commands \i and \j can be used to produce dotless letters."
   $line = preg_replace('/\\\\([ij])/i','\\1', $line);
+
 
   $line = char2html($line,"'",'a',"acute");
   $line = char2html($line,"'",'e',"acute");
@@ -1065,6 +1069,7 @@ function latex2html($line) {
   $line = str_replace('\\L','&#321',$line);
   $line = str_replace('\\k{a}','&#261',$line);
   $line = str_replace('\\\'{c}','&#263',$line);
+
 
   // clean extra tex curly brackets, usually used for preserving capitals
   // must come before the final math replacement
