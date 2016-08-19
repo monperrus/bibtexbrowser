@@ -228,7 +228,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
   
   function test_math_cal() {
     $test_data = fopen('php://memory','x+');
-    fwrite($test_data, "@book{aKey,title={{A Book $\mbox{foo}$ tt $\boo{t}$}} ,author={Martin Monperrus},publisher={Springer},year=2009}\n".
+    fwrite($test_data, "@book{aKey,title={{A {Book} $\mbox{foo}$ tt $\boo{t}$}} ,author={Martin Monperrus},publisher={Springer},year=2009}\n".
     "@String{x=2008}\n"
     );
     fseek($test_data,0);
@@ -469,7 +469,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Meyer, Heribert", $authors[0]);
         $this->assertEquals("Advanced Air and Ground Research Team", $authors[1]);
         $this->assertEquals("Foo Bar", $authors[2]);
-        $this->assertEquals("Jé Ko", $authors[3]);
+        $this->assertEquals("J{\'e} Ko", $authors[3]);
     }
     
     function test_latex2html() {

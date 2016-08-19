@@ -911,7 +911,7 @@ class BibDBBuilder extends ParserDelegate {
     if ($this->currentEntry->hasField('author')) {
       $this->currentEntry->setField(Q_INNER_AUTHOR,$this->currentEntry->getFormattedAuthorsString());
       
-      foreach($this->currentEntry->split_authors() as $author) {
+      foreach($this->currentEntry->getCanonicalAuthors() as $author) {
         $homepage_key = $this->currentEntry->getHomePageKey($author);
         if (isset($this->stringdb[$homepage_key])) {
             $this->currentEntry->homepages[$homepage_key] = $this->stringdb[$homepage_key]->value;
@@ -1066,6 +1066,11 @@ function latex2html($line) {
   $line = str_replace('\\k{a}','&#261',$line);
   $line = str_replace('\\\'{c}','&#263',$line);
 
+  // clean extra tex curly brackets, usually used for preserving capitals
+  // must come before the final math replacement
+  $line = str_replace('}','',$line);
+  $line = str_replace('{','',$line);
+      
   // we restore the math env
   for($i = 0; $i < count($maths); $i++) {
     $line = str_replace('__MATH'.$i.'__', $maths[$i], $line);
@@ -1204,10 +1209,6 @@ class BibEntry {
         $value = mb_convert_encoding($value, OUTPUT_ENCODING, BIBTEX_INPUT_ENCODING);
       }
 
-      
-      // clean extra tex curly brackets, usually used for preserving capitals
-      $value = $this->clean_top_curly($value);
-      
     } else {
       //echo "xx".$value."xx\n";
     }
@@ -1414,19 +1415,19 @@ class BibEntry {
   }
   
   function split_authors() {
-    $array = preg_split('/ and /i', $this->getField(Q_AUTHOR));
+    $array = preg_split('/ and /i', @$this->raw_fields[Q_AUTHOR]);
     $res = array();    
     // we merge the remaining ones
     for ($i=0; $i < count($array)-1; $i++) {
-      if (strpos( latex2html($array[$i]), '{') !== FALSE && strpos(latex2html($array[$i+1]),'}') !== FALSE) {
-        $res[] = $this->clean_top_curly($array[$i]." and ".$array[$i+1]);
+      if (strpos( $array[$i], '{') !== FALSE && strpos($array[$i+1],'}') !== FALSE) {
+        $res[] = $this->clean_top_curly(trim($array[$i])." and ".trim($array[$i+1]));
         $i = $i + 1;
       } else {
-        $res[] = $array[$i];
+        $res[] = trim($array[$i]);
       }
     }
-    if (strpos($array[count($array)-1], '}')===FALSE) {
-        $res[] = $array[count($array)-1];    
+    if (!preg_match('/^\}/',$array[count($array)-1])) {
+        $res[] = trim($array[count($array)-1]);    
     }
     return $res;
   }
