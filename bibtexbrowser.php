@@ -1189,15 +1189,18 @@ class BibEntry {
   }
 
   function transformValue($value) {
-    // trim space
-    $value = xtrim($value);
+    if (c('BIBTEXBROWSER_USE_LATEX2HTML')) 
+    {
+        // trim space
+        $value = xtrim($value);
 
-    // transform Latex markup to HTML entities (easier than a one to one mapping to each character)
-    // HTML entity is an intermediate format
-    $value = latex2html($value);
-    
-    // transform to the target output encoding
-    $value = html_entity_decode($value, ENT_QUOTES|ENT_XHTML, OUTPUT_ENCODING);
+        // transform Latex markup to HTML entities (easier than a one to one mapping to each character)
+        // HTML entity is an intermediate format
+        $value = latex2html($value);
+        
+        // transform to the target output encoding
+        $value = html_entity_decode($value, ENT_QUOTES|ENT_XHTML, OUTPUT_ENCODING);
+    }
     return $value;
   }
   
@@ -1210,11 +1213,8 @@ class BibEntry {
     // we assume that "comment" is never latex code
     // but instead could contain HTML code (with links using the character "~" for example)
     // so "comment" is not transformed too
-    if ($name!='url' && $name!='comment') {
-      
-      if (c('BIBTEXBROWSER_USE_LATEX2HTML')) {
+    if ($name!='url' && $name!='comment') {      
           $value = $this->transformValue($value); 
-      }
       
       // 4. transform existing encoded character in the new format
       if (function_exists('mb_convert_encoding') && OUTPUT_ENCODING != BIBTEX_INPUT_ENCODING) {
@@ -3804,7 +3804,7 @@ class BibDataBase {
   /** Adds a new bib entry to the database. */
   function addEntry($entry) {
     if (!$entry->hasField('key')) {
-      die('error: a bibliographic entry must have a key '.$entry->getText());
+      throw new Exception('error: a bibliographic entry must have a key '.$entry->getText());
     }
     // we keep its insertion order
     $entry->order = count($this->bibdb);

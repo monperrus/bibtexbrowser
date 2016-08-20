@@ -293,7 +293,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
   }
 
   function test_BIBTEXBROWSER_USE_LATEX2HTML() {
-    $bibtex = "@article{aKey,title={\`a Book},author={Martin Monperrus},publisher={Springer},year=2009,pages={42--4242},number=1}\n";
+    $bibtex = "@article{aKey,title={\`a Book},author={J\'e Lo},publisher={Springer},year=2009,pages={42--4242},number=1}\n";
    
     bibtexbrowser_configure('BIBTEXBROWSER_USE_LATEX2HTML', true);
     $test_data = fopen('php://memory','x+');
@@ -303,6 +303,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $db->update_internal("inline", $test_data);
     $dis = $db->getEntryByKey('aKey');
     $this->assertEquals("à Book",$dis->getTitle());
+    $this->assertEquals("Jé Lo",$dis->getFormattedAuthorsString());
     
     bibtexbrowser_configure('BIBTEXBROWSER_USE_LATEX2HTML', false);
     $test_data = fopen('php://memory','x+');
@@ -312,6 +313,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $db->update_internal("inline", $test_data);
     $dis = $db->getEntryByKey('aKey');
     $this->assertEquals("\`a Book",$dis->getTitle());
+    $this->assertEquals("J\'e Lo",$dis->getFormattedAuthorsString());
   }
 
   
