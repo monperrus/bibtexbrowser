@@ -976,7 +976,7 @@ function char2html_case_sensitive($line,$latexmodifier,$char,$entitiyfragment) {
 /** converts latex chars to HTML entities.
 (I still look for a comprehensive translation table from late chars to html, better than [[http://isdc.unige.ch/Newsletter/help.html]])
  */
-function latex2html($line) {
+function latex2html($line, $do_clean_extra_bracket=true) {
 
   $line = preg_replace('/([^\\\\])~/','\\1&nbsp;', $line);
 
@@ -1070,12 +1070,13 @@ function latex2html($line) {
   $line = str_replace('\\k{a}','&#261',$line);
   $line = str_replace('\\\'{c}','&#263',$line);
 
-
-  // clean extra tex curly brackets, usually used for preserving capitals
-  // must come before the final math replacement
-  $line = str_replace('}','',$line);
-  $line = str_replace('{','',$line);
-      
+  if ($do_clean_extra_bracket) {
+    // clean extra tex curly brackets, usually used for preserving capitals
+    // must come before the final math replacement
+    $line = str_replace('}','',$line);
+    $line = str_replace('{','',$line);
+  }
+  
   // we restore the math env
   for($i = 0; $i < count($maths); $i++) {
     $line = str_replace('__MATH'.$i.'__', $maths[$i], $line);
@@ -1427,17 +1428,17 @@ class BibEntry {
   
   function split_authors() {
     $array = preg_split('/ and /i', @$this->raw_fields[Q_AUTHOR]);
-    $res = array();    
+    $res = array();
     // we merge the remaining ones
     for ($i=0; $i < count($array)-1; $i++) {
-      if (strpos( $array[$i], '{') !== FALSE && strpos($array[$i+1],'}') !== FALSE) {
+      if (strpos( latex2html($array[$i],false), '{') !== FALSE && strpos(latex2html($array[$i+1],false),'}') !== FALSE) {
         $res[] = $this->clean_top_curly(trim($array[$i])." and ".trim($array[$i+1]));
         $i = $i + 1;
       } else {
         $res[] = trim($array[$i]);
       }
     }
-    if (!preg_match('/^\}/',$array[count($array)-1])) {
+    if (!preg_match('/\}/',latex2html($array[count($array)-1],false))) {
         $res[] = trim($array[count($array)-1]);    
     }
     return $res;

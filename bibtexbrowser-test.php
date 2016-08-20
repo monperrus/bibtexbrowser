@@ -456,7 +456,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Meyer, Heribert and Foo Bar", $entry->getFormattedAuthorsString());
         
         // Github issue 61
-        $bibtex = "@article{aKey61,title={An article Book},author = {Meyer, Heribert  and   {Advanced Air and Ground Research Team} and Foo Bar and J{\'e} Ko}}\n";
+        $bibtex = "@article{aKey61,title={An article Book},author = {Meyer, Heribert  and   {Advanced Air and Ground Research Team} and Foo Bar and J{\'e} Ko and J{\'e} Le and Fd L{\'e}}}\n";
         // wrong parsing of author names
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, $bibtex);
@@ -465,12 +465,13 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $db->update_internal("inline", $test_data);
         $entry = $db->getEntryByKey('aKey61');
         $authors = $entry->getRawAuthors();
-        $this->assertEquals(4, count($authors));
+        $this->assertEquals(6, count($authors));
         $this->assertEquals("Meyer, Heribert", $authors[0]);
         $this->assertEquals("Advanced Air and Ground Research Team", $authors[1]);
         $this->assertEquals("Foo Bar", $authors[2]);
         $this->assertEquals("J{\'e} Ko", $authors[3]);
-        $this->assertEquals("Jé Ko", $entry->getFormattedAuthorsArray()[3]);
+        $this->assertEquals("J{\'e} Le", $authors[4]);
+        $this->assertEquals("Fd L{\'e}", $authors[5]);
     }
     
     function test_latex2html() {
