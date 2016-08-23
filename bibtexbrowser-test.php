@@ -32,12 +32,12 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     ."@article{aKeyA,title={An Article},author={Foo Bar and Jane Doe},volume=5,journal=\"New Results\",year=2009,pages={1-2}}\n");
   }
   
-  function _createDB($content) {
+  function _createDB($content, $fakefilename="inline") {
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, $content);
     fseek($test_data,0);
     $btb = new BibDataBase();
-    $btb->update_internal("inline", $test_data);
+    $btb->update_internal($fakefilename, $test_data);
     return $btb;
   }
 
@@ -511,16 +511,36 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("array (\n  'Foo Acé' => 'Foo Acé',\n  'Martin Monperrus' => 'Martin Monperrus',\n)", $index);
     }
 
+    function test_string_entries() {
+        $btb = new BibDataBase();
+        $btb->load('bibacid-utf8.bib');
+        $this->assertEquals(5, count($btb->stringdb));
+        $this->assertEquals("@string{foo={Foo}}",$btb->stringdb['foo']->toString());
+    }
+    
     function test_identity() {
         $btb = new BibDataBase();
         $btb->load('bibacid-utf8.bib');
+        
+        // computing the representation
+        $d = new SimpleDisplay();
+        $d->setDB($btb);
+        ob_start();
+        $d->display();
+        $rep = ob_get_clean();
+        
         $nref = count($btb->bibdb);
         $bibtex = $btb->toBibtex();
         // reparsing the new content
-        $btb2 = $this->_createDB($bibtex);
+        $btb2 = $this->_createDB($bibtex, 'bibacid-utf8.bib');
+        $d->setDB($btb2);
+        ob_start();
+        $d->display();
+        $rep2 = ob_get_clean();
         // there is the same number of entries
         $this->assertEquals($nref, count($btb2->bibdb));
         $this->assertEquals($bibtex, $btb2->toBibtex());
+        $this->assertEquals($rep, $rep2);
     }
 
     function test_cli() {    

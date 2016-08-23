@@ -753,6 +753,10 @@ class StringEntry {
     $this->value=$v;
     $this->filename=$filename;
   }
+  
+  function toString() {
+    return '@string{'.$this->name.'={'.$this->value.'}}';
+  }
 } // end class StringEntry
 
 
@@ -3902,8 +3906,17 @@ class BibDataBase {
       return $result;
   }
   
+  /** returns the text of all @String entries of this dabatase */
+  function stringEntriesText() {
+    $s = "";
+    foreach($this->stringdb as $entry) { $s.=$entry->toString()."\n"; }
+    return $s;
+  }
+
+  /** returns a classical textual Bibtex representation of this database */
   function toBibtex() {
     $s = "";
+    $s .= $this->stringEntriesText();
     foreach($this->bibdb as $bibentry) { $s.=$bibentry->getText()."\n"; }
     return $s;
   }
