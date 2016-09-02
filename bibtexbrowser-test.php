@@ -562,6 +562,14 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         unlink($test_file);
     }
 
+    function test_removeField() {
+        $btb = $this->createDB();
+        $first_entry=$btb->getEntryByKey('aKey');
+        $this->assertTrue($first_entry->hasField('author'));
+        $first_entry->removeField('author');        
+        $this->assertFalse($first_entry->hasField('author'));
+    }
+    
 } // end class
 
 ?>

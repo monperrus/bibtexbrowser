@@ -1207,6 +1207,13 @@ class BibEntry {
     }
     return $value;
   }
+
+  /** removes a field from this bibtex entry */
+  function removeField($name) {
+    $name = strtolower($name);
+    unset($this->raw_fields[$name]);
+    unset($this->fields[$name]);  
+  }
   
   /** Sets a field of this bib entry. */
   function setField($name, $value) {
