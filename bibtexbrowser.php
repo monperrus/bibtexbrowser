@@ -68,10 +68,6 @@ if (defined('ENCODING')) {
 // if you don't like it, you can be disable it by adding in bibtexbrowser.local.php
 // @define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',false);
 @define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',true);
-// if you disable the Javascript progressive enhancement,
-// you may want the links to be open in a new window/tab
-// if yes, add in bibtexbrowser.local.php  define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',true);
-@define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',false);
 @define('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');// this is the name of a function
 @define('BIBLIOGRAPHYSECTIONS','DefaultBibliographySections');// this is the name of a function
 @define('BIBLIOGRAPHYTITLE','DefaultBibliographyTitle');// this is the name of a function
@@ -134,7 +130,7 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_GSID_LINKS',true);
 
 // should pdf, doi, url, gsid links be opened in a new window?
-@define('BIBTEXBROWSER_LINKS_IN_NEW_WINDOW',false);
+@define('BIBTEXBROWSER_LINKS_TARGET','_self');// can be _blank (new window), _top (with frames)
 
 // should authors be linked to [none/homepage/resultpage]
 // none: nothing
@@ -289,6 +285,14 @@ function default_message() {
     $url="?bib=".$bibfile; echo '<a href="'.$url.'" rel="nofollow">'.$bibfile.'</a><br/>';
   }
   echo "</div>";
+}
+
+/** returns the target of links */
+function get_target() {
+  if (c('BIBTEXBROWSER_LINKS_TARGET')!='_self') {
+    return " target=\"".c('BIBTEXBROWSER_LINKS_TARGET')."\"";
+  }
+  else return "";
 }
 
 /** @nodoc */
@@ -1285,7 +1289,7 @@ class BibEntry {
     if ($altlabel==NULL) { $altlabel=$bibfield; }
     $str = $this->getIconOrTxt($altlabel,$iconurl);
     if ($this->hasField($bibfield)) {
-       return '<a'.(BIBTEXBROWSER_LINKS_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField($bibfield).'">'.$str.'</a>';
+       return '<a'.get_target().' href="'.$this->getField($bibfield).'">'.$str.'</a>';
     }
     return '';
   }
@@ -1296,7 +1300,7 @@ class BibEntry {
     $href = 'href="'.$this->getURL().'"';
     // we add biburl and title to be able to retrieve this important information
     // using Xpath expressions on the XHTML source
-    $link = "<a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>$bibstr</a>";
+    $link = '<a'.get_target()." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>$bibstr</a>";
     return $link;
   }
 
@@ -1329,7 +1333,7 @@ class BibEntry {
   function getDoiLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('doi',$iconurl);
     if ($this->hasField('doi')) {
-        return '<a'.(BIBTEXBROWSER_LINKS_IN_NEW_WINDOW?' target="_blank" ':'').' href="http://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
+        return '<a'.get_target().' href="http://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
     }
     return '';
   }
@@ -1338,7 +1342,7 @@ class BibEntry {
   function getGSLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('cites',$iconurl);
     if ($this->hasField('gsid')) {
-        return ' <a'.(BIBTEXBROWSER_LINKS_IN_NEW_WINDOW?' target="_blank" ':'').' href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
+        return ' <a'.get_target().' href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
     }
     return '';
   }
@@ -1908,7 +1912,7 @@ class BibEntry {
     foreach ($vals as $field => $href) {
       if ($this->hasField($field)) {
         // this is not a parsing but a simple replacement
-        $entry = str_replace('___'.$field.'___', '<a'.(BIBTEXBROWSER_LINKS_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$href.'">'.$this->getField($field).'</a>', $entry);
+        $entry = str_replace('___'.$field.'___', '<a'.get_target().' href="'.$href.'">'.$this->getField($field).'</a>', $entry);
       }
     }
 
@@ -2248,7 +2252,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   // title
   // usually in bold: .bibtitle { font-weight:bold; }
   $title = '<span class="bibtitle"  itemprop="name">'.$title.'</span>';
-  if ($bibentry->hasField('url')) $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField('url').'">'.$title.'</a>';
+  if ($bibentry->hasField('url')) $title = ' <a'.get_target().' href="'.$bibentry->getField('url').'">'.$title.'</a>';
 
 
   $coreInfo = $title;
@@ -2366,7 +2370,7 @@ function JanosBibliographyStyle(&$bibentry) {
 
   // title
   $title = '"'.$title.'"';
-  if ($bibentry->hasField('url')) $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField('url').'">'.$title.'</a>';
+  if ($bibentry->hasField('url')) $title = ' <a'.get_target().' href="'.$bibentry->getField('url').'">'.$title.'</a>';
   $entry[] = $title;
 
 
@@ -2481,7 +2485,7 @@ function VancouverBibliographyStyle(&$bibentry) {
     $title = $title . '. ';
   }
   if ($bibentry->hasField('url')) {
-    $title = ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$bibentry->getField('url').'">'.$title.'</a>';
+    $title = ' <a'.get_target().' href="'.$bibentry->getField('url').'">'.$title.'</a>';
   }
 
   $entry[] = $title;

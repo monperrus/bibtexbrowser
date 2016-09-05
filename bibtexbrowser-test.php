@@ -81,6 +81,12 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     // Vancouver style
     bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','VancouverBibliographyStyle');
     $this->assertEquals("Foo Bar and Jane Doe. An Article. New Results. 2009;5:1-2.\n [bibtex]",strip_tags($first_entry->toHTML()));
+    
+    // changing the target
+    bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');
+    bibtexbrowser_configure('BIBTEXBROWSER_LINKS_TARGET','_top');
+    $this->assertEquals('<span itemscope="" itemtype="http://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">An Article</span> (<span class="bibauthor"><span itemprop="author" itemtype="http://schema.org/Person">Foo Bar</span> and <span itemprop="author" itemtype="http://schema.org/Person">Jane Doe</span></span>), <span class="bibbooktitle">In <span itemprop="isPartOf">New Results</span></span>, volume 5, <span itemprop="datePublished">2009</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.atitle=An+Article&amp;rft.jtitle=New+Results&amp;rft.volume=5&amp;rft.issue=&amp;rft.pub=&amp;rfr_id=info%3Asid%2F%3A&amp;rft.date=2009&amp;rft.au=Foo+Bar&amp;rft.au=Jane+Doe"></span></span> <span class="bibmenu"><a target="_top" class="biburl" title="aKeyA" href="bibtexbrowser.php?key=aKeyA&amp;bib=inline">[bibtex]</a></span>',$first_entry->toHTML());
+    
   }
 
   function testMultiSearch() {
