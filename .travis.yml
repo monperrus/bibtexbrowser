@@ -3,6 +3,7 @@ language: php
 php: 5.4
   
 script:
+    - curl -o reflectivedoc.php http://www.monperrus.net/martin/reflectivedoc.php.txt
     - curl -o gakowiki-syntax.php http://www.monperrus.net/martin/gakowiki-syntax.php.txt
     - phpunit bibtexbrowser-test.php
 

@@ -478,7 +478,7 @@ usage:
 <pre>
   $delegate = new XMLPrettyPrinter();// or another delegate such as BibDBBuilder
   $parser = new StateBasedBibtexParser($delegate);
-  $parser->parse('foo.bib');
+  $parser->parse(fopen('bibacid-utf8.bib','r'));
 </pre>
 notes:
  - It has no dependencies, it can be used outside of bibtexbrowser
@@ -493,6 +493,7 @@ class StateBasedBibtexParser {
   }
 
   function parse($handle) {
+    if (gettype($handle) == 'string') { throw new Exception('oops'); }
     $delegate = &$this->delegate;
     // STATE DEFINITIONS
     @define('NOTHING',1);
@@ -714,11 +715,36 @@ class StateBasedBibtexParser {
   } // end function
 } // end class
 
-/** is a delegate for StateBasedBibParser.
+/** a default empty implementation of a delegate for StateBasedBibtexParser */
+class ParserDelegate {
+
+  function beginFile() {}
+
+  function endFile() {}
+
+  function setEntryField($finalkey,$entryvalue) {}
+
+  function setEntryType($entrytype) {}
+
+  function setEntryKey($entrykey) {}
+
+  function beginEntry() {}
+
+  function endEntry($entrysource) {}
+  
+  /** called for each sub parts of type {part} of a field value 
+   * for now, only CURLYTOP and CURLYONE events
+  */
+  function entryValuePart($key, $value, $type) {}
+  
+} // end class ParserDelegate
+
+
+/** is a possible delegate for StateBasedBibParser.
 usage:
 see snippet of [[#StateBasedBibParser]]
 */
-class XMLPrettyPrinter {
+class XMLPrettyPrinter extends ParserDelegate {
   function beginFile() {
     header('Content-type: text/xml;');
     print '<?xml version="1.0" encoding="'.OUTPUT_ENCODING.'"?>';
@@ -764,29 +790,6 @@ class StringEntry {
 } // end class StringEntry
 
 
-/** a default empty implementation of a delegate for StateBasedBibtexParser */
-class ParserDelegate {
-
-  function beginFile() {}
-
-  function endFile() {}
-
-  function setEntryField($finalkey,$entryvalue) {}
-
-  function setEntryType($entrytype) {}
-
-  function setEntryKey($entrykey) {}
-
-  function beginEntry() {}
-
-  function endEntry($entrysource) {}
-  
-  /** called for each sub parts of type {part} of a field value 
-   * for now, only CURLYTOP and CURLYONE events
-  */
-  function entryValuePart($key, $value, $type) {}
-  
-} // end class ParserDelegate
 
 
 /** builds arrays of BibEntry objects from a bibtex file.
@@ -794,7 +797,7 @@ usage:
 <pre>
   $empty_array = array();
   $db = new BibDBBuilder(); // see also factory method createBibDBBuilder
-  $db->build('foo.bib'); // parses foo.bib
+  $db->build('bibacid-utf8.bib'); // parses bib file
   print_r($db->builtdb);// an associated array key -> BibEntry objects
   print_r($db->stringdb);// an associated array key -> strings representing @string
 </pre>
@@ -1115,8 +1118,8 @@ function formatAuthor() {
 /** represents a bibliographic entry.
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
-  $entry = $db->getEntryByKey('Schmietendorf2000');
+  $db = zetDB('bibacid-utf8.bib');
+  $entry = $db->getEntryByKey('classical');
   echo bib2html($entry);
 </pre>
 notes:
@@ -2631,7 +2634,7 @@ function splitFullName($author){
 usage:
 <pre>
   $_GET['library']=1;
-  $_GET['bib']='metrics.bib';
+  $_GET['bib']='bibacid-utf8.bib';
   $_GET['all']=1;
   include( 'bibtexbrowser.php' );
   setDB();
@@ -2723,7 +2726,7 @@ if (!function_exists('javascript_math')) {
 /** is used for creating menus (by type, by year, by author, etc.).
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
+  $db = zetDB('bibacid-utf8.bib');
   $menu = new MenuManager();
   $menu->setDB($db);
   $menu->year_size=100;// should display all years :)
@@ -2979,7 +2982,7 @@ function query2title(&$query) {
 /** displays the latest modified bibtex entries.
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
+  $db = zetDB('bibacid-utf8.bib');
   $d = new NewEntriesDisplay();
   $d->setDB($db);
   $d->setN(7);// optional
@@ -3015,7 +3018,7 @@ class NewEntriesDisplay {
 /** displays the entries by year in reverse chronological order.
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
+  $db = zetDB('bibacid-utf8.bib');
   $d = new YearDisplay();
   $d->setDB($db);
   $d->display();
@@ -3072,7 +3075,7 @@ class YearDisplay {
 /** displays the summary information of all bib entries.
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
+  $db = zetDB('bibacid-utf8.bib');
   $d = new SimpleDisplay();
   $d->setDB($db);
   $d->display();
@@ -3237,7 +3240,7 @@ class NotFoundDisplay {
 /** displays the publication records sorted by publication types (as configured by constant BIBLIOGRAPHYSECTIONS).
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
+  $db = zetDB('bibacid-utf8.bib');
   $d = new AcademicDisplay();
   $d->setDB($db);
   $d->display();
@@ -3324,8 +3327,8 @@ class AcademicDisplay  {
 /** displays a single bib entry.
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
-  $dis = new BibEntryDisplay($db->getEntryByKey('Schmietendorf2000'));
+  $db = zetDB('bibacid-utf8.bib');
+  $dis = new BibEntryDisplay($db->getEntryByKey('classical'));
   $dis->display();
 </pre>
 notes:
@@ -3617,7 +3620,7 @@ class BibEntryDisplay {
 usage:
 <pre>
 $db = new BibDataBase();
-$db->load('metrics.bib');
+$db->load('bibacid-utf8.bib');
 $query = array('author'=>'martin', 'year'=>2008);
 foreach ($db->multisearch($query) as $bibentry) { echo $bibentry->getTitle(); }
 </pre>
@@ -4070,9 +4073,9 @@ dd {
 /** encapsulates the content of a delegate into full-fledged HTML (&lt;HTML>&lt;BODY> and TITLE)
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
-  $dis = new BibEntryDisplay($db->getEntryByKey('Schmietendorf2000'));
-  new HTMLTemplate($dis);
+  $db = zetDB('bibacid-utf8.bib');
+  $dis = new BibEntryDisplay($db->getEntryByKey('classical'));
+  HTMLTemplate($dis);   
 </pre>
  * $content: an object with methods
       display()
@@ -4156,9 +4159,9 @@ if (method_exists($content, 'getTitle')) {
 /** does nothing but calls method display() on the content.
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
+  $db = zetDB('bibacid-utf8.bib');
   $dis = new SimpleDisplay($db);
-  new NoWrapper($dis);
+  NoWrapper($dis);
 </pre>
 */
 function NoWrapper(&$content) {
@@ -4168,9 +4171,10 @@ function NoWrapper(&$content) {
 /** is used to create an subset of a bibtex file.
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
+  $db = zetDB('bibacid-utf8.bib');
   $query = array('year'=>2005);
-  $dis = new BibtexDisplay()->setEntries($db->multisearch($query));
+  $dis = new BibtexDisplay();
+  $dis->setEntries($db->multisearch($query));
   $dis->display();
 </pre>
 */
@@ -4193,7 +4197,6 @@ class BibtexDisplay {
     echo '% '.@$this->title."\n";
     echo '% Encoding: '.OUTPUT_ENCODING."\n";
     foreach($this->entries as $bibentry) { echo $bibentry->getText()."\n"; }
-    exit;
   }
 
 }
@@ -4203,7 +4206,7 @@ usage:
 <pre>
   $_GET['library']=1;
   include( 'bibtexbrowser.php' );
-  $db = zetDB('metrics.bib');
+  $db = zetDB('bibacid-utf8.bib');
   $pd = new PagedDisplay();
   $pd->setEntries($db->bibdb);
   $pd->display();
@@ -4291,7 +4294,7 @@ class PagedDisplay {
 /** is used to create an RSS feed.
 usage:
 <pre>
-  $db = zetDB('metrics.bib');
+  $db = zetDB('bibacid-utf8.bib');
   $query = array('year'=>2005);
   $rss = new RSSDisplay();
   $entries = $db->getLatestEntries(10);
@@ -4388,8 +4391,7 @@ usage:
 <pre>
   $_GET['library']=1;
   @require('bibtexbrowser.php');
-  // simulating ?bib=metrics.bib&year=2009
-  $_GET['bib']='metrics.bib';
+  $_GET['bib']='bibacid-utf8.bib';
   $_GET['year']='2006';
   $x = new Dispatcher();
   $x->main();

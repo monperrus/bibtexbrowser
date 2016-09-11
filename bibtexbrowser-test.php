@@ -10,22 +10,44 @@ $ phpunit --coverage-html ./coverage btb-test.php
 (be sure that xdebug is enabled: /etc/php5/cli/conf.d# ln -s ../../mods-available/xdebug.ini)
 */
 
-$_GET['library']=1;
+function exception_error_handler($severity, $message, $file, $line) {
+    if ($severity != E_ERROR) {
+	//trigger_error($message);
+        return;
+    }
+    throw new ErrorException($message, 0, $severity, $file, $line);
+}
+error_reporting(E_ALL);
 
 @copy('bibtexbrowser.local.php','bibtexbrowser.local.php.bak');
 @unlink('bibtexbrowser.local.php');
 
-require_once ('bibtexbrowser.php');
+if(is_file('reflectivedoc.php')) { 
+  set_error_handler("exception_error_handler");
+  require('reflectivedoc.php');
+  $_GET['library'] = 1;
+  foreach(getAllSnippetsInFile('bibtexbrowser.php') as $snippet) {
+    //echo $snippet;
+    ob_start();
+    eval($snippet);
+    ob_get_clean();
+    unset($_GET['bib']);
+  }
+  restore_error_handler();
+} else {
+  $_GET['library']=1;
+  require_once ('bibtexbrowser.php');
+}
 
-error_reporting(E_ALL);
 
 class BTBTest extends PHPUnit_Framework_TestCase {
 
   function test_checkdoc() {
-    include('gakowiki-syntax.php');
+    if(!is_file('gakowiki-syntax.php')) { return; }
+    if (!function_exists('gk_wiki2html')) { include('gakowiki-syntax.php'); }
     create_wiki_parser()->parse(file_get_contents('bibtexbrowser-documentation.wiki'));
   }
-  
+    
   function createDB() {
     return $this->_createDB("@book{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n"
     ."@book{aKey/withSlash,title={Slash Dangerous for web servers},author={Ap Ache},publisher={Springer},year=2009}\n"
@@ -577,5 +599,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     }
     
 } // end class
+
+@copy('bibtexbrowser.local.php.bak','bibtexbrowser.local.php');
 
 ?>
