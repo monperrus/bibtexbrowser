@@ -12,10 +12,5 @@
     ],
     "require": {
         "php": "4.x - 5.x"
-    },
-    "autoload": {
-        "psr-4": {
-            "Bibtexbrowser\\": "/"
-        }
     }
 }
