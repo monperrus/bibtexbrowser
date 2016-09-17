@@ -12,5 +12,8 @@
     ],
     "require": {
         "php": "4.x - 5.x"
+    },
+    "autoload": {
+        "files": ["bibtexbrowser.php"]
     }
 }
