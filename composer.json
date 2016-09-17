@@ -1,0 +1,21 @@
+{
+    "name": "monperrus/bibtexbrowser",
+    "description": "bibtexbrowser is a PHP script that creates publication lists from Bibtex files. bibtexbrowser is stable, mature and easy to install.",
+    "homepage": "http://www.monperrus.net/martin/bibtexbrowser/",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Martin Monperrus",
+            "homepage": "http://www.monperrus.net",
+            "role": "Original Developer"
+        }
+    ],
+    "require": {
+        "php": "4.x - 5.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bibtexbrowser\\": "/"
+        }
+    }
+}
