@@ -1,5 +1,5 @@
 <?php
-namespace bibtexbrowser;
+namespace monperrus\bibtexbrowser;
 /* bibtexbrowser: publication lists with bibtex and PHP
 <!--this is version v__GITHUB__ -->
 URL: http://www.monperrus.net/martin/bibtexbrowser/
