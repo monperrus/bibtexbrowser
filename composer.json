@@ -14,6 +14,8 @@
         "php": "4 - 5"
     },
     "autoload": {
-        "files": ["bibtexbrowser.php"]
+        "psr-4": {
+            "Bibtexbrowser\Bibtexbrowser:\\": "."
+        }
     }
 }
