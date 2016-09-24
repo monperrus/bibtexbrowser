@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Monperrus\\Bibtexbrowser\\": "./"
+            "monperrus\\bibtexbrowser\\": "./"
         }
     }
 }
