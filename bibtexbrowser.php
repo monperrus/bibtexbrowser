@@ -1,4 +1,6 @@
-<?php /* bibtexbrowser: publication lists with bibtex and PHP
+<?php
+namespace Bibtexbrowser;
+/* bibtexbrowser: publication lists with bibtex and PHP
 <!--this is version v__GITHUB__ -->
 URL: http://www.monperrus.net/martin/bibtexbrowser/
 Feedback & Bug Reports: martin.monperrus@gnieh.org
