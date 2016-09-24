@@ -14,8 +14,8 @@
         "php": "4 - 5"
     },
     "autoload": {
-        "classmap": [
-            "monperrus/bibtexbrowser/bibtexbrowser.php"
+         "files": [
+            "src/bibtexbrowser.php"
         ]
     }
 }
