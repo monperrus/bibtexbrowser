@@ -15,7 +15,7 @@
     },
     "autoload": {
         "classmap": [
-            "bibtexbrowser.php"
+            "monperrus/bibtexbrowser/bibtexbrowser.php"
         ]
     }
 }
