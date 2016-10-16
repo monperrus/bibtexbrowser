@@ -597,6 +597,20 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $first_entry->removeField('author');        
         $this->assertFalse($first_entry->hasField('author'));
     }
+
+    function testdefaultkey() {
+        bibtexbrowser_configure('BIBTEXBROWSER_BIBTEX_VIEW', 'original');
+        $bibtex = "@article{title={An article Book},author = {Martin Monperrus and Foo Ac\'e and Monperrus, Martin}}";
+        $key = md5($bibtex);
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+        $entry=$db->getEntryByKey($key);
+        $this->assertEquals($bibtex, $entry->getText());
+    }
+
     
 } // end class
 

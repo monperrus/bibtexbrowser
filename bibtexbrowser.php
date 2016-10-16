@@ -911,7 +911,7 @@ class BibDBBuilder extends ParserDelegate {
 
     // we add a key if there is no key
     if (!$this->currentEntry->hasField(Q_KEY) && $this->currentEntry->getType()!='string') {
-      $this->currentEntry->setField(Q_KEY,md5($this->currentEntry->getTitle().implode('',$this->currentEntry->getRawAuthors())));
+      $this->currentEntry->setField(Q_KEY,md5($entrysource));
     }
 
     // we set the fulltext
