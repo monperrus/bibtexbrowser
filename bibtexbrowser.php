@@ -2337,14 +2337,6 @@ function DefaultBibliographyStyle(&$bibentry) {
 
   $result = implode(", ",$entry).'.';
 
-  // some comments (e.g. acceptance rate)?
-  if ($bibentry->hasField('comment')) {
-      $result .=  " <span class=\"bibcomment\">(".$bibentry->getField("comment").")</span>";
-  }
-  if ($bibentry->hasField('note')) {
-      $result .=  " (".$bibentry->getField("note").")";
-  }
-
   // add the Coin URL
   $result .=  $bibentry->toCoins();
 
@@ -2442,11 +2434,6 @@ function JanosBibliographyStyle(&$bibentry) {
   if ($bibentry->hasField(YEAR)) $entry[] = $bibentry->getYear();
 
   $result = implode(", ",$entry).'.';
-
-  // some comments (e.g. acceptance rate)?
-  if ($bibentry->hasField('comment')) {
-      $result .=  " (".$bibentry->getField("comment").")";
-  }
 
   // add the Coin URL
   $result .=  "\n".$bibentry->toCoins();
