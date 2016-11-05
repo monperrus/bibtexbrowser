@@ -1343,7 +1343,7 @@ class BibEntry {
 
   /** GS (Google Scholar) are a special kind of links, where the url depends on the google scholar id */
   function getGSLink($iconurl=NULL) {
-    $str = $this->getIconOrTxt('cites',$iconurl);
+    $str = $this->getIconOrTxt('citations',$iconurl);
     if ($this->hasField('gsid')) {
         return ' <a'.get_target().' href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
     }
