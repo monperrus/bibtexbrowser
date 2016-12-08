@@ -1336,7 +1336,7 @@ class BibEntry {
   function getDoiLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('doi',$iconurl);
     if ($this->hasField('doi')) {
-        return '<a'.get_target().' href="http://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
+        return '<a'.get_target().' href="https://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
     }
     return '';
   }
@@ -1345,7 +1345,7 @@ class BibEntry {
   function getGSLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('citations',$iconurl);
     if ($this->hasField('gsid')) {
-        return ' <a'.get_target().' href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
+        return ' <a'.get_target().' href="https://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
     }
     return '';
   }
