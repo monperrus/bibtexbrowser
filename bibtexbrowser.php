@@ -1901,7 +1901,7 @@ class BibEntry {
 
     // Fields that should be hyperlinks
     // the order matters
-    $hyperlinks = array('url' => '%O', 'file' => '%O', 'pdf' => '%O', 'doi' => 'http://dx.doi.org/%O', 'gsid' => 'http://scholar.google.com/scholar?cites=%O');
+    $hyperlinks = array('url' => '%O', 'file' => '%O', 'pdf' => '%O', 'doi' => 'https://dx.doi.org/%O', 'gsid' => 'https://scholar.google.com/scholar?cites=%O');
 
     $vals = array();
     foreach ($hyperlinks as $field => $url) {
@@ -2266,7 +2266,7 @@ function DefaultBibliographyStyle(&$bibentry) {
     
     $authors = array();
     foreach ($bibentry->getFormattedAuthorsArray() as $a) {
-       $authors[]='<span itemprop="author" itemtype="http://schema.org/Person">'.$a.'</span>';      
+       $authors[]='<span itemprop="author" itemtype="https://schema.org/Person">'.$a.'</span>';      
     }
     $coreInfo .= $bibentry->implodeAuthors($authors);
     
@@ -2340,7 +2340,7 @@ function DefaultBibliographyStyle(&$bibentry) {
   // add the Coin URL
   $result .=  $bibentry->toCoins();
 
-  return '<span itemscope="" itemtype="http://schema.org/ScholarlyArticle">'.$result.'</span>';
+  return '<span itemscope="" itemtype="https://schema.org/ScholarlyArticle">'.$result.'</span>';
 }
 
 
@@ -4075,10 +4075,10 @@ function HTMLTemplate(&$content) {
 // when we load a page with AJAX
 // the HTTP header is taken into account, not the <meta http-equiv>
 header('Content-type: text/html; charset='.OUTPUT_ENCODING);
-echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'."\n";
+echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'."\n";
 
 ?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="https://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo OUTPUT_ENCODING ?>"/>
 <meta name="generator" content="bibtexbrowser v__GITHUB__" />
@@ -4340,7 +4340,7 @@ class RSSDisplay {
 //
 
 ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom">
    <channel>
       <title><?php echo $this->title;?></title>
       <link>http://<?php echo $_SERVER['HTTP_HOST'].htmlentities($_SERVER['REQUEST_URI']);?></link>
@@ -4706,8 +4706,8 @@ class Dispatcher {
   function frameset() {    ?>
 
 
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
-    <html  xmlns="http://www.w3.org/1999/xhtml">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+    <html  xmlns="https://www.w3.org/1999/xhtml">
     <head>
     <meta name="generator" content="bibtexbrowser v__GITHUB__" />
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo OUTPUT_ENCODING ?>"/>
