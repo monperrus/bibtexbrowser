@@ -70,7 +70,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     
     // default style
     $this->assertEquals("A Book (Martin Monperrus), Springer, 2009. [bibtex]",strip_tags($first_entry->toHTML()));
-    $this->assertEquals('<span itemscope="" itemtype="http://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">A Book</span> (<span class="bibauthor"><span itemprop="author" itemtype="http://schema.org/Person">Martin Monperrus</span></span>), <span class="bibpublisher">Springer</span>, <span itemprop="datePublished">2009</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.btitle=A+Book&amp;rft.genre=book&amp;rft.pub=Springer&amp;rfr_id=info%3Asid%2F%3A&amp;rft.date=2009&amp;rft.au=Martin+Monperrus"></span></span> <span class="bibmenu"><a class="biburl" title="aKey" href="bibtexbrowser.php?key=aKey&amp;bib=inline">[bibtex]</a></span>',$first_entry->toHTML());
+    $this->assertEquals('<span itemscope="" itemtype="https://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">A Book</span> (<span class="bibauthor"><span itemprop="author" itemtype="https://schema.org/Person">Martin Monperrus</span></span>), <span class="bibpublisher">Springer</span>, <span itemprop="datePublished">2009</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.btitle=A+Book&amp;rft.genre=book&amp;rft.pub=Springer&amp;rfr_id=info%3Asid%2F%3A&amp;rft.date=2009&amp;rft.au=Martin+Monperrus"></span></span> <span class="bibmenu"><a class="biburl" title="aKey" href="bibtexbrowser.php?key=aKey&amp;bib=inline">[bibtex]</a></span>',$first_entry->toHTML());
 
     // IEEE style
     bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
@@ -94,7 +94,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     
     // default style
     $this->assertEquals("An Article (Foo Bar and Jane Doe), In New Results, volume 5, 2009. [bibtex]",strip_tags($first_entry->toHTML()));
-    $this->assertEquals('<span itemscope="" itemtype="http://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">An Article</span> (<span class="bibauthor"><span itemprop="author" itemtype="http://schema.org/Person">Foo Bar</span> and <span itemprop="author" itemtype="http://schema.org/Person">Jane Doe</span></span>), <span class="bibbooktitle">In <span itemprop="isPartOf">New Results</span></span>, volume 5, <span itemprop="datePublished">2009</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.atitle=An+Article&amp;rft.jtitle=New+Results&amp;rft.volume=5&amp;rft.issue=&amp;rft.pub=&amp;rfr_id=info%3Asid%2F%3A&amp;rft.date=2009&amp;rft.au=Foo+Bar&amp;rft.au=Jane+Doe"></span></span> <span class="bibmenu"><a class="biburl" title="aKeyA" href="bibtexbrowser.php?key=aKeyA&amp;bib=inline">[bibtex]</a></span>',$first_entry->toHTML());
+    $this->assertEquals('<span itemscope="" itemtype="https://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">An Article</span> (<span class="bibauthor"><span itemprop="author" itemtype="https://schema.org/Person">Foo Bar</span> and <span itemprop="author" itemtype="https://schema.org/Person">Jane Doe</span></span>), <span class="bibbooktitle">In <span itemprop="isPartOf">New Results</span></span>, volume 5, <span itemprop="datePublished">2009</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.atitle=An+Article&amp;rft.jtitle=New+Results&amp;rft.volume=5&amp;rft.issue=&amp;rft.pub=&amp;rfr_id=info%3Asid%2F%3A&amp;rft.date=2009&amp;rft.au=Foo+Bar&amp;rft.au=Jane+Doe"></span></span> <span class="bibmenu"><a class="biburl" title="aKeyA" href="bibtexbrowser.php?key=aKeyA&amp;bib=inline">[bibtex]</a></span>',$first_entry->toHTML());
 
     // IEEE style
     bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
@@ -107,7 +107,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     // changing the target
     bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');
     bibtexbrowser_configure('BIBTEXBROWSER_LINKS_TARGET','_top');
-    $this->assertEquals('<span itemscope="" itemtype="http://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">An Article</span> (<span class="bibauthor"><span itemprop="author" itemtype="http://schema.org/Person">Foo Bar</span> and <span itemprop="author" itemtype="http://schema.org/Person">Jane Doe</span></span>), <span class="bibbooktitle">In <span itemprop="isPartOf">New Results</span></span>, volume 5, <span itemprop="datePublished">2009</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.atitle=An+Article&amp;rft.jtitle=New+Results&amp;rft.volume=5&amp;rft.issue=&amp;rft.pub=&amp;rfr_id=info%3Asid%2F%3A&amp;rft.date=2009&amp;rft.au=Foo+Bar&amp;rft.au=Jane+Doe"></span></span> <span class="bibmenu"><a target="_top" class="biburl" title="aKeyA" href="bibtexbrowser.php?key=aKeyA&amp;bib=inline">[bibtex]</a></span>',$first_entry->toHTML());
+    $this->assertEquals('<span itemscope="" itemtype="https://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">An Article</span> (<span class="bibauthor"><span itemprop="author" itemtype="https://schema.org/Person">Foo Bar</span> and <span itemprop="author" itemtype="https://schema.org/Person">Jane Doe</span></span>), <span class="bibbooktitle">In <span itemprop="isPartOf">New Results</span></span>, volume 5, <span itemprop="datePublished">2009</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.atitle=An+Article&amp;rft.jtitle=New+Results&amp;rft.volume=5&amp;rft.issue=&amp;rft.pub=&amp;rfr_id=info%3Asid%2F%3A&amp;rft.date=2009&amp;rft.au=Foo+Bar&amp;rft.au=Jane+Doe"></span></span> <span class="bibmenu"><a target="_top" class="biburl" title="aKeyA" href="bibtexbrowser.php?key=aKeyA&amp;bib=inline">[bibtex]</a></span>',$first_entry->toHTML());
     
   }
 
@@ -302,7 +302,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $btb = new BibDataBase();
     $btb->update_internal("inline", $test_data);    
     $first_entry=$btb->bibdb[array_keys($btb->bibdb)[0]];
-    $this->assertEquals('<pre class="purebibtex">@Article{Baldwin2014Quantum,Doi={<a href="http://dx.doi.org/10.1103/PhysRevA.90.012110">10.1103/PhysRevA.90.012110</a>},Url={<a href="http://link.aps.org/doi/10.1103/PhysRevA.90.012110">http://link.aps.org/doi/10.1103/PhysRevA.90.012110</a>}}</pre>',$first_entry->toEntryUnformatted());    
+    $this->assertEquals('<pre class="purebibtex">@Article{Baldwin2014Quantum,Doi={<a href="https://dx.doi.org/10.1103/PhysRevA.90.012110">10.1103/PhysRevA.90.012110</a>},Url={<a href="http://link.aps.org/doi/10.1103/PhysRevA.90.012110">http://link.aps.org/doi/10.1103/PhysRevA.90.012110</a>}}</pre>',$first_entry->toEntryUnformatted());    
   }
 
   function test_filter_view() {
@@ -620,7 +620,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $db = new BibDataBase();
         $db->update_internal("inline", $test_data);
         $entry=$db->getEntryByKey("key");
-        $this->assertContains('<a href="http://scholar.google.com/scholar?cites=1234">[citations]</a>', $entry->toHTML());
+        $this->assertContains('<a href="https://scholar.google.com/scholar?cites=1234">[citations]</a>', $entry->toHTML());
     }
     
 } // end class
