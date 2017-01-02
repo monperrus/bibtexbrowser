@@ -514,6 +514,11 @@ Use ''bibtexbrowser-cli.php''. For instance:
 php bibtexbrowser-cli.php mybib.bib --id classical --set-title \"a new title\" --id with_abstract --set-title \"a new title\" --set-year 1990
 </pre>
 
+====How to use with composer?====
+Bibtexbrowser can now be downloaded with composer, though not yet with packagist.
+
+
+
 =====Related tools=====
 
 Old-fashioned:
