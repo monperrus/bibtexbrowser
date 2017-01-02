@@ -518,7 +518,7 @@ php bibtexbrowser-cli.php mybib.bib --id classical --set-title \"a new title\" -
 Bibtexbrowser can now be downloaded with composer, though not yet with packagist.
 
 In your project's `composer.json`, you must add this repo to the `repositories` section. As well, you must specify version `dev-master`, for now:
-````JSON
+<pre>
 {
     "repositories": [
 	{
@@ -530,8 +530,7 @@ In your project's `composer.json`, you must add this repo to the `repositories` 
         "monperrus/bibtexbrowser": "dev-master"
     }
 }
-
-````
+</pre>
 
 =====Related tools=====
 
