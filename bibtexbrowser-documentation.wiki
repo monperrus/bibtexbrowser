@@ -515,7 +515,7 @@ php bibtexbrowser-cli.php mybib.bib --id classical --set-title \"a new title\" -
 </pre>
 
 ====How to use with composer?====
-Bibtexbrowser can now be downloaded with composer, though not yet with packagist.
+Bibtexbrowser can now be downloaded from packagist with composer.
 
 In your project's `composer.json`, you must add this repo to the `repositories` section. As well, you must specify version `dev-master`, for now:
 <pre>
