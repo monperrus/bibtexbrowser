@@ -1,4 +1,4 @@
-<!-- 
+<!--
 This is the source file of the documentation of bibtexbrowser.
 It uses the Wiki syntax similar to dokuwiki and mediawiki.
 Is is rendered as HTML on http://www.monperrus.net/martin/bibtcomexbrowser/.
@@ -11,6 +11,7 @@ This documentation is collaborative, you can improve it using a [[https://github
 +++TOC+++
 
 =====Features=====
+* **(01/2017)** support basic composer support
 * **(02/2016)** support for [[http://ogp.me/|OpenGraph metadata]]
 * **(10/2015)** support for filtering bibtex fields
 * **(10/2013)** support for localization (see below)
@@ -26,7 +27,7 @@ This documentation is collaborative, you can improve it using a [[https://github
 * **(10/2009)** bibtexbrowser is now independent of the configuration of register_globals
 * **(01/2009)** bibtexbrowser allows multi criteria search, e.g.  [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;type=inproceedings&amp;year=20013|demo]]
 * bibtexbrowser generates [[http://ocoins.info/|COinS]] for automatic import of bibliographic entries with [[http://www.zotero.org/|Zotero]] and [[http://www.mendeley.com/|Mendeley]].
-* bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar. 
+* bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar.
 * bibtexbrowser replaces constants defined in @STRING
 * bibtexbrowser is very fast because it keeps a compiled version of the bibtex file (PHP object serialized)
 * bibtexbrowser is compatible with PHP 4.x and PHP 5.x
@@ -46,7 +47,7 @@ This documentation is collaborative, you can improve it using a [[https://github
 For feature requests or bug reports, please comment this page below; patches can be contributed as pull requests on [[https://github.com/monperrus/bibtexbrowser|github]]:)
 
 <!-- //Release Candidate//: [[http://www.monperrus.net/martin/bibtexbrowser/bibtexbrowser-rc.php.txt]] -->
-'''Stable Version''':  [[http://www.monperrus.net/martin/bibtexbrowser.php.txt|bibtexbrowser.php]]  
+'''Stable Version''':  [[http://www.monperrus.net/martin/bibtexbrowser.php.txt|bibtexbrowser.php]]
 [[https://github.com/monperrus/bibtexbrowser/commits/master|Changelog]]
 
 Don't hesitate to contact me to be added in the [[http://www.monperrus.net/martin/bibtexbrowser/users|lists of bibtexbrowser users]]:-)
@@ -56,7 +57,7 @@ Don't hesitate to contact me to be added in the [[http://www.monperrus.net/marti
 The following uses bibtexbrowser under the hood:
 * [[http://www.monperrus.net/martin/bibtex-prettyprint|A pretty-printer and cleaner for Bibtex]]
 * [[http://github.com/KaiBi/IEEEStyleForBibtexbrowser|A custom citation style for bibtexbrowser adhering to the IEEE citations guidelines (on github)]]
-* Generating publication lists in Latex using [[http://www.monperrus.net/martin/bibtex2latex]] 
+* Generating publication lists in Latex using [[http://www.monperrus.net/martin/bibtex2latex]]
 * [[http://www.monperrus.net/martin/feeding-mysql-database-with-bibtexbrowser|Feeding a MySQL database from the content of a bibtex file]]
 * Publication lists in Wordpress with [[http://www.monperrus.net/martin/wp-publications|wp-publications]]
 * [[http://www.monperrus.net/martin/publication-lists-with-hal-and-bibtexbrowser|Publication lists with HAL and bibtexbrowser]]
@@ -96,10 +97,10 @@ $db->load('biblio.bib');
 // can also be $query = array('year'=>'.*');
 $query = array('year'=>'2014');
 $entries=$db->multisearch($query);
-uasort($entries, 'compare_bib_entries'); 
+uasort($entries, 'compare_bib_entries');
 
-foreach ($entries as $bibentry) { 
-  echo $bibentry->toHTML()."&lt;br/>"; 
+foreach ($entries as $bibentry) {
+  echo $bibentry->toHTML()."&lt;br/>";
 }
 ?>
 </pre>
@@ -189,7 +190,7 @@ For contributing with a new style, [[http://www.monperrus.net/martin/|please dro
 
 ====How to change the link style?====
 
-By default each bibliographic entry is followed by 
+By default each bibliographic entry is followed by
 [bibtex] [pdf] [doi], etc.
 
 This can be tailored by configuring as follows (in the file ''bibtexbrowser.local.php'')
@@ -198,15 +199,15 @@ define('BIBTEXBROWSER_LINK_STYLE','MyFancyBib2links');
 function MyFancyBib2links(&$bibentry) {
   // bib is a special type of link. without the url argument or with an invalid image, it prints '[bibtex]'
   $result = $bibentry->getBibLink();
-  
+
   $result .= ' '.$bibentry->getLink('url');
-  
+
   // Google Scholar ID. empty string if no gsid field present
   $result .= ' '.$bibentry->getGSLink();
-  
+
   // returns an empty string if no doi field present
   $result .= ' '.$bibentry->getDoiLink();
-  
+
   return $result;
 }
 ?>
@@ -262,7 +263,7 @@ You may create your own one in ''bibtexbrowser.local.php'' (see also "creating a
 <pre>
 define('BIBLIOGRAPHYSECTIONS','my_sectioning');
 function my_sectioning() {
-return  
+return
   array(
   // Books
     array(
@@ -313,7 +314,7 @@ Add in ''bibtexbrowser.local.php'':
 global $BIBTEXBROWSER_LANG;
 $BIBTEXBROWSER_LANG=array();
 $BIBTEXBROWSER_LANG['Refereed Conference Papers']="Conférences avec comité de lecture";
-... 
+...
 $BIBTEXBROWSER_LANG['Year']="Année";
 ?>
 </pre>
@@ -345,9 +346,9 @@ $db = new BibDataBase();
 $db->load('biblio.bib');
 $query = array('year'=>'2014');
 $entries=$db->multisearch($query);
-uasort($entries, 'compare_bib_entries'); 
-foreach ($entries as $bibentry) { 
-  echo $bibentry->getYear().'<br/>'; 
+uasort($entries, 'compare_bib_entries');
+foreach ($entries as $bibentry) {
+  echo $bibentry->getYear().'<br/>';
 }
 ?>
 </pre>
@@ -409,7 +410,7 @@ and then in ''bibtexbrowser.after.php'':
 class PgmDispatcher extends Dispatcher {
   function getDB() {
     $db = new BibDataBase();
-    
+
     // builds the first entry
     $entry = new BibEntry();
     $entry->setType("article");
@@ -417,7 +418,7 @@ class PgmDispatcher extends Dispatcher {
     $entry->setField("year", "2014");
     $entry->setKey("kolp");
     $db->addEntry($entry);
-    
+
     // builds the second entry
     $entry2 = new BibEntry();
     $entry2->setType("article");
@@ -425,13 +426,13 @@ class PgmDispatcher extends Dispatcher {
     $entry2->setField("year", "2013");
     $entry2->setKey("tili");
     $db->addEntry($entry2);
-    
+
     return $db;
   }
 }
 ?>
 </pre>
-    
+
 ====How to remove fields from the bibtex text?====
 
 If you want to remove some fields (e.g. abbrv and comment) from the resulting bibtex, add in ''bibtexbrowser.local.php'':
@@ -480,7 +481,7 @@ include('bibtexbrowser.php');
 ''output.php'':
 <pre>
 OUTPUT (no header sent)
-&lt;?php 
+&lt;?php
 define('BIBTEXBROWSER_URL','elem.php');
 include('bibtexbrowser.php');
 ?>
@@ -489,8 +490,8 @@ include('bibtexbrowser.php');
 ''elem.php'':
 <pre>
 ELEM (no header sent)
-&lt;?php 
-include('bibtexbrowser.php'); 
+&lt;?php
+include('bibtexbrowser.php');
 ?>
 </pre>
 
@@ -499,7 +500,7 @@ include('bibtexbrowser.php');
 You must add a ''@string'' block in the bibtex file, which contains the links. The key is a concatenation of ''hp_'' and then ''FirstNameLastName'' (no space). For instance:
 
 <pre>
-@String { 
+@String {
   hp_ericfoo      = {http://www.foo.de/},
   hp_joebar      = {http://www.joebar.me/},
 }
@@ -511,6 +512,18 @@ Use ''bibtexbrowser-cli.php''. For instance:
 
 <pre>
 php bibtexbrowser-cli.php mybib.bib --id classical --set-title \"a new title\" --id with_abstract --set-title \"a new title\" --set-year 1990
+</pre>
+
+====How to use with composer?====
+Bibtexbrowser can now be downloaded from packagist with composer.
+
+In your project's `composer.json`, just add this <pre>"monperrus/bibtexbrowser": "dev-master"</pre>. E.G.:
+<pre>
+{
+    "require": {
+        "monperrus/bibtexbrowser": "dev-master"
+    }
+}
 </pre>
 
 =====Related tools=====
