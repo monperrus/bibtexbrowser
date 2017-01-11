@@ -603,7 +603,7 @@ class StateBasedBibtexParser {
         else if ($s==' ' || $s=="\t"  || $s=="\n" || $s=="\r" ) {
           // blank characters are not taken into account when values are not in quotes or curly brackets
         }
-        else { 
+        else {
           $entryvalue=$entryvalue.$s;
         }
       }
@@ -619,13 +619,13 @@ class StateBasedBibtexParser {
         $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;
         $entryvalue=$entryvalue.$s;
         $delegate->entryValuePart($finalkey,$fieldvaluepart,'CURLYTOP');
-        $fieldvaluepart='';        
+        $fieldvaluepart='';
       }
       else if ($s=='}') { // end entry
         $state = GETVALUE;
         $delegate->entryValuePart($finalkey,$fieldvaluepart,'CURLYTOP');
       }
-      else { 
+      else {
         $entryvalue=$entryvalue.$s;
         $fieldvaluepart=$fieldvaluepart.$s;
       }
@@ -648,7 +648,7 @@ class StateBasedBibtexParser {
         $fieldvaluepart='';
         $entryvalue=$entryvalue.$s;
       }
-      else { 
+      else {
         $entryvalue=$entryvalue.$s;
         $fieldvaluepart=$fieldvaluepart.$s;
       }
@@ -731,12 +731,12 @@ class ParserDelegate {
   function beginEntry() {}
 
   function endEntry($entrysource) {}
-  
-  /** called for each sub parts of type {part} of a field value 
+
+  /** called for each sub parts of type {part} of a field value
    * for now, only CURLYTOP and CURLYONE events
   */
   function entryValuePart($key, $value, $type) {}
-  
+
 } // end class ParserDelegate
 
 
@@ -783,7 +783,7 @@ class StringEntry {
     $this->value=$v;
     $this->filename=$filename;
   }
-  
+
   function toString() {
     return '@string{'.$this->name.'={'.$this->value.'}}';
   }
@@ -921,7 +921,7 @@ class BibDBBuilder extends ParserDelegate {
     // to enable search
     if ($this->currentEntry->hasField('author')) {
       $this->currentEntry->setField(Q_INNER_AUTHOR,$this->currentEntry->getFormattedAuthorsString());
-      
+
       foreach($this->currentEntry->getCanonicalAuthors() as $author) {
         $homepage_key = $this->currentEntry->getHomePageKey($author);
         if (isset($this->stringdb[$homepage_key])) {
@@ -945,9 +945,9 @@ class BibDBBuilder extends ParserDelegate {
     // we add it to the database
     else {
       $this->builtdb[$this->currentEntry->getKey()] = $this->currentEntry;
-    }    
+    }
   }
-  
+
 } // end class BibDBBuilder
 
 
@@ -1087,7 +1087,7 @@ function latex2html($line, $do_clean_extra_bracket=true) {
     $line = str_replace('}','',$line);
     $line = str_replace('{','',$line);
   }
-  
+
   // we restore the math env
   for($i = 0; $i < count($maths); $i++) {
     $line = str_replace('__MATH'.$i.'__', $maths[$i], $line);
@@ -1200,7 +1200,7 @@ class BibEntry {
   }
 
   function transformValue($value) {
-    if (c('BIBTEXBROWSER_USE_LATEX2HTML')) 
+    if (c('BIBTEXBROWSER_USE_LATEX2HTML'))
     {
         // trim space
         $value = xtrim($value);
@@ -1208,7 +1208,7 @@ class BibEntry {
         // transform Latex markup to HTML entities (easier than a one to one mapping to each character)
         // HTML entity is an intermediate format
         $value = latex2html($value);
-        
+
         // transform to the target output encoding
         $value = html_entity_decode($value, ENT_QUOTES|ENT_XHTML, OUTPUT_ENCODING);
     }
@@ -1219,21 +1219,21 @@ class BibEntry {
   function removeField($name) {
     $name = strtolower($name);
     unset($this->raw_fields[$name]);
-    unset($this->fields[$name]);  
+    unset($this->fields[$name]);
   }
-  
+
   /** Sets a field of this bib entry. */
   function setField($name, $value) {
     $name = strtolower($name);
     $this->raw_fields[$name] = $value;
-    
+
     // fields that should not be transformed
     // we assume that "comment" is never latex code
     // but instead could contain HTML code (with links using the character "~" for example)
     // so "comment" is not transformed too
-    if ($name!='url' && $name!='comment') {      
-          $value = $this->transformValue($value); 
-      
+    if ($name!='url' && $name!='comment') {
+          $value = $this->transformValue($value);
+
       // 4. transform existing encoded character in the new format
       if (function_exists('mb_convert_encoding') && OUTPUT_ENCODING != BIBTEX_INPUT_ENCODING) {
         $value = mb_convert_encoding($value, OUTPUT_ENCODING, BIBTEX_INPUT_ENCODING);
@@ -1242,12 +1242,12 @@ class BibEntry {
     } else {
       //echo "xx".$value."xx\n";
     }
-    
+
 
 
     $this->fields[$name] = $value;
   }
-  
+
   function clean_top_curly($value) {
     $value = preg_replace('/^\{/','', $value);
     $value = preg_replace('/\}$/','', $value);
@@ -1311,7 +1311,7 @@ class BibEntry {
   function getUrlLink($iconurl, $label) {
     return $this->getPdfLink($iconurl, $label);
   }
-  
+
   /** returns a "[pdf]" link for the entry, if possible.
       Tries to get the target URL from the 'pdf' field first, then from 'url' or 'file'.
     */
@@ -1336,7 +1336,7 @@ class BibEntry {
   function getDoiLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('doi',$iconurl);
     if ($this->hasField('doi')) {
-        return '<a'.get_target().' href="http://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
+        return '<a'.get_target().' href="https://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
     }
     return '';
   }
@@ -1345,7 +1345,7 @@ class BibEntry {
   function getGSLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('citations',$iconurl);
     if ($this->hasField('gsid')) {
-        return ' <a'.get_target().' href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
+        return ' <a'.get_target().' href="https://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
     }
     return '';
   }
@@ -1443,7 +1443,7 @@ class BibEntry {
   function getRawAuthors() {
     return $this->split_authors();
   }
-  
+
   function split_authors() {
     $array = preg_split('/ and /i', @$this->raw_fields[Q_AUTHOR]);
     $res = array();
@@ -1457,29 +1457,29 @@ class BibEntry {
       }
     }
     if (!preg_match('/\}/',latex2html($array[count($array)-1],false))) {
-        $res[] = trim($array[count($array)-1]);    
+        $res[] = trim($array[count($array)-1]);
     }
     return $res;
   }
 
   /**
-   * Returns the formated author name w.r.t to the user preference 
+   * Returns the formated author name w.r.t to the user preference
    * encoded in USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT and USE_INITIALS_FOR_NAMES
    */
   function formatAuthor($author){
     $author = $this->transformValue($author);
     if (bibtexbrowser_configuration('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT')) {
       return $this->formatAuthorCommaSeparated($author);
-    } 
-    
+    }
+
     if (bibtexbrowser_configuration('USE_INITIALS_FOR_NAMES')) {
       return $this->formatAuthorInitials($author);
-    } 
-    
+    }
+
     if (bibtexbrowser_configuration('USE_FIRST_THEN_LAST')) {
       return $this->formatAuthorCanonical($author);
     }
-    
+
     return $author;
   }
 
@@ -1524,8 +1524,8 @@ class BibEntry {
    */
   function getFormattedAuthorsArray() {
     $array_authors = array();
-    
-    
+
+
     // first we use formatAuthor
     foreach ($this->getRawAuthors() as $author) {
       $array_authors[]=$this->formatAuthor($author);
@@ -1551,11 +1551,11 @@ class BibEntry {
   function getFormattedAuthorsString() {
     return $this->implodeAuthors($this->getFormattedAuthorsArray());
   }
-  
-  function implodeAuthors($authors) {  
+
+  function implodeAuthors($authors) {
     if (count($authors)==0) return '';
     if (count($authors)==1) return $authors[0];
-    
+
     $result = '';
 
     if (bibtexbrowser_configuration('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT')) {$sep = '; ';} else {$sep = ', ';}
@@ -1566,7 +1566,7 @@ class BibEntry {
     $result .= $authors[count($authors)-2].bibtexbrowser_configuration('LAST_AUTHOR_SEPARATOR'). $authors[count($authors)-1];
     return $result;
   }
-  
+
   /** adds a link to the author page */
   function addAuthorPageLink($author) {
     $link = makeHref(array(Q_AUTHOR => $author));
@@ -1603,10 +1603,10 @@ class BibEntry {
   }
 
   function getHomePageKey($author) {
-  
+
     return strtolower('hp_'.preg_replace('/ /', '', $this->formatAuthorCanonical(latex2html($author))));
   }
-  
+
   /** add the link to the homepage if it is defined in a string
    *  e.g. @string{hp_MartinMonperrus="http://www.monperrus.net/martin"}
    *  The string is a concatenation of firstname, lastname, prefixed by hp_
@@ -1615,7 +1615,7 @@ class BibEntry {
    */
   function addHomepageLink($author) {
     // hp as home page
-    // accents are normally handled 
+    // accents are normally handled
     // e.g. @STRING{hp_Jean-MarcJézéquel="http://www.irisa.fr/prive/jezequel/"}
     $homepage = $this->getHomePageKey($author);
     if (isset($this->homepages[$homepage]))
@@ -1656,7 +1656,7 @@ class BibEntry {
   function getKeywords() {
     return preg_split('/[,;\\/]/', $this->getField("keywords"));
   }
-  
+
   /** Returns the value of the given field? */
   function getField($name) {
     // 2010-06-07: profiling showed that this is very costly
@@ -1722,7 +1722,7 @@ class BibEntry {
         $result = '@'.$this->getType().'{'.$this->getKey().",\n";
         foreach ($this->raw_fields as $k=>$v) {
           if ( !preg_match('/^('.c('BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT').')$/i', $k)
-             && !preg_match('/^(key|'.Q_INNER_AUTHOR.'|'.Q_INNER_TYPE.')$/i', $k) ) 
+             && !preg_match('/^(key|'.Q_INNER_AUTHOR.'|'.Q_INNER_TYPE.')$/i', $k) )
              {
               $result .= ' '.$k.' = {'.$v.'},'."\n";
           }
@@ -1730,7 +1730,7 @@ class BibEntry {
         $result .= "}\n";
         return $result;
     }
-    throw new Exception('incorrect value of BIBTEXBROWSER_BIBTEX_VIEW: '+BIBTEXBROWSER_BIBTEX_VIEW);    
+    throw new Exception('incorrect value of BIBTEXBROWSER_BIBTEX_VIEW: '+BIBTEXBROWSER_BIBTEX_VIEW);
   }
 
   /** Returns true if this bib entry contains the given phrase (PREG regexp)
@@ -1901,7 +1901,7 @@ class BibEntry {
 
     // Fields that should be hyperlinks
     // the order matters
-    $hyperlinks = array('url' => '%O', 'file' => '%O', 'pdf' => '%O', 'doi' => 'http://dx.doi.org/%O', 'gsid' => 'http://scholar.google.com/scholar?cites=%O');
+    $hyperlinks = array('url' => '%O', 'file' => '%O', 'pdf' => '%O', 'doi' => 'https://dx.doi.org/%O', 'gsid' => 'https://scholar.google.com/scholar?cites=%O');
 
     $vals = array();
     foreach ($hyperlinks as $field => $url) {
@@ -2259,17 +2259,17 @@ function DefaultBibliographyStyle(&$bibentry) {
 
 
   $coreInfo = $title;
-  
+
   // adding author info
   if ($bibentry->hasField('author')) {
     $coreInfo .= ' (<span class="bibauthor">';
-    
+
     $authors = array();
     foreach ($bibentry->getFormattedAuthorsArray() as $a) {
-       $authors[]='<span itemprop="author" itemtype="http://schema.org/Person">'.$a.'</span>';      
+       $authors[]='<span itemprop="author" itemtype="http://schema.org/Person">'.$a.'</span>';
     }
     $coreInfo .= $bibentry->implodeAuthors($authors);
-    
+
     $coreInfo .= '</span>)';
   }
 
@@ -2512,7 +2512,7 @@ function VancouverBibliographyStyle(&$bibentry) {
       $publisher = 'Master\'s thesis, '.$bibentry->getField(SCHOOL);
   } else if ($type=="techreport") {
       $publisher = 'Technical report, '.$bibentry->getField("institution");
-  } 
+  }
   if ($bibentry->hasField("publisher")) {
     $publisher = $bibentry->getField("publisher");
   }
@@ -3407,23 +3407,23 @@ class BibEntryDisplay {
     if (METADATA_DC) {
       $result = $this->metadata_dublin_core($result);
     }
-    
+
     if (METADATA_OPENGRAPH) {
       $result = $this->metadata_opengraph($result);
     }
-    
+
     if (METADATA_EPRINTS) {
       $result = $this->metadata_eprints($result);
     }
 
-    return $result;    
+    return $result;
   } // end function metadata
-  
+
   function metadata_opengraph($result) {
     // Facebook metadata
     // see http://ogp.me
     // https://developers.facebook.com/tools/debug/og/object/
-    $result[] = array('og:type','article');  
+    $result[] = array('og:type','article');
     $result[] = array('og:title',$this->bib->getTitle());
     foreach($this->bib->getRawAuthors() as $author) {
     // opengraph requires a URL as author value
@@ -3432,7 +3432,7 @@ class BibEntryDisplay {
     $result[] = array('og:published_time',$this->bib->getYear());
     return $result;
   } // end function metadata_opengraph
-  
+
   function metadata_dublin_core($result) {
     // Dublin Core should not be used for bibliographic metadata
     // according to several sources
@@ -3447,7 +3447,7 @@ class BibEntryDisplay {
     $result[] = array('DC.Issued',$this->bib->getYear());
     return $result;
   }
-  
+
   function metadata_google_scholar($result) {
     // the description may mix with the Google Scholar tags
     // we remove it
@@ -3527,10 +3527,10 @@ class BibEntryDisplay {
         $result[] = array('citation_lastpage',$pages[1]);
     }
     }
-      
+
     return $result;
   }
-  
+
   function metadata_eprints($result) {
     // --------------------------------- BEGIN METADATA EPRINTS
     // and now adding eprints metadata
@@ -3906,7 +3906,7 @@ class BibDataBase {
       }
       return $result;
   }
-  
+
   /** returns the text of all @String entries of this dabatase */
   function stringEntriesText() {
     $s = "";
@@ -3921,7 +3921,7 @@ class BibDataBase {
     foreach($this->bibdb as $bibentry) { $s.=$bibentry->getText()."\n"; }
     return $s;
   }
-  
+
 } // end class
 
 /** returns the default CSS of bibtexbrowser */
@@ -4062,7 +4062,7 @@ usage:
 <pre>
   $db = zetDB('bibacid-utf8.bib');
   $dis = new BibEntryDisplay($db->getEntryByKey('classical'));
-  HTMLTemplate($dis);   
+  HTMLTemplate($dis);
 </pre>
  * $content: an object with methods
       display()
@@ -4317,7 +4317,7 @@ class RSSDisplay {
     // be careful of <
     $desc = str_replace('<','&#60;',$desc);
 
-    // final test with encoding:    
+    // final test with encoding:
     if (function_exists('mb_check_encoding')) { // (PHP 4 >= 4.4.3, PHP 5 >= 5.1.3)
       if (!mb_check_encoding($desc,OUTPUT_ENCODING)) {
         return 'encoding error: please check the content of OUTPUT_ENCODING';
