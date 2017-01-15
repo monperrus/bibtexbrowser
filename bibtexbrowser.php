@@ -1336,7 +1336,7 @@ class BibEntry {
   function getDoiLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('doi',$iconurl);
     if ($this->hasField('doi')) {
-        return '<a'.get_target().' href="https://dx.doi.org/'.$this->getField('doi').'">'.$str.'</a>';
+        return '<a'.get_target().' href="https://doi.org/'.$this->getField('doi').'">'.$str.'</a>';
     }
     return '';
   }
@@ -1901,7 +1901,7 @@ class BibEntry {
 
     // Fields that should be hyperlinks
     // the order matters
-    $hyperlinks = array('url' => '%O', 'file' => '%O', 'pdf' => '%O', 'doi' => 'https://dx.doi.org/%O', 'gsid' => 'https://scholar.google.com/scholar?cites=%O');
+    $hyperlinks = array('url' => '%O', 'file' => '%O', 'pdf' => '%O', 'doi' => 'https://doi.org/%O', 'gsid' => 'https://scholar.google.com/scholar?cites=%O');
 
     $vals = array();
     foreach ($hyperlinks as $field => $url) {
