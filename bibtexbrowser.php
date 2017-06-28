@@ -2469,7 +2469,7 @@ function VancouverBibliographyStyle(&$bibentry) {
   }
 
   // Ensure punctuation mark at title's end
-  if (strpos(":.;,?!", substr(rtrim($title), -1)) > 0) {
+  if (strlen(rtrim($title))>0 && strpos(":.;,?!", substr(rtrim($title), -1)) > 0) {
     $title = $title . ' ';
   } else {
     $title = $title . '. ';

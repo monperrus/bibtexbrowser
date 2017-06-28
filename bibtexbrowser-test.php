@@ -10,6 +10,11 @@ $ phpunit --coverage-html ./coverage btb-test.php
 (be sure that xdebug is enabled: /etc/php5/cli/conf.d# ln -s ../../mods-available/xdebug.ini)
 */
 
+// backward compatibility
+if (!class_exists('PHPUnit_Framework_TestCase')) {
+    class_alias('\PHPUnit\Framework\TestCase', 'PHPUnit_Framework_TestCase');
+}
+
 function exception_error_handler($severity, $message, $file, $line) {
     if ($severity != E_ERROR) {
 	//trigger_error($message);
@@ -93,6 +98,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals("2",$first_entry->getPages()[1]);
 
     // default style
+    bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');
     $this->assertEquals("An Article (Foo Bar and Jane Doe), In New Results, volume 5, 2009. [bibtex]",strip_tags($first_entry->toHTML()));
     $this->assertEquals('<span itemscope="" itemtype="http://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">An Article</span> (<span class="bibauthor"><span itemprop="author" itemtype="http://schema.org/Person">Foo Bar</span> and <span itemprop="author" itemtype="http://schema.org/Person">Jane Doe</span></span>), <span class="bibbooktitle">In <span itemprop="isPartOf">New Results</span></span>, volume 5, <span itemprop="datePublished">2009</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.atitle=An+Article&amp;rft.jtitle=New+Results&amp;rft.volume=5&amp;rft.issue=&amp;rft.pub=&amp;rfr_id=info%3Asid%2F%3A&amp;rft.date=2009&amp;rft.au=Foo+Bar&amp;rft.au=Jane+Doe"></span></span> <span class="bibmenu"><a class="biburl" title="aKeyA" href="bibtexbrowser.php?key=aKeyA&amp;bib=inline">[bibtex]</a></span>',$first_entry->toHTML());
 
@@ -268,6 +274,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
   }
 
   function test_link_configuration() {
+    bibtexbrowser_configure('BIBTEXBROWSER_LINKS_TARGET','_self');
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, "@book{aKey,pdf={myarticle.pdf}}\n"
     );
@@ -283,6 +290,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
   // see https://github.com/monperrus/bibtexbrowser/pull/14
   function test_zotero() {
+    bibtexbrowser_configure('BIBTEXBROWSER_LINKS_TARGET','_self');
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, "@book{aKey,file={myarticle.pdf}}\n"
     );
@@ -295,7 +303,8 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
   // https://github.com/monperrus/bibtexbrowser/issues/40
   function test_doi_url() {
-      $test_data = fopen('php://memory','x+');
+    bibtexbrowser_configure('BIBTEXBROWSER_LINKS_TARGET','_self');
+    $test_data = fopen('php://memory','x+');
     fwrite($test_data, "@Article{Baldwin2014Quantum,Doi={10.1103/PhysRevA.90.012110},Url={http://link.aps.org/doi/10.1103/PhysRevA.90.012110}}"
     );
     fseek($test_data,0);
@@ -375,6 +384,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
     # https://github.com/monperrus/bibtexbrowser/pull/51
     function test_emptyGetPdfLink() {
+        bibtexbrowser_configure('BIBTEXBROWSER_LINKS_TARGET','_self');
         $bibtex = "
         @article{aKey,
             title={\`a Book},
@@ -460,6 +470,9 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     function test_parsing_author_list() {
         // specify parsing of author list
 
+        bibtexbrowser_configure('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT', false);
+        bibtexbrowser_configure('USE_FIRST_THEN_LAST', false);
+
         // default case: one authors
         $bibtex = "@article{aKey61,title={An article Book},author = {Meyer, Heribert}}\n";
         $test_data = fopen('php://memory','x+');
@@ -512,6 +525,8 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     }
 
     function test_homepage_link() {
+        bibtexbrowser_configure('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT', false);
+        bibtexbrowser_configure('USE_FIRST_THEN_LAST', false);
         $bibtex = "@string{hp_MartinMonperrus={http://www.monperrus.net/martin},hp_FooAcé={http://example.net/}},@article{aKey61,title={An article Book},author = {Martin Monperrus and Foo Acé and Monperrus, Martin}}\n";
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, $bibtex);
@@ -612,6 +627,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     }
 
     function testscholarlink() {
+        bibtexbrowser_configure('BIBTEXBROWSER_LINKS_TARGET','_self');
         bibtexbrowser_configure('BIBTEXBROWSER_BIBTEX_VIEW', 'original');
         $bibtex = "@article{key,title={An article Book},gsid={1234},author = {Martin Monperrus and Foo Ac\'e and Monperrus, Martin}}";
         $test_data = fopen('php://memory','x+');
