@@ -2655,6 +2655,12 @@ if (!function_exists('poweredby')) {
   }
 }
 
+if (!function_exists('bibtexbrowser_top_banner')) {
+  function bibtexbrowser_top_banner() {
+    return '';
+  }
+}
+
 /** ^^adds a touch of AJAX in bibtexbrowser to display bibtex entries inline.
    It uses the HIJAX design pattern: the Javascript code fetches the normal bibtex HTML page
    and extracts the bibtex.
@@ -4119,6 +4125,10 @@ echo "\n".' --></style>';
 ?>
 </head>
 <body>
+<?php 
+// configuration point to add a banner
+echo bibtexbrowser_top_banner();
+?>
 <?php
 if (method_exists($content, 'getTitle')) {
   echo "<div class=\"rheader\">" . $content->getTitle() . "</div>";
