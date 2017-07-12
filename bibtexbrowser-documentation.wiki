@@ -526,6 +526,18 @@ In your project's `composer.json`, just add this <pre>"monperrus/bibtexbrowser":
 }
 </pre>
 
+====How to add a banner to the main view in frameset mode?====
+
+For instance, if you want to add a "home page" button in the main view of the frameset mode, add a banner function in ''bibtexbrowser.local.php'' as follows:
+<pre>
+&lt;?php
+function bibtexbrowser_top_banner() {
+  return '&lt;a href="/home">Home page&lt;/a>';
+}
+?>
+</pre>
+
+
 =====Related tools=====
 
 Old-fashioned:

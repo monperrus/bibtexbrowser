@@ -11,7 +11,7 @@ $ phpunit --coverage-html ./coverage btb-test.php
 */
 
 // backward compatibility
-if (!class_exists('PHPUnit_Framework_TestCase')) { //
+if (!class_exists('PHPUnit_Framework_TestCase')) {
     class_alias('\PHPUnit\Framework\TestCase', 'PHPUnit_Framework_TestCase');
 }
 
