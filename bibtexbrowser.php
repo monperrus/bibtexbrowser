@@ -241,11 +241,6 @@ define('Q_INNER_TYPE', 'x-bibtex-type');// used for representing the type of the
 @ini_set("session.use_trans_sid",0);
 @ini_set("url_rewriter.tags","");
 
-// we ensure that the pages won't get polluted
-// if future versions of PHP change warning mechanisms...
-
-@error_reporting(/*pp4php:serl*/E_ALL/*lres*/);
-
 function config_value($key) {
   global $CONFIGURATION;
   if (isset($CONFIGURATION[$key])) { return $CONFIGURATION[$key]; }
