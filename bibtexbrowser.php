@@ -424,7 +424,7 @@ function _zetDB($bibtex_filenames) {
   //else echo '<!-- please chmod the directory containing the bibtex file to be able to keep a compiled version (much faster requests for large bibtex files) -->';
 
 
-  return array(&$db, $parse, $updated, $saved);
+  return array($db, $parse, $updated, $saved);
 } // end function setDB
 
 // internationalization
@@ -483,13 +483,13 @@ class StateBasedBibtexParser {
 
   var $delegate;
 
-  function __construct(&$delegate) {
-    $this->delegate = &$delegate;
+  function __construct($delegate) {
+    $this->delegate = $delegate;
   }
 
   function parse($handle) {
     if (gettype($handle) == 'string') { throw new Exception('oops'); }
-    $delegate = &$this->delegate;
+    $delegate = $this->delegate;
     // STATE DEFINITIONS
     @define('NOTHING',1);
     @define('GETTYPE',2);
@@ -706,7 +706,7 @@ class StateBasedBibtexParser {
     } // end for
     } // end while
     $delegate->endFile();
-    //$d = &$this->delegate;print_r($d);
+    //$d = $this->delegate;print_r($d);
   } // end function
 } // end class
 
@@ -823,8 +823,8 @@ class BibDBBuilder extends ParserDelegate {
     $parser = new StateBasedBibtexParser($this);
     $parser->parse($handle);
     fclose($handle);
-    //print_r(array_keys(&$this->builtdb));
-    //print_r(&$this->builtdb);
+    //print_r(array_keys($this->builtdb));
+    //print_r($this->builtdb);
   }
 
 
@@ -840,7 +840,7 @@ class BibDBBuilder extends ParserDelegate {
     // resolving crossrefs
     // we are careful with PHP 4 semantics
     foreach (array_keys($this->builtdb) as $key) {
-      $bib = &$this->builtdb[$key];
+      $bib = $this->builtdb[$key];
       if ($bib->hasField('crossref')) {
         if (isset($this->builtdb[$bib->getField('crossref')])) {
           $crossrefEntry = $this->builtdb[$bib->getField('crossref')];
@@ -1971,7 +1971,7 @@ function get_HTML_tag_for_layout() {
 /** returns a collection of links for the given bibtex entry
  *  e.g. [bibtex] [doi][pdf]
  */
-function bib2links_default(&$bibentry) {
+function bib2links_default($bibentry) {
   $links = array();
 
   if (BIBTEXBROWSER_BIBTEX_LINKS) {
@@ -2010,13 +2010,13 @@ function print_footer_layout() {
 }
 
 /** this function encapsulates the user-defined name for bib to HTML*/
-function bib2html(&$bibentry) {
+function bib2html($bibentry) {
   $function = bibtexbrowser_configuration('BIBLIOGRAPHYSTYLE');
   return $function($bibentry);
 }
 
 /** this function encapsulates the user-defined name for bib2links */
-function bib2links(&$bibentry) {
+function bib2links($bibentry) {
   $function = BIBTEXBROWSER_LINK_STYLE;
   return $function($bibentry);
 }
@@ -2240,7 +2240,7 @@ return
 
   See http://schema.org/ScholarlyArticle for the metadata
 */
-function DefaultBibliographyStyle(&$bibentry) {
+function DefaultBibliographyStyle($bibentry) {
   $title = $bibentry->getTitle();
   $type = $bibentry->getType();
 
@@ -2347,7 +2347,7 @@ Add the following line in "bibtexbrowser.local.php"
 @define('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
 </pre>
 */
-function JanosBibliographyStyle(&$bibentry) {
+function JanosBibliographyStyle($bibentry) {
   $title = $bibentry->getTitle();
   $type = $bibentry->getType();
 
@@ -2452,7 +2452,7 @@ function JanosBibliographyStyle(&$bibentry) {
 </pre>
 */
 
-function VancouverBibliographyStyle(&$bibentry) {
+function VancouverBibliographyStyle($bibentry) {
   $title = $bibentry->getTitle();
   $type = $bibentry->getType();
 
@@ -2944,7 +2944,7 @@ else $page = 1;
 
 if (!function_exists('query2title')) {
 /** transforms an array representing a query into a formatted string */
-function query2title(&$query) {
+function query2title($query) {
     $headers = array();
     foreach($query as $k=>$v) {
       if($k == Q_INNER_AUTHOR) { $k = 'author'; }
@@ -2956,7 +2956,7 @@ function query2title(&$query) {
       }
       if($k == Q_KEYS) { $v=json_encode(array_values($v)); }
       if($k == Q_RANGE) {
-        foreach ($v as &$range) {
+        foreach ($v as $range) {
 	  $range = $range[0].'-'.$range[1];
 	}
 	$v = join($v, ',');
@@ -2981,14 +2981,14 @@ class NewEntriesDisplay {
   var $n=5;
   var $db;
 
-  function setDB(&$bibdatabase) {
+  function setDB($bibdatabase) {
     $this->db = $bibdatabase;
   }
 
   function setN($n) {$this->n = $n;return $this;}
 
   /** sets the entries to be shown */
-  function setEntries(&$entries) {
+  function setEntries($entries) {
     $this->db = createBibDataBase();
     $this->db->bibdb = $entries;
   }
@@ -3017,17 +3017,17 @@ class YearDisplay {
   /** is an array of strings representing years */
   var $yearIndex;
 
-  function setDB(&$bibdatabase) {
+  function setDB($bibdatabase) {
     $this->setEntries($bibdatabase->bibdb);
   }
 
   /** creates a YearDisplay */
-  function setOptions(&$options) {}
+  function setOptions($options) {}
 
   function getTitle() {return '';}
 
   /** sets the entries to be shown */
-  function setEntries(&$entries) {
+  function setEntries($entries) {
     $this->entries = $entries;
     $db= createBibDataBase();
     $db->bibdb = $entries;
@@ -3085,7 +3085,7 @@ class SimpleDisplay  {
   	$this->headingLevel -= $by;
   }
 
-  function setDB(&$bibdatabase) {
+  function setDB($bibdatabase) {
     $this->setEntries($bibdatabase->bibdb);
   }
 
@@ -3098,7 +3098,7 @@ class SimpleDisplay  {
   }
 
   /** sets the entries to be shown */
-  function setEntries(&$entries) {
+  function setEntries($entries) {
     $this->entries = $entries;
   }
 
@@ -3110,7 +3110,7 @@ class SimpleDisplay  {
     return $this->entries;
   }
 
-  function newest(&$entries) {
+  function newest($entries) {
     return array_slice($entries,0,BIBTEXBROWSER_NEWEST);
   }
 
@@ -3241,12 +3241,12 @@ class AcademicDisplay  {
   function getTitle() { return $this->title; }
   function setTitle($title) { $this->title = $title; return $this; }
 
-  function setDB(&$bibdatabase) {
+  function setDB($bibdatabase) {
     $this->setEntries($bibdatabase->bibdb);
   }
 
   /** sets the entries to be shown */
-  function setEntries(&$entries) {
+  function setEntries($entries) {
     $this->entries = $entries;
   }
 
@@ -3334,7 +3334,7 @@ class BibEntryDisplay {
     $this->bib = $bib;
   }
 
-  function setEntries(&$entries) {
+  function setEntries($entries) {
     $this->bib = $entries[0];
     //$this->title = $this->bib->getTitle().' (bibtex)'.$this->bib->getUrlLink();
   }
@@ -4073,7 +4073,7 @@ usage:
       getTitle()
  * $title: title of the page
  */
-function HTMLTemplate(&$content) {
+function HTMLTemplate($content) {
 
 // when we load a page with AJAX
 // the HTTP header is taken into account, not the <meta http-equiv>
@@ -4158,7 +4158,7 @@ usage:
   NoWrapper($dis);
 </pre>
 */
-function NoWrapper(&$content) {
+function NoWrapper($content) {
   echo $content->display();
 }
 
@@ -4215,7 +4215,7 @@ class PagedDisplay {
   }
 
     /** sets the entries to be shown */
-  function setEntries(&$entries) {
+  function setEntries($entries) {
     uasort($entries, 'compare_bib_entries');
     $this->entries = array_values($entries);
   }
@@ -4335,7 +4335,7 @@ class RSSDisplay {
   }
 
   /** sets the entries to be shown */
-  function setEntries(&$entries) {
+  function setEntries($entries) {
     $this->entries = $entries;
   }
 
