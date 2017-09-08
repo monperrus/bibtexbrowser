@@ -483,7 +483,7 @@ class StateBasedBibtexParser {
 
   var $delegate;
 
-  function StateBasedBibtexParser(&$delegate) {
+  function __construct(&$delegate) {
     $this->delegate = &$delegate;
   }
 
@@ -773,7 +773,7 @@ class XMLPrettyPrinter extends ParserDelegate {
 
 /** represents @string{k=v} */
 class StringEntry {
-  function StringEntry($k, $v, $filename) {
+  function __construct($k, $v, $filename) {
     $this->name=$k;
     $this->value=$v;
     $this->filename=$filename;
@@ -1163,7 +1163,7 @@ class BibEntry {
 
   /** Creates an empty new bib entry. Each bib entry is assigned a unique
    * identification number. */
-  function BibEntry() {
+  function __construct() {
   }
 
   /** Sets the name of the file containing this entry */
@@ -2344,7 +2344,7 @@ function DefaultBibliographyStyle(&$bibentry) {
 usage:
 Add the following line in "bibtexbrowser.local.php"
 <pre>
-define('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
+@define('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
 </pre>
 */
 function JanosBibliographyStyle(&$bibentry) {
@@ -2447,8 +2447,8 @@ function JanosBibliographyStyle(&$bibentry) {
  *
  * usage: Add the following lines to "bibtexbrowser.local.php"
 <pre>
-define('BIBLIOGRAPHYSTYLE','VancouverBibliographyStyle');
-define('USE_INITIALS_FOR_NAMES',true);
+@define('BIBLIOGRAPHYSTYLE','VancouverBibliographyStyle');
+@define('USE_INITIALS_FOR_NAMES',true);
 </pre>
 */
 
@@ -2624,7 +2624,7 @@ usage:
 </pre>
  */
 class IndependentYearMenu  {
-  function IndependentYearMenu($db) {
+  function __construct($db) {
     $yearIndex = $db->yearIndex();
     echo '<div id="yearmenu">Year: ';
     $formatedYearIndex = array();
@@ -2731,7 +2731,7 @@ class MenuManager {
   var $author_size = AUTHORS_SIZE;
   var $tag_size = TAGS_SIZE;
 
-  function MenuManager() {
+  function __construct() {
   }
 
   /** sets the database that is used to create the menu */
@@ -2773,7 +2773,7 @@ class MenuManager {
     ?>
     <form action="?" method="get" target="<?php echo BIBTEXBROWSER_MENU_TARGET;?>">
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
-      <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo $_GET[Q_FILE]; ?>"/>
+      <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo @$_GET[Q_FILE]; ?>"/>
       <br/>
       <input type="submit" value="search" class="input_box"/>
     </form>
@@ -3075,6 +3075,8 @@ class SimpleDisplay  {
 
   var $options = array();
 
+  var $entries = array();
+
   var $headingLevel = BIBTEXBROWSER_HTMLHEADINGLEVEL;
   function incHeadingLevel ($by=1) {
   	$this->headingLevel += $by;
@@ -3328,7 +3330,7 @@ class BibEntryDisplay {
   /** the bib entry to display */
   var $bib;
 
-  function BibEntryDisplay($bib=null) {
+  function __construct($bib=null) {
     $this->bib = $bib;
   }
 
@@ -3686,7 +3688,7 @@ class BibDataBase {
   }
 
   /** Creates a new empty database */
-  function BibDataBase() {
+  function __construct() {
     $this->bibdb = array();
     $this->stringdb = array();
   }
@@ -4172,12 +4174,12 @@ usage:
 */
 class BibtexDisplay {
 
-  function BibtexDisplay() {}
+  function __construct() {}
 
   function setTitle($title) { $this->title = $title; return $this; }
 
   /** sets the entries to be shown */
-  function setEntries(&$entries) {
+  function setEntries($entries) {
     $this->entries = $entries;
   }
 
@@ -4208,7 +4210,7 @@ class PagedDisplay {
 
   var $query = array();
 
-  function PagedDisplay() {
+  function __construct() {
     $this->setPage();
   }
 
@@ -4298,7 +4300,7 @@ class RSSDisplay {
 
   var $title = 'RSS produced by bibtexbrowser';
 
-  function RSSDisplay() {
+  function __construct() {
     // nothing by default
   }
 
@@ -4348,8 +4350,8 @@ class RSSDisplay {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
    <channel>
       <title><?php echo $this->title;?></title>
-      <link>http://<?php echo $_SERVER['HTTP_HOST'].htmlentities($_SERVER['REQUEST_URI']);?></link>
-      <atom:link href="http://<?php echo $_SERVER['HTTP_HOST'].htmlentities($_SERVER['REQUEST_URI']);?>" rel="self" type="application/rss+xml" />
+      <link>http://<?php echo @$_SERVER['HTTP_HOST'].htmlentities(@$_SERVER['REQUEST_URI']);?></link>
+      <atom:link href="http://<?php echo @$_SERVER['HTTP_HOST'].htmlentities(@$_SERVER['REQUEST_URI']);?>" rel="self" type="application/rss+xml" />
       <description></description>
       <generator>bibtexbrowser v__GITHUB__</generator>
 
@@ -4407,7 +4409,7 @@ class Dispatcher {
   /** The BibDataBase object */
   var $db = null;
 
-  function Dispatcher() {}
+  function __construct() {}
 
   /** returns the underlying BibDataBase object */
   function getDB() {
