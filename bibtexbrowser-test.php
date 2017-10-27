@@ -527,7 +527,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     function test_homepage_link() {
         bibtexbrowser_configure('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT', false);
         bibtexbrowser_configure('USE_FIRST_THEN_LAST', false);
-        $bibtex = "@string{hp_MartinMonperrus={http://www.monperrus.net/martin},hp_FooAcé={http://example.net/}},@article{aKey61,title={An article Book},author = {Martin Monperrus and Foo Acé and Monperrus, Martin}}\n";
+        $bibtex = "@string{hp_MartinMonperrus={http://www.monperrus.net/~martin},hp_FooAcé={http://example.net/}},@article{aKey61,title={An article Book},author = {Martin Monperrus and Foo Acé and Monperrus, Martin}}\n";
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, $bibtex);
         fseek($test_data,0);
@@ -535,9 +535,9 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $db->update_internal("inline", $test_data);
         $entry = $db->getEntryByKey('aKey61');
         $authors = $entry->getFormattedAuthorsArray();
-        $this->assertEquals('<a href="http://www.monperrus.net/martin">Martin Monperrus</a>', $authors[0]);
+        $this->assertEquals('<a href="http://www.monperrus.net/~martin">Martin Monperrus</a>', $authors[0]);
         $this->assertEquals('<a href="http://example.net/">Foo Acé</a>', $authors[1]);
-        $this->assertEquals('<a href="http://www.monperrus.net/martin">Monperrus, Martin</a>', $authors[2]);
+        $this->assertEquals('<a href="http://www.monperrus.net/~martin">Monperrus, Martin</a>', $authors[2]);
     }
 
     function test_author_index() {

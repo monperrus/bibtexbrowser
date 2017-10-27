@@ -1226,7 +1226,9 @@ class BibEntry {
     // we assume that "comment" is never latex code
     // but instead could contain HTML code (with links using the character "~" for example)
     // so "comment" is not transformed too
-    if ($name!='url' && $name!='comment') {
+    if ($name!='url' && $name!='comment' 
+            && !preg_match('/^hp_/',$name) // homepage links should not be transformed with latex2html
+        ) {
           $value = $this->transformValue($value);
 
       // 4. transform existing encoded character in the new format
