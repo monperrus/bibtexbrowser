@@ -118,7 +118,7 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_NO_DEFAULT', false);
 
 // BIBTEXBROWSER_LINK_STYLE defines which function to use to display the links of a bibtex entry
-@define('BIBTEXBROWSER_LINK_STYLE','bib2links_default');
+@define('BIBTEXBROWSER_LINK_STYLE','bib2links_default'); // can be 'nothing' (a function that does nothing)
 
 // do we add [bibtex] links ?
 @define('BIBTEXBROWSER_BIBTEX_LINKS',true);
@@ -240,6 +240,8 @@ define('Q_INNER_TYPE', 'x-bibtex-type');// used for representing the type of the
 @ini_set("session.use_only_cookies",1);
 @ini_set("session.use_trans_sid",0);
 @ini_set("url_rewriter.tags","");
+
+function nothing() {}
 
 function config_value($key) {
   global $CONFIGURATION;
@@ -2019,7 +2021,7 @@ function bib2html($bibentry) {
 
 /** this function encapsulates the user-defined name for bib2links */
 function bib2links($bibentry) {
-  $function = BIBTEXBROWSER_LINK_STYLE;
+  $function = c('BIBTEXBROWSER_LINK_STYLE');
   return $function($bibentry);
 }
 
@@ -2357,11 +2359,11 @@ function JanosBibliographyStyle($bibentry) {
 
   // author
   if ($bibentry->hasField('author')) {
-    $entry[] = $bibentry->getFormattedAuthorsString();
+    $entry[] = '<span class="bibauthor">'.$bibentry->getFormattedAuthorsString().'</span>';
   }
 
   // title
-  $title = '"'.$title.'"';
+  $title = '"'.'<span class="bibtitle">'.$title.'</span>'.'"';
   if ($bibentry->hasField('url')) $title = ' <a'.get_target().' href="'.$bibentry->getField('url').'">'.$title.'</a>';
   $entry[] = $title;
 
@@ -2374,15 +2376,15 @@ function JanosBibliographyStyle($bibentry) {
   }
 
   if ($type=="inproceedings" && $bibentry->hasField(BOOKTITLE)) {
-      $booktitle = 'In '.$bibentry->getField(BOOKTITLE);
+      $booktitle = '<span class="bibbooktitle">'.'In '.$bibentry->getField(BOOKTITLE).'</span>';
   }
 
   if ($type=="incollection" && $bibentry->hasField(BOOKTITLE)) {
-      $booktitle = 'Chapter in '.$bibentry->getField(BOOKTITLE);
+      $booktitle = '<span class="bibbooktitle">'.'Chapter in '.$bibentry->getField(BOOKTITLE).'</span>';
   }
 
   if ($type=="article" && $bibentry->hasField("journal")) {
-      $booktitle = 'In '.$bibentry->getField("journal");
+      $booktitle = '<span class="bibbooktitle">'.'In '.$bibentry->getField("journal").'</span>';
   }
 
 
@@ -2435,7 +2437,7 @@ function JanosBibliographyStyle($bibentry) {
   // add the Coin URL
   $result .=  "\n".$bibentry->toCoins();
 
-  return $result;
+  return '<span itemscope="" itemtype="http://schema.org/ScholarlyArticle">'.$result.'</span>';
 }
 
 
