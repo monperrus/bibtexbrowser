@@ -1676,28 +1676,28 @@ class BibEntry {
 
   /** Returns the raw, undecorated abbreviation depending on ABBRV_TYPE. */
   function getRawAbbrv() {
-    if (ABBRV_TYPE == 'index') return $this->index;
-    if (ABBRV_TYPE == 'none') return '';
-    if (ABBRV_TYPE == 'key') return $this->getKey();
-    if (ABBRV_TYPE == 'year') return $this->getYear();
-    if (ABBRV_TYPE == 'x-abbrv') {
+    if (c('ABBRV_TYPE') == 'index') return $this->index;
+    if (c('ABBRV_TYPE') == 'none') return '';
+    if (c('ABBRV_TYPE') == 'key') return $this->getKey();
+    if (c('ABBRV_TYPE') == 'year') return $this->getYear();
+    if (c('ABBRV_TYPE') == 'x-abbrv') {
       if ($this->hasField('x-abbrv')) {return $this->getField('x-abbrv');}
       return $this->abbrv;
     }
-    if (ABBRV_TYPE == 'keys-index') {
+    if (c('ABBRV_TYPE') == 'keys-index') {
       if (isset($_GET[Q_INNER_KEYS_INDEX])) {return $_GET[Q_INNER_KEYS_INDEX][$this->getKey()]; }
       return '';
     }
 
     // otherwise it is a user-defined function in bibtexbrowser.local.php
-    $f = ABBRV_TYPE;
+    $f = c('ABBRV_TYPE');
     return $f($this);
   }
 
   /** Returns the abbreviation, etc [1] if ABBRV_TYPE='index'. */
   function getAbbrv() {
     $abbrv = $this->getRawAbbrv();
-    if ( ABBRV_TYPE != 'none' ) {
+    if ( c('ABBRV_TYPE') != 'none' ) {
        $abbrv = '['.$abbrv.']';
     }
     return $abbrv;
@@ -1768,7 +1768,7 @@ class BibEntry {
           break;
         case 'definition':
           $result .= '<dl class="bibline"><dt class="bibref">';
-          if (ABBRV_TYPE=='none') { die ('Cannot define an empty term!'); }
+          if (c('ABBRV_TYPE')=='none') { die ('Cannot define an empty term!'); }
           break;
         case 'none':
           break;
@@ -3133,10 +3133,40 @@ class SimpleDisplay  {
     return _DefaultBibliographyTitle($this->query);
   }
 
+  function setIndices() {
+    $this->setIndicesInDecreasingOrder();
+  }
+
+  function setIndicesInIncreasingOrderChangingEveryYear() {
+    $i=1;
+    $pred = NULL;
+    foreach ($this->entries as $bib) {
+      if ($this->changeSection($pred, $bib)) {
+            $i=1;
+      }
+      $bib->setIndex($i++);
+      $pred = $bib;
+    } // end foreach
+  }
+
+  function setIndicesInDecreasingOrder() {
+    $count = count($this->entries);
+    $i=0;
+    foreach ($this->entries as $bib) {
+      // by default, index are in decreasing order
+      // so that when you add a publicaton recent , the indices of preceding publications don't change
+      $bib->setIndex($count-($i++));
+    } // end foreach
+  }
+
   /** Displays a set of bibtex entries in an HTML table */
   function display() {
 
     uasort($this->entries, 'compare_bib_entries');
+
+    // now that the entries are sorted, setting the index of entries
+    // this function can be overloaded
+    $this->setIndices();
 
     if ($this->options) {
       foreach($this->options as $fname=>$opt) {
@@ -3147,7 +3177,7 @@ class SimpleDisplay  {
     if (BIBTEXBROWSER_DEBUG) {
       echo 'Style: '.bibtexbrowser_configuration('BIBLIOGRAPHYSTYLE').'<br/>';
       echo 'Order: '.ORDER_FUNCTION.'<br/>';
-      echo 'Abbrv: '.ABBRV_TYPE.'<br/>';
+      echo 'Abbrv: '.c('ABBRV_TYPE').'<br/>';
       echo 'Options: '.@implode(',',$this->options).'<br/>';
     }
 
@@ -3162,16 +3192,12 @@ class SimpleDisplay  {
     }
     print_header_layout();
 
-    $count = count($this->entries);
-    $i=0;
     $pred = NULL;
     foreach ($this->entries as $bib) {
       if ($this->changeSection($pred, $bib)) {
         echo $this->sectionHeader($bib, $pred);
       }
-      // by default, index are in decreasing order
-      // so that when you add a publicaton recent , the indices of preceding publications don't change
-      $bib->setIndex($count-($i++));
+
       echo $bib->toHTML(true);
 
       $pred = $bib;

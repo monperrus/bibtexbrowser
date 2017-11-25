@@ -44,6 +44,12 @@ if(is_file('reflectivedoc.php')) {
   require_once ('bibtexbrowser.php');
 }
 
+class SimpleDisplayExt extends SimpleDisplay {
+  function setIndices() {
+    $this->setIndicesInIncreasingOrderChangingEveryYear();
+  }
+}
+
 
 class BTBTest extends PHPUnit_Framework_TestCase {
 
@@ -55,7 +61,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
   function createDB() {
     return $this->_createDB("@book{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n"
-    ."@book{aKey/withSlash,title={Slash Dangerous for web servers},author={Ap Ache},publisher={Springer},year=2009}\n"
+    ."@book{aKey/withSlash,title={Slash Dangerous for web servers},author={Ap Ache},publisher={Springer},year=2010}\n"
     ."@article{aKeyA,title={An Article},author={Foo Bar and Jane Doe},volume=5,journal=\"New Results\",year=2009,pages={1-2}}\n");
   }
 
@@ -131,6 +137,21 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');
     bibtexbrowser_configure('BIBTEXBROWSER_LINKS_TARGET','_top');
     $this->assertEquals('<span itemscope="" itemtype="http://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">An Article</span> (<span class="bibauthor"><span itemprop="author" itemtype="http://schema.org/Person">Foo Bar</span> and <span itemprop="author" itemtype="http://schema.org/Person">Jane Doe</span></span>), <span class="bibbooktitle">In <span itemprop="isPartOf">New Results</span></span>, volume 5, <span itemprop="datePublished">2009</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.atitle=An+Article&amp;rft.jtitle=New+Results&amp;rft.volume=5&amp;rft.issue=&amp;rft.pub=&amp;rfr_id=info%3Asid%2F%3A&amp;rft.date=2009&amp;rft.au=Foo+Bar&amp;rft.au=Jane+Doe"></span></span> ',$first_entry->toHTML());
+
+    // testing ABBRV_TYPE
+    bibtexbrowser_configure('ABBRV_TYPE','year');
+    $this->assertEquals("[2009]",$first_entry->getAbbrv());
+    bibtexbrowser_configure('ABBRV_TYPE','key');
+    $this->assertEquals("[aKeyA]",$first_entry->getAbbrv());
+    bibtexbrowser_configure('ABBRV_TYPE','index');
+    $this->assertEquals("[]",$first_entry->getAbbrv());
+    $first_entry->setIndex('foo');
+    $this->assertEquals("[foo]",$first_entry->getAbbrv());
+    bibtexbrowser_configure('ABBRV_TYPE','none');
+    $this->assertEquals("",$first_entry->getAbbrv());
+
+    // resetting the default link style
+    bibtexbrowser_configure('BIBTEXBROWSER_LINK_STYLE','bib2links_default');
 
   }
 
@@ -576,6 +597,31 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $btb->load('bibacid-utf8.bib');
         $this->assertEquals(5, count($btb->stringdb));
         $this->assertEquals("@string{foo={Foo}}",$btb->stringdb['foo']->toString());
+    }
+
+    function test_indices() {
+        $btb = $this->createDB();
+        $this->assertEquals("[]", $btb->getEntryByKey('aKey')->getAbbrv());
+
+        $d = new SimpleDisplay();
+        $d->setDB($btb);
+        ob_start();
+        $d->display();
+        ob_get_clean();
+
+        // the indices have been set by SimpleDisplay
+        $this->assertEquals("[1]", $btb->getEntryByKey('aKey')->getAbbrv());
+        $this->assertEquals("[3]", $btb->getEntryByKey('aKey-withSlash')->getAbbrv());
+
+        // SimpleDisplayExt sets the indices differently, using setIndicesInIncreasingOrderChangingEveryYear
+        $d = new SimpleDisplayExt();
+        $d->setDB($btb);
+        ob_start();
+        $d->display();
+        ob_get_clean();
+        $this->assertEquals("[2]", $btb->getEntryByKey('aKey')->getAbbrv());
+        $this->assertEquals("[1]", $btb->getEntryByKey('aKey-withSlash')->getAbbrv());
+        
     }
 
     function test_identity() {

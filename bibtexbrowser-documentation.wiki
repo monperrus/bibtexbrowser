@@ -241,12 +241,39 @@ add into ''bibtexbrowser.local.php'':
 ''@define('BIBTEXBROWSER_BIBTEX_LINKS',false);''
 
 ====How to change the reference indices?====
+The configuration of ABBRV_TYPE drives the indices
 <pre>
-
 // index => [1] The essence of metamodeling
 // year => [2005] The essence of metamodeling
 // x-abbrv => [SoSyM] The essence of metamodeling if the bibtex entry contains a field x-abbrv
 define('ABBRV_TYPE','year');// may be year/x-abbrv/key/none/index
+</pre>
+
+One can also extend class SimpleDisplay to tweak the indices.
+
+For instance, this configuration ...
+<pre>
+// bibtexbrowser.local.php
+class SimpleDisplayExt extends SimpleDisplay {
+  // overriding the default
+  function setIndices() {
+    $this->setIndicesInIncreasingOrderChangingEveryYear();
+  }
+}
+bibtexbrowser_configure('BIBTEXBROWSER_DEFAULT_DISPLAY','SimpleDisplayExt');
+</pre>
+results in resetting the numeric indices every year as follows
+<pre>
+2017
+[1] article1... (2017) [pdf] [doi]
+[2] article2... (2017) [pdf] [doi]
+[3] article3... (2017) [pdf] [doi]
+etc..
+
+2016
+[1] article1... (2017) [pdf] [doi]
+[2] article2... (2017) [pdf] [doi]
+[3] article3... (2017) [pdf] [doi]
 </pre>
 
 

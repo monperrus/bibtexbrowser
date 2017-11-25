@@ -4,11 +4,10 @@ php:
   - '5.4'
   - '5.5'
   - '5.6'
-  - '7.0'
 
 script:
-    - curl -o reflectivedoc.php http://www.monperrus.net/martin/reflectivedoc.php.txt
-    - curl -o gakowiki-syntax.php http://www.monperrus.net/martin/gakowiki-syntax.php.txt
+    - curl -L -o reflectivedoc.php https://www.monperrus.net/martin/reflectivedoc.php.txt
+    - curl -L -o gakowiki-syntax.php https://www.monperrus.net/martin/gakowiki-syntax.php.txt
     - phpunit bibtexbrowser-test.php
 
 sudo: false
