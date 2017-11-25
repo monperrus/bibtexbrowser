@@ -24,25 +24,30 @@ function exception_error_handler($severity, $message, $file, $line) {
 }
 error_reporting(E_ALL);
 
+// setup
 @copy('bibtexbrowser.local.php','bibtexbrowser.local.php.bak');
 @unlink('bibtexbrowser.local.php');
 
-if(is_file('reflectivedoc.php')) {
-  set_error_handler("exception_error_handler");
-  require('reflectivedoc.php');
-  $_GET['library'] = 1;
-  foreach(getAllSnippetsInFile('bibtexbrowser.php') as $snippet) {
-    //echo $snippet;
+class Nothing {
+  function main() {}
+}
+define('BIBTEXBROWSER_MAIN','Nothing');
+//require_once('bibtexbrowser.php');
+
+set_error_handler("exception_error_handler");
+require('reflectivedoc.php');
+$nsnippet=0;
+foreach(getAllSnippetsInFile('bibtexbrowser.php') as $snippet) {
     ob_start();
     eval($snippet);
     ob_get_clean();
     unset($_GET['bib']);
-  }
-  restore_error_handler();
-} else {
-  $_GET['library']=1;
-  require_once ('bibtexbrowser.php');
+    $nsnippet++;
 }
+if ($nsnippet!=19) {
+  die('oops '.$nsnippet);
+}
+restore_error_handler();
 
 class SimpleDisplayExt extends SimpleDisplay {
   function setIndices() {
@@ -52,6 +57,13 @@ class SimpleDisplayExt extends SimpleDisplay {
 
 
 class BTBTest extends PHPUnit_Framework_TestCase {
+
+    protected function setUp()
+    {
+        // resetting the default link style
+        bibtexbrowser_configure('BIBTEXBROWSER_LINK_STYLE','bib2links_default');
+        bibtexbrowser_configure('ABBRV_TYPE','index');
+    }
 
   function test_checkdoc() {
     if(!is_file('gakowiki-syntax.php')) { return; }
@@ -149,9 +161,6 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals("[foo]",$first_entry->getAbbrv());
     bibtexbrowser_configure('ABBRV_TYPE','none');
     $this->assertEquals("",$first_entry->getAbbrv());
-
-    // resetting the default link style
-    bibtexbrowser_configure('BIBTEXBROWSER_LINK_STYLE','bib2links_default');
 
   }
 
@@ -393,14 +402,15 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
 
     function test_PagedDisplay() {
-        $PAGE_SIZE = 3;
+        $PAGE_SIZE = 4;
         bibtexbrowser_configure('BIBTEXBROWSER_DEFAULT_DISPLAY', 'PagedDisplay');
         bibtexbrowser_configure('PAGE_SIZE', $PAGE_SIZE);
-        $_GET['bib'] = 'bibacid-utf8.bib';
-        $_GET['all'] = 1;
-        $d = new Dispatcher();
+        $db = new BibDataBase();
+        $db->load('bibacid-utf8.bib');
+        $d = new PagedDisplay();
+        $d->setEntries($db->bibdb);
         ob_start();
-        $d->main();
+        $d->display();
         $content = "<div>".ob_get_clean()."</div>";
         $xml = new SimpleXMLElement($content);
         $result = $xml->xpath('//td[@class=\'bibref\']');
