@@ -272,6 +272,17 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
   }
 
+  function test_mastersthesis() {
+    $test_data = fopen('php://memory','x+');
+    fwrite($test_data, "@mastersthesis{aKey,title={A Thing},author={Martin Monperrus},year=2009,school={School of Nowhere}}\n".
+    "@String{x=2008}\n"
+    );
+    fseek($test_data,0);
+    $db = new BibDataBase();
+    $db->update_internal("inline", $test_data);
+    $this->assertEquals("A Thing (Martin Monperrus), Master's thesis, School of Nowhere, 2009. [bibtex]",strip_tags($db->getEntryByKey('aKey')->toHTML()));
+  }
+
   function test_google_scholar_metadata() {
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, "@article{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009,pages={42--4242},number=1}\n".
