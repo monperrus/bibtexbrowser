@@ -4748,7 +4748,7 @@ class Dispatcher {
     <head>
     <meta name="generator" content="bibtexbrowser v__GITHUB__" />
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo OUTPUT_ENCODING ?>"/>
-    <title>You are browsing <?php echo $_GET[Q_FILE]; ?> with bibtexbrowser</title>
+    <title>You are browsing <?php echo htmlentities($_GET[Q_FILE], ENT_QUOTES); ?> with bibtexbrowser</title>
     </head>
     <frameset cols="15%,*">
     <frame name="menu" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;menu'; ?>" />
