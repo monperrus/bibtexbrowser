@@ -12,5 +12,10 @@
     ],
     "require": {
 	"php": ">=4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Monperrus\\BibtexBrowser\\": "src/"
+        }
     }
 }
