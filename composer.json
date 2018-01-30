@@ -19,6 +19,6 @@
         }
     },
     "scripts": {
-        "server": "@composer -S localhost:9999"
+        "serve": "@php -S localhost:8080 -t public/"
     }
 }
