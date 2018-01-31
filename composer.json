@@ -20,5 +20,9 @@
     },
     "scripts": {
         "serve": "@php -S localhost:8080 -t public/"
+    },
+    "require-dev": {
+        "monolog/monolog": "^1.23",
+        "kint-php/kint": "^2.2"
     }
 }
