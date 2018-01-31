@@ -1,0 +1,28 @@
+.datePublished {
+	background-color: blue;
+}
+.btb-header { }
+.rheader {
+	font-size: large
+}
+.sheader {
+	padding-top: 10px;
+}
+.bibref {
+	/*padding:3px; */
+/*	padding-left:15px;  */
+	vertical-align:top;
+	color:white;}
+/*.bibtitle { font-weight:bold; }*/
+.bibitem {
+	text-indent:-35px;
+	padding-left:35px;
+}
+.bibbooktitle { font-style:italic; }
+.count { color:gray }
+.sheader { font-weight:bold; font-size: large;}
+.volume { font-style: italic; }
+
+body {
+    background:green;
+}
