@@ -1228,7 +1228,7 @@ class BibEntry {
     // we assume that "comment" is never latex code
     // but instead could contain HTML code (with links using the character "~" for example)
     // so "comment" is not transformed too
-    if ($name!='url' && $name!='comment' 
+    if ($name!='url' && $name!='comment'
             && !preg_match('/^hp_/',$name) // homepage links should not be transformed with latex2html
         ) {
           $value = $this->transformValue($value);
@@ -4152,7 +4152,7 @@ echo "\n".' --></style>';
 ?>
 </head>
 <body>
-<?php 
+<?php
 // configuration point to add a banner
 echo bibtexbrowser_top_banner();
 ?>
@@ -4740,23 +4740,28 @@ class Dispatcher {
     exit;
   }
 
-  function frameset() {    ?>
-
-
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
-    <html  xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-    <meta name="generator" content="bibtexbrowser v__GITHUB__" />
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo OUTPUT_ENCODING ?>"/>
-    <title>You are browsing <?php echo htmlentities($_GET[Q_FILE], ENT_QUOTES); ?> with bibtexbrowser</title>
-    </head>
-    <frameset cols="15%,*">
-    <frame name="menu" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;menu'; ?>" />
-    <frame name="main" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;'.BIBTEXBROWSER_DEFAULT_FRAME?>" />
-    </frameset>
-    </html>
-
-    <?php
+  function frameset() {
+    $OUTPUT_ENCODING = OUTPUT_ENCODING;
+    $BIBTEXBROWSER_DEFAULT_FRAME = BIBTEXBROWSER_DEFAULT_FRAME;
+    $bibFilename = htmlentities($_GET[Q_FILE], ENT_QUOTES);
+    $uriFrameMenu = '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;menu';
+    $uriFrameMain = '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;'.BIBTEXBROWSER_DEFAULT_FRAME;
+    //
+print <<<HTML
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="bibtexbrowser v__GITHUB__" />
+<meta http-equiv="Content-Type" content="text/html; charset=$OUTPUT_ENCODING"/>
+<title>You are browsing $bibFilename with bibtexbrowser</title>
+</head>
+<frameset cols="15%,*">
+<frame name="menu" src="$uriFrameMenu" />
+<frame name="main" src="$uriFrameMain" />
+</frameset>
+</html>
+HTML;
+    //
     return 'END_DISPATCH';
 }
 
