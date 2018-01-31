@@ -12,5 +12,8 @@
     ],
     "require": {
 	"php": ">=4"
+    },
+    "scripts": {
+        "serve": ["@php -S localhost:8080 bibtexbrowser.php"]
     }
 }
