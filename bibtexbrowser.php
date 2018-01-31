@@ -2669,7 +2669,9 @@ if (!function_exists('bibtexbrowser_top_banner')) {
 function javascript() {
   // we use jquery with the official content delivery URLs
   // Microsoft and Google also provide jquery with their content delivery networks
-?><script type="text/javascript" src="<?php echo JQUERY_URI ?>"></script>
+    $JQUERY_URI = JQUERY_URI;
+print <<<JS
+<script type="text/javascript" src="$JQUERY_URI"></script>
 <script type="text/javascript" ><!--
 // Javascript progressive enhancement for bibtexbrowser
 $('a.biburl').each(function() { // for each url "[bibtex]"
@@ -2695,9 +2697,8 @@ $('a.biburl').each(function() { // for each url "[bibtex]"
   biburl.attr('bibtexbrowser','done');
   } // end if biburl.bibtexbrowser;
 });
-
-
---></script><?php
+--></script>
+JS;
 } // end function javascript
 
 
@@ -3959,8 +3960,7 @@ class BibDataBase {
 
 /** returns the default CSS of bibtexbrowser */
 function bibtexbrowserDefaultCSS() {
-?>
-
+$css = <<<CSS
 /* title */
 .bibtitle { font-weight:bold; }
 /* author */
@@ -4086,8 +4086,8 @@ dd {
 .bibentry-reference { margin-bottom:15px; padding:10px; background: none repeat scroll 0 0 #F5F5F5; border: 1px solid #DDDDDD; }
 
 .btb-nav { text-align: right; }
-
-<?php
+CSS;
+return $css;
 } // end function bibtexbrowserDefaultCSS
 
 /** encapsulates the content of a delegate into full-fledged HTML (&lt;HTML>&lt;BODY> and TITLE)
@@ -4105,58 +4105,54 @@ usage:
 */
 
 function HTMLTemplate($content) {
+// we may add new metadata tags
+$metatags = array();
+if (method_exists($content, 'metadata')) {
+  $metatags = $content->metadata();
+    }
+
+    $htmlMetatags = "";
+foreach($metatags as $item) {
+  list($name,$value) = $item;
+   $htmlMetatags .= '<meta name="'.$name.'" property="'.$name.'" content="'.$value.'"/>'."\n";
+} // end foreach
+
+// now the title
+if (method_exists($content, 'getTitle')) {
+  $htmlTitle = '<title>'.strip_tags($content->getTitle()).'</title>';
+}
+
+if (method_exists($content, 'getCSS')) {
+  $htmlCSS = $content->getCSS();
+} else if (is_readable(dirname(__FILE__).'/bibtexbrowser.css')) {
+  $htmlCSS = readfile(dirname(__FILE__).'/bibtexbrowser.css');
+}
+else {  $htmlCSS = bibtexbrowserDefaultCSS(); }
+
 $OUTPUT_ENCODING = OUTPUT_ENCODING;
 // when we load a page with AJAX
 // the HTTP header is taken into account, not the <meta http-equiv>
 header('Content-type: text/html; charset='.OUTPUT_ENCODING);
 print <<<HTML
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=$OUTPUT_ENCODING"/>
-<meta name="generator" content="bibtexbrowser v__GITHUB__" />
+ <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=$OUTPUT_ENCODING"/>
+   <meta name="generator" content="bibtexbrowser v__GITHUB__" />
+   $htmlMetatags
+   $htmlTitle
+   <style type="text/css">
+     $htmlCSS
+   </style>
+  </head>
+  <body>
 HTML;
 
 // if ($content->getRSS()!='') echo '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.$content->getRSS().'&amp;rss" />';
 
-
-// we may add new metadata tags
-$metatags = array();
-if (method_exists($content, 'metadata')) {
-  $metatags = $content->metadata();
-}
-foreach($metatags as $item) {
-  list($name,$value) = $item;
-  echo '<meta name="'.$name.'" property="'.$name.'" content="'.$value.'"/>'."\n";
-} // end foreach
-
-
-
-// now the title
-if (method_exists($content, 'getTitle')) {
-  echo '<title>'.strip_tags($content->getTitle()).'</title>';
-}
-
-// now the CSS
-echo '<style type="text/css"><!--  '."\n";
-
-if (method_exists($content, 'getCSS')) {
-  echo $content->getCSS();
-} else if (is_readable(dirname(__FILE__).'/bibtexbrowser.css')) {
-  readfile(dirname(__FILE__).'/bibtexbrowser.css');
-}
-else {  bibtexbrowserDefaultCSS(); }
-
-echo "\n".' --></style>';
-
-?>
-</head>
-<body>
-<?php
 // configuration point to add a banner
 echo bibtexbrowser_top_banner();
-?>
-<?php
+
 if (method_exists($content, 'getTitle')) {
   echo "<div class=\"rheader\">" . $content->getTitle() . "</div>";
 }
@@ -4369,42 +4365,43 @@ class RSSDisplay {
     $this->entries = $entries;
   }
 
-  function setWrapper($x) { $x->wrapper = 'NoWrapper'; }
+function setWrapper($x) { $x->wrapper = 'NoWrapper'; }
 
-  function display() {
-    header('Content-type: application/rss+xml');
-    echo '<?xml version="1.0" encoding="'.OUTPUT_ENCODING.'"?>';
+function display() {
+
+foreach($this->entries as $bibentry) {
+$bibEntryKey = urlencode(@$_GET[Q_FILE].'::'.$bibentry->getKey());
+$bibEntryUrl = $bibentry->getURL();
+$bibEntryTitle = $this->text2rss($bibentry->getTitle());
+$bibEntryAbstract = $this->text2rss(bib2html($bibentry)."\n".$bibentry->getAbstract());
 //
+$rssItems .= <<<RSS
+ <item>
+  <title>$bibEntryTitle</title>
+  <link>$bibEntryUrl</link>
+  <description>$bibEntryAbstract</description>
+  <guid isPermaLink="false">$bibEntryKey</guid>
+ </item>
+RSS;
+}
 
-?>
+ header('Content-type: application/rss+xml');
+ echo '<?xml version="1.0" encoding="'.OUTPUT_ENCODING.'"?>';
+
+$rssLink = 'http://' . @$_SERVER['HTTP_HOST'].htmlentities(@$_SERVER['REQUEST_URI']);
+$atomLink = 'http://' . @$_SERVER['HTTP_HOST'].htmlentities(@$_SERVER['REQUEST_URI']);
+print <<<RSS
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
    <channel>
-      <title><?php echo $this->title;?></title>
-      <link>http://<?php echo @$_SERVER['HTTP_HOST'].htmlentities(@$_SERVER['REQUEST_URI']);?></link>
-      <atom:link href="http://<?php echo @$_SERVER['HTTP_HOST'].htmlentities(@$_SERVER['REQUEST_URI']);?>" rel="self" type="application/rss+xml" />
+      <title>$this->title</title>
+      <link>$rssLink</link>
+      <atom:link href="$atomLink" rel="self" type="application/rss+xml" />
       <description></description>
       <generator>bibtexbrowser v__GITHUB__</generator>
-
-<?php
-      foreach($this->entries as $bibentry) {
-         ?>
-         <item>
-         <title><?php echo $this->text2rss($bibentry->getTitle());?></title>
-         <link><?php echo $bibentry->getURL();?></link>
-         <description>
-          <?php
-            // we are in XML, so we cannot have HTML entitites
-            echo $this->text2rss(bib2html($bibentry)."\n".$bibentry->getAbstract());
-          ?>
-          </description>
-         <guid isPermaLink="false"><?php echo urlencode(@$_GET[Q_FILE].'::'.$bibentry->getKey());?></guid>
-         </item>
-         <?php } /* end foreach */?>
+      $rssItems
    </channel>
 </rss>
-
-<?php
-  //exit;
+RSS;
   }
 }
 
@@ -4421,6 +4418,7 @@ usage:
   $x->main();
 </pre>
 */
+
 class Dispatcher {
 
   /** this is the query */
