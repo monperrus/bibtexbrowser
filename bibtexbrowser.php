@@ -4102,23 +4102,23 @@ usage:
       getRSS()
       getTitle()
  * $title: title of the page
- */
-function HTMLTemplate($content) {
+*/
 
+function HTMLTemplate($content) {
+$OUTPUT_ENCODING = OUTPUT_ENCODING;
 // when we load a page with AJAX
 // the HTTP header is taken into account, not the <meta http-equiv>
 header('Content-type: text/html; charset='.OUTPUT_ENCODING);
-echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'."\n";
-
-?>
+print <<<HTML
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo OUTPUT_ENCODING ?>"/>
+<meta http-equiv="Content-Type" content="text/html; charset=$OUTPUT_ENCODING"/>
 <meta name="generator" content="bibtexbrowser v__GITHUB__" />
-<?php
+HTML;
+
 // if ($content->getRSS()!='') echo '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.$content->getRSS().'&amp;rss" />';
-?>
-<?php
+
 
 // we may add new metadata tags
 $metatags = array();
@@ -4749,7 +4749,7 @@ class Dispatcher {
     //
 print <<<HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
-<html  xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="generator" content="bibtexbrowser v__GITHUB__" />
 <meta http-equiv="Content-Type" content="text/html; charset=$OUTPUT_ENCODING"/>
