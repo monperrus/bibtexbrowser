@@ -1,5 +1,8 @@
 <?PHP
-require_once "../src/Bibliography.php";
+
+require_once "../vendor/autoload.php";
+
+use Monperrus\BibtexBrowser\Bibliography;
 
 
 $config = array("bib" => "bibacid-utf8.bib",
