@@ -554,7 +554,8 @@ In your project's `composer.json`, just add this <pre>"monperrus/bibtexbrowser":
 </pre>
 
 With composer, a test server can be started with this command:
-<pre>composer serve</pre>, which runs this script:
+<pre>composer serve</pre>
+Which runs this script:
 <pre>php -S localhost:29896 bibtexbrowser.php</pre>
 
 Now, to display a particular bibtex file in your browser, the URI should be of this form:
