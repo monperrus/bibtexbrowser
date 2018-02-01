@@ -328,7 +328,7 @@ function _zetDB($bibtex_filenames) {
       // to automate dectection of faulty links with tools such as webcheck
       header('HTTP/1.1 404 Not found');
       // escape $bib to prevent XSS
-      $escapedBib = htmlEntities($bib, ENT_QUOTES);
+      htmlEntities($bib, ENT_QUOTES);
       die('<b>the bib file '.$escapedBib.' does not exist !</b>');
     }
   } // end for each
@@ -4531,7 +4531,7 @@ class Dispatcher {
       }
 
       // should call method display() on $x
-      $fun = $this->wrapper;
+      $fun = BIBTEXBROWSER_DEFAULT_TEMPLATE;//$this->wrapper;
       $fun($x);
 
       $this->clearQuery();
@@ -4541,7 +4541,7 @@ class Dispatcher {
        // if some contents have already been sent, for instance if we are included
        // this means doing nothing
        if ( headers_sent() == false ) { /* to avoid sending an unnecessary frameset */
-         header("Location: ".$_SERVER['SCRIPT_NAME']."?frameset&bib=".$_GET[Q_FILE]);
+           header("Location: ".$_SERVER['SCRIPT_NAME']."?frameset&bib=".$_GET[Q_FILE]);
        }
      }
   }
@@ -4668,7 +4668,8 @@ class Dispatcher {
   function menu() {
     $menu = createMenuManager();
     $menu->setDB($this->getDB());
-    $fun = $this->wrapper;
+    // why does //$this->wrapper; = no wrapper?
+    $fun = BIBTEXBROWSER_DEFAULT_TEMPLATE;
     $fun($menu);
     return 'END_DISPATCH';
   }
@@ -4759,7 +4760,7 @@ class Dispatcher {
     </html>
 
     <?php
-    return 'END_DISPATCH';
+      return 'END_DISPATCH';
 }
 
 } // end class Dispatcher

@@ -19,7 +19,7 @@
         }
     },
     "scripts": {
-        "serve": "@php -S localhost:8080 -t public/"
+        "serve": "@php -S localhost:29896 -t public/"
     },
     "require-dev": {
         "monolog/monolog": "^1.23",
