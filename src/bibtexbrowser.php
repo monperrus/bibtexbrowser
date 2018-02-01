@@ -20,6 +20,7 @@ use Monperrus\BibtexBrowser\ParserDelegate;
 use Monperrus\BibtexBrowser\XMLPrettyPrinter;
 use Monperrus\BibtexBrowser\StringEntry;
 use Monperrus\BibtexBrowser\BibDBBuilder;
+use Monperrus\BibtexBrowser\IndependentYearMenu;
 
 // it is be possible to include( 'bibtexbrowser.php' ); several times in the same script
 // added on Wednesday, June 01 2011, bug found by Carlos Bras
@@ -2163,32 +2164,6 @@ function splitFullName($author){
 }
 
 
-/** outputs an horizontal  year-based menu
-usage:
-<pre>
-  $_GET['library']=1;
-  $_GET['bib']='bibacid-utf8.bib';
-  $_GET['all']=1;
-  include( 'bibtexbrowser.php' );
-  setDB();
-  new IndependentYearMenu($_GET[Q_DB]);
-</pre>
- */
-class IndependentYearMenu  {
-  function __construct($db) {
-    $yearIndex = $db->yearIndex();
-    echo '<div id="yearmenu">Year: ';
-    $formatedYearIndex = array();
-    $formatedYearIndex[] = '<a '.makeHref(array(Q_YEAR=>'.*')).'>All</a>';
-    foreach($yearIndex as $year) {
-      $formatedYearIndex[] = '<a '.makeHref(array(Q_YEAR=>$year)).'>'.$year.'</a>';
-    }
-
-    // by default the separator is a |
-    echo implode('|',$formatedYearIndex);
-    echo '</div>';
-  }
-}
 
 if (!function_exists('poweredby')) {
   /** Returns the powered by part. @nodoc */
