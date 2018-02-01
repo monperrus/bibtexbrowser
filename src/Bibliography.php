@@ -12,16 +12,11 @@ class Bibliography
                                    "library" => null,
                                    "academic" => null);
 
-    private $config = array();
-
     public function __construct($userConfig = array())
     {
         // (PHP 5 >= 5.3.0, PHP 7)
-        $this->config = array_replace($this->defaultConfig, $userConfig);
-
-        if (!isset($_GET['bib'])) {
-            $_GET['bib'] = $this->config['bib'];
-        }
+        // $userConfig precedent over defaultConfig; $_GET over $userConfig
+        $_GET = array_replace($this->defaultConfig, $userConfig, $_GET);
     }
 
     public function print()
