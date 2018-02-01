@@ -15,6 +15,12 @@ License, or (at your option) any later version.
 
 */
 
+use Monperrus\BibtexBrowser\StateBasedBibtexParser;
+use Monperrus\BibtexBrowser\ParserDelegate;
+use Monperrus\BibtexBrowser\XMLPrettyPrinter;
+use Monperrus\BibtexBrowser\StringEntry;
+use Monperrus\BibtexBrowser\BibDBBuilder;
+
 // it is be possible to include( 'bibtexbrowser.php' ); several times in the same script
 // added on Wednesday, June 01 2011, bug found by Carlos Bras
 if (!defined('BIBTEXBROWSER')) {
@@ -226,7 +232,8 @@ if (defined('ENCODING')) {
 // this is usually resolved to bibtexbrowser.php
 // but can be overridden in bibtexbrowser.local.php
 // for instance with @define('BIBTEXBROWSER_URL',''); // links to the current page with ?
-@define('BIBTEXBROWSER_URL',basename(__FILE__));
+//@define('BIBTEXBROWSER_URL',basename(__FILE__));
+@define('BIBTEXBROWSER_URL','');
 
 // *************** END CONFIGURATION
 
@@ -242,6 +249,8 @@ define('Q_INNER_TYPE', 'x-bibtex-type');// used for representing the type of the
 @ini_set("url_rewriter.tags","");
 
 function nothing() {}
+
+
 
 function config_value($key) {
   global $CONFIGURATION;
@@ -325,7 +334,7 @@ function _zetDB($bibtex_filenames) {
       // to automate dectection of faulty links with tools such as webcheck
       header('HTTP/1.1 404 Not found');
       // escape $bib to prevent XSS
-      $escapedBib = htmlEntities($bib, ENT_QUOTES);
+      htmlEntities($bib, ENT_QUOTES);
       die('<b>the bib file '.$escapedBib.' does not exist !</b>');
     }
   } // end for each
@@ -467,7 +476,6 @@ if (!function_exists('createMenuManager')) {
   function createMenuManager() { $x = new MenuManager(); return $x;}
 }
 
-
 ////////////////////////////////////////////////////////
 
 /** is a generic parser of bibtex files.
@@ -481,471 +489,10 @@ notes:
  - It has no dependencies, it can be used outside of bibtexbrowser
  - The delegate is expected to have some methods, see classes BibDBBuilder and XMLPrettyPrinter
  */
-class StateBasedBibtexParser {
 
-  var $delegate;
 
-  function __construct($delegate) {
-    $this->delegate = $delegate;
-  }
 
-  function parse($handle) {
-    if (gettype($handle) == 'string') { throw new Exception('oops'); }
-    $delegate = $this->delegate;
-    // STATE DEFINITIONS
-    @define('NOTHING',1);
-    @define('GETTYPE',2);
-    @define('GETKEY',3);
-    @define('GETVALUE',4);
-    @define('GETVALUEDELIMITEDBYQUOTES',5);
-    @define('GETVALUEDELIMITEDBYQUOTES_ESCAPED',6);
-    @define('GETVALUEDELIMITEDBYCURLYBRACKETS',7);
-    @define('GETVALUEDELIMITEDBYCURLYBRACKETS_ESCAPED',8);
-    @define('GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL',9);
-    @define('GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL_ESCAPED',10);
-    @define('GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL',11);
-    @define('GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL_ESCAPED',12);
-    @define('GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL',13);
-    @define('GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL_ESCAPED',14);
 
-
-    $state=NOTHING;
-    $entrytype='';
-    $entrykey='';
-    $entryvalue='';
-    $fieldvaluepart='';
-    $finalkey='';
-    $entrysource='';
-
-    // metastate
-    $isinentry = false;
-
-    $delegate->beginFile();
-
-    // if you encounter this error "Allowed memory size of xxxxx bytes exhausted"
-    // then decrease the size of the temp buffer below
-    $bufsize=BUFFERSIZE;
-    while (!feof($handle)) {
-    $sread=fread($handle,$bufsize);
-    //foreach(str_split($sread) as $s) {
-    for ( $i=0; $i < strlen( $sread ); $i++) { $s=$sread[$i];
-
-    if ($isinentry) $entrysource.=$s;
-
-    if ($state==NOTHING) {
-      // this is the beginning of an entry
-      if ($s=='@') {
-      $delegate->beginEntry();
-      $state = GETTYPE;
-      $isinentry = true;
-      $entrysource='@';
-      }
-    }
-
-    else if ($state==GETTYPE) {
-      // this is the beginning of a key
-      if ($s=='{') {
-      $state = GETKEY;
-      $delegate->setEntryType($entrytype);
-      $entrytype='';
-      }
-      else   $entrytype=$entrytype.$s;
-    }
-
-    else if ($state==GETKEY) {
-      // now we get the value
-      if ($s=='=') {
-        $state = GETVALUE;
-        $fieldvaluepart='';
-        $finalkey=$entrykey;
-        $entrykey='';
-      }
-      // oups we only have the key :-) anyway
-      else if ($s=='}') {
-      $state = NOTHING;$isinentry = false;$delegate->endEntry($entrysource);
-      $entrykey='';
-      }
-      // OK now we look for values
-      else if ($s==',') {
-      $state=GETKEY;
-      $delegate->setEntryKey($entrykey);
-      $entrykey='';}
-      else { $entrykey=$entrykey.$s; }
-      }
-      // we just got a =, we can now receive the value, but we don't now whether the value
-      // is delimited by curly brackets, double quotes or nothing
-      else if ($state==GETVALUE) {
-
-        // the value is delimited by double quotes
-        if ($s=='"') {
-        $state = GETVALUEDELIMITEDBYQUOTES;
-        }
-        // the value is delimited by curly brackets
-        else if ($s=='{') {
-        $state = GETVALUEDELIMITEDBYCURLYBRACKETS;
-	}
-        // the end of the key and no value found: it is the bibtex key e.g. \cite{Descartes1637}
-        else if ($s==',') {
-        $state = GETKEY;
-        $delegate->setEntryField($finalkey,$entryvalue);
-        $entryvalue=''; // resetting the value buffer
-        }
-        // this is the end of the value AND of the entry
-        else if ($s=='}') {
-        $state = NOTHING;
-        $delegate->setEntryField($finalkey,$entryvalue);
-        $isinentry = false;$delegate->endEntry($entrysource);
-        $entryvalue=''; // resetting the value buffer
-        }
-        else if ($s==' ' || $s=="\t"  || $s=="\n" || $s=="\r" ) {
-          // blank characters are not taken into account when values are not in quotes or curly brackets
-        }
-        else {
-          $entryvalue=$entryvalue.$s;
-        }
-      }
-
-
-    /* GETVALUEDELIMITEDBYCURLYBRACKETS* handle entries delimited by curly brackets and the possible nested curly brackets */
-    else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS) {
-
-      if ($s=='\\') {
-      $state = GETVALUEDELIMITEDBYCURLYBRACKETS_ESCAPED;
-      $entryvalue=$entryvalue.$s;}
-      else if ($s=='{') {
-        $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;
-        $entryvalue=$entryvalue.$s;
-        $delegate->entryValuePart($finalkey,$fieldvaluepart,'CURLYTOP');
-        $fieldvaluepart='';
-      }
-      else if ($s=='}') { // end entry
-        $state = GETVALUE;
-        $delegate->entryValuePart($finalkey,$fieldvaluepart,'CURLYTOP');
-      }
-      else {
-        $entryvalue=$entryvalue.$s;
-        $fieldvaluepart=$fieldvaluepart.$s;
-      }
-    }
-      // handle anti-slashed brackets
-      else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_ESCAPED) {
-        $state = GETVALUEDELIMITEDBYCURLYBRACKETS;
-        $entryvalue=$entryvalue.$s;
-        }
-    // in first level of curly bracket
-    else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL) {
-      if ($s=='\\') {
-      $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL_ESCAPED;
-      $entryvalue=$entryvalue.$s;}
-      else if ($s=='{') {
-      $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL;$entryvalue=$entryvalue.$s;}
-      else if ($s=='}') {
-        $state = GETVALUEDELIMITEDBYCURLYBRACKETS;
-        $delegate->entryValuePart($finalkey,$fieldvaluepart,'CURLYONE');
-        $fieldvaluepart='';
-        $entryvalue=$entryvalue.$s;
-      }
-      else {
-        $entryvalue=$entryvalue.$s;
-        $fieldvaluepart=$fieldvaluepart.$s;
-      }
-    }
-      // handle anti-slashed brackets
-      else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL_ESCAPED) {
-        $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;
-        $entryvalue=$entryvalue.$s;
-        }
-
-    // in second level of curly bracket
-    else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL) {
-      if ($s=='\\') {
-      $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL_ESCAPED;
-      $entryvalue=$entryvalue.$s;}
-      else if ($s=='{') {
-      $state = GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL;$entryvalue=$entryvalue.$s;}
-      else if ($s=='}') {
-      $state = GETVALUEDELIMITEDBYCURLYBRACKETS_1NESTEDLEVEL;$entryvalue=$entryvalue.$s;}
-      else { $entryvalue=$entryvalue.$s;}
-      }
-      // handle anti-slashed brackets
-      else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL_ESCAPED) {
-        $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL;
-        $entryvalue=$entryvalue.$s;
-      }
-
-    // in third level of curly bracket
-    else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL) {
-      if ($s=='\\') {
-      $state = GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL_ESCAPED;
-      $entryvalue=$entryvalue.$s;}
-      else if ($s=='}') {
-      $state = GETVALUEDELIMITEDBYCURLYBRACKETS_2NESTEDLEVEL;$entryvalue=$entryvalue.$s;}
-      else { $entryvalue=$entryvalue.$s;}
-    }
-    // handle anti-slashed brackets
-    else if ($state==GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL_ESCAPED) {
-      $state = GETVALUEDELIMITEDBYCURLYBRACKETS_3NESTEDLEVEL;
-      $entryvalue=$entryvalue.$s;
-    }
-
-    /* handles entries delimited by double quotes */
-    else if ($state==GETVALUEDELIMITEDBYQUOTES) {
-
-      if ($s=='\\') {
-      $state = GETVALUEDELIMITEDBYQUOTES_ESCAPED;
-      $entryvalue=$entryvalue.$s;}
-      else if ($s=='"') {
-        $state = GETVALUE;
-      }
-      else {  $entryvalue=$entryvalue.$s;}
-    }
-    // handle anti-double quotes
-    else if ($state==GETVALUEDELIMITEDBYQUOTES_ESCAPED) {
-      $state = GETVALUEDELIMITEDBYQUOTES;
-      $entryvalue=$entryvalue.$s;
-    }
-
-    } // end for
-    } // end while
-    $delegate->endFile();
-    //$d = $this->delegate;print_r($d);
-  } // end function
-} // end class
-
-/** a default empty implementation of a delegate for StateBasedBibtexParser */
-class ParserDelegate {
-
-  function beginFile() {}
-
-  function endFile() {}
-
-  function setEntryField($finalkey,$entryvalue) {}
-
-  function setEntryType($entrytype) {}
-
-  function setEntryKey($entrykey) {}
-
-  function beginEntry() {}
-
-  function endEntry($entrysource) {}
-
-  /** called for each sub parts of type {part} of a field value
-   * for now, only CURLYTOP and CURLYONE events
-  */
-  function entryValuePart($key, $value, $type) {}
-
-} // end class ParserDelegate
-
-
-/** is a possible delegate for StateBasedBibParser.
-usage:
-see snippet of [[#StateBasedBibParser]]
-*/
-class XMLPrettyPrinter extends ParserDelegate {
-  function beginFile() {
-    header('Content-type: text/xml;');
-    print '<?xml version="1.0" encoding="'.OUTPUT_ENCODING.'"?>';
-    print '<bibfile>';
-  }
-
-
-  function endFile() {
-    print '</bibfile>';
-  }
-  function setEntryField($finalkey,$entryvalue) {
-    print "<data>\n<key>".$finalkey."</key>\n<value>".$entryvalue."</value>\n</data>\n";
-  }
-
-  function setEntryType($entrytype) {
-    print '<type>'.$entrytype.'</type>';
-  }
-
-  function setEntryKey($entrykey) {
-    print '<keyonly>'.$entrykey.'</keyonly>';
-  }
-
-  function beginEntry() {
-    print "<entry>\n";
-  }
-
-  function endEntry($entrysource) {
-    print "</entry>\n";
-  }
-} // end class XMLPrettyPrinter
-
-/** represents @string{k=v} */
-class StringEntry {
-  function __construct($k, $v, $filename) {
-    $this->name=$k;
-    $this->value=$v;
-    $this->filename=$filename;
-  }
-
-  function toString() {
-    return '@string{'.$this->name.'={'.$this->value.'}}';
-  }
-} // end class StringEntry
-
-
-
-
-/** builds arrays of BibEntry objects from a bibtex file.
-usage:
-<pre>
-  $empty_array = array();
-  $db = new BibDBBuilder(); // see also factory method createBibDBBuilder
-  $db->build('bibacid-utf8.bib'); // parses bib file
-  print_r($db->builtdb);// an associated array key -> BibEntry objects
-  print_r($db->stringdb);// an associated array key -> strings representing @string
-</pre>
-notes:
- method build can be used several times, bibtex entries are accumulated in the builder
-*/
-class BibDBBuilder extends ParserDelegate {
-
-  /** A hashtable from keys to bib entries (BibEntry). */
-  var $builtdb  = array();
-
-  /** A hashtable of constant strings */
-  var $stringdb = array();
-
-  var $filename;
-
-  var $currentEntry;
-
-  function build($bibfilename, $handle = NULL) {
-
-    $this->filename = $bibfilename;
-    if ($handle == NULL) {
-      $handle = fopen($bibfilename, "r");
-    }
-
-    if (!$handle) die ('cannot open '.$bibfilename);
-
-    $parser = new StateBasedBibtexParser($this);
-    $parser->parse($handle);
-    fclose($handle);
-    //print_r(array_keys($this->builtdb));
-    //print_r($this->builtdb);
-  }
-
-
-  function getBuiltDb() {
-    //print_r($this->builtdb);
-    return $this->builtdb;
-  }
-
-  function beginFile() {
-  }
-
-  function endFile() {
-    // resolving crossrefs
-    // we are careful with PHP 4 semantics
-    foreach (array_keys($this->builtdb) as $key) {
-      $bib = $this->builtdb[$key];
-      if ($bib->hasField('crossref')) {
-        if (isset($this->builtdb[$bib->getField('crossref')])) {
-          $crossrefEntry = $this->builtdb[$bib->getField('crossref')];
-          $bib->crossref = $crossrefEntry;
-          foreach($crossrefEntry->getFields() as $k => $v) {
-            // copying the fields of the cross ref
-            // only if they don't exist yet
-            if (!$bib->hasField($k)) {
-              $bib->setField($k,$v);
-            }
-          }
-        }
-      }
-    }
-    //print_r($this->builtdb);
-  }
-
-  function setEntryField($fieldkey,$entryvalue) {
-    $fieldkey=trim($fieldkey);
-    // support for Bibtex concatenation
-    // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
-    // (?<! is a negative look-behind assertion, see http://www.php.net/manual/en/regexp.reference.assertions.php
-    $entryvalue_array=preg_split('/(?<!\\\\)#/', $entryvalue);
-    foreach ($entryvalue_array as $k=>$v) {
-      // spaces are allowed when using # and they are not taken into account
-      // however # is not itself replaced by a space
-      // warning: @strings are not case sensitive
-      // see http://newton.ex.ac.uk/tex/pack/bibtex/btxdoc/node3.html
-      $stringKey=strtolower(trim($v));
-      if (isset($this->stringdb[$stringKey]))
-      {
-        // this field will be formated later by xtrim and latex2html
-        $entryvalue_array[$k]=$this->stringdb[$stringKey]->value;
-
-        // we keep a trace of this replacement
-        // so as to produce correct bibtex snippets
-        $this->currentEntry->constants[$stringKey]=$this->stringdb[$stringKey]->value;
-      }
-    }
-    $entryvalue=implode('',$entryvalue_array);
-
-    $this->currentEntry->setField($fieldkey,$entryvalue);
-  }
-
-  function setEntryType($entrytype) {
-    $this->currentEntry->setType($entrytype);
-  }
-
-  function setEntryKey($entrykey) {
-    //echo "new entry:".$entrykey."\n";
-    $this->currentEntry->setKey($entrykey);
-  }
-
-  function beginEntry() {
-    $this->currentEntry = createBibEntry();
-    $this->currentEntry->setFile($this->filename);
-  }
-
-  function endEntry($entrysource) {
-
-    // we add a timestamp
-    $this->currentEntry->timestamp();
-
-    // we add a key if there is no key
-    if (!$this->currentEntry->hasField(Q_KEY) && $this->currentEntry->getType()!='string') {
-      $this->currentEntry->setField(Q_KEY,md5($entrysource));
-    }
-
-    // we set the fulltext
-    $this->currentEntry->text = $entrysource;
-
-    // we format the author names in a special field
-    // to enable search
-    if ($this->currentEntry->hasField('author')) {
-      $this->currentEntry->setField(Q_INNER_AUTHOR,$this->currentEntry->getFormattedAuthorsString());
-
-      foreach($this->currentEntry->getCanonicalAuthors() as $author) {
-        $homepage_key = $this->currentEntry->getHomePageKey($author);
-        if (isset($this->stringdb[$homepage_key])) {
-            $this->currentEntry->homepages[$homepage_key] = $this->stringdb[$homepage_key]->value;
-        }
-      }
-    }
-
-    // ignoring jabref comments
-    if (($this->currentEntry->getType()=='comment')) {
-      /* do nothing for jabref comments */
-    }
-
-    // we add it to the string database
-    else if ($this->currentEntry->getType()=='string') {
-      foreach($this->currentEntry->fields as $k => $v) {
-        $k!=Q_INNER_TYPE and $this->stringdb[$k] = new StringEntry($k,$v,$this->filename);
-      }
-    }
-
-    // we add it to the database
-    else {
-      $this->builtdb[$this->currentEntry->getKey()] = $this->currentEntry;
-    }
-  }
-
-} // end class BibDBBuilder
 
 
 
@@ -1228,7 +775,7 @@ class BibEntry {
     // we assume that "comment" is never latex code
     // but instead could contain HTML code (with links using the character "~" for example)
     // so "comment" is not transformed too
-    if ($name!='url' && $name!='comment' 
+    if ($name!='url' && $name!='comment'
             && !preg_match('/^hp_/',$name) // homepage links should not be transformed with latex2html
         ) {
           $value = $this->transformValue($value);
@@ -4089,7 +3636,6 @@ dd {
 
 <?php
 } // end function bibtexbrowserDefaultCSS
-
 /** encapsulates the content of a delegate into full-fledged HTML (&lt;HTML>&lt;BODY> and TITLE)
 usage:
 <pre>
@@ -4103,6 +3649,7 @@ usage:
       getTitle()
  * $title: title of the page
  */
+
 function HTMLTemplate($content) {
 
 // when we load a page with AJAX
@@ -4139,20 +3686,20 @@ if (method_exists($content, 'getTitle')) {
 
 // now the CSS
 echo '<style type="text/css"><!--  '."\n";
+    echo bibtexbrowserDefaultCSS();
 
 if (method_exists($content, 'getCSS')) {
-  echo $content->getCSS();
+    //  echo $content->getCSS();
 } else if (is_readable(dirname(__FILE__).'/bibtexbrowser.css')) {
   readfile(dirname(__FILE__).'/bibtexbrowser.css');
 }
 else {  bibtexbrowserDefaultCSS(); }
-
 echo "\n".' --></style>';
 
 ?>
 </head>
 <body>
-<?php 
+<?php
 // configuration point to add a banner
 echo bibtexbrowser_top_banner();
 ?>
@@ -4529,7 +4076,7 @@ class Dispatcher {
       }
 
       // should call method display() on $x
-      $fun = $this->wrapper;
+      $fun = BIBTEXBROWSER_DEFAULT_TEMPLATE;//$this->wrapper;
       $fun($x);
 
       $this->clearQuery();
@@ -4539,7 +4086,7 @@ class Dispatcher {
        // if some contents have already been sent, for instance if we are included
        // this means doing nothing
        if ( headers_sent() == false ) { /* to avoid sending an unnecessary frameset */
-         header("Location: ".$_SERVER['SCRIPT_NAME']."?frameset&bib=".$_GET[Q_FILE]);
+           header("Location: ".$_SERVER['SCRIPT_NAME']."?frameset&bib=".$_GET[Q_FILE]);
        }
      }
   }
@@ -4666,7 +4213,8 @@ class Dispatcher {
   function menu() {
     $menu = createMenuManager();
     $menu->setDB($this->getDB());
-    $fun = $this->wrapper;
+    // why does //$this->wrapper; = no wrapper?
+    $fun = BIBTEXBROWSER_DEFAULT_TEMPLATE;
     $fun($menu);
     return 'END_DISPATCH';
   }
@@ -4757,7 +4305,7 @@ class Dispatcher {
     </html>
 
     <?php
-    return 'END_DISPATCH';
+      return 'END_DISPATCH';
 }
 
 } // end class Dispatcher
