@@ -553,6 +553,14 @@ In your project's `composer.json`, just add this <pre>"monperrus/bibtexbrowser":
 }
 </pre>
 
+With composer, a test server can be started with this command:
+<pre>composer serve</pre>, which runs this script:
+<pre>php -S localhost:29896 bibtexbrowser.php</pre>
+
+Now, to display a particular bibtex file in your browser, the URI should be of this form:
+<pre>localhost:29896/?bib=bibfile.bib</pre>
+Note the forward slash following the port number.
+
 ====How to add a banner to the main view in frameset mode?====
 
 For instance, if you want to add a "home page" button in the main view of the frameset mode, add a banner function in ''bibtexbrowser.local.php'' as follows:
