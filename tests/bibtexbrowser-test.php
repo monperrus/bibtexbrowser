@@ -40,7 +40,7 @@ if (!is_file('reflectivedoc.php')) {
 }
 require('reflectivedoc.php');
 $nsnippet=0;
-foreach(getAllSnippetsInFile('bibtexbrowser.php') as $snippet) {
+foreach(getAllSnippetsInFile('../src/bibtexbrowser.php') as $snippet) {
     ob_start();
     eval($snippet);
     ob_get_clean();
@@ -137,7 +137,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
     // listing the CSS classes
     $css_classes_before = $this->extract_css_classes($first_entry->toHTML());
-    
+
     // IEEE style
     bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
     $this->assertEquals("Foo Bar and Jane Doe, \"An Article\", In New Results, vol. 5, pp. 1-2, 2009.\n ",strip_tags($first_entry->toHTML()));
@@ -646,7 +646,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         ob_get_clean();
         $this->assertEquals("[2]", $btb->getEntryByKey('aKey')->getAbbrv());
         $this->assertEquals("[1]", $btb->getEntryByKey('aKey-withSlash')->getAbbrv());
-        
+
     }
 
     function test_identity() {
