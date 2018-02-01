@@ -10,6 +10,8 @@ php:
 script:
     - curl -L -o reflectivedoc.php https://www.monperrus.net/martin/reflectivedoc.php.txt
     - curl -L -o gakowiki-syntax.php https://www.monperrus.net/martin/gakowiki-syntax.php.txt
+    - cp ./src/bibtexbrowser.php ./tests/
+    - cp ./src/bibacid-utf8.bib ./tests/
     - phpunit tests/bibtexbrowser-test.php
 
 sudo: false

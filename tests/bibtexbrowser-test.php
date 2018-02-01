@@ -40,7 +40,7 @@ if (!is_file('reflectivedoc.php')) {
 }
 require('reflectivedoc.php');
 $nsnippet=0;
-foreach(getAllSnippetsInFile('../src/bibtexbrowser.php') as $snippet) {
+foreach(getAllSnippetsInFile('bibtexbrowser.php') as $snippet) {
     ob_start();
     eval($snippet);
     ob_get_clean();
