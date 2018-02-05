@@ -959,6 +959,7 @@ function xtrim($line) {
   // 2010-06-30
   // bug found by Thomas
   // windows new line is **\r\n"** and not the other way around!!
+  // according to php.net: Proncess \r\n's first so they aren't converted twice
   $line = str_replace(array("\r\n", "\r", "\n", "\t"), ' ', $line);
   // remove superfluous spaces e.g. John+++Bar
   $line = preg_replace('/ {2,}/',' ', $line);
@@ -985,11 +986,9 @@ function latex2html($line, $do_clean_extra_bracket=true) {
 
   $line = preg_replace('/([^\\\\])~/','\\1&nbsp;', $line);
 
-  $line = str_replace('---','&mdash;',$line);
-  $line = str_replace('--','&ndash;',$line);
+  $line = str_replace(array('---', '--'), array('&mdash;', '&ndash;'), $line);
 
-  $line = str_replace('``','"', $line);
-  $line = str_replace("''",'"', $line);
+  $line = str_replace(array('``', "''"), array('"', '"'), $line);
 
   // performance increases with this test
   // bug found by Serge Barral: what happens if we have curly braces only (typically to ensure case in Latex)
