@@ -74,7 +74,7 @@ if (defined('ENCODING')) {
 
 // shall we load MathJax to render math in $…$ in HTML?
 @define('BIBTEXBROWSER_RENDER_MATH', true);
-@define('MATHJAX_URI', '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js');
+@define('MATHJAX_URI', '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML.js');
 
 // the default jquery URI
 @define('JQUERY_URI', '//code.jquery.com/jquery-1.5.1.min.js');
@@ -83,7 +83,7 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
 
 // the default view in {SimpleDisplay,AcademicDisplay,RSSDisplay,BibtexDisplay}
-@define('BIBTEXBROWSER_DEFAULT_DISPLAY','SimpleDisplay');
+@define('BIBTEXBROWSER_DEFAULT_DISPLAY','SimpleDisplay ');
 
 // the default template
 @define('BIBTEXBROWSER_DEFAULT_TEMPLATE','HTMLTemplate');
@@ -1228,7 +1228,7 @@ class BibEntry {
     // we assume that "comment" is never latex code
     // but instead could contain HTML code (with links using the character "~" for example)
     // so "comment" is not transformed too
-    if ($name!='url' && $name!='comment' 
+    if ($name!='url' && $name!='comment'
             && !preg_match('/^hp_/',$name) // homepage links should not be transformed with latex2html
         ) {
           $value = $this->transformValue($value);
@@ -4152,7 +4152,7 @@ echo "\n".' --></style>';
 ?>
 </head>
 <body>
-<?php 
+<?php
 // configuration point to add a banner
 echo bibtexbrowser_top_banner();
 ?>
