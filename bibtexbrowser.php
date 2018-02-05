@@ -959,10 +959,7 @@ function xtrim($line) {
   // 2010-06-30
   // bug found by Thomas
   // windows new line is **\r\n"** and not the other way around!!
-  $line = str_replace("\r\n",' ', $line);//windows like
-  $line = str_replace("\n",' ', $line);//unix-like
-  // we also replace tabs
-  $line = str_replace("\t",' ', $line);
+  $line = str_replace(array("\r\n", "\r", "\n", "\t"), ' ', $line);
   // remove superfluous spaces e.g. John+++Bar
   $line = preg_replace('/ {2,}/',' ', $line);
   return $line;
