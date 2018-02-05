@@ -83,7 +83,7 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
 
 // the default view in {SimpleDisplay,AcademicDisplay,RSSDisplay,BibtexDisplay}
-@define('BIBTEXBROWSER_DEFAULT_DISPLAY','SimpleDisplay ');
+@define('BIBTEXBROWSER_DEFAULT_DISPLAY','SimpleDisplay');
 
 // the default template
 @define('BIBTEXBROWSER_DEFAULT_TEMPLATE','HTMLTemplate');
