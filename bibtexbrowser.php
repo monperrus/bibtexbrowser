@@ -74,7 +74,7 @@ if (defined('ENCODING')) {
 
 // shall we load MathJax to render math in $…$ in HTML?
 @define('BIBTEXBROWSER_RENDER_MATH', true);
-@define('MATHJAX_URI', '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML.js');
+@define('MATHJAX_URI', '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/config/TeX-AMS_HTML.js?V=2.7.1');
 
 // the default jquery URI
 @define('JQUERY_URI', '//code.jquery.com/jquery-1.5.1.min.js');
