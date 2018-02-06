@@ -74,7 +74,7 @@ if (defined('ENCODING')) {
 
 // shall we load MathJax to render math in $…$ in HTML?
 @define('BIBTEXBROWSER_RENDER_MATH', true);
-@define('MATHJAX_URI', '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js');
+@define('MATHJAX_URI', '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/config/TeX-AMS_HTML.js?V=2.7.1');
 
 // the default jquery URI
 @define('JQUERY_URI', '//code.jquery.com/jquery-1.5.1.min.js');
@@ -959,10 +959,8 @@ function xtrim($line) {
   // 2010-06-30
   // bug found by Thomas
   // windows new line is **\r\n"** and not the other way around!!
-  $line = str_replace("\r\n",' ', $line);//windows like
-  $line = str_replace("\n",' ', $line);//unix-like
-  // we also replace tabs
-  $line = str_replace("\t",' ', $line);
+  // according to php.net: Proncess \r\n's first so they aren't converted twice
+  $line = str_replace(array("\r\n", "\r", "\n", "\t"), ' ', $line);
   // remove superfluous spaces e.g. John+++Bar
   $line = preg_replace('/ {2,}/',' ', $line);
   return $line;
@@ -988,11 +986,9 @@ function latex2html($line, $do_clean_extra_bracket=true) {
 
   $line = preg_replace('/([^\\\\])~/','\\1&nbsp;', $line);
 
-  $line = str_replace('---','&mdash;',$line);
-  $line = str_replace('--','&ndash;',$line);
+  $line = str_replace(array('---', '--'), array('&mdash;', '&ndash;'), $line);
 
-  $line = str_replace('``','"', $line);
-  $line = str_replace("''",'"', $line);
+  $line = str_replace(array('``', "''"), array('"', '"'), $line);
 
   // performance increases with this test
   // bug found by Serge Barral: what happens if we have curly braces only (typically to ensure case in Latex)
@@ -1228,7 +1224,7 @@ class BibEntry {
     // we assume that "comment" is never latex code
     // but instead could contain HTML code (with links using the character "~" for example)
     // so "comment" is not transformed too
-    if ($name!='url' && $name!='comment' 
+    if ($name!='url' && $name!='comment'
             && !preg_match('/^hp_/',$name) // homepage links should not be transformed with latex2html
         ) {
           $value = $this->transformValue($value);
@@ -4152,7 +4148,7 @@ echo "\n".' --></style>';
 ?>
 </head>
 <body>
-<?php 
+<?php
 // configuration point to add a banner
 echo bibtexbrowser_top_banner();
 ?>
