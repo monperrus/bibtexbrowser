@@ -5,13 +5,9 @@
 ._*
 .Spotlight-V100
 .Trashes
-ehthumbs.db
 Thumbs.db
 
+# other files to ignore #
 # emacs
 *~
-
-
 bibtexbrowser*.dat
-public/
-vendor/
