@@ -240,7 +240,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     function test_string_should_be_deleted_after_update() {
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, "@book{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n".
-               "@String{x=2008}\n"
+                "@String{x=2008}\n"
         );
         fseek($test_data,0);
         $btb = new BibDataBase();
@@ -251,7 +251,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         // replacing the existing one
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, "@book{aKey2,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n".
-               "@String{x=2009}\n"
+                "@String{x=2009}\n"
         );
         fseek($test_data,0);
         $btb = new BibDataBase();
@@ -263,7 +263,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         // now adding another one and removing the string
         $test_data2 = fopen('php://memory','x+');
         fwrite($test_data2, "@book{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n".
-               "@String{y=2010}\n"
+                "@String{y=2010}\n"
         );
         fseek($test_data2,0);
         $btb->update_internal("inline2", $test_data2);
@@ -275,7 +275,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     function test_mastersthesis() {
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, "@mastersthesis{aKey,title={A Thing},author={Martin Monperrus},year=2009,school={School of Nowhere}}\n".
-               "@String{x=2008}\n"
+                "@String{x=2008}\n"
         );
         fseek($test_data,0);
         $db = new BibDataBase();
@@ -286,7 +286,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     function test_google_scholar_metadata() {
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, "@article{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009,pages={42--4242},number=1}\n".
-               "@String{x=2008}\n"
+                "@String{x=2008}\n"
         );
         fseek($test_data,0);
         $db = new BibDataBase();
@@ -306,7 +306,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     function test_metadata_opengraph() {
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, "@article{aKey,title={A Book},author={Martin Monperrus},url={http://foo.com/},publisher={Springer},year=2009,pages={42--4242},number=1}\n".
-               "@String{x=2008}\n"
+                "@String{x=2008}\n"
         );
         fseek($test_data,0);
         $db = new BibDataBase();
@@ -325,7 +325,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     function test_math_cal() {
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, "@book{aKey,title={{A {Book} $\mbox{foo}$ tt $\boo{t}$}} ,author={Martin Monperrus},publisher={Springer},year=2009}\n".
-               "@String{x=2008}\n"
+                "@String{x=2008}\n"
         );
         fseek($test_data,0);
         $btb = new BibDataBase();
