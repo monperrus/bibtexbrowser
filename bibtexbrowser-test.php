@@ -284,6 +284,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
   }
 
   function test_google_scholar_metadata() {
+    bibtexbrowser_configure('METADATA_GS', true);
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, "@article{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009,pages={42--4242},number=1}\n".
     "@String{x=2008}\n"

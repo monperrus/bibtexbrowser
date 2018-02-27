@@ -208,10 +208,11 @@ if (defined('ENCODING')) {
 @define('YEAR', 'year');
 @define('BUFFERSIZE',100000);
 @define('MULTIPLE_BIB_SEPARATOR',';');
-@define('METADATA_GS',true);
-@define('METADATA_DC',true);
-@define('METADATA_OPENGRAPH',true);
-@define('METADATA_EPRINTS',false);
+@define('METADATA_COINS',true); // see https://en.wikipedia.org/wiki/COinS
+@define('METADATA_GS',false); // metadata google scholar, see http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar
+@define('METADATA_DC',true); // see http://dublincore.org/
+@define('METADATA_OPENGRAPH',true);  // see http://ogp.me/
+@define('METADATA_EPRINTS',false); // see https://wiki.eprints.org/w/Category:EPrints_Metadata_Fields
 
 // define sort order for special values in 'year' field
 // highest number is sorted first
@@ -1812,6 +1813,9 @@ class BibEntry {
    * Used by Zotero, mendeley, etc.
   */
   function toCoins() {
+    if (c('METADATA_COINS') == false) {
+        return;
+    }
     $url_parts=array();
     $url_parts[]='ctx_ver=Z39.88-2004';
 
@@ -1858,7 +1862,7 @@ class BibEntry {
 
     // referrer, the id of a collection of objects
     // see also http://www.openurl.info/registry/docs/pdf/info-sid.pdf
-    $url_parts[]='rfr_id='.s3988('info:sid/'.@$_SERVER['HTTP_HOST'].':'.@$_GET[Q_FILE]);
+    $url_parts[]='rfr_id='.s3988('info:sid/'.@$_SERVER['HTTP_HOST'].':'.basename(@$_GET[Q_FILE]));
 
     $url_parts[]='rft.date='.s3988($this->getYear());
 
@@ -3424,24 +3428,24 @@ class BibEntryDisplay {
   function metadata() {
     $result=array();
 
-    if (BIBTEXBROWSER_ROBOTS_NOINDEX) {
+    if (c('BIBTEXBROWSER_ROBOTS_NOINDEX')) {
       $result[] = array('robots','noindex');
     }
 
-    if (METADATA_GS) {
+    if (c('METADATA_GS')) {
       $result = $this->metadata_google_scholar($result);
     } // end Google Scholar
 
     // a fallback to essential dublin core
-    if (METADATA_DC) {
+    if (c('METADATA_DC')) {
       $result = $this->metadata_dublin_core($result);
     }
 
-    if (METADATA_OPENGRAPH) {
+    if (c('METADATA_OPENGRAPH')) {
       $result = $this->metadata_opengraph($result);
     }
 
-    if (METADATA_EPRINTS) {
+    if (c('METADATA_EPRINTS')) {
       $result = $this->metadata_eprints($result);
     }
 
