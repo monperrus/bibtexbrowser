@@ -2066,7 +2066,7 @@ function compare_bib_entry_by_bibtex_order($a, $b)
  */
 function compare_bib_entry_by_year($a, $b)
 {
-  $yearA = (int) $a->getYear();
+  $yearA = (int) $a->getYear(); // 0 if no year
   $yearB = (int) $b->getYear();
 
   if ($yearA === 0) {
@@ -3103,7 +3103,7 @@ class SimpleDisplay  {
 
   /** sets the entries to be shown */
   function setEntries($entries) {
-    $this->entries = $entries;
+    $this->entries = array_values($entries);
   }
 
   function indexUp() {
@@ -3161,8 +3161,7 @@ class SimpleDisplay  {
 
   /** Displays a set of bibtex entries in an HTML table */
   function display() {
-
-    uasort($this->entries, 'compare_bib_entries');
+    usort($this->entries, 'compare_bib_entries');
 
     // now that the entries are sorted, setting the index of entries
     // this function can be overloaded

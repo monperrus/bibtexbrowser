@@ -728,6 +728,28 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertContains('<a href="https://scholar.google.com/scholar?cites=1234">[citations]</a>', $entry->toHTML());
     }
 
+    function test80() {
+        // entries without year are at the top
+        $bibtex = "@article{keyWithoutYear,title={First article},author = {Martin}},@article{key2,title={Second article},author = {Martin}, year=2007}";
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+
+        $d = new SimpleDisplay();
+        $d->setDB($db);
+        ob_start();
+        $d->display();
+        $output = ob_get_clean();
+//         print($output);
+        $this->assertEquals("keyWithoutYear", $d->entries[0]->getKey());
+        $this->assertEquals("key2", $d->entries[1]->getKey());
+        // the indices have been set by SimpleDisplay, by default the one at the top is the one withuut year (the first in $d->entries)
+        $this->assertEquals("[2]", $db->getEntryByKey('keyWithoutYear')->getAbbrv());
+        $this->assertEquals("[1]", $db->getEntryByKey('key2')->getAbbrv());
+    }
+
 } // end class
 
 @copy('bibtexbrowser.local.php.bak','bibtexbrowser.local.php');
