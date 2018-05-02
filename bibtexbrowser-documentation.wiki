@@ -194,7 +194,8 @@ By default each bibliographic entry is followed by
 [bibtex] [pdf] [doi], etc.
 
 This can be tailored by configuring as follows (in the file ''bibtexbrowser.local.php'')
-<pre><?php
+<pre>
+&#60;?php
 define('BIBTEXBROWSER_LINK_STYLE','MyFancyBib2links');
 function MyFancyBib2links(&$bibentry) {
   // bib is a special type of link. without the url argument or with an invalid image, it prints '[bibtex]'
