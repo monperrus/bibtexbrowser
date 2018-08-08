@@ -1075,6 +1075,9 @@ function latex2html($line, $do_clean_extra_bracket=true) {
   $line = str_replace('\\k{a}','&#261',$line);
   $line = str_replace('\\\'{c}','&#263',$line);
 
+  $line = str_replace('\\v{c}','&#269',$line);
+  $line = str_replace('\\v{C}','&#268',$line);
+
   if ($do_clean_extra_bracket) {
     // clean extra tex curly brackets, usually used for preserving capitals
     // must come before the final math replacement
