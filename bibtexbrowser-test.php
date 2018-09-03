@@ -758,7 +758,13 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(4,count($btb->bibdb['arXiv-1807.05030']->getRawAuthors()));
         $this->assertEquals(4,count($btb->bibdb['arXiv-1807.05030']->getFormattedAuthorsArray()));
         $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus and Benoit Baudry",$btb->bibdb['arXiv-1807.05030']->getAuthor());
+
+        bibtexbrowser_configure('BIBTEXBROWSER_LINK_STYLE','nothing');
+        bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
+        $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus and Benoit Baudry,  \"A Comprehensive Study of Pseudo-tested Methods\", Technical report, arXiv 1807.05030, 2018.\n ",strip_tags($btb->bibdb['arXiv-1807.05030']->toHTML()));
+
     }
+
 
 
 } // end class

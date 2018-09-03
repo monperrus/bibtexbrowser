@@ -2413,11 +2413,11 @@ function JanosBibliographyStyle($bibentry) {
       $publisher = 'Master\'s thesis, '.$bibentry->getField(SCHOOL);
   }
   if ($type=="techreport") {
-      $publisher = 'Technical report';
+      $publisher = 'Technical report, ';
+      $publisher .=$bibentry->getField("institution");
       if ($bibentry->hasField("number")) {
-        $publisher = $bibentry->getField("number");
+        $publisher .= ' '.$bibentry->getField("number");
       }
-      $publisher .=', '.$bibentry->getField("institution");
   }
   if ($bibentry->hasField("publisher")) {
     $publisher = $bibentry->getField("publisher");
@@ -2425,8 +2425,10 @@ function JanosBibliographyStyle($bibentry) {
 
   if ($publisher!='') $entry[] = $publisher;
 
-  if ($bibentry->hasField('volume')) $entry[] =  "vol. ".$bibentry->getField("volume");
-  if ($bibentry->hasField('number')) $entry[] =  'no. '.$bibentry->getField("number");
+  if ($type=="article") {
+    if ($bibentry->hasField('volume')) $entry[] =  "vol. ".$bibentry->getField("volume");
+    if ($bibentry->hasField('number')) $entry[] =  'no. '.$bibentry->getField("number");
+  }
 
   if ($bibentry->hasField('address')) $entry[] =  $bibentry->getField("address");
 
