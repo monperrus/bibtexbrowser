@@ -1394,7 +1394,7 @@ class BibEntry {
    * return a string 'Unknown'. */
   function getAuthor() {
     if (array_key_exists(AUTHOR, $this->fields)) {
-      return getFormattedAuthorsString();
+      return $this->getFormattedAuthorsString();
     }
     // 2010-03-02: commented the following, it results in misleading author lists
     // issue found by Alan P. Sexton
@@ -1444,7 +1444,7 @@ class BibEntry {
   }
 
   function split_authors() {
-    $array = preg_split('/ and /i', @$this->raw_fields[Q_AUTHOR]);
+    $array = preg_split('/ and( |$)/ims', @$this->raw_fields[Q_AUTHOR]);
     $res = array();
     // we merge the remaining ones
     for ($i=0; $i < count($array)-1; $i++) {

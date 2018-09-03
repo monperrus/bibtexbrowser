@@ -653,6 +653,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     function test_identity() {
         $btb = new BibDataBase();
         $btb->load('bibacid-utf8.bib');
+        bibtexbrowser_configure('BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT', '');
 
         // computing the representation
         $d = new SimpleDisplay();
@@ -663,6 +664,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
         $nref = count($btb->bibdb);
         $bibtex = $btb->toBibtex();
+        
         // reparsing the new content
         $btb2 = $this->_createDB($bibtex, 'bibacid-utf8.bib');
         $d->setDB($btb2);
@@ -749,6 +751,15 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("[2]", $db->getEntryByKey('keyWithoutYear')->getAbbrv());
         $this->assertEquals("[1]", $db->getEntryByKey('key2')->getAbbrv());
     }
+
+    function test_bug_201808() {
+        $btb = new BibDataBase();
+        $btb->load('bibacid-utf8.bib');
+        $this->assertEquals(4,count($btb->bibdb['arXiv-1807.05030']->getRawAuthors()));
+        $this->assertEquals(4,count($btb->bibdb['arXiv-1807.05030']->getFormattedAuthorsArray()));
+        $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus and Benoit Baudry",$btb->bibdb['arXiv-1807.05030']->getAuthor());
+    }
+
 
 } // end class
 
