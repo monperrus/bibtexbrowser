@@ -1582,10 +1582,13 @@ class BibEntry {
     return $authors;
   }
 
-  /** Returns the authors of this entry as an array in a comma-separated form */
+  /** Returns the authors of this entry as an array in a comma-separated form
+   * Mostly used to create meta tags (eg <meta>
+   */
   function getArrayOfCommaSeparatedAuthors() {
     $authors = array();
     foreach ($this->getRawAuthors() as $author) {
+      $author = $this->transformValue($author);
       $authors[]=$this->formatAuthorCommaSeparated($author);
     }
     return $authors;

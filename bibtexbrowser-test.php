@@ -405,6 +405,9 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals("à Book",$dis->getTitle());
     $this->assertEquals("Jé Lo",$dis->getFormattedAuthorsString());
 
+    // ensure that it is comma separated, used for metadata
+    $this->assertEquals("Lo, Jé",$dis->getArrayOfCommaSeparatedAuthors()[0]);
+
     bibtexbrowser_configure('BIBTEXBROWSER_USE_LATEX2HTML', false);
     $test_data = fopen('php://memory','x+');
     fwrite($test_data, $bibtex);
