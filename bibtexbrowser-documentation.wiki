@@ -25,7 +25,7 @@ This documentation is collaborative, you can improve it using a [[https://github
 * bibtexbrowser generates publication RSS feeds (simply add &#38;rss at the end of the URL)! [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;all&amp;rss|demo]]
 * **(10/2009)** bibtexbrowser is able to generate a bibtex file containing only the selected entries (simply add &#38;astext at the end of the link)
 * **(10/2009)** bibtexbrowser is now independent of the configuration of register_globals
-* **(01/2009)** bibtexbrowser allows multi criteria search, e.g.  [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;type=inproceedings&amp;year=20013|demo]]
+* **(01/2009)** bibtexbrowser allows multi criteria search, e.g.  [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;type=inproceedings&amp;year=2013|demo]]
 * bibtexbrowser generates [[http://ocoins.info/|COinS]] metadata for automatic import of bibliographic entries with [[http://www.zotero.org/|Zotero]] and [[http://www.mendeley.com/|Mendeley]].
 * bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar.
 * bibtexbrowser replaces constants defined in @STRING
@@ -36,7 +36,7 @@ This documentation is collaborative, you can improve it using a [[https://github
 * bibtexbrowser can display all entries for a given year [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;year=2014|demo]]
 * bibtexbrowser can display a single bibtex entry [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;key=monperrus08d|demo]]
 * bibtexbrowser can display found entries with a search word (it can be in any bib field) [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;search=repair|demo]]
-* bibtexbrowser can display all entries with a bib keyword e.g. "?keywords=components". It matches against the "keywords" bibtex field. [[http://bibtexbrowser.sourceforge.net/bibtexbrowser.php?bib=monperrus.bib&keywords=repair|demo]]
+* bibtexbrowser can display all entries with a bib keyword e.g. "?keywords=components". It matches against the "keywords" bibtex field. [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&keywords=repair|demo]]
 * bibtexbrowser outputs valid XHTML 1.0 Transitional
 * bibtexbrowser can display all entries for an author [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;author=Bartel|demo]]
 * bibtexbrowser can be used with different encodings (change the default iso-8859-1 encoding if your bib file is in UTF-8 ''define('BIBTEX_INPUT_ENCODING','UTF-8')'' )
