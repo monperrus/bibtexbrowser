@@ -54,6 +54,7 @@ You can add your group/name by [[https://github.com/monperrus/bibtexbrowser/edit
 * [[http://bioinfo.lri.fr/publi/bibtexbrowser.php|Bioinformatics Group of LRI, Paris, France]]
 * [[http://ccm.uma.pt/index.php?lab=pura&m=publications|Centro de Ciências Matemáticas, Portugal]]
 
+
 ==== Indiviudals ====
 * [[http://cgi.csc.liv.ac.uk/~ash/Publications/|Ayesh Alshukri, University of Liverpool, UK]] 
 * [[http://www.physics.purdue.edu/~richa152/publications.php|Joseph L. Richards, Department of Physics, Purdue University, USA]]
@@ -108,6 +109,7 @@ You can add your group/name by [[https://github.com/monperrus/bibtexbrowser/edit
 
 ==== Misc ====
 * [[http://kovarik.felk.cvut.cz/ant-algorithms/bibtexbrowser-original.php|Ant algorithms bibliography, Czech Technical University, Czech Republic]]
+* [[https://aktuelle-literatur-zur-laboratoriumsmedizin-ilp.charite.de/bibtexbrowser.php?frameset&bib=lit-auswahl.bib|Current international literature on laboratory medicine, provided by the Institute of Laboratory Medicine, Clinical Chemistry and Pathobiochemistry, Charité - Universitätsmedizin Berlin, Germany]]
 * [[http://www.monperrus.net/martin/bibtexbrowser/comments|The comments on the bibtexbrowser webpage. Some of them are bug reports and feature requests.]]
 
 ==== Blog posts ==== 
