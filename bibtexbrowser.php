@@ -124,6 +124,8 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_BIBTEX_LINKS',true);
 // do we add [pdf] links ?
 @define('BIBTEXBROWSER_PDF_LINKS',true);
+// do we add [pdf]/[url]/[file] links ?
+@define('BIBTEXBROWSER_DOCUMENT_LINKS',false);
 // do we add [doi] links ?
 @define('BIBTEXBROWSER_DOI_LINKS',true);
 // do we add [gsid] links (Google Scholar)?
@@ -168,7 +170,7 @@ if (defined('ENCODING')) {
 // USE_FIRST_THEN_LAST => Herbert Meyer
 @define('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT',false);// output authors in a comma separated form, e.g. "Meyer, H"?
 @define('USE_INITIALS_FOR_NAMES',false); // use only initials for all first names?
-@define('USE_FIRST_THEN_LAST',false); // use only initials for all first names?
+@define('USE_FIRST_THEN_LAST',false); // put first names before last names?
 @define('FORCE_NAMELIST_SEPARATOR', ''); // if non-empty, use this to separate multiple names regardless of USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT
 @define('LAST_AUTHOR_SEPARATOR',' and ');
 
@@ -1329,6 +1331,29 @@ class BibEntry {
     return "";
   }
 
+  function getTypeLink($bibfield) {
+    $extension = strtolower(pathinfo(parse_url($this->getField($bibfield),PHP_URL_PATH),PATHINFO_EXTENSION));
+    switch ($extension) {
+      case 'pdf': break;
+      case 'ps': break;
+      default:
+        return $this->getLink($bibfield, NULL, $bibfield);
+    }
+    return $this->getLink($bibfield, NULL, $extension);
+  }
+  
+  /** returns "[pdf]/[url]/[file]" links for the entry, if possible.
+      Tries to get the target URL from the 'pdf' field first, then from 'file' or 'url'.
+      The label is according to the field, unless is links to a pdf or ps, in which case that filetype is used as label.
+    */
+  function getDocumentLinks() {
+    $links = array();
+    if ($this->hasField('pdf')) $links[] = $this->getTypeLink('pdf');
+    if ($this->hasField('file')) $links[] = $this->getTypeLink('file');
+    if ($this->hasField('url')) $links[] = $this->getTypeLink('url');
+    return implode(" ",$links);
+  }
+
 
 
   /** DOI are a special kind of links, where the url depends on the doi */
@@ -1989,8 +2014,13 @@ function bib2links_default($bibentry) {
     if ($link != '') { $links[] = $link; };
   }
 
-  if (BIBTEXBROWSER_PDF_LINKS) {
+  if (BIBTEXBROWSER_PDF_LINKS && !BIBTEXBROWSER_DOCUMENT_LINKS) {
     $link = $bibentry->getPdfLink();
+    if ($link != '') { $links[] = $link; };
+  }
+  
+  if (BIBTEXBROWSER_DOCUMENT_LINKS) {
+    $link = $bibentry->getDocumentLinks();
     if ($link != '') { $links[] = $link; };
   }
 
