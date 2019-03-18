@@ -168,9 +168,10 @@ if (defined('ENCODING')) {
 // USE_FIRST_THEN_LAST => Herbert Meyer
 @define('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT',false);// output authors in a comma separated form, e.g. "Meyer, H"?
 @define('USE_INITIALS_FOR_NAMES',false); // use only initials for all first names?
-@define('USE_FIRST_THEN_LAST',false); // use only initials for all first names?
+@define('USE_FIRST_THEN_LAST',false); // put first names before last names?
 @define('FORCE_NAMELIST_SEPARATOR', ''); // if non-empty, use this to separate multiple names regardless of USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT
 @define('LAST_AUTHOR_SEPARATOR',' and ');
+@define('USE_OXFORD_COMMA',false); // adds an additional separator in addition to LAST_AUTHOR_SEPARATOR if there are more than two authors
 
 @define('TYPES_SIZE',10); // number of entry types per table
 @define('YEAR_SIZE',20); // number of years per table
@@ -1562,7 +1563,11 @@ class BibEntry {
     for ($i=0;$i<count($authors)-2;$i++) {
       $result .= $authors[$i].$sep;
     }
-    $result .= $authors[count($authors)-2].bibtexbrowser_configuration('LAST_AUTHOR_SEPARATOR'). $authors[count($authors)-1];
+    $lastAuthorSeperator = bibtexbrowser_configuration('LAST_AUTHOR_SEPARATOR');
+    if (count($authors)>2 && bibtexbrowser_configuration('USE_OXFORD_COMMA')) {
+      $lastAuthorSeperator = $sep.$lastAuthorSeperator;
+    }
+    $result .= $authors[count($authors)-2].$lastAuthorSeperator.$authors[count($authors)-1];
     return $result;
   }
 
