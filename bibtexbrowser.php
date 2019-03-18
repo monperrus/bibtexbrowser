@@ -1026,6 +1026,7 @@ function latex2html($line, $do_clean_extra_bracket=true) {
 
 
   $line = char2html($line,"'",'a',"acute");
+  $line = char2html($line,"'",'c',"acute");
   $line = char2html($line,"'",'e',"acute");
   $line = char2html($line,"'",'i',"acute");
   $line = char2html($line,"'",'o',"acute");
@@ -1060,6 +1061,7 @@ function latex2html($line, $do_clean_extra_bracket=true) {
   $line = char2html($line,'r','a',"ring");
 
   $line = char2html($line,'c','c',"cedil");
+  $line = char2html($line,'c','s',"cedil");
   $line = char2html($line,'v','s',"caron");
 
   $line = str_replace('\\ae','&aelig;', $line);
