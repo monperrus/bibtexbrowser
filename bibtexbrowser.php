@@ -168,7 +168,7 @@ if (defined('ENCODING')) {
 // USE_FIRST_THEN_LAST => Herbert Meyer
 @define('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT',false);// output authors in a comma separated form, e.g. "Meyer, H"?
 @define('USE_INITIALS_FOR_NAMES',false); // use only initials for all first names?
-@define('USE_FIRST_THEN_LAST',false); // use only initials for all first names?
+@define('USE_FIRST_THEN_LAST',false); // put first names before last names?
 @define('FORCE_NAMELIST_SEPARATOR', ''); // if non-empty, use this to separate multiple names regardless of USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT
 @define('LAST_AUTHOR_SEPARATOR',' and ');
 
@@ -1079,6 +1079,12 @@ function latex2html($line, $do_clean_extra_bracket=true) {
 
   $line = str_replace('\\v{c}','&#269',$line);
   $line = str_replace('\\v{C}','&#268',$line);
+  
+  // handling \textsuperscript{....} FAILS if there still are nested {}
+  $line = preg_replace('/\\\\textsuperscript\{(.*)\}/U','<sup>\\1</sup>', $line);
+  
+  // handling \textsubscript{....} FAILS if there still are nested {}
+  $line = preg_replace('/\\\\textsubscript\{(.*)\}/U','<sub>\\1</sub>', $line);
 
   if ($do_clean_extra_bracket) {
     // clean extra tex curly brackets, usually used for preserving capitals
