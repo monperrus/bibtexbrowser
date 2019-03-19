@@ -339,7 +339,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
   function test_link_configuration() {
     bibtexbrowser_configure('BIBTEXBROWSER_LINKS_TARGET','_self');
     $test_data = fopen('php://memory','x+');
-    fwrite($test_data, "@book{aKey,pdf={myarticle.pdf}}\n"
+    fwrite($test_data, "@book{aKey,pdf={myarticle.pdf}}\n@book{bKey,url={myarticle.pdf}}\n@book{cKey,url={myarticle.htm}}\n"
     );
     fseek($test_data,0);
     $btb = new BibDataBase();
@@ -349,6 +349,10 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$first_entry->getPdfLink());
     $this->assertEquals('<a href="myarticle.pdf"><img class="icon" src="pdficon.png" alt="[pdf]" title="pdf"/></a>',$first_entry->getLink('pdf','pdficon.png'));
     $this->assertEquals('<a href="myarticle.pdf">[see]</a>',$first_entry->getLink('pdf',NULL,'see'));
+    $second_entry=$btb->bibdb[array_keys($btb->bibdb)[1]];
+    $this->assertEquals('<a href="myarticle.pdf">[pdf]</a>',$second_entry->getPdfLink());
+    $third_entry=$btb->bibdb[array_keys($btb->bibdb)[2]];
+    $this->assertEquals('<a href="myarticle.htm">[url]</a>',$third_entry->getPdfLink());
   }
 
   // see https://github.com/monperrus/bibtexbrowser/pull/14
