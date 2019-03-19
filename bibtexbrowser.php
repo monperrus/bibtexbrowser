@@ -1571,8 +1571,10 @@ class BibEntry {
       $result .= $authors[$i].$sep;
     }
     $lastAuthorSeperator = bibtexbrowser_configuration('LAST_AUTHOR_SEPARATOR');
+    // add Oxford comma if there are more than 2 authors
     if (count($authors)>2) {
       $lastAuthorSeperator = $sep.$lastAuthorSeperator;
+      $lastAuthorSeperator = preg_replace("/ {2,}/", " ", $lastAuthorSeperator);
     }
     $result .= $authors[count($authors)-2].$lastAuthorSeperator.$authors[count($authors)-1];
     return $result;
