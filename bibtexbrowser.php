@@ -123,9 +123,8 @@ if (defined('ENCODING')) {
 // do we add [bibtex] links ?
 @define('BIBTEXBROWSER_BIBTEX_LINKS',true);
 // do we add [pdf] links ?
+// if the file extention is not .pdf, the field name (pdf, url, or file) is used instead
 @define('BIBTEXBROWSER_PDF_LINKS',true);
-// do we add [pdf]/[url]/[file] links ?
-@define('BIBTEXBROWSER_DOCUMENT_LINKS',false);
 // do we add [doi] links ?
 @define('BIBTEXBROWSER_DOI_LINKS',true);
 // do we add [gsid] links (Google Scholar)?
@@ -1323,43 +1322,35 @@ class BibEntry {
 
   /** returns a "[pdf]" link for the entry, if possible.
       Tries to get the target URL from the 'pdf' field first, then from 'url' or 'file'.
+      Performs a sanity check that the file extension is 'pdf' or 'ps' and uses that as link label.
+      Otherwise (and if no explicit $label is set) the field name is used instead.
     */
-  function getPdfLink($iconurl = NULL, $label = 'pdf') {
+  function getPdfLink($iconurl = NULL, $label = NULL) {
     if ($this->hasField('pdf')) {
-      return $this->getLink('pdf', $iconurl, $label);
+      return $this->getExtensionLink('pdf', $iconurl, $label);
     }
     if ($this->hasField('url')) {
-      return $this->getLink('url', $iconurl, $label);
+      return $this->getExtensionLink('url', $iconurl, $label);
     }
     // Adding link to PDF file exported by Zotero
     // ref: https://github.com/monperrus/bibtexbrowser/pull/14
     if ($this->hasField('file')) {
-      return $this->getLink('file', $iconurl, $label);
+      return $this->getExtensionLink('file', $iconurl, $label);
     }
     return "";
   }
 
-  function getTypeLink($bibfield) {
+  /** See description of 'getPdfLink'
+    */
+  function getExtensionLink($bibfield, $iconurl=NULL, $altlabel=NULL) {
     $extension = strtolower(pathinfo(parse_url($this->getField($bibfield),PHP_URL_PATH),PATHINFO_EXTENSION));
     switch ($extension) {
       case 'pdf': break;
       case 'ps': break;
       default:
-        return $this->getLink($bibfield, NULL, $bibfield);
+        return $this->getLink($bibfield, $iconurl, $altlabel);
     }
     return $this->getLink($bibfield, NULL, $extension);
-  }
-  
-  /** returns "[pdf]/[url]/[file]" links for the entry, if possible.
-      Tries to get the target URL from the 'pdf' field first, then from 'file' or 'url'.
-      The label is according to the field, unless is links to a pdf or ps, in which case that filetype is used as label.
-    */
-  function getDocumentLinks() {
-    $links = array();
-    if ($this->hasField('pdf')) $links[] = $this->getTypeLink('pdf');
-    if ($this->hasField('file')) $links[] = $this->getTypeLink('file');
-    if ($this->hasField('url')) $links[] = $this->getTypeLink('url');
-    return implode(" ",$links);
   }
 
 
@@ -2022,13 +2013,8 @@ function bib2links_default($bibentry) {
     if ($link != '') { $links[] = $link; };
   }
 
-  if (BIBTEXBROWSER_PDF_LINKS && !BIBTEXBROWSER_DOCUMENT_LINKS) {
+  if (BIBTEXBROWSER_PDF_LINKS) {
     $link = $bibentry->getPdfLink();
-    if ($link != '') { $links[] = $link; };
-  }
-  
-  if (BIBTEXBROWSER_DOCUMENT_LINKS) {
-    $link = $bibentry->getDocumentLinks();
     if ($link != '') { $links[] = $link; };
   }
 
