@@ -486,7 +486,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
     function test_formatting() {
 
-        $bibtex = "@article{aKey61,title={An article Book},author = {Meyer, Heribert  and   {Advanced Air and Ground Research Team} and Foo Bar}}\n";
+        $bibtex = "@article{aKey61,title={An article Book},author = {Meyer, Heribert  and   {Advanced Air and Ground Research Team} and Foo Bar}}\n@article{bKey61,title={An article Book},author = {Meyer, Heribert and Foo Bar}}\n";
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, $bibtex);
         fseek($test_data,0);
@@ -500,7 +500,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Meyer, Heribert", $authors[0]);
         $this->assertEquals("Advanced Air and Ground Research Team", $authors[1]);
         $this->assertEquals("Foo Bar", $authors[2]);
-        $this->assertEquals("Meyer, Heribert, Advanced Air and Ground Research Team and Foo Bar", $entry->getFormattedAuthorsString());
+        $this->assertEquals("Meyer, Heribert, Advanced Air and Ground Research Team,  and Foo Bar", $entry->getFormattedAuthorsString());
 
         // test with formatting (first name before)
         bibtexbrowser_configure('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT', true);
@@ -509,7 +509,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Meyer, Heribert", $authors[0]);
         $this->assertEquals("Team, Advanced Air and Ground Research", $authors[1]);
         $this->assertEquals("Bar, Foo", $authors[2]);
-        $this->assertEquals("Meyer, Heribert; Team, Advanced Air and Ground Research and Bar, Foo", $entry->getFormattedAuthorsString());
+        $this->assertEquals("Meyer, Heribert; Team, Advanced Air and Ground Research;  and Bar, Foo", $entry->getFormattedAuthorsString());
 
         // test with formatting (with initials) formatAuthorInitials
         bibtexbrowser_configure('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT', false);
@@ -519,7 +519,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Meyer H", $authors[0]);
         $this->assertEquals("Team AAand GR", $authors[1]);
         $this->assertEquals("Bar F", $authors[2]);
-        $this->assertEquals("Meyer H, Team AAand GR and Bar F", $entry->getFormattedAuthorsString());
+        $this->assertEquals("Meyer H, Team AAand GR,  and Bar F", $entry->getFormattedAuthorsString());
 
         // test with first_name last_name formatAuthorCanonical
         bibtexbrowser_configure('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT', false);
@@ -530,8 +530,14 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Heribert Meyer", $authors[0]);
         $this->assertEquals("Advanced Air and Ground Research Team", $authors[1]);
         $this->assertEquals("Foo Bar", $authors[2]);
-        $this->assertEquals("Heribert Meyer, Advanced Air and Ground Research Team and Foo Bar", $entry->getFormattedAuthorsString());
-
+        $this->assertEquals("Heribert Meyer, Advanced Air and Ground Research Team,  and Foo Bar", $entry->getFormattedAuthorsString());
+        
+        // test there is no Oxford comma for only two authors with default options
+        bibtexbrowser_configure('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT', false);
+        bibtexbrowser_configure('USE_INITIALS_FOR_NAMES', false);
+        bibtexbrowser_configure('USE_FIRST_THEN_LAST', false);
+        $entry = $db->getEntryByKey('bKey61');
+        $this->assertEquals("Meyer, Heribert and Foo Bar", $entry->getFormattedAuthorsString());
     }
 
     function test_parsing_author_list() {
@@ -760,11 +766,11 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $btb->load('bibacid-utf8.bib');
         $this->assertEquals(4,count($btb->bibdb['arXiv-1807.05030']->getRawAuthors()));
         $this->assertEquals(4,count($btb->bibdb['arXiv-1807.05030']->getFormattedAuthorsArray()));
-        $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus and Benoit Baudry",$btb->bibdb['arXiv-1807.05030']->getAuthor());
+        $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus,  and Benoit Baudry",$btb->bibdb['arXiv-1807.05030']->getAuthor());
 
         bibtexbrowser_configure('BIBTEXBROWSER_LINK_STYLE','nothing');
         bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
-        $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus and Benoit Baudry,  \"A Comprehensive Study of Pseudo-tested Methods\", Technical report, arXiv 1807.05030, 2018.\n ",strip_tags($btb->bibdb['arXiv-1807.05030']->toHTML()));
+        $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus,  and Benoit Baudry,  \"A Comprehensive Study of Pseudo-tested Methods\", Technical report, arXiv 1807.05030, 2018.\n ",strip_tags($btb->bibdb['arXiv-1807.05030']->toHTML()));
 
     }
 
