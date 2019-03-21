@@ -540,6 +540,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Meyer, Heribert, Advanced Air and Ground Research Team, and Foo Bar", $entry->getFormattedAuthorsString());
         $entry = $db->getEntryByKey('bKey61');
         $this->assertEquals("Meyer, Heribert and Foo Bar", $entry->getFormattedAuthorsString());
+        bibtexbrowser_configure('USE_OXFORD_COMMA', false);
     }
 
     function test_parsing_author_list() {
