@@ -1315,9 +1315,9 @@ class BibEntry {
     return $link;
   }
 
-  /** same as `getPdfLink`, kept for backward compatibility */
-  function getUrlLink($iconurl, $label) {
-    return $this->getPdfLink($iconurl, $label);
+  /** kept for backward compatibility */
+  function getPdfLink($iconurl = NULL, $label = NULL) {
+    return $this->getUrlLink($iconurl, $label);
   }
 
   /** returns a "[pdf]" link for the entry, if possible.
@@ -1325,7 +1325,7 @@ class BibEntry {
       Performs a sanity check that the file extension is 'pdf' or 'ps' and uses that as link label.
       Otherwise (and if no explicit $label is set) the field name is used instead.
     */
-  function getPdfLink($iconurl = NULL, $label = NULL) {
+  function getUrlLink($iconurl = NULL, $label = NULL) {
     if ($this->hasField('pdf')) {
       return $this->getExtensionLink('pdf', $iconurl, $label);
     }
@@ -1345,12 +1345,12 @@ class BibEntry {
   function getExtensionLink($bibfield, $iconurl=NULL, $altlabel=NULL) {
     $extension = strtolower(pathinfo(parse_url($this->getField($bibfield),PHP_URL_PATH),PATHINFO_EXTENSION));
     switch ($extension) {
-      case 'pdf': break;
-      case 'ps': break;
+      // overriding the label if it's a known extension
+      case 'pdf': return $this->getLink($bibfield, $iconurl, 'pdf'); break;
+      case 'ps': return $this->getLink($bibfield, $iconurl, 'ps'); break;
       default:
         return $this->getLink($bibfield, $iconurl, $altlabel);
     }
-    return $this->getLink($bibfield, NULL, $extension);
   }
 
 
@@ -2014,7 +2014,7 @@ function bib2links_default($bibentry) {
   }
 
   if (BIBTEXBROWSER_PDF_LINKS) {
-    $link = $bibentry->getPdfLink();
+    $link = $bibentry->getUrlLink();
     if ($link != '') { $links[] = $link; };
   }
 
