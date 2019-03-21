@@ -1317,7 +1317,7 @@ class BibEntry {
 
   /** kept for backward compatibility */
   function getPdfLink($iconurl = NULL, $label = NULL) {
-    return $this->getUrlLink($iconurl, $label);
+    return $this->getExtensionLink('pdf', $iconurl, $label);
   }
 
   /** returns a "[pdf]" link for the entry, if possible.
@@ -1325,31 +1325,32 @@ class BibEntry {
       Performs a sanity check that the file extension is 'pdf' or 'ps' and uses that as link label.
       Otherwise (and if no explicit $label is set) the field name is used instead.
     */
-  function getUrlLink($iconurl = NULL, $label = NULL) {
+  function getUrlLink($iconurl = NULL) {
     if ($this->hasField('pdf')) {
-      return $this->getExtensionLink('pdf', $iconurl, $label);
+      return $this->getExtensionLink('pdf', $iconurl);
     }
     if ($this->hasField('url')) {
-      return $this->getExtensionLink('url', $iconurl, $label);
+      return $this->getExtensionLink('url', $iconurl);
     }
     // Adding link to PDF file exported by Zotero
     // ref: https://github.com/monperrus/bibtexbrowser/pull/14
     if ($this->hasField('file')) {
-      return $this->getExtensionLink('file', $iconurl, $label);
+      return $this->getExtensionLink('file', $iconurl);
     }
     return "";
   }
 
   /** See description of 'getPdfLink'
     */
-  function getExtensionLink($bibfield, $iconurl=NULL, $altlabel=NULL) {
+  function getExtensionLink($bibfield, $iconurl=NULL) {
     $extension = strtolower(pathinfo(parse_url($this->getField($bibfield),PHP_URL_PATH),PATHINFO_EXTENSION));
     switch ($extension) {
       // overriding the label if it's a known extension
+      case 'html': return $this->getLink($bibfield, $iconurl, 'pdf'); break;
       case 'pdf': return $this->getLink($bibfield, $iconurl, 'pdf'); break;
       case 'ps': return $this->getLink($bibfield, $iconurl, 'ps'); break;
       default:
-        return $this->getLink($bibfield, $iconurl, $altlabel);
+        return $this->getLink($bibfield, $iconurl, $bibfield);
     }
   }
 
