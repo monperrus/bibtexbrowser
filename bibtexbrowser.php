@@ -123,6 +123,7 @@ if (defined('ENCODING')) {
 // do we add [bibtex] links ?
 @define('BIBTEXBROWSER_BIBTEX_LINKS',true);
 // do we add [pdf] links ?
+// if the file extention is not .pdf, the field name (pdf, url, or file) is used instead
 @define('BIBTEXBROWSER_PDF_LINKS',true);
 // do we add [doi] links ?
 @define('BIBTEXBROWSER_DOI_LINKS',true);
@@ -1315,27 +1316,43 @@ class BibEntry {
     return $link;
   }
 
-  /** same as `getPdfLink`, kept for backward compatibility */
-  function getUrlLink($iconurl, $label) {
-    return $this->getPdfLink($iconurl, $label);
+  /** kept for backward compatibility */
+  function getPdfLink($iconurl = NULL, $label = NULL) {
+    return $this->getUrlLink($iconurl);
   }
 
   /** returns a "[pdf]" link for the entry, if possible.
       Tries to get the target URL from the 'pdf' field first, then from 'url' or 'file'.
+      Performs a sanity check that the file extension is 'pdf' or 'ps' and uses that as link label.
+      Otherwise (and if no explicit $label is set) the field name is used instead.
     */
-  function getPdfLink($iconurl = NULL, $label = 'pdf') {
+  function getUrlLink($iconurl = NULL) {
     if ($this->hasField('pdf')) {
-      return $this->getLink('pdf', $iconurl, $label);
+      return $this->getAndRenameLink('pdf', $iconurl);
     }
     if ($this->hasField('url')) {
-      return $this->getLink('url', $iconurl, $label);
+      return $this->getAndRenameLink('url', $iconurl);
     }
     // Adding link to PDF file exported by Zotero
     // ref: https://github.com/monperrus/bibtexbrowser/pull/14
     if ($this->hasField('file')) {
-      return $this->getLink('file', $iconurl, $label);
+      return $this->getAndRenameLink('file', $iconurl);
     }
     return "";
+  }
+
+  /** See description of 'getUrlLink'
+    */
+  function getAndRenameLink($bibfield, $iconurl=NULL) {
+    $extension = strtolower(pathinfo(parse_url($this->getField($bibfield),PHP_URL_PATH),PATHINFO_EXTENSION));
+    switch ($extension) {
+      // overriding the label if it's a known extension
+      case 'html': return $this->getLink($bibfield, $iconurl, 'html'); break;
+      case 'pdf': return $this->getLink($bibfield, $iconurl, 'pdf'); break;
+      case 'ps': return $this->getLink($bibfield, $iconurl, 'ps'); break;
+      default:
+        return $this->getLink($bibfield, $iconurl, $bibfield);
+    }
   }
 
 
@@ -2005,7 +2022,7 @@ function bib2links_default($bibentry) {
   }
 
   if (BIBTEXBROWSER_PDF_LINKS) {
-    $link = $bibentry->getPdfLink();
+    $link = $bibentry->getUrlLink();
     if ($link != '') { $links[] = $link; };
   }
 
