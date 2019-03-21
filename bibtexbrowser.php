@@ -1340,7 +1340,7 @@ class BibEntry {
     return "";
   }
 
-  /** See description of 'getPdfLink'
+  /** See description of 'getUrlLink'
     */
   function getAndRenameLink($bibfield, $iconurl=NULL) {
     $extension = strtolower(pathinfo(parse_url($this->getField($bibfield),PHP_URL_PATH),PATHINFO_EXTENSION));
