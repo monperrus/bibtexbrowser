@@ -1317,7 +1317,7 @@ class BibEntry {
 
   /** kept for backward compatibility */
   function getPdfLink($iconurl = NULL, $label = NULL) {
-    return $this->getExtensionLink('pdf', $iconurl, $label);
+    return $this->getUrlLink($iconurl);
   }
 
   /** returns a "[pdf]" link for the entry, if possible.
@@ -1327,22 +1327,22 @@ class BibEntry {
     */
   function getUrlLink($iconurl = NULL) {
     if ($this->hasField('pdf')) {
-      return $this->getExtensionLink('pdf', $iconurl);
+      return $this->getAndRenameLink('pdf', $iconurl);
     }
     if ($this->hasField('url')) {
-      return $this->getExtensionLink('url', $iconurl);
+      return $this->getAndRenameLink('url', $iconurl);
     }
     // Adding link to PDF file exported by Zotero
     // ref: https://github.com/monperrus/bibtexbrowser/pull/14
     if ($this->hasField('file')) {
-      return $this->getExtensionLink('file', $iconurl);
+      return $this->getAndRenameLink('file', $iconurl);
     }
     return "";
   }
 
   /** See description of 'getPdfLink'
     */
-  function getExtensionLink($bibfield, $iconurl=NULL) {
+  function getAndRenameLink($bibfield, $iconurl=NULL) {
     $extension = strtolower(pathinfo(parse_url($this->getField($bibfield),PHP_URL_PATH),PATHINFO_EXTENSION));
     switch ($extension) {
       // overriding the label if it's a known extension
