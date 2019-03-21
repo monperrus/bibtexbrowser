@@ -772,7 +772,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
         bibtexbrowser_configure('BIBTEXBROWSER_LINK_STYLE','nothing');
         bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
-        $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus, and Benoit Baudry,  \"A Comprehensive Study of Pseudo-tested Methods\", Technical report, arXiv 1807.05030, 2018.\n ",strip_tags($btb->bibdb['arXiv-1807.05030']->toHTML()));
+        $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus and Benoit Baudry,  \"A Comprehensive Study of Pseudo-tested Methods\", Technical report, arXiv 1807.05030, 2018.\n ",strip_tags($btb->bibdb['arXiv-1807.05030']->toHTML()));
 
     }
 
