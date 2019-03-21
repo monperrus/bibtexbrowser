@@ -171,6 +171,7 @@ if (defined('ENCODING')) {
 @define('USE_FIRST_THEN_LAST',false); // put first names before last names?
 @define('FORCE_NAMELIST_SEPARATOR', ''); // if non-empty, use this to separate multiple names regardless of USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT
 @define('LAST_AUTHOR_SEPARATOR',' and ');
+@define('USE_OXFORD_COMMA',false); // adds an additional separator in addition to LAST_AUTHOR_SEPARATOR if there are more than two authors
 
 @define('TYPES_SIZE',10); // number of entry types per table
 @define('YEAR_SIZE',20); // number of years per table
@@ -1570,7 +1571,13 @@ class BibEntry {
     for ($i=0;$i<count($authors)-2;$i++) {
       $result .= $authors[$i].$sep;
     }
-    $result .= $authors[count($authors)-2].bibtexbrowser_configuration('LAST_AUTHOR_SEPARATOR'). $authors[count($authors)-1];
+    $lastAuthorSeperator = bibtexbrowser_configuration('LAST_AUTHOR_SEPARATOR');
+    // add Oxford comma if there are more than 2 authors
+    if (bibtexbrowser_configuration('USE_OXFORD_COMMA') && count($authors)>2) {
+      $lastAuthorSeperator = $sep.$lastAuthorSeperator;
+      $lastAuthorSeperator = preg_replace("/ {2,}/", " ", $lastAuthorSeperator); // get rid of double spaces
+    }
+    $result .= $authors[count($authors)-2].$lastAuthorSeperator.$authors[count($authors)-1];
     return $result;
   }
 

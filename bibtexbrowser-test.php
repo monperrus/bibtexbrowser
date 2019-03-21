@@ -486,7 +486,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
     function test_formatting() {
 
-        $bibtex = "@article{aKey61,title={An article Book},author = {Meyer, Heribert  and   {Advanced Air and Ground Research Team} and Foo Bar}}\n";
+        $bibtex = "@article{aKey61,title={An article Book},author = {Meyer, Heribert  and   {Advanced Air and Ground Research Team} and Foo Bar}}\n@article{bKey61,title={An article Book},author = {Meyer, Heribert and Foo Bar}}\n";
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, $bibtex);
         fseek($test_data,0);
@@ -531,7 +531,16 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Advanced Air and Ground Research Team", $authors[1]);
         $this->assertEquals("Foo Bar", $authors[2]);
         $this->assertEquals("Heribert Meyer, Advanced Air and Ground Research Team and Foo Bar", $entry->getFormattedAuthorsString());
-
+        
+        // test Oxford comma with default options
+        bibtexbrowser_configure('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT', false);
+        bibtexbrowser_configure('USE_INITIALS_FOR_NAMES', false);
+        bibtexbrowser_configure('USE_FIRST_THEN_LAST', false);
+        bibtexbrowser_configure('USE_OXFORD_COMMA', true);
+        $this->assertEquals("Meyer, Heribert, Advanced Air and Ground Research Team, and Foo Bar", $entry->getFormattedAuthorsString());
+        $entry = $db->getEntryByKey('bKey61');
+        $this->assertEquals("Meyer, Heribert and Foo Bar", $entry->getFormattedAuthorsString());
+        bibtexbrowser_configure('USE_OXFORD_COMMA', false);
     }
 
     function test_parsing_author_list() {
