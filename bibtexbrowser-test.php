@@ -768,7 +768,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $btb->load('bibacid-utf8.bib');
         $this->assertEquals(4,count($btb->bibdb['arXiv-1807.05030']->getRawAuthors()));
         $this->assertEquals(4,count($btb->bibdb['arXiv-1807.05030']->getFormattedAuthorsArray()));
-        $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus, and Benoit Baudry",$btb->bibdb['arXiv-1807.05030']->getAuthor());
+        $this->assertEquals("Oscar Luis Vera-Pérez, Benjamin Danglot, Martin Monperrus and Benoit Baudry",$btb->bibdb['arXiv-1807.05030']->getAuthor());
 
         bibtexbrowser_configure('BIBTEXBROWSER_LINK_STYLE','nothing');
         bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
