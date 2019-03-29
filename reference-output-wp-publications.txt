@@ -1,7 +1,5 @@
 array (
   'rendered' => '<p>&#091;wp-publications bib=sample.bib all=1&#093; gives:<br />
-
-<span class="count">2 results</span>
 <table class="result">
 <tr><td colspan="2" class="sheader">2001</td></tr>
 <tr class="bibline"><td class="bibref"><a class="bibanchor" name="2"></a>[2]</td><td class="bibitem"><span itemscope="" itemtype="http://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">A book</span> (<span class="bibauthor"><span itemprop="author" itemtype="http://schema.org/Person">Jane Doe</span></span>), <span itemprop="datePublished">2001</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.btitle=A+book&amp;rft.genre=book&amp;rft.pub=&amp;rfr_id=info%3Asid%2F%3Asample.bib&amp;rft.date=2001&amp;rft.au=Jane+Doe"></span></span> <span class="bibmenu"><a class="biburl" title="doo2001" href="http://bibtexbrowser.com/?wp-publications=doo2001">[bibtex]</a></span></td></tr>

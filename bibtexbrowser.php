@@ -3122,6 +3122,12 @@ class SimpleDisplay  {
   var $entries = array();
 
   var $headingLevel = BIBTEXBROWSER_HTMLHEADINGLEVEL;
+
+  function __construct($db = NULL, $query = NULL) {
+    if ($db == NULL) return;
+    $this->setEntries($db->multisearch($query));
+  }
+
   function incHeadingLevel ($by=1) {
   	$this->headingLevel += $by;
   }
@@ -3220,15 +3226,15 @@ class SimpleDisplay  {
       echo 'Options: '.@implode(',',$this->options).'<br/>';
     }
 
-    if ($this->headingLevel == BIBTEXBROWSER_HTMLHEADINGLEVEL) {
-      echo "\n".'<span class="count">';
-      if (count($this->entries) == 1) {
-        echo count ($this->entries).' '.__('result');
-      } else if (count($this->entries) != 0) {
-        echo count ($this->entries).' '.__('results');
-      }
-      echo "</span>\n";
-    }
+//     if ($this->headingLevel == BIBTEXBROWSER_HTMLHEADINGLEVEL) {
+//       echo "\n".'<span class="count">';
+//       if (count($this->entries) == 1) {
+//         echo count ($this->entries).' '.__('result');
+//       } else if (count($this->entries) != 0) {
+//         echo count ($this->entries).' '.__('results');
+//       }
+//       echo "</span>\n";
+//     }
     print_header_layout();
 
     $pred = NULL;

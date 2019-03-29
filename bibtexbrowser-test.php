@@ -746,6 +746,25 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $this->assertContains('<a href="https://scholar.google.com/scholar?cites=1234">[citations]</a>', $entry->toHTML());
     }
 
+
+    function test_before() {
+        $bibtex = "@article{doe2000,title={An article},author={Jane Doe},journal={The Wordpress Journal},year=2000}@book{doo2001,title={A book},author={Jane Doe},year=2001}";
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $_GET[Q_FILE] = 'sample.bib';
+        $db->update_internal("inline", $test_data);
+
+        $d = new SimpleDisplay();
+        $d->setDB($db);
+        ob_start();
+        $d->display();
+        $output = ob_get_clean();
+        $res = eval("return ".file_get_contents('reference-output-wp-publications.txt').";");
+        $this->assertEquals(strip_tags($res['rendered']), "&#091;wp-publications bib=sample.bib all=1&#093; gives:\n".strip_tags($output)."\n");
+    }
+
     function test80() {
         // entries without year are at the top
         $bibtex = "@article{keyWithoutYear,title={First article},author = {Martin}},@article{key2,title={Second article},author = {Martin}, year=2007}";
@@ -781,6 +800,27 @@ class BTBTest extends PHPUnit_Framework_TestCase {
 
     }
 
+
+    function test_multiple_table() {
+        ob_start();
+
+        $btb = new BibDataBase();
+        $btb->load('bibacid-utf8.bib');
+
+        $display = new SimpleDisplay($btb, array(Q_YEAR => '1997'));
+        $display->display();
+
+        $display = new SimpleDisplay($btb, array(Q_YEAR => '2010'));
+        $display->display();
+
+        $output = ob_get_clean();
+
+        // assertion: we have two tables in the output
+        $xml = new SimpleXMLElement("<doc>".$output."</doc>");
+        $result = $xml->xpath('//table');
+        $this->assertEquals(2,count($result));
+
+    }
 
 
 } // end class

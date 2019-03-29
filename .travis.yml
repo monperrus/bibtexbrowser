@@ -32,13 +32,9 @@ script:
     - $WPCLI plugin install wp-publications --activate
     # there is no need to create a post, because one activation task of wp-publications is to create a fake post
     #- $WPCLI post create --post_title=test --post_content='[wp-publications bib="sample.bib" all=true]'
+    - cp bibtexbrowser.php ./wp-content/plugins/wp-publications/
     - $WPCLI rest post list --slug=wp-publications-example --field=content | tee before.txt
     # do we still have the reference output? (useful for detecting changes in Wordpress or WP-CLI) (diff exits with 1 if there is a difference)
     - diff reference-output-wp-publications.txt before.txt
-    # now we take the newer version and we render again
-    - cp bibtexbrowser.php ./wp-content/plugins/wp-publications/
-    - $WPCLI rest post list --slug=wp-publications-example --field=content | tee after.txt
-    # just to be sure, is there a difference with the previous version?
-    - diff before.txt after.txt
 
 sudo: false
