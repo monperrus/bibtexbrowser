@@ -357,27 +357,18 @@ Add in ''bibtexbrowser.local.php'':
 </pre>
 
 ====How to configure the order of Bibtex entries?====
-You can set the default order function in ''bibtexbrowser.local.php'':
-<pre>
-&lt;?php
-// can be @define('ORDER_FUNCTION','compare_bib_entry_by_title');
-define('ORDER_FUNCTION','compare_bib_entry_by_bibtex_order');
-?>
-</pre>
 
-Or programmatically:
+The default order is first by year, then by month (according to bibtexfield ''month''), see ''define('ORDER_FUNCTION',...)'' and ''define('ORDER_FUNCTION_FINE',...)''.
+
+You can also set another order function in ''bibtexbrowser.local.php'':
 <pre>
 &lt;?php
-$_GET['library']=1;
-require_once('bibtexbrowser.php');
-$db = new BibDataBase();
-$db->load('biblio.bib');
-$query = array('year'=>'2014');
-$entries=$db->multisearch($query);
-uasort($entries, 'compare_bib_entries');
-foreach ($entries as $bibentry) {
-  echo $bibentry->getYear().'<br/>';
+
+function my_own_order($a, $b) {
+  return strcmp($a->getKey(),$b->getkey());
 }
+ 
+define('ORDER_FUNCTION','my_own_order');
 ?>
 </pre>
 
