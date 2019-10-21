@@ -367,7 +367,7 @@ You can also set another order function in ''bibtexbrowser.local.php'':
 function my_own_order($a, $b) {
   return strcmp($a->getKey(),$b->getkey());
 }
- 
+
 define('ORDER_FUNCTION','my_own_order');
 ?>
 </pre>
@@ -545,7 +545,8 @@ In your project's `composer.json`, just add this <pre>"monperrus/bibtexbrowser":
 }
 </pre>
 
-With composer, a test server can be started with this command:
+With composer, a test server can be started with the following commands:
+<pre>cd vendor/monperrus/bibtexbrowser/</pre>
 <pre>composer serve</pre>
 Which runs this script:
 <pre>php -S localhost:29896 bibtexbrowser.php</pre>
