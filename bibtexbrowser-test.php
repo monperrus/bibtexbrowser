@@ -66,6 +66,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         // resetting the default link style
         bibtexbrowser_configure('BIBTEXBROWSER_LINK_STYLE','bib2links_default');
         bibtexbrowser_configure('ABBRV_TYPE','index');
+        bibtexbrowser_configure('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT', false);
     }
 
   function test_checkdoc() {
@@ -759,7 +760,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $d = new SimpleDisplay();
         $d->setDB($db);
         ob_start();
-        $d->display();
+        NoWrapper($d);
         $output = ob_get_clean();
         $res = eval("return ".file_get_contents('reference-output-wp-publications.txt').";");
         $this->assertEquals(strip_tags($res['rendered']), "&#091;wp-publications bib=sample.bib all=1&#093; gives:\n".strip_tags($output)."\n");

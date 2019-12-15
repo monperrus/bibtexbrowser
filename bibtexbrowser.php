@@ -4210,7 +4210,7 @@ if (method_exists($content, 'getTitle')) {
   $content->display();
   echo poweredby();
 
-  if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
+  if (c('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT')) {
     javascript();
   }
 
@@ -4235,6 +4235,9 @@ usage:
 */
 function NoWrapper($content) {
   echo $content->display();
+  if (c('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT')) {
+    javascript();
+  }
 }
 
 /** is used to create an subset of a bibtex file.
