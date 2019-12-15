@@ -4210,7 +4210,7 @@ if (method_exists($content, 'getTitle')) {
   $content->display();
   echo poweredby();
 
-  if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
+  if (c('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT')) {
     javascript();
   }
 
@@ -4235,12 +4235,8 @@ usage:
 */
 function NoWrapper($content) {
   echo $content->display();
-  if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
+  if (c('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT')) {
     javascript();
-  }
-
-  if (BIBTEXBROWSER_RENDER_MATH) {
-    javascript_math();
   }
 }
 
