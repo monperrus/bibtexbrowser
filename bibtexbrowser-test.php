@@ -61,7 +61,7 @@ class SimpleDisplayExt extends SimpleDisplay {
 
 class BTBTest extends PHPUnit_Framework_TestCase {
 
-    protected function setUp()
+    public function setUp():void
     {
         // resetting the default link style
         bibtexbrowser_configure('BIBTEXBROWSER_LINK_STYLE','bib2links_default');
@@ -202,7 +202,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $this->assertFalse(config_value('BIBTEXBROWSER_NO_DEFAULT'));
     ob_start();
     default_message();
-    $this->assertContains('Congratulations', ob_get_clean());
+    $this->assertStringContainsString('Congratulations', ob_get_clean());
   }
 
 
@@ -219,7 +219,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     ob_start();
     $d->display();
     $data = ob_get_clean();
-    $this->assertContains('Livres', $data);
+    $this->assertStringContainsString('Livres', $data);
   }
 
 
@@ -229,7 +229,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
     $results=$btb->multisearch($q);
     $this->assertTrue(count($results) == 1);
     $entry = $results[0];
-    $this->assertContains("aKey-withSlash",$entry->toHTML());
+    $this->assertStringContainsString("aKey-withSlash",$entry->toHTML());
 
     $q=array(Q_KEY=>'aKey-withSlash');
     $results=$btb->multisearch($q);
@@ -743,7 +743,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         $db = new BibDataBase();
         $db->update_internal("inline", $test_data);
         $entry=$db->getEntryByKey("key");
-        $this->assertContains('<a href="https://scholar.google.com/scholar?cites=1234">[citations]</a>', $entry->toHTML());
+        $this->assertStringContainsString('<a href="https://scholar.google.com/scholar?cites=1234">[citations]</a>', $entry->toHTML());
     }
 
 

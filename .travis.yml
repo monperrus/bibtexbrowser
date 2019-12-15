@@ -5,9 +5,7 @@ services:
   - mysql
 
 php:
-  - '5.6'
-  - '7.0'
-  - '7.1'
+  - '7.2'
 
 script:
     - curl -L -o reflectivedoc.php https://www.monperrus.net/martin/reflectivedoc.php.txt
@@ -33,6 +31,7 @@ script:
     # there is no need to create a post, because one activation task of wp-publications is to create a fake post
     #- $WPCLI post create --post_title=test --post_content='[wp-publications bib="sample.bib" all=true]'
     - cp bibtexbrowser.php ./wp-content/plugins/wp-publications/
+    - echo "<?php  define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',false);?>" > ./wp-content/plugins/wp-publications/bibtexbrowser.local.php
     - $WPCLI rest post list --slug=wp-publications-example --field=content | tee before.txt
     # do we still have the reference output? (useful for detecting changes in Wordpress or WP-CLI) (diff exits with 1 if there is a difference)
     - diff reference-output-wp-publications.txt before.txt
