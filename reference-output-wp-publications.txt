@@ -6,12 +6,12 @@ array (
 <tr><td colspan="2" class="sheader">2000</td></tr>
 <tr class="bibline"><td class="bibref"><a class="bibanchor" name="1"></a>[1]</td><td class="bibitem"><span itemscope="" itemtype="http://schema.org/ScholarlyArticle"><span class="bibtitle"  itemprop="name">An article</span> (<span class="bibauthor"><span itemprop="author" itemtype="http://schema.org/Person">Jane Doe</span></span>), <span class="bibbooktitle">In <span itemprop="isPartOf">The Wordpress Journal</span></span>, <span itemprop="datePublished">2000</span>.<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.atitle=An+article&amp;rft.jtitle=The+Wordpress+Journal&amp;rft.volume=&amp;rft.issue=&amp;rft.pub=&amp;rfr_id=info%3Asid%2F%3Asample.bib&amp;rft.date=2000&amp;rft.au=Jane+Doe"></span></span> <span class="bibmenu"><a class="biburl" title="doe2000" href="http://bibtexbrowser.com/?wp-publications=doe2000">[bibtex]</a></span></td></tr>
 </table>    <script type="text/x-mathjax-config">
-       MathJax.Hub.Config({
-         tex2jax: {inlineMath: [["$","$"]]}
-       });
-     </script>
-     <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/config/TeX-AMS_HTML.js?V=2.7.1"></script>
-     </p>
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [["$","$"]]}
+      });
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/config/TeX-AMS_HTML.js?V=2.7.1"></script>
+    </p>
 ',
   'protected' => false,
 )
