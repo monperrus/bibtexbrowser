@@ -6,6 +6,7 @@ services:
 
 php:
   - '7.2'
+  - '7.3'
 
 script:
     - curl -L -o reflectivedoc.php https://www.monperrus.net/martin/reflectivedoc.php.txt
