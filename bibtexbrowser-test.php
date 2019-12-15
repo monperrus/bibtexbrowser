@@ -66,6 +66,7 @@ class BTBTest extends PHPUnit_Framework_TestCase {
         // resetting the default link style
         bibtexbrowser_configure('BIBTEXBROWSER_LINK_STYLE','bib2links_default');
         bibtexbrowser_configure('ABBRV_TYPE','index');
+        bibtexbrowser_configure('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT', false);
     }
 
   function test_checkdoc() {
