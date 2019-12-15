@@ -4235,6 +4235,13 @@ usage:
 */
 function NoWrapper($content) {
   echo $content->display();
+  if (BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT) {
+    javascript();
+  }
+
+  if (BIBTEXBROWSER_RENDER_MATH) {
+    javascript_math();
+  }
 }
 
 /** is used to create an subset of a bibtex file.
