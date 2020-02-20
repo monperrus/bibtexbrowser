@@ -356,11 +356,11 @@ Add in ''bibtexbrowser.local.php'':
 ?>
 </pre>
 
-====How to configure the order of Bibtex entries?====
+====How to configure the sorting order of Bibtex entries?====
 
-The default order is first by year, then by month (according to bibtexfield ''month''), see ''define('ORDER_FUNCTION',...)'' and ''define('ORDER_FUNCTION_FINE',...)''.
+The default order is first by bibtex field year, then by bibtex field month, per functions `compare_bib_entry_by_year` and `compare_bib_entry_by_month`.
 
-You can also set another order function in ''bibtexbrowser.local.php'':
+You can change this with ''define('ORDER_FUNCTION',...)'' and ''define('ORDER_FUNCTION_FINE',...)'' in ''bibtexbrowser.local.php'':
 <pre>
 &lt;?php
 
