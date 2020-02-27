@@ -5,14 +5,14 @@ services:
   - mysql
 
 php:
-  - '7.2'
-  - '7.3'
-  - '7.4'
+  - '7.2' # release 30 November 2017
+  - '7.3' # release 6 December 2018
+  - '7.4' # release 28 November 2019
 
 script:
     - curl -L -o reflectivedoc.php https://www.monperrus.net/martin/reflectivedoc.php.txt
     - curl -L -o gakowiki-syntax.php https://www.monperrus.net/martin/gakowiki-syntax.php.txt
-    - phpunit bibtexbrowser-test.php
+    - phpunit BibtexbrowserTest.php
 
     # now testing this version of bibtexbrowser with wp-publications
     # Installing WP-CLI

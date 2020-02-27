@@ -2,10 +2,10 @@
 /** PhPUnit tests for bibtexbrowser
 
 To run them:
-$ phpunit bibtexbrowser-test.php
+$ phpunit BibtexbrowserTest.php
 
 With coverage:
-$ phpunit --coverage-html ./coverage btb-test.php
+$ phpunit --coverage-html ./coverage BibtexbrowserTest.php
 
 (be sure that xdebug is enabled: /etc/php5/cli/conf.d# ln -s ../../mods-available/xdebug.ini)
 */
@@ -59,7 +59,7 @@ class SimpleDisplayExt extends SimpleDisplay {
 }
 
 
-class BTBTest extends PHPUnit_Framework_TestCase {
+class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
 
     public function setUp():void
     {
