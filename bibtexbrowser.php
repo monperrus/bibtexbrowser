@@ -231,6 +231,13 @@ if (defined('ENCODING')) {
 // for instance with @define('BIBTEXBROWSER_URL',''); // links to the current page with ?
 @define('BIBTEXBROWSER_URL',basename(__FILE__));
 
+// Specify the location of the cache file for servers that need temporary files written in a specific location
+@define('CACHE_DIR','');
+
+// Specify the location of the bib file for servers that need do not allow slashes in URLs,
+// where the bib file and bibtexbrowser.php are in different directories. 
+@define('DATA_DIR','');
+
 // *************** END CONFIGURATION
 
 define('Q_INNER_AUTHOR', '_author');// internally used for representing the author
@@ -324,7 +331,7 @@ function _zetDB($bibtex_filenames) {
     // get file extension to only allow .bib files
     $ext = pathinfo($bib, PATHINFO_EXTENSION);
     // this is a security protection
-    if (BIBTEXBROWSER_LOCAL_BIB_ONLY && (!file_exists($bib) || strcasecmp($ext, 'bib') != 0)) {
+    if (BIBTEXBROWSER_LOCAL_BIB_ONLY && (!file_exists(DATA_DIR.$bib) || strcasecmp($ext, 'bib') != 0)) {
       // to automate dectection of faulty links with tools such as webcheck
       header('HTTP/1.1 404 Not found');
       // escape $bib to prevent XSS
@@ -355,7 +362,7 @@ function _zetDB($bibtex_filenames) {
   // ---------------------------- HANDLING caching of compiled bibtex files
   // for sake of performance, once the bibtex file is parsed
   // we try to save a "compiled" in a txt file
-  $compiledbib = 'bibtexbrowser_'.md5($bibtex_filenames).'.dat';
+  $compiledbib = CACHE_DIR.'bibtexbrowser_'.md5($bibtex_filenames).'.dat';
 
   $parse=filemtime(__FILE__)>@filemtime($compiledbib);
 
@@ -820,7 +827,7 @@ class BibDBBuilder extends ParserDelegate {
 
     $this->filename = $bibfilename;
     if ($handle == NULL) {
-      $handle = fopen($bibfilename, "r");
+      $handle = fopen(DATA_DIR.$bibfilename, "r");
     }
 
     if (!$handle) die ('cannot open '.$bibfilename);
