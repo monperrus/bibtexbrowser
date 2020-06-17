@@ -146,7 +146,8 @@ include( 'bibtexbrowser.php' );
 </tr><!-- end individual -->
 </table>
 
-
+In the above snippets, only the bibtex-entries containing 'Martin Monperrus' as an auhor will be extracted, but not 'Monperrus, Martin'. To remedy this, you need to add ''define('USE_FIRST_THEN_LAST',true);'' either to the php-query, or to 
+''bibtexbrowser.local.php''
 ====How to change the reference style?====
 
 '''By modifying the CSS'''
