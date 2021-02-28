@@ -306,14 +306,7 @@ function get_target() {
 function _zetDB($bibtex_filenames) {
 
   $db = null;
-  // Check if magic_quotes_runtime is active
-  if(get_magic_quotes_runtime())
-  {
-      // Deactivate
-      // otherwise it does not work
-      set_magic_quotes_runtime(false);
-  }
-
+	
   // default bib file, if no file is specified in the query string.
   if (!isset($bibtex_filenames) || $bibtex_filenames == "") {
     default_message();
