@@ -2815,6 +2815,9 @@ class MenuManager {
   /** Displays the search view in a form. */
   function searchView() {
     ?>
+    <form>
+    <input class="input_box" type="button" onClick="" value="show all entries">
+    </form>
     <form action="?" method="get" target="<?php echo BIBTEXBROWSER_MENU_TARGET;?>">
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
       <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo @$_GET[Q_FILE]; ?>"/>
