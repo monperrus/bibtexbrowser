@@ -46,7 +46,7 @@ function c($key) { // shortcut
 // it will help you to upgrade the script with a new version
 // the changes that require existing bibtexbrowser symbols should be in bibtexbrowser.after.php (included at the end of this file)
 // per bibtex file configuration
-@include(@$_GET[Q_FILE].'.local.php');
+@include('bibtexbrowser.local.php');
 @include(preg_replace('/\.php$/','.local.php',__FILE__));
 
 // the encoding of your bibtex file
