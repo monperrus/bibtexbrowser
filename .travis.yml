@@ -31,7 +31,7 @@ script:
     - $WPCLI package install wp-cli/restful
     - $WPCLI core version
     # installing plugin wp-publications
-    - $WPCLI plugin install wp-publications --activate
+    - $WPCLI plugin install https://github.com/monperrus/wp-publications/archive/refs/heads/master.zip --activate
     # there is no need to create a post, because one activation task of wp-publications is to create a fake post
     #- $WPCLI post create --post_title=test --post_content='[wp-publications bib="sample.bib" all=true]'
     - cp bibtexbrowser.php ./wp-content/plugins/wp-publications/
