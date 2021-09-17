@@ -11,21 +11,22 @@ This documentation is collaborative, you can improve it using a [[https://github
 +++TOC+++
 
 =====Features=====
-* **(01/2017)** support basic composer support
-* **(02/2016)** support for [[http://ogp.me/|OpenGraph metadata]]
-* **(10/2015)** support for filtering bibtex fields
-* **(10/2013)** support for localization (see below)
-* **(07/2012)** new label types (see config value ABBRV_TYPE)
-* **(10/2011)** if a bibtex entry contains a field gsid (like Google Scholar ID), bibtexbrowser includes a link [cites] to the cited-by page of Google Scholar (e.g. [[http://scholar.google.com/scholar?cites=15080874515065717592]])
-* **(03/2011)** bibtexbrowser includes a hide/show mechanism for bibtex entries (in Javascript, see configuration variable BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT)
-* **(10/2010)** bibtexbrowser now supports cross-references (Bibtex crossref)
-* **(09/2010)** bibtexbrowser now supports multiple bibtex files (''bibtexbrowser.php?bib=file1.bib;file2.bib'')
-* **(05/2010)** bibtexbrowser adds links to your co-author pages if you define the corresponding @string (see function addHomepageLink)
-* **(01/2010)** bibtexbrowser can handle user-defined bibliographic styles
+* (09/2021) add support for generating CITATION.cff files with helper script bibtex-to-cff.php
+* (01/2017) support basic composer support
+* (02/2016) support for [[http://ogp.me/|OpenGraph metadata]]
+* (10/2015) support for filtering bibtex fields
+* (10/2013) support for localization (see below)
+* (07/2012) new label types (see config value ABBRV_TYPE)
+* (10/2011) if a bibtex entry contains a field gsid (like Google Scholar ID), bibtexbrowser includes a link [cites] to the cited-by page of Google Scholar (e.g. [[http://scholar.google.com/scholar?cites=15080874515065717592]])
+* (03/2011) bibtexbrowser includes a hide/show mechanism for bibtex entries (in Javascript, see configuration variable BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT)
+* (10/2010) bibtexbrowser now supports cross-references (Bibtex crossref)
+* (09/2010) bibtexbrowser now supports multiple bibtex files (''bibtexbrowser.php?bib=file1.bib;file2.bib'')
+* (05/2010) bibtexbrowser adds links to your co-author pages if you define the corresponding @string (see function addHomepageLink)
+* (01/2010) bibtexbrowser can handle user-defined bibliographic styles
 * bibtexbrowser generates publication RSS feeds (simply add &#38;rss at the end of the URL)! [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;all&amp;rss|demo]]
-* **(10/2009)** bibtexbrowser is able to generate a bibtex file containing only the selected entries (simply add &#38;astext at the end of the link)
-* **(10/2009)** bibtexbrowser is now independent of the configuration of register_globals
-* **(01/2009)** bibtexbrowser allows multi criteria search, e.g.  [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;type=inproceedings&amp;year=2013|demo]]
+* (10/2009) bibtexbrowser is able to generate a bibtex file containing only the selected entries (simply add &#38;astext at the end of the link)
+* (10/2009) bibtexbrowser is now independent of the configuration of register_globals
+* (01/2009) bibtexbrowser allows multi criteria search, e.g.  [[http://www.monperrus.net/martin/bibtexbrowser.php?bib=monperrus.bib&amp;type=inproceedings&amp;year=2013|demo]]
 * bibtexbrowser generates [[http://ocoins.info/|COinS]] metadata for automatic import of bibliographic entries with [[http://www.zotero.org/|Zotero]] and [[http://www.mendeley.com/|Mendeley]].
 * bibtexbrowser generates [[http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar|Google Scholar metadata]] so as to improve the visibility of your papers on Google Scholar.
 * bibtexbrowser replaces constants defined in @STRING
