@@ -72,7 +72,7 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
   function test_checkdoc() {
     if(!is_file('gakowiki-syntax.php')) { return; }
     if (!function_exists('gk_wiki2html')) { include('gakowiki-syntax.php'); }
-    $result = create_wiki_parser()->parse(file_get_contents('bibtexbrowser-documentation.wiki'));
+    $result = create_wiki_parser()->parse(file_get_contents('README.wiki'));
     $this->assertEquals(1, strpos($result,"bibtexbrowser is a PHP script that creates publication lists from Bibtex files"));
   }
 

@@ -6,7 +6,7 @@ Is is rendered as HTML on http://www.monperrus.net/martin/bibtcomexbrowser/.
 
 bibtexbrowser is a PHP script that creates publication lists from Bibtex files. bibtexbrowser is stable, mature and easy to install. It is used in [[http://www.monperrus.net/martin/bibtexbrowser/users|hundreds of different universities and institutions]] (over 469 different domains according to Google).
 
-This documentation is collaborative, you can improve it using a [[https://github.com/monperrus/bibtexbrowser/edit/master/bibtexbrowser-documentation.wiki|pull request on ''bibtexbrowser-documentation.wiki'']].
+This documentation is collaborative, you can improve it using a [[https://github.com/monperrus/bibtexbrowser/edit/master/README.wiki|pull request]].
 
 +++TOC+++
 
