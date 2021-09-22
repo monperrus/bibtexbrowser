@@ -84,7 +84,7 @@ Create a bib file with the publication records (e.g. csgroup2008.bib) and upload
 To embed Bibtexbrowser into a website, you could use it as a library:
 
 <pre>
-&lt;?php
+<?php
 $_GET['library']=1;
 define('BIBTEXBROWSER_BIBTEX_LINKS',false); // no [bibtex] link by default
 require_once('bibtexbrowser.php');
@@ -99,7 +99,7 @@ $entries=$db->multisearch($query);
 uasort($entries, 'compare_bib_entries');
 
 foreach ($entries as $bibentry) {
-  echo $bibentry->toHTML()."&lt;br/>";
+  echo $bibentry->toHTML()."<br/>";
 }
 ?>
 </pre>
@@ -111,14 +111,14 @@ foreach ($entries as $bibentry) {
 <tr><th></th><th>Sorted by year </th><th>Sorted by publication type</th></tr>
 <tr><td>For a group/team/lab</td>
 <td>
-&#60;?php
+<?php
 $_GET&#91;'bib'&#93;='csgroup2008.bib';
 $_GET&#91;'all'&#93;=1;
 include( 'bibtexbrowser.php' );
 ?>
 </td>
 <td>
-&#60;?php
+<?php
 $_GET&#91;'bib'&#93;='csgroup2008.bib';
 $_GET&#91;'all'&#93;=1;
 $_GET&#91;'academic'&#93;=1;
@@ -128,14 +128,14 @@ include( 'bibtexbrowser.php' );
 </tr><!-- end group -->
 <tr><td>For an individual</td>
 <td>
-  &#60;?php
+  <?php
 $_GET&#91;'bib'&#93;='mybib.bib';
 $_GET&#91;'author'&#93;='Martin Monperrus';
 include( 'bibtexbrowser.php' );
 ?>
 </td>
 <td>
-&#60;?php
+<?php
 $_GET&#91;'bib'&#93;='mybib.bib';
 $_GET&#91;'author'&#93;='Martin Monperrus';
 $_GET&#91;'academic'&#93;=1;
@@ -175,7 +175,7 @@ For instance, one can tweak the output by disabling the display of some headers 
 The bibliography style is encapsulated in a function. If you want to modify the bibliography style, you can copy the default style in a new file, say ''bibtexbrowser-yourstyle.php'', and rename the function ''DefaultBibliographyStyle'' in say ''MyFancyBibliographyStyle''.
 Then, add in the file ''bibtexbrowser.local.php'':
 <pre>
-&#60;?php
+<?php
 function MyFancyBibliographyStyle(&$bibentry) {
   return $bibentry->getTitle().' ('.$bibentry->formattedAuthors(.')';
 }
@@ -195,7 +195,7 @@ By default each bibliographic entry is followed by
 
 This can be tailored by configuring as follows (in the file ''bibtexbrowser.local.php'')
 <pre>
-&#60;?php
+<?php
 define('BIBTEXBROWSER_LINK_STYLE','MyFancyBib2links');
 function MyFancyBib2links(&$bibentry) {
   // bib is a special type of link. without the url argument or with an invalid image, it prints '[bibtex]'
@@ -329,7 +329,7 @@ author="Jean Dupont",
 title="Bibtexbrowser",
 year=2009,
 booktitle="Proceedings of the BIB conference",
-comment={&lt;a href="myslides.pdf">[slides]&lt;/a>}
+comment={<a href="myslides.pdf">[slides]</a>}
 }
 </code>
 
@@ -338,7 +338,7 @@ This comment field can also be used to add acceptance rates and impact factors.
 ====How to localize bibtexbrowser?====
 Add in ''bibtexbrowser.local.php'':
 <pre>
-&lt;?php
+<?php
 global $BIBTEXBROWSER_LANG;
 $BIBTEXBROWSER_LANG=array();
 $BIBTEXBROWSER_LANG['Refereed Conference Papers']="Conférences avec comité de lecture";
@@ -350,7 +350,7 @@ $BIBTEXBROWSER_LANG['Year']="Année";
 ====How to change the default frame?====
 Add in ''bibtexbrowser.local.php'':
 <pre>
-&lt;?php
+<?php
 // or any valid query: year=2010, author=Jane, etc.
 @define('BIBTEXBROWSER_DEFAULT_FRAME','all');
 ?>
@@ -362,7 +362,7 @@ The default order is first by bibtex field year, then by bibtex field month, per
 
 You can change this with ''define('ORDER_FUNCTION',...)'' and ''define('ORDER_FUNCTION_FINE',...)'' in ''bibtexbrowser.local.php'':
 <pre>
-&lt;?php
+<?php
 
 function my_own_order($a, $b) {
   return strcmp($a->getKey(),$b->getkey());
@@ -400,7 +400,7 @@ define("BIBTEXBROWSER_MAIN", 'DynamicDispatcher');
 
 and then in ''bibtexbrowser.after.php'':
 <pre>
-&lt;?php
+<?php
 class DynamicDispatcher extends Dispatcher {
   function getDB() {
     $data = fopen('php://memory','x+');
@@ -425,7 +425,7 @@ define("BIBTEXBROWSER_MAIN", 'PgmDispatcher');
 
 and then in ''bibtexbrowser.after.php'':
 <pre>
-&lt;?php
+<?php
 class PgmDispatcher extends Dispatcher {
   function getDB() {
     $db = new BibDataBase();
@@ -456,7 +456,7 @@ class PgmDispatcher extends Dispatcher {
 
 If you want to remove some fields (e.g. abbrv and comment) from the resulting bibtex, add in ''bibtexbrowser.local.php'':
 <pre>
-&lt;?php
+<?php
 define('BIBTEXBROWSER_BIBTEX_VIEW','reconstructed');
 define('BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT','abbrv|comment');
 ?>
@@ -466,7 +466,7 @@ define('BIBTEXBROWSER_BIBTEX_VIEW_FILTEREDOUT','abbrv|comment');
 
 Add in ''bibtexbrowser.local.php'':
 <pre>
-&lt;?php
+<?php
 bibtexbrowser_configure('BIBTEXBROWSER_DEFAULT_DISPLAY','PagedDisplay');
 bibtexbrowser_configure('PAGE_SIZE','3');
 ?>
@@ -478,18 +478,18 @@ You can customize every view as follows, in particular by playing with ''BIBTEXB
 
 ''frameset.html'':
 <pre>
-&lt;html>
-&lt;frameset cols="15%,*">
-&lt;frame name="menu" src="menu.php" />
-&lt;frame name="main" src="output.php" />
-&lt;/frameset>
-&lt;/html>
+<html>
+<frameset cols="15%,*">
+<frame name="menu" src="menu.php" />
+<frame name="main" src="output.php" />
+</frameset>
+</html>
 </pre>
 
 ''menu.php'':
 <pre>
 MENU (no header sent)
-&lt;?php
+<?php
 define('BIBTEXBROWSER_URL','output.php');
 $_GET['menu']=1;
 $_GET['bib']='foo.bib';
@@ -500,7 +500,7 @@ include('bibtexbrowser.php');
 ''output.php'':
 <pre>
 OUTPUT (no header sent)
-&lt;?php
+<?php
 define('BIBTEXBROWSER_URL','elem.php');
 include('bibtexbrowser.php');
 ?>
@@ -509,7 +509,7 @@ include('bibtexbrowser.php');
 ''elem.php'':
 <pre>
 ELEM (no header sent)
-&lt;?php
+<?php
 include('bibtexbrowser.php');
 ?>
 </pre>
@@ -559,9 +559,9 @@ Note the forward slash following the port number.
 
 For instance, if you want to add a "home page" button in the main view of the frameset mode, add a banner function in ''bibtexbrowser.local.php'' as follows:
 <pre>
-&lt;?php
+<?php
 function bibtexbrowser_top_banner() {
-  return '&lt;a href="/home">Home page&lt;/a>';
+  return '<a href="/home">Home page</a>';
 }
 ?>
 </pre>
@@ -570,7 +570,7 @@ function bibtexbrowser_top_banner() {
 
 Bibtexbrowser can generate [[https://en.wikipedia.org/wiki/COinS|Coins]], Google Scholar, Dublin Core (DC), Opengraph and Eprints metadata. This can be configured in ''bibtexbrowser.local.php'' as follows:
 <pre>
-&lt;?php
+<?php
 @define('METADATA_COINS',true); // see https://en.wikipedia.org/wiki/COinS
 @define('METADATA_GS',false); // metadata google scholar, see http://www.monperrus.net/martin/accurate+bibliographic+metadata+and+google+scholar
 @define('METADATA_DC',true); // see http://dublincore.org/
