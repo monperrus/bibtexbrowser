@@ -823,7 +823,31 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
 
     }
 
-
+    function test_cff() {
+        
+        $btb = new BibDataBase();
+        $btb->load('bibacid-utf8.bib');
+        $entry = $btb->bibdb['arXiv-1807.05030'];
+        $expected = "cff-version: 1.2.0\n".
+        "# CITATION.cff created with https://github.com/monperrus/bibtexbrowser/\n".
+        "preferred-citation:\n".
+        "  title: \"A Comprehensive Study of Pseudo-tested Methods\"\n".
+        "  year: \"2018\"\n".
+        "  authors:\n".
+        "    - family-names: Vera-Pérez\n".
+        "      given-names: Oscar Luis\n".
+        "    - family-names: Danglot\n".
+        "      given-names: Benjamin\n".
+        "    - family-names: Monperrus\n".
+        "      given-names: Martin\n".
+        "    - family-names: Baudry\n".
+        "      given-names: Benoit\n";
+        
+        $this->assertEquals($expected,$entry->toCFF());
+        
+    }
+    
+    
 } // end class
 
 @copy('bibtexbrowser.local.php.bak','bibtexbrowser.local.php');

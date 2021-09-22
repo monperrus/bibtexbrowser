@@ -1980,7 +1980,38 @@ class BibEntry {
     return $matches;
   }
 
-} // enc class BibEntry
+  /** returns in the citation file format, tailored for github */
+  function toCFF() {
+    $result = "";
+    $result .= "cff-version: 1.2.0"."\n";
+    $result .= "# CITATION.cff created with https://github.com/monperrus/bibtexbrowser/"."\n";
+    $result .= "preferred-citation:"."\n";
+    $result .= "  title: \"".$this->getTitle()."\""."\n";
+    if ($this->hasField("doi")) {
+        $result .= "  doi: \"".$this->getField("doi")."\""."\n";
+    }
+    if ($this->hasField("year")) {
+        $result .= "  year: \"".$this->getField("year")."\""."\n";
+    }
+    if ($this->hasField("journal")) {
+        $result .= "  type: article\n";
+        $result .= "  journal: \"".$this->getField("journal")."\""."\n";
+    }
+    if ($this->hasField("booktitle")) {
+        $result .= "  type: conference-paper\n";
+        $result .= "  conference: \"".$this->getField("booktitle")."\""."\n";
+    }
+    $result .= "  authors:"."\n";
+    foreach ($this->getFormattedAuthorsArray() as $author) {
+        $split = splitFullName($author);
+        $result .= "    - family-names: ".$split[1]."\n";
+        $result .= "      given-names: ".$split[0]."\n";
+    }
+    return $result;
+  }
+  
+  
+} // end class BibEntry
 
 class RawBibEntry extends BibEntry {
   function setField($name, $value) {
