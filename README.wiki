@@ -8,8 +8,6 @@ bibtexbrowser is a PHP script that creates publication lists from Bibtex files. 
 
 This documentation is collaborative, you can improve it using a [[https://github.com/monperrus/bibtexbrowser/edit/master/README.wiki|pull request]].
 
-+++TOC+++
-
 =====Features=====
 * (09/2021) add support for generating CITATION.cff files with helper script bibtex-to-cff.php
 * (01/2017) support basic composer support
@@ -67,7 +65,7 @@ The following uses bibtexbrowser under the hood:
 
 Demo: [[http://bibtexbrowser.sourceforge.net/bibtexbrowser.php?bib=metrics.bib|Here, you can browse a bibtex file dedicated to software metrics]]
 
-<a href="bibtexbrowser-screenshot.png"><img height="500" src="bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/></a>
+<img height="500" src="https://www.monperrus.net/martin/bibtexbrowser/bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/>
 
 =====Basic installation=====
 Create a bib file with the publication records (e.g. csgroup2008.bib) and upload it to your server.
