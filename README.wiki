@@ -184,9 +184,18 @@ define('BIBLIOGRAPHYSTYLE','MyFancyBibliographyStyle');
 </pre>
 &nbsp;
 
-See Janos Tapolcai's style, which looks like IEEE references (see function JanosBibliographyStyle), and Kai's one [[http://github.com/KaiBi/IEEEStyleForBibtexbrowser|another custom citation style for bibtexbrowser adhering to the IEEE citations guidelines (on github)]].
+====How to use the IEEE bibliographic style?====
 
-For contributing with a new style, [[http://www.monperrus.net/martin/|please drop me an email ]]
+Create a file `bibtexbrowser.local.php`, in the same folder as `bibtexbrowser.php`, containing:
+<pre>
+<?php
+// JanosBibliographyStyle is the IEEE contributed by Janos Tapolcai 
+define('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
+?>
+</pre>
+&nbsp;
+
+See also [[http://github.com/KaiBi/IEEEStyleForBibtexbrowser|another custom citation style for bibtexbrowser adhering to the IEEE citations guidelines (on github)]].
 
 ====How to change the link style?====
 
