@@ -141,7 +141,7 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
     
     // IEEE style
     bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','JanosBibliographyStyle');
-    $this->assertEquals("Foo Bar and Jane Doe, \"An Article\", In New Results, vol. 5, pp. 1-2, 2009.\n ",strip_tags($first_entry->toHTML()));
+    $this->assertEquals("Foo Bar and Jane Doe, \"An Article\", New Results, vol. 5, pp. 1-2, 2009.\n ",strip_tags($first_entry->toHTML()));
     $css_classes_after = $this->extract_css_classes($first_entry->toHTML());
     // contract: make sure the Janos style and default style use the same CSS classes
     $this->assertEquals($css_classes_before, $css_classes_after);
@@ -846,6 +846,20 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expected,$entry->toCFF());
         
     }
+
+    function test_uppercase() {
+  print(preg_replace_callback('/\\\\uppercase\{(.*)\}/',"strtolowercallback", "$\uppercase{B}"));
+
+        $bibtex = "@article{doe2000,title={Preferential polarization and its reversal in polycrystalline $\uppercase{B}i\uppercase{F}e\uppercase{O}_{3}$/$\uppercase{L}a_{0. 5}\uppercase{S}r_{0.5} \uppercase{C}o\uppercase{O}_{3}$ heterostructures},author={Jane Doe},journal={The Wordpress Journal},year=2000}";
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $_GET[Q_FILE] = 'sample.bib';
+        $db->update_internal("inline", $test_data);
+        $this->assertEquals('Preferential polarization and its reversal in polycrystalline $BiFeO_{3}$/$La_{0. 5}Sr_{0.5} CoO_{3}$ heterostructures', $db->bibdb['doe2000']->getTitle());
+    }
+
     
     
 } // end class
