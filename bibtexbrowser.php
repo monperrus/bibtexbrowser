@@ -3787,7 +3787,7 @@ class BibDataBase {
         $this->addEntry($b);
       }
       // update entry
-      else if (isset($this->bibdb[$b->getKey()]) && ($b->getText() !== $this->bibdb[$b->getKey()]->getText())) {
+      else if (isset($this->bibdb[$b->getKey()]) && ($b->toHTML() !== $this->bibdb[$b->getKey()]->toHTML())) {
         //echo 'replacing...<br/>';
         $this->bibdb[$b->getKey()] = $b;
       }
