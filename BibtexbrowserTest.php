@@ -653,8 +653,8 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
         ob_get_clean();
 
         // the indices have been set by SimpleDisplay
-        $this->assertEquals("[1]", $btb->getEntryByKey('aKey')->getAbbrv());
-        $this->assertEquals("[3]", $btb->getEntryByKey('aKey-withSlash')->getAbbrv());
+        $this->assertEquals("[3]", $btb->getEntryByKey('aKey')->getAbbrv());
+        $this->assertEquals("[1]", $btb->getEntryByKey('aKey-withSlash')->getAbbrv());
 
         // SimpleDisplayExt sets the indices differently, using setIndicesInIncreasingOrderChangingEveryYear
         $d = new SimpleDisplayExt();
@@ -662,7 +662,7 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
         ob_start();
         $d->display();
         ob_get_clean();
-        $this->assertEquals("[2]", $btb->getEntryByKey('aKey')->getAbbrv());
+        $this->assertEquals("[1]", $btb->getEntryByKey('aKey')->getAbbrv());
         $this->assertEquals("[1]", $btb->getEntryByKey('aKey-withSlash')->getAbbrv());
         
     }
@@ -749,6 +749,7 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
 
 
     function test_before() {
+        // contract: the ordering is chronological
         $bibtex = "@article{doe2000,title={An article},author={Jane Doe},journal={The Wordpress Journal},year=2000}@book{doo2001,title={A book},author={Jane Doe},year=2001}";
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, $bibtex);
@@ -767,7 +768,7 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
     }
 
     function test80() {
-        // entries without year are at the top
+        // contract: entries without year are at the top
         $bibtex = "@article{keyWithoutYear,title={First article},author = {Martin}},@article{key2,title={Second article},author = {Martin}, year=2007}";
         $test_data = fopen('php://memory','x+');
         fwrite($test_data, $bibtex);
@@ -860,7 +861,48 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('Preferential polarization and its reversal in polycrystalline $BiFeO_{3}$/$La_{0. 5}Sr_{0.5} CoO_{3}$ heterostructures', $db->bibdb['doe2000']->getTitle());
     }
 
-    
+    function test_sorting_year() {
+        $bibtex = "@article{doe2004,year=2004},@article{doe1999,year=1999},@article{doe2000,year=2000}";
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+//         print_r($db);        
+        $data = array_values($db->bibdb);
+        $this->assertEquals("2004", $data[0]->getYear());
+        $this->assertEquals("1999", $data[1]->getYear());
+        $this->assertEquals("2000", $data[2]->getYear());
+        usort($data, 'compare_bib_entry_by_year');
+
+        $this->assertEquals("1999", $data[0]->getYear());
+        $this->assertEquals("2000", $data[1]->getYear());
+        $this->assertEquals("2004", $data[2]->getYear());
+
+        $bibtex = "@article{doe2004,year=2004},@article{doe1999,year=1999},@article{doe2000,year=2000}";
+
+    }
+
+    function test_sorting_month() {
+        $bibtex = "@article{doe2004,year=2004, month={may}},@article{doe1999,year=2004,month={jan}},@article{doe2000,year=2000, month={dec}}";
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+//         print_r($db);        
+        $data = array_values($db->bibdb);
+        $this->assertEquals("may", $data[0]->getField("month"));
+        usort($data, 'compare_bib_entry_by_month');
+
+        $this->assertEquals("jan", $data[0]->getField("month"));
+        $this->assertEquals("may", $data[1]->getField("month"));
+        $this->assertEquals("dec", $data[2]->getField("month"));
+
+        $bibtex = "@article{doe2004,year=2004},@article{doe1999,year=1999},@article{doe2000,year=2000}";
+
+    }
+
     
 } // end class
 

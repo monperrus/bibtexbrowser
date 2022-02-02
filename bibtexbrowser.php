@@ -218,10 +218,10 @@ if (defined('ENCODING')) {
 // define sort order for special values in 'year' field
 // highest number is sorted first
 // don't exceed 0 though, since the values are added to PHP_INT_MAX
-@define('ORDER_YEAR_INPRESS', -0);
-@define('ORDER_YEAR_ACCEPTED', -1);
-@define('ORDER_YEAR_SUBMITTED', -2);
-@define('ORDER_YEAR_OTHERNONINT', -3);
+@define('ORDER_YEAR_INPRESS', 0);
+@define('ORDER_YEAR_ACCEPTED', 1);
+@define('ORDER_YEAR_SUBMITTED', 2);
+@define('ORDER_YEAR_OTHERNONINT', 3);
 
 
 // in embedded mode, we still need a URL for displaying bibtex entries alone
@@ -2157,38 +2157,38 @@ function compare_bib_entry_by_year($a, $b)
   if ($yearA === 0) {
     switch (strtolower($a->getYearRaw())) {
       case Q_YEAR_INPRESS:
-        $yearA = PHP_INT_MAX + ORDER_YEAR_INPRESS;
+        $yearA = PHP_INT_MIN + ORDER_YEAR_INPRESS;
 	break;
       case Q_YEAR_ACCEPTED:
-        $yearA = PHP_INT_MAX + ORDER_YEAR_ACCEPTED;
+        $yearA = PHP_INT_MIN + ORDER_YEAR_ACCEPTED;
 	break;
       case Q_YEAR_SUBMITTED:
-        $yearA = PHP_INT_MAX + ORDER_YEAR_SUBMITTED;
+        $yearA = PHP_INT_MIN + ORDER_YEAR_SUBMITTED;
 	break;
       default:
-        $yearA = PHP_INT_MAX + ORDER_YEAR_OTHERNONINT;
+        $yearA = PHP_INT_MIN + ORDER_YEAR_OTHERNONINT;
     }
   }
 
   if ($yearB === 0) {
     switch (strtolower($b->getYearRaw())) {
       case Q_YEAR_INPRESS:
-        $yearB = PHP_INT_MAX + ORDER_YEAR_INPRESS;
+        $yearB = PHP_INT_MIN + ORDER_YEAR_INPRESS;
 	break;
       case Q_YEAR_ACCEPTED:
-        $yearB = PHP_INT_MAX + ORDER_YEAR_ACCEPTED;
+        $yearB = PHP_INT_MIN + ORDER_YEAR_ACCEPTED;
 	break;
       case Q_YEAR_SUBMITTED:
-        $yearB = PHP_INT_MAX + ORDER_YEAR_SUBMITTED;
+        $yearB = PHP_INT_MIN + ORDER_YEAR_SUBMITTED;
 	break;
       default:
-        $yearB = PHP_INT_MAX + ORDER_YEAR_OTHERNONINT;
+        $yearB = PHP_INT_MIN + ORDER_YEAR_OTHERNONINT;
     }
   }
 
   if ($yearA === $yearB)
     return 0;
-  else if ($yearA > $yearB)
+  else if ($yearA < $yearB)
     return -1;
   else
     return 1;
@@ -2242,7 +2242,6 @@ function compare_bib_entry_by_month($a, $b)
   //desired order of values
   $sort_order_values = array('jan','january','feb','february','mar','march','apr','april','may','jun','june','jul','july','aug','august','sep','september','oct','october','nov','november','dec','december');
   //order: 1=as specified in $sort_order_values  or -1=reversed
-  $order = -1;
 
 
   //first check if the search key exists
@@ -2278,7 +2277,7 @@ function compare_bib_entry_by_month($a, $b)
     }
   }
 
-  return $order*$retval;
+  return $retval;
 }
 
 /** is the default sectioning for AcademicDisplay (books, articles, proceedings, etc. ) */
