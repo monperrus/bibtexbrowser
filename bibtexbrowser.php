@@ -2402,13 +2402,14 @@ function DefaultBibliographyStyle($bibentry) {
       $publisher .= ', '.$bibentry->getField("institution");
   }
 
+  if ($bibentry->hasField("publisher")) {
+      $publisher = $bibentry->getField("publisher");
+  }
+
   if ($type=="misc") {
       $publisher = $bibentry->getField('howpublished');
   }
 
-  if ($bibentry->hasField("publisher")) {
-    $publisher = $bibentry->getField("publisher");
-  }
 
   if ($publisher!='') $entry[] = '<span class="bibpublisher">'.$publisher.'</span>';
 
