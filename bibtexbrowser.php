@@ -2870,7 +2870,7 @@ class MenuManager {
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
       <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo @$_GET[Q_FILE]; ?>"/>
       <br/>
-      <input type="submit" value="search" class="input_box"/>
+      <input type="submit" value="<?php echo __("search"); ?>" class="input_box"/>
     </form>
     <?php
   }
@@ -2879,9 +2879,9 @@ class MenuManager {
   function typeVC() {
     $types = array();
     foreach ($this->db->getTypes() as $type) {
-      $types[$type] = $type;
+      $types[$type] = __($type);
     }
-    $types['.*'] = 'all types';
+    $types['.*'] = __('all types');;
     // retreive or calculate page number to display
     if (isset($_GET[Q_TYPE_PAGE])) {
       $page = $_GET[Q_TYPE_PAGE];
@@ -2965,7 +2965,7 @@ else $page = 1;
         and the navigation links on the right -->
         <table style="width:100%" border="0" cellspacing="0" cellpadding="0">
           <tr class="btb-nav-title">
-            <td><b><?php echo $title; ?></b></td>
+            <td><b><?php echo __($title); ?></b></td>
             <td class="btb-nav"><b>
                 <?php echo $this->menuPageBar($pageKey, $numEntries, $page,
            $pageSize, $startIndex, $endIndex);?></b></td>
