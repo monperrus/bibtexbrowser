@@ -1121,6 +1121,7 @@ function latex2html($line, $do_clean_extra_bracket=true) {
 
 /** encodes strings for Z3988 URLs. Note that & are encoded as %26 and not as &amp. */
 function s3988($s) {
+  if ($s == null) return '';
   // first remove the HTML entities (e.g. &eacute;) then urlencode them
   return urlencode($s);
 }
@@ -1486,6 +1487,7 @@ class BibEntry {
   }
 
   function split_authors() {
+    if (!array_key_exists(Q_AUTHOR, $this->raw_fields)) return array();
     $array = preg_split('/ and( |$)/ims', @$this->raw_fields[Q_AUTHOR]);
     $res = array();
     // we merge the remaining ones
@@ -1696,10 +1698,12 @@ class BibEntry {
 
   /** Returns the year of this entry? */
   function getYear() {
-    return __(strtolower($this->getField('year')));
+    return __(strtolower($this->getYearRaw()));
   }
   function getYearRaw() {
-    return $this->getField('year');
+    $r = $this->getField('year'); 
+    if ($r == null) return '';
+    return $r;
   }
 
   /** returns the array of keywords */
