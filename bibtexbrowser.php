@@ -2870,6 +2870,7 @@ class MenuManager {
       <input type="text" name="<?php echo Q_SEARCH; ?>" class="input_box" size="18"/>
       <input type="hidden" name="<?php echo Q_FILE; ?>" value="<?php echo @$_GET[Q_FILE]; ?>"/>
       <br/>
+      <!-- submit button -->
       <input type="submit" value="<?php echo __("search"); ?>" class="input_box"/>
     </form>
     <?php
