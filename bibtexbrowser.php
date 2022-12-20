@@ -777,6 +777,10 @@ class XMLPrettyPrinter extends ParserDelegate {
 
 /** represents @string{k=v} */
 class StringEntry {
+  private string $name;
+  private string $value;
+  private string $filename;
+
   function __construct($k, $v, $filename) {
     $this->name=$k;
     $this->value=$v;
