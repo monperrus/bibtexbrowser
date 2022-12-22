@@ -777,9 +777,9 @@ class XMLPrettyPrinter extends ParserDelegate {
 
 /** represents @string{k=v} */
 class StringEntry {
-  private string $name;
-  private string $value;
-  private string $filename;
+  public $filename;
+  public $name;
+  public $value;
 
   function __construct($k, $v, $filename) {
     $this->name=$k;
@@ -3372,6 +3372,9 @@ usage:
 </pre>
   */
 class AcademicDisplay  {
+  public $db;
+  public $entries;
+  public $title;
 
   function getTitle() { return $this->title; }
   function setTitle($title) { $this->title = $title; return $this; }
