@@ -6,10 +6,10 @@ services:
 
 # doc at https://docs.travis-ci.com/user/languages/php/
 php:
-  - '7.2' # release 30 November 2017
   - '7.3' # release 6 December 2018
   - '7.4' # release 28 November 2019
   - '8.0'
+  - '8.2'
 
 script:
     - curl -L -o reflectivedoc.php https://www.monperrus.net/martin/reflectivedoc.php.txt
