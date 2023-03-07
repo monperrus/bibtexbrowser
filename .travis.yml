@@ -9,7 +9,7 @@ php:
   - '7.3' # release 6 December 2018
   - '7.4' # release 28 November 2019
   - '8.0'
-  - '8.2'
+  - '8.1'
 
 script:
     - curl -L -o reflectivedoc.php https://www.monperrus.net/martin/reflectivedoc.php.txt
