@@ -69,7 +69,7 @@ You can add your group/name by [[https://github.com/monperrus/bibtexbrowser/edit
 * [[http://www.cs.stonybrook.edu/~mferdman/#publications| Mike Ferdman, Stony Brook University, USA]]
 * [[http://suess.sdf-eu.org/website/lang/en/pubs.php|Hendrik Süß, Moscow State University, Russia]]
 * [[http://josephsalmon.eu/index.php?page=papers&lang=en|Joseph Salmon, Duke University, USA]]
-* [[http://public.cranfield.ac.uk/c5354/publications/|Toby Breckon, Cranfield University, UK]]
+* [[https://breckon.org/toby/publications/| Toby Breckon, Durham University, UK]]
 * [[http://www.cs.man.ac.uk/~jayc/publications.php| Caroline Jay, University of Manchester, UK]]
 * [[http://www.cs.le.ac.uk/people/npiterman/publications/bibtexbrowser.php?frameset&bib=publications.bib|Nir Piterman, University of Leicester, UK]]
 * [[http://www.ceremade.dauphine.fr/~peyre/publications/|Gabriel Peyré, CNRS, Université Paris-Dauphine, France]]
