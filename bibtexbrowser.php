@@ -1214,7 +1214,7 @@ class BibEntry {
     return $this->timestamp;
   }
 
-  /** Returns the type of this bib entry. */
+  /** Returns the type of this bib entry (always lowercase). */
   function getType() {
     // strtolower is important to be case-insensitive
     return strtolower($this->getField(Q_INNER_TYPE));
@@ -2854,10 +2854,11 @@ class MenuManager {
   /** function called back by HTMLTemplate */
   function display() {
   echo $this->searchView().'<br/>';
-  echo $this->typeVC().'<br/>';
+  echo $this->venueVC().'<br/>';
   echo $this->yearVC().'<br/>';
   echo $this->authorVC().'<br/>';
   echo $this->tagVC().'<br/>';
+  echo $this->typeVC().'<br/>';
   }
 
   /** Displays the title in a table. */
@@ -2900,6 +2901,16 @@ class MenuManager {
     $this->displayMenu('Types', $types, $page, $this->type_size, Q_TYPE_PAGE, Q_INNER_TYPE);
   }
 
+  
+  /** Displays and controls the venues. */
+  function venueVC() {
+    // retrieve authors list to display
+    $data = $this->db->venueIndex();
+        
+    $this->displayMenu('Venues', $data, 1, 100000, Q_SEARCH,
+                       Q_SEARCH);
+  }
+  
   /** Displays and controls the authors menu in a table. */
   function authorVC() {
     // retrieve authors list to display
@@ -3892,6 +3903,24 @@ class BibDataBase {
     return $result;
   }
 
+  function venueIndex(){
+    $tmp = array();
+    foreach ($this->bibdb as $bib) {
+      if ($bib->getType()=="article") {
+        @$tmp[$bib->getField("journal")]++;
+      }
+      if ($bib->getType()=="inproceedings") {
+        @$tmp[$bib->getField("booktitle")]++;
+      }
+    }
+    arsort($tmp);
+    $result=array();
+    foreach ($tmp as $k=>$v) {
+      $result[$k]=$k;
+    }
+    return $result;
+  }
+  
   /** Generates and returns an array consisting of all tags.
    */
   function tagIndex(){
