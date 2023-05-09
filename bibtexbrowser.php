@@ -243,6 +243,10 @@ define('Q_INNER_AUTHOR', '_author');// internally used for representing the auth
 define('Q_INNER_TYPE', 'x-bibtex-type');// used for representing the type of the bibtex entry internally
 @define('Q_INNER_KEYS_INDEX', '_keys-index');// used for storing indices in $_GET[Q_KEYS] array
 
+define('Q_NAME', 'name');// used to allow for exact last name matches in multisearch
+define('Q_AUTHOR_NAME', 'author_name');// used to allow for exact last name matches in multisearch
+define('Q_EDITOR_NAME', 'editor_name');// used to allow for exact last name matches in multisearch
+
 // for clean search engine links
 // we disable url rewriting
 // ... and hope that your php configuration will accept one of these
@@ -1487,12 +1491,18 @@ class BibEntry {
 
   /** Returns the authors of this entry as an array (split by " and ") */
   function getRawAuthors() {
-    return $this->split_authors();
+    return $this->split_names(Q_AUTHOR);
   }
 
-  function split_authors() {
-    if (!array_key_exists(Q_AUTHOR, $this->raw_fields)) return array();
-    $array = preg_split('/ and( |$)/ims', @$this->raw_fields[Q_AUTHOR]);
+  // Previously called split_authors. Made generic to allow call on editors as well.
+  function split_names($key) {
+    if (!array_key_exists($key, $this->raw_fields)) return array();
+
+    // Sometimes authors/editors are split by line breaks followed by whitespace in bib files.
+    // In this case we need to replace these with a normal space.
+    $raw = preg_replace( '/\s+/', ' ', @$this->raw_fields[$key]);
+    $array = preg_split('/ and( |$)/ims', $raw);
+
     $res = array();
     // we merge the remaining ones
     for ($i=0; $i < count($array)-1; $i++) {
@@ -1687,6 +1697,12 @@ class BibEntry {
       $editors[]=$editor;
     }
     return $editors;
+  }
+
+
+  /** Returns the editors of this entry as an array (split by " and ") */
+  function getRawEditors() {
+    return $this->split_names(EDITOR);
   }
 
   /** Returns the editors of this entry as an arry */
@@ -4034,6 +4050,31 @@ class BibDataBase {
             // moved here so that it is also used by AcademicDisplay:search2html()
             if (!$bib->hasPhrase('^('.$fragment.')$', Q_INNER_TYPE))  {
               $entryisselected = false;
+              break;
+            }
+          }
+          else if ($field==Q_NAME || $field==Q_AUTHOR_NAME || $field==Q_EDITOR_NAME) {
+            // Names require exact matching per name. Although a preg_match over the entire author field is possible,
+            // it's inconvenient and often results in unwanted matches if not done careful. Instead, use
+            // 'name'=>'(M. Monperrus|Monperrus, M.)' to exact match the name of an author or editor, use
+            // 'author_name' to match the name of an author, and use 'editor_name' to match the name of an editor.
+            $names = [];
+            if ($field==Q_NAME || $field==Q_AUTHOR_NAME)
+              $names = array_merge($bib->getRawAuthors(), $names);
+            if ($field==Q_NAME || $field==Q_EDITOR_NAME)
+              $names = array_merge($bib->getRawEditors(), $names);
+
+            if (empty($names)) {
+              $entryisselected = false;
+            } else {
+              foreach ($names as $name) {
+                $entryisselected = preg_match('/^' . $fragment . '$/', trim($name));
+                if ($entryisselected) {
+                  break;
+                }
+              }
+            }
+            if (!$entryisselected) {
               break;
             }
           }

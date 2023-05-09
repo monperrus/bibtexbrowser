@@ -78,7 +78,7 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
 
   function createDB() {
     return $this->_createDB("@book{aKey,title={A Book},author={Martin Monperrus},publisher={Springer},year=2009}\n"
-    ."@book{aKey/withSlash,title={Slash Dangerous for web servers},author={Ap Ache},publisher={Springer},year=2010}\n"
+    ."@book{aKey/withSlash,title={Slash Dangerous for web servers},author={Ap Ache},editor={Martin Monperrus},publisher={Springer},year=2010}\n"
     ."@article{aKeyA,title={An Article},author={Foo Bar and Jane Doe},volume=5,journal=\"New Results\",year=2009,pages={1-2}}\n");
   }
 
@@ -185,6 +185,31 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
     $entry = $results[0];
     $this->assertTrue(count($results) == 1);
     $this->assertTrue($entry->getTitle() == 'A Book');
+  }
+
+  function testMultiSearch_name_match() {
+    $btb = $this->createDB();
+    $q=array(Q_NAME=>'Martin Monperrus');
+    $results=$btb->multisearch($q);
+    $this->assertTrue(count($results) == 2);
+  }
+
+  function testMultiSearch_author_name_match() {
+    $btb = $this->createDB();
+    $q=array(Q_AUTHOR_NAME=>'Martin Monperrus');
+    $results=$btb->multisearch($q);
+    $entry = $results[0];
+    $this->assertTrue(count($results) == 1);
+    $this->assertTrue($entry->getTitle() == 'A Book');
+  }
+
+  function testMultiSearch_editor_name_match() {
+    $btb = $this->createDB();
+    $q=array(Q_EDITOR_NAME=>'Martin Monperrus');
+    $results=$btb->multisearch($q);
+    $entry = $results[0];
+    $this->assertTrue(count($results) == 1);
+    $this->assertTrue($entry->getTitle() == 'Slash Dangerous for web servers');
   }
 
   function test_config_value() {
