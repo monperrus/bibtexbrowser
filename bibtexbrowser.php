@@ -76,7 +76,7 @@ if (defined('ENCODING')) {
 @define('MATHJAX_URI', '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/config/TeX-AMS_HTML.js?V=2.7.1');
 
 // the default jquery URI
-@define('JQUERY_URI', '//code.jquery.com/jquery-1.5.1.min.js');
+@define('JQUERY_URI', '//code.jquery.com/jquery-3.6.4.min.js');
 
 // can we load bibtex files on external servers?
 @define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
