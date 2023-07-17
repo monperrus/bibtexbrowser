@@ -97,7 +97,7 @@ You can add your group/name by [[https://github.com/monperrus/bibtexbrowser/edit
 * [[http://jorgecardoso.eu/publications.php|Jorge Cardoso, University of Minho, Portugal]] 
 * [[http://jdariasl.zobyhost.com/publications.php|Julián D. Arias Londoño, Universidad Nacional de Colombia Sede Manizales]]
 * [[http://www.f-systems.it/#pubbl|Marco Falda, University of Padova, Italy]]
-* [[http://www.docentes.unal.edu.co/morozcoa/docs/publications.php|Mauricio Orozco-Alzate, Universidad Nacional de Colombia]]
+* [[https://orozcoa.github.io/publications.html|Mauricio Orozco-Alzate, Universidad Nacional de Colombia]]
 * [[http://tomaszew.pjwstk.edu.pl/tomaszew/tomaszew.php|Micha&#322; Tomaszewski, Polsko-Japo&#324;ska Wy&#380;sza Szko&#322;a Technik Komputerowych, Poland]]
 * [[http://wigner.elte.hu/~koltai/pub/|Koltai János, Hungarn]]
 * [[http://dme.uma.pt/luis/page5/bibtexbrowser.php?bib=jluisbib.bib|José Luís da Silva, Universidade da Madeira, Portugal]]
