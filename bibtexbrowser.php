@@ -161,6 +161,10 @@ if (defined('ENCODING')) {
 
 @define('BIBTEXBROWSER_DEBUG',false);
 
+// should we cache the parsed bibtex file?
+// ref: https://github.com/monperrus/bibtexbrowser/issues/128
+@define('BIBTEXBROWSER_USE_CACHE',true);
+
 // how to print authors names?
 // default => as in the bibtex file
 // USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT = true => "Meyer, Herbert"
@@ -354,7 +358,11 @@ function _zetDB($bibtex_filenames) {
   }
 
 
-
+  $parse=true;
+  $updated = false;
+  
+  if (config_value('BIBTEXBROWSER_USE_CACHE')==true) {
+  
   // ---------------------------- HANDLING caching of compiled bibtex files
   // for sake of performance, once the bibtex file is parsed
   // we try to save a "compiled" in a txt file
@@ -384,7 +392,8 @@ function _zetDB($bibtex_filenames) {
       $parse=true;
     }
   } else {$parse=true;}
-
+  }
+  
   // we don't have a compiled version
   if ($parse) {
     //echo '<!-- parsing -->';
@@ -395,7 +404,6 @@ function _zetDB($bibtex_filenames) {
     }
   }
 
-  $updated = false;
   // now we may update the database
   if (!file_exists($compiledbib)) {
     @touch($compiledbib);
