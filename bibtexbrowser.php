@@ -2095,22 +2095,22 @@ function get_HTML_tag_for_layout() {
 function bib2links_default($bibentry) {
   $links = array();
 
-  if (BIBTEXBROWSER_BIBTEX_LINKS) {
+  if (c('BIBTEXBROWSER_BIBTEX_LINKS')) {
     $link = $bibentry->getBibLink();
     if ($link != '') { $links[] = $link; };
   }
 
-  if (BIBTEXBROWSER_PDF_LINKS) {
+  if (c('BIBTEXBROWSER_PDF_LINKS')) {
     $link = $bibentry->getUrlLink();
     if ($link != '') { $links[] = $link; };
   }
 
-  if (BIBTEXBROWSER_DOI_LINKS) {
+  if (c('BIBTEXBROWSER_DOI_LINKS')) {
     $link = $bibentry->getDoiLink();
     if ($link != '') { $links[] = $link; };
   }
 
-  if (BIBTEXBROWSER_GSID_LINKS) {
+  if (c('BIBTEXBROWSER_GSID_LINKS')) {
     $link = $bibentry->getGSLink();
     if ($link != '') { $links[] = $link; };
   }
@@ -2451,6 +2451,10 @@ function DefaultBibliographyStyle($bibentry) {
 
   if ($bibentry->hasField(YEAR)) $entry[] = '<span itemprop="datePublished">'.$bibentry->getYear().'</span>';
 
+  if ($bibentry->hasField("note")) {
+    $entry[] = $bibentry->getField("note");
+  }
+  
   $result = implode(", ",$entry).'.';
 
   // add the Coin URL

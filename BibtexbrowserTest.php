@@ -939,6 +939,35 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('foo bar title, howpublished. [bibtex]', strip_tags($data[0]->toHTML()));
     }
     
+    function test_note() {
+      // fix https://github.com/monperrus/bibtexbrowser/issues/131
+      bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');      
+      bibtexbrowser_configure('BIBTEXBROWSER_BIBTEX_LINKS',false);
+      bibtexbrowser_configure('BIBTEXBROWSER_PDF_LINKS',false);
+      $bibtex = "
+      @inproceedings{exampleEntry,
+      author = {Aurora Macías and Elena Navarro and Carlos E. Cuesta and Uwe Zdun},
+      title = {Architecting Digital Twins Using a Domain-Driven Design-Based Approach},
+      booktitle = {XXVII Jornadas de Ingenier'{\i}a del Software y Bases de Datos (JISBD 2023)},
+      month = {September},
+      note = {handle: 11705/JISBD/2023/7321},
+      year = {2023},
+      url = {https://hdl.handle.net/11705/JISBD/2023/7321},
+      month = {September},
+      pages = {1--1},
+      publisher = {SISTEDES},
+      editor = {Amador Dur'{a}n Toro},
+    }";
+      $test_data = fopen('php://memory','x+');
+      fwrite($test_data, $bibtex);
+      fseek($test_data,0);
+      $db = new BibDataBase();
+      $db->update_internal("inline", $test_data);
+      //         print_r($db);        
+      $data = array_values($db->bibdb);
+      $this->assertEquals(' Architecting Digital Twins Using a Domain-Driven Design-Based Approach (Aurora Macías, Elena Navarro, Carlos E. Cuesta and Uwe Zdun), In XXVII Jornadas de Ingenier\'ia del Software y Bases de Datos (JISBD 2023) (Amador Dur\'an Toro, ed.), SISTEDES, 2023, handle: 11705/JISBD/2023/7321. ', strip_tags($data[0]->toHTML()));
+    }
+    
     
 } // end class
 
