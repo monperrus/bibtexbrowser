@@ -4911,9 +4911,6 @@ class Dispatcher {
 
   function keys() {
     // Create array from list of bibtex entries
-    if (get_magic_quotes_gpc()) {
-      $_GET[Q_KEYS] = stripslashes($_GET[Q_KEYS]);
-    }
     $_GET[Q_KEYS] = (array) json_decode(urldecode($_GET[Q_KEYS])); // decode and cast the object into an (associative) array
     // Make the array 1-based (keeps the string keys unchanged)
     array_unshift($_GET[Q_KEYS],"__DUMMY__");
