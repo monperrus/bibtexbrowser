@@ -4930,7 +4930,10 @@ class Dispatcher {
     exit;
   }
 
-  function frameset() {    ?>
+  function frameset() {
+    $this->getDB(); // will throw 404 if bib file does not exist
+    
+    ?>
 
 
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
