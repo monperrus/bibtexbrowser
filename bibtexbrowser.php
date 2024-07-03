@@ -3398,6 +3398,7 @@ function nonExistentBibEntryError() {
 /** handles queries with no result */
 class NotFoundDisplay {
   function display() {
+    header('HTTP/1.1 404 Not found');
     echo '<span class="count">'.__('Sorry, no results for this query').'</span>';
   }
 }
