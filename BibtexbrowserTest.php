@@ -1,3 +1,4 @@
+#!/usr/bin/env phpunit
 <?php
 /** PhPUnit tests for bibtexbrowser
 

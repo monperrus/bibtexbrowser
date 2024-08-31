@@ -588,6 +588,18 @@ Bibtexbrowser can generate [[https://en.wikipedia.org/wiki/COinS|Coins]], Google
 ?>
 </pre>
 
+====How to run the test for another PHP version?====
+
+Find the right image on Docker, eg ''8.3.11-cli-alpine'', and create `container/Dockerfile`
+<pre>
+FROM php:8.3.11-cli-alpine
+RUN apk add phpunit
+WORKDIR /tmp
+CMD [ "phpunit"]
+</pre>
+
+Then, ''docker build container'', and ''docker run -v /path/to/bibtexbrowser.dir:/tmp -ti 4f3591b79a60 /tmp/BibtexbrowserTest.php'' 
+
 =====Related tools=====
 
 Old-fashioned:

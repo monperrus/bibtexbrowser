@@ -4433,7 +4433,9 @@ usage:
 class PagedDisplay {
 
   var $query = array();
-
+  var $page = 1;
+  var $entries = array();
+  
   function __construct() {
     $this->setPage();
   }
