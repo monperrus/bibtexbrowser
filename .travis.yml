@@ -9,6 +9,8 @@ php:
   - '7.4' # release 28 November 2019
   - '8.0' # release Nov 2020
   - '8.1' # release Nov 2021
+  - '8.2' # release Nov 2022
+  - '8.3' # release Nov 2023
 
 script:
     - curl -L -o reflectivedoc.php https://www.monperrus.net/martin/reflectivedoc.php.txt
