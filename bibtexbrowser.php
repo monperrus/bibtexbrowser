@@ -1738,7 +1738,12 @@ class BibEntry {
   function getKeywords() {
     return preg_split('/[,;\\/]/', $this->getField("keywords"));
   }
-
+  function addKeyword($new_keyword) {
+    $r = $this->getField('keywords'); 
+    if ($r == null || strlen($r) == 0) return $this->setField('keywords', $new_keyword);
+    return $this->setField('keywords', $r.";".$new_keyword);
+  }
+  
   /** Returns the value of the given field? */
   function getField($name) {
     // 2010-06-07: profiling showed that this is very costly

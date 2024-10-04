@@ -970,6 +970,30 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
     }
     
     
+    function test_keyword() {
+      bibtexbrowser_configure('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');
+      $bibtex = "@misc{doe2004,title={foo bar title}, publisher={publisher}, howpublished={howpublished}} @misc{doe2,title={baz}, keywords={bar}, howpublished={howpublished}}";
+      $test_data = fopen('php://memory','x+');
+      fwrite($test_data, $bibtex);
+      fseek($test_data,0);
+      $db = new BibDataBase();
+      $db->update_internal("inline", $test_data);
+      //         print_r($db);  
+
+      // no keyword
+      $entry = array_values($db->bibdb)[0];
+      $entry->addKeyword("foo");
+      $this->assertEquals('foo', $entry->getField("keywords"));
+      
+      // already one keyword
+      $entry = array_values($db->bibdb)[1];
+      $entry->addKeyword("foo");
+      $this->assertEquals('bar;foo', $entry->getField("keywords"));
+      
+    }
+    
+    
+    
 } // end class
 
 @copy('bibtexbrowser.local.php.bak','bibtexbrowser.local.php');
