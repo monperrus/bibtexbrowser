@@ -405,27 +405,28 @@ function _zetDB($bibtex_filenames) {
     }
   }
 
-  // now we may update the database
-  if (!file_exists($compiledbib)) {
-    @touch($compiledbib);
-    $updated = true; // limit case
-  } else foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
-      // is it up to date ? wrt to the bib file and the script
-    // then upgrading with a new version of bibtexbrowser triggers a new compilation of the bib file
-    if (filemtime($bib)>filemtime($compiledbib) || filemtime(__FILE__)>filemtime($compiledbib)) {
-//       echo "updating  ".$bib;
-      $db->update($bib);
-      $updated = true;
+  if (config_value('BIBTEXBROWSER_USE_CACHE')==true) {
+    // now we may update the database
+    if (!file_exists($compiledbib)) {
+      @touch($compiledbib);
+      $updated = true; // limit case
+    } else foreach(explode(MULTIPLE_BIB_SEPARATOR, $bibtex_filenames) as $bib) {
+        // is it up to date ? wrt to the bib file and the script
+      // then upgrading with a new version of bibtexbrowser triggers a new compilation of the bib file
+      if (filemtime($bib)>filemtime($compiledbib) || filemtime(__FILE__)>filemtime($compiledbib)) {
+  //       echo "updating  ".$bib;
+        $db->update($bib);
+        $updated = true;
+      }
     }
   }
-
 //   echo var_export($parse);
 //   echo var_export($updated);
 
   $saved = false;
   // are we able to save the compiled version ?
   // note that the compiled version is saved in the current working directory
-  if ( ($parse || $updated ) && is_writable($compiledbib)) {
+  if ( config_value('BIBTEXBROWSER_USE_CACHE')==true && ( $parse || $updated ) && is_writable($compiledbib)) {
     // we use 'a' because the file is not locked between fopen and flock
     $f = fopen($compiledbib,'a');
     //we use a lock to avoid that a call to bibbtexbrowser made while we write the object loads an incorrect object
