@@ -296,7 +296,8 @@ function default_message() {
   You may browse:<br/>
   <?php
   foreach (glob("*.bib") as $bibfile) {
-    $url="?bib=".$bibfile; echo '<a href="'.$url.'" rel="nofollow">'.$bibfile.'</a><br/>';
+    $url="?bib=".urlencode($bibfile);
+    echo '<a href="'.htmlspecialchars($url, ENT_QUOTES, 'UTF-8').'" rel="nofollow">'.htmlspecialchars($bibfile, ENT_QUOTES, 'UTF-8').'</a><br/>';
   }
   echo "</div>";
 }
