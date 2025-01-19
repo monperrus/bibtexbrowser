@@ -1955,7 +1955,9 @@ class BibEntry {
 
     // referrer, the id of a collection of objects
     // see also http://www.openurl.info/registry/docs/pdf/info-sid.pdf
-    $url_parts[]='rfr_id='.s3988('info:sid/'.@$_SERVER['HTTP_HOST'].':'.basename(@$_GET[Q_FILE]));
+    if (@$_GET[Q_FILE] != null ) {
+      $url_parts[]='rfr_id='.s3988('info:sid/'.@$_SERVER['HTTP_HOST'].':'.basename(@$_GET[Q_FILE]));
+    }
 
     $url_parts[]='rft.date='.s3988($this->getYear());
 
