@@ -16,5 +16,5 @@ jobs:
     - name: Run test suite
       run: |
           echo Running the tests of bibtexbrowser
-          curl -L -o reflectivedoc.php https://www.monperrus.net/martin/reflectivedoc.php.txt
+          curl -L -o reflectivedoc.php "https://www.monperrus.net/martin/pp4php.php?pp4php_source=reflectivedoc.php"
           phpunit BibtexbrowserTest.php
