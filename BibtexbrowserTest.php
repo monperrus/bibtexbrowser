@@ -1339,6 +1339,70 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
     $this->assertStringContainsString(JQUERY_URI, $output);
     
   }  
+
+    function test_hasPhrase() {
+        // Create test entries with various content to test phrase matching
+        $bibtex = "@article{entry1,title={Security Analysis of Web Applications},author={John Smith},year=2023,abstract={This paper discusses security vulnerabilities in modern web applications including XSS and CSRF attacks.}}
+                  @inproceedings{entry2,title={Machine Learning for Cybersecurity},author={Jane Doe},year=2022,keywords={AI, security, neural networks},booktitle={International Conference on Security}}";
+                  
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+        
+        $entries = array_values($db->bibdb);
+        $entry1 = $entries[0]; // Security Analysis paper
+        $entry2 = $entries[1]; // Machine Learning paper
+        
+        // Test basic phrase matching
+        $this->assertTrue($entry1->hasPhrase('security'));
+        $this->assertTrue($entry1->hasPhrase('web applications'));
+        $this->assertTrue($entry2->hasPhrase('machine learning'));
+        
+        // Test case insensitivity
+        $this->assertTrue($entry1->hasPhrase('SECURITY'));
+        $this->assertTrue($entry2->hasPhrase('Machine LEARNING'));
+        
+        // Test specific field searching
+        $this->assertTrue($entry1->hasPhrase('security', 'title'));
+        $this->assertTrue($entry2->hasPhrase('cybersecurity', 'title'));
+        $this->assertFalse($entry1->hasPhrase('cybersecurity', 'title')); // Should not match
+        
+        // Test matching in different fields
+        $this->assertTrue($entry1->hasPhrase('smith', 'author'));
+        $this->assertTrue($entry2->hasPhrase('neural', 'keywords'));
+        $this->assertFalse($entry1->hasPhrase('neural', 'keywords')); // No keywords field in entry1
+        
+        // Test advanced patterns with regex
+        $this->assertTrue($entry1->hasPhrase('XSS.*CSRF')); // Testing regex across words
+        $this->assertTrue($entry2->hasPhrase('AI.*security')); // Testing regex with multiple terms
+        $this->assertTrue($entry1->hasPhrase('vulnerab')); // Partial word matching
+        
+        // Test non-matching phrases
+        $this->assertFalse($entry1->hasPhrase('blockchain')); // Not in any field
+        $this->assertFalse($entry2->hasPhrase('database', 'title')); // Not in title
+        
+        // Test special characters
+        $bibtex_special = "@article{special,title={Testing special chars: a/b (c) [d] {e}}}";
+        $test_data_special = fopen('php://memory','x+');
+        fwrite($test_data_special, $bibtex_special);
+        fseek($test_data_special, 0);
+        $db_special = new BibDataBase();
+        $db_special->update_internal("inline", $test_data_special);
+        
+        $entry_special = array_values($db_special->bibdb)[0];
+        
+        // Test that special chars are properly handled in the search phrase
+        $this->assertTrue($entry_special->hasPhrase('a/b'));
+        $this->assertTrue($entry_special->hasPhrase('(c)'));
+        $this->assertTrue($entry_special->hasPhrase('[d]'));
+        $this->assertTrue($entry_special->hasPhrase('e')); // Curly braces get stripped in the stored fields
+        
+        // Test edge cases
+        $this->assertFalse($entry1->hasPhrase('')); // Empty phrase should not match
+    }
+
 } // end class
 
 // Test implementation that records events

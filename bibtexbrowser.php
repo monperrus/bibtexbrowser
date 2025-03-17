@@ -1838,10 +1838,15 @@ class BibEntry {
    * Note that this method is NOT case sensitive */
   function hasPhrase($phrase, $field = null) {
 
+    // if empty
+    if ($phrase == '') return false;
+    
+    $phrase = str_replace('/', '.', $phrase);
+    
     // we have to search in the formatted fields and not in the raw entry
     // i.e. all latex markups are not considered for searches
     if (!$field) {
-      return preg_match('/'.$phrase.'/i',$this->getConstants().' '.join(" ",$this->getFields()));
+      return preg_match('/'.$phrase.'/i',$this->getConstants().' '.join(" ",$this->getFields())) == 1;
       //return stripos($this->getText(), $phrase) !== false;
     }
     if ($this->hasField($field) &&  (preg_match('/'.$phrase.'/i',$this->getField($field)) ) ) {
