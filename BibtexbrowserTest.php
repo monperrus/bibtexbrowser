@@ -1403,6 +1403,59 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($entry1->hasPhrase('')); // Empty phrase should not match
     }
 
+    function testMultiSearchWithSpecialChars() {
+      // Create test entries with C/C++ related content
+      $bibtex = "@article{cpp2023,
+          title={Advances in C/C++ Programming Language},
+          author={Jane Programmer},
+          journal={Journal of Programming Languages},
+          year=2023,
+          keywords={C/C++, programming languages, compilers}
+      }
+      @inproceedings{java2023,
+          title={Java vs Python: Performance Comparison},
+          author={John Coder},
+          booktitle={International Conference on Software Engineering},
+          year=2023,
+          keywords={Java, Python, performance}
+      }";
+      
+      $test_data = fopen('php://memory','x+');
+      fwrite($test_data, $bibtex);
+      fseek($test_data, 0);
+      $db = new BibDataBase();
+      $db->update_internal("inline", $test_data);
+      
+      // Test searching for C/C++ (which contains special characters / and +)
+      $q = array(Q_SEARCH => 'C/C++');
+      $results = $db->multisearch($q);
+      
+      // Should match only the first entry
+      $this->assertEquals(1, count($results));
+      $this->assertEquals('Advances in C/C++ Programming Language', $results[0]->getTitle());
+      
+      // Test searching with escaped slashes
+      $q = array(Q_SEARCH => 'C/C\+\+');
+      $results = $db->multisearch($q);
+      $this->assertEquals(1, count($results));
+      
+      // Test with partial match
+      $q = array(Q_SEARCH => 'C/C');
+      $results = $db->multisearch($q);
+      $this->assertEquals(1, count($results));
+      
+      // Test with keywords field specifically
+      $q = array(Q_TAG => 'C/C++');
+      $results = $db->multisearch($q);
+      $this->assertEquals(1, count($results));
+      
+      // Test searching for something that doesn't exist
+      $q = array(Q_SEARCH => 'Rust');
+      $results = $db->multisearch($q);
+      $this->assertEquals(0, count($results));
+    }
+    
+
 } // end class
 
 // Test implementation that records events
