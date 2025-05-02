@@ -181,6 +181,7 @@ if (defined('ENCODING')) {
 @define('YEAR_SIZE',20); // number of years per table
 @define('AUTHORS_SIZE',30); // number of authors per table
 @define('TAGS_SIZE',30); // number of keywords per table
+@define('VENUE_SIZE',30); // number of venues per table
 @define('READLINE_LIMIT',1024);
 @define('Q_YEAR', 'year');
 @define('Q_YEAR_PAGE', 'year_page');
@@ -2874,7 +2875,6 @@ usage:
   $db = zetDB('bibacid-utf8.bib');
   $menu = new MenuManager();
   $menu->setDB($db);
-  $menu->year_size=100;// should display all years :)
   $menu->display();
 </pre>
  */
@@ -2882,11 +2882,6 @@ class MenuManager {
 
   /** The bibliographic database, an instance of class BibDataBase. */
   var $db;
-
-  var $type_size = TYPES_SIZE;
-  var $year_size = YEAR_SIZE;
-  var $author_size = AUTHORS_SIZE;
-  var $tag_size = TAGS_SIZE;
 
   function __construct() {
   }
@@ -2952,17 +2947,24 @@ class MenuManager {
     }
     else $page = 1;
 
-    $this->displayMenu('Types', $types, $page, $this->type_size, Q_TYPE_PAGE, Q_INNER_TYPE);
+    $this->displayMenu('Types', $types, $page, bibtexbrowser_configuration("TYPES_SIZE"), Q_TYPE_PAGE, Q_INNER_TYPE);
   }
 
   
   /** Displays and controls the venues. */
   function venueVC() {
-    // retrieve authors list to display
-    $data = $this->db->venueIndex();
-        
-    $this->displayMenu('Venues', $data, 1, 100000, Q_SEARCH,
-                       Q_SEARCH);
+    // retrieve venues list to display
+    $venues = $this->db->venueIndex();
+
+    // determine the venues page to display
+    if (isset($_GET['venue_page'])) {
+      $page = $_GET['venue_page'];
+    } else $page = 1;
+
+    if (count($venues) > 0) {
+      $this->displayMenu('Venues', $venues, $page, bibtexbrowser_configuration("VENUE_SIZE"), 'venue_page',
+           Q_SEARCH);
+    }
   }
   
   /** Displays and controls the authors menu in a table. */
@@ -2977,7 +2979,7 @@ class MenuManager {
     else $page = 1;
 
 
-    $this->displayMenu('Authors', $authors, $page, $this->author_size, Q_AUTHOR_PAGE,
+    $this->displayMenu('Authors', $authors, $page, bibtexbrowser_configuration("AUTHORS_SIZE"), Q_AUTHOR_PAGE,
          Q_AUTHOR);
   }
 
@@ -2992,7 +2994,7 @@ class MenuManager {
     }  else $page = 1;
 
 
-    if (count($tags)>0) $this->displayMenu('Keywords', $tags, $page, $this->tag_size, Q_TAG_PAGE,
+    if (count($tags)>0) $this->displayMenu('Keywords', $tags, $page, bibtexbrowser_configuration("MENU_SIZE"), Q_TAG_PAGE,
          Q_TAG);
   }
 
@@ -3008,7 +3010,7 @@ class MenuManager {
 else $page = 1;
 
 
-    $this->displayMenu('Years', $years, $page, $this->year_size, Q_YEAR_PAGE,
+    $this->displayMenu('Years', $years, $page, bibtexbrowser_configuration("YEAR_SIZE"), Q_YEAR_PAGE,
          Q_YEAR);
   }
 

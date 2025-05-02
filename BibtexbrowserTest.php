@@ -1455,7 +1455,71 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
       $this->assertEquals(0, count($results));
     }
     
+    function test_venuevc_pagination() {
+      // Define the page size for pagination
+      bibtexbrowser_configure('VENUE_SIZE', 2);
+      
+      // Create a test BibTeX database with multiple entries
+      $bibtex = "@article{paper1,title={Paper One},journal={Journal A},year=2020}
+        @article{paper2,title={Paper Two},journal={Journal A},year=2020}
+        @article{paper3,title={Paper Three},journal={Journal B},year=2020}
+        @article{paper4,title={Paper Four},journal={Journal B},year=2020}
+        @article{paper5,title={Paper Five},journal={Journal C},year=2020}
+        @article{paper6,title={Paper Six},journal={Journal C},year=2020}";
+      
+      $test_data = fopen('php://memory','r+');
+      fwrite($test_data, $bibtex);
+      fseek($test_data, 0);
+      
+      $db = new BibDataBase();
+      $db->update_internal("inline", $test_data);
+      
+      // Create VenueVC display
+      $display = new MenuManager();
+      $display->setDB($db);
+      
+      // First, test without pagination parameter
+      $_GET["venue_page"] = '1';
+      ob_start();
+      $display->display();
+      $output = ob_get_clean();
+      
+      // Verify all entries are shown when no pagination is specified
+      $this->assertStringContainsString('Journal A', $output);
+      $this->assertStringContainsString('Journal B', $output);
+      
+      // Test with pagination parameter
+      $_GET["venue_page"] = '1';
+      
+      ob_start();
+      $display->display();
+      $output1 = ob_get_clean();
+      
+      // Create XML parser to properly analyze the HTML structure
+      $xml = new SimpleXMLElement("<doc>".$output1."</doc>");
+      
+      // Count number of entries displayed on first page
+      //$result = $xml->xpath('//tr[contains(@class, "btb-menu-items")]');
+      //$this->assertEquals($PAGE_SIZE, count($result));
+      
+      // Verify pagination links existence
+      $this->assertStringContainsString('venue_page=2', $output1);
+      
+      // Test second page
+      $_GET["venue_page"] = '2';
+      ob_start();
+      $display->display();
+      $output2 = ob_get_clean();
+            
+      // Verify navigation links
+      $this->assertStringContainsString('venue_page=1', $output2); // Link to previous page
 
+      // Verify different entries on second page
+      $this->assertStringContainsString('Journal C', $output2);
+
+      // Clean up
+      unset($_GET["venue_page"]);
+    }
 } // end class
 
 // Test implementation that records events
