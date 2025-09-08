@@ -2524,11 +2524,11 @@ function JanosBibliographyStyle($bibentry) {
   }
 
   if ($type=="inproceedings" && $bibentry->hasField(BOOKTITLE)) {
-      $booktitle = '<span class="bibbooktitle">'.'In '.$bibentry->getField(BOOKTITLE).'</span>';
+      $booktitle = '<span class="bibbooktitle">'.__('In').' '.$bibentry->getField(BOOKTITLE).'</span>';
   }
 
   if ($type=="incollection" && $bibentry->hasField(BOOKTITLE)) {
-      $booktitle = '<span class="bibbooktitle">'.'Chapter in '.$bibentry->getField(BOOKTITLE).'</span>';
+      $booktitle = '<span class="bibbooktitle">'.__('Chapter in').' '.$bibentry->getField(BOOKTITLE).'</span>';
   }
 
   if ($type=="article" && $bibentry->hasField("journal")) {
@@ -2551,14 +2551,14 @@ function JanosBibliographyStyle($bibentry) {
 
   $publisher='';
   if ($type=="phdthesis") {
-      $publisher = 'PhD thesis, '.$bibentry->getField(SCHOOL);
+      $publisher = __('PhD thesis').', '.$bibentry->getField(SCHOOL);
   }
 
   if ($type=="mastersthesis") {
-      $publisher = 'Master\'s thesis, '.$bibentry->getField(SCHOOL);
+      $publisher = __('Master\'s thesis').', '.$bibentry->getField(SCHOOL);
   }
   if ($type=="techreport") {
-      $publisher = 'Technical report, ';
+      $publisher = __('Technical report').', ';
       $publisher .=$bibentry->getField("institution");
       if ($bibentry->hasField("number")) {
         $publisher .= ' '.$bibentry->getField("number");
@@ -2571,13 +2571,13 @@ function JanosBibliographyStyle($bibentry) {
   if ($publisher!='') $entry[] = $publisher;
 
   if ($type=="article") {
-    if ($bibentry->hasField('volume')) $entry[] =  "vol. ".$bibentry->getField("volume");
-    if ($bibentry->hasField('number')) $entry[] =  'no. '.$bibentry->getField("number");
+    if ($bibentry->hasField('volume')) $entry[] =  __("vol.")." ".$bibentry->getField("volume");
+    if ($bibentry->hasField('number')) $entry[] =  __('no.').' '.$bibentry->getField("number");
   }
 
   if ($bibentry->hasField('address')) $entry[] =  $bibentry->getField("address");
 
-  if ($bibentry->hasField('pages')) $entry[] = str_replace("--", "-", "pp. ".$bibentry->getField("pages"));
+  if ($bibentry->hasField('pages')) $entry[] = str_replace("--", "-", __("pp.")." ".$bibentry->getField("pages"));
 
 
   if ($bibentry->hasField(YEAR)) $entry[] = $bibentry->getYear();
@@ -2641,9 +2641,9 @@ function VancouverBibliographyStyle($bibentry) {
     $booktitle = $editor;
     $booktitle = $bibentry->getField("note");
   } else if ($type=="inproceedings") {
-      $booktitle = 'In: ' . $editor . $bibentry->getField(BOOKTITLE);
+      $booktitle = __('In').': ' . $editor . $bibentry->getField(BOOKTITLE);
   } else if ($type=="incollection") {
-      $booktitle = 'Chapter in ';
+      $booktitle = __('Chapter in').' ';
       if ($editor!='') $booktitle .= $editor;
       $booktitle .= $bibentry->getField(BOOKTITLE);
   } else if ($type=="article") {
@@ -2656,11 +2656,11 @@ function VancouverBibliographyStyle($bibentry) {
 
   $publisher='';
   if ($type=="phdthesis") {
-      $publisher = 'PhD thesis, '.$bibentry->getField(SCHOOL);
+      $publisher = __('PhD thesis').', '.$bibentry->getField(SCHOOL);
   } else if ($type=="mastersthesis") {
-      $publisher = 'Master\'s thesis, '.$bibentry->getField(SCHOOL);
+      $publisher = __('Master\'s thesis').', '.$bibentry->getField(SCHOOL);
   } else if ($type=="techreport") {
-      $publisher = 'Technical report, '.$bibentry->getField("institution");
+      $publisher = __('Technical report').', '.$bibentry->getField("institution");
   }
   if ($bibentry->hasField("publisher")) {
     $publisher = $bibentry->getField("publisher");
