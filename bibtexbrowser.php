@@ -2994,7 +2994,7 @@ class MenuManager {
     }  else $page = 1;
 
 
-    if (count($tags)>0) $this->displayMenu('Keywords', $tags, $page, bibtexbrowser_configuration("MENU_SIZE"), Q_TAG_PAGE,
+    if (count($tags)>0) $this->displayMenu('Keywords', $tags, $page, bibtexbrowser_configuration("TAGS_SIZE"), Q_TAG_PAGE,
          Q_TAG);
   }
 
