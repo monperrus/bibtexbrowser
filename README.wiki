@@ -60,6 +60,7 @@ The following uses bibtexbrowser under the hood:
 * [[http://www.monperrus.net/martin/feeding-mysql-database-with-bibtexbrowser|Feeding a MySQL database from the content of a bibtex file]]
 * Publication lists in Wordpress with [[http://www.monperrus.net/martin/wp-publications|wp-publications]]
 * [[http://www.monperrus.net/martin/publication-lists-with-hal-and-bibtexbrowser|Publication lists with HAL and bibtexbrowser]]
+* Generating publication lists in DokuWiki using the [[https://www.dokuwiki.org/plugin:bb4dw|bb4dw plugin]]
 
 =====Demo and screenshot=====
 
