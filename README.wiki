@@ -64,7 +64,7 @@ The following uses bibtexbrowser under the hood:
 
 =====Demo and screenshot=====
 
-Demo: [[http://bibtexbrowser.sourceforge.net/bibtexbrowser.php?bib=metrics.bib|Here, you can browse a bibtex file dedicated to software metrics]]
+Demo: [[https://www.monperrus.net/martin/bibtexbrowser.php|Here, you can browse a bibtex file of Martin's papers.]]
 
 <img height="500" src="https://www.monperrus.net/martin/bibtexbrowser/bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/>
 
