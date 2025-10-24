@@ -60,10 +60,11 @@ The following uses bibtexbrowser under the hood:
 * [[http://www.monperrus.net/martin/feeding-mysql-database-with-bibtexbrowser|Feeding a MySQL database from the content of a bibtex file]]
 * Publication lists in Wordpress with [[http://www.monperrus.net/martin/wp-publications|wp-publications]]
 * [[http://www.monperrus.net/martin/publication-lists-with-hal-and-bibtexbrowser|Publication lists with HAL and bibtexbrowser]]
+* Generating publication lists in DokuWiki using the [[https://www.dokuwiki.org/plugin:bb4dw|bb4dw plugin]]
 
 =====Demo and screenshot=====
 
-Demo: [[http://bibtexbrowser.sourceforge.net/bibtexbrowser.php?bib=metrics.bib|Here, you can browse a bibtex file dedicated to software metrics]]
+Demo: [[https://www.monperrus.net/martin/bibtexbrowser.php|Here, you can browse a bibtex file of Martin's papers.]]
 
 <img height="500" src="https://www.monperrus.net/martin/bibtexbrowser/bibtexbrowser-screenshot.png" alt="bibtexbrowser screenshot"/>
 

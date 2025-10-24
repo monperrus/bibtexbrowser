@@ -1455,6 +1455,72 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
       $this->assertEquals(0, count($results));
     }
     
+    function test_tags_pagination() {
+      // Define the page size for pagination
+      bibtexbrowser_configure('TAGS_SIZE', 2);
+      
+      // Create a test BibTeX database with multiple entries and keywords
+      $bibtex = "@article{paper1,title={Paper One},keywords={tagA, tagB},year=2020}
+      @article{paper2,title={Paper Two},keywords={tagC},year=2020}
+      @article{paper3,title={Paper Three},keywords={tagD},year=2020}
+      @article{paper4,title={Paper Four},keywords={tagE},year=2020}";
+      
+      $test_data = fopen('php://memory','r+');
+      fwrite($test_data, $bibtex);
+      fseek($test_data, 0);
+      
+      $db = new BibDataBase();
+      $db->update_internal("inline", $test_data);
+      
+      // Create MenuManager display
+      $display = new MenuManager();
+      $display->setDB($db);
+      
+      // Test the first page
+      $_GET["tags_page"] = '1';
+      ob_start();
+      $display->display();
+      $output1 = ob_get_clean();
+      
+      // Tags are sorted alphabetically.
+      $this->assertStringContainsString('tagA', $output1);
+      $this->assertStringContainsString('tagB', $output1);
+      $this->assertStringNotContainsString('tagC', $output1);
+      
+      // Verify pagination link to the next page
+      $this->assertStringContainsString('keywords_page=2', $output1);
+      
+      // Test the second page
+      $_GET["keywords_page"] = '2';
+      ob_start();
+      $display->display();
+      $output2 = ob_get_clean();
+      
+      $this->assertStringContainsString('tagC', $output2);
+      $this->assertStringContainsString('tagD', $output2);
+      $this->assertStringNotContainsString('tagA', $output2);
+      $this->assertStringNotContainsString('tagE', $output2);
+      
+      // Verify navigation links to previous and next pages
+      $this->assertStringContainsString('keywords_page=1', $output2);
+      $this->assertStringContainsString('keywords_page=3', $output2);
+
+      // Test the third page
+      $_GET["keywords_page"] = '3';
+      ob_start();
+      $display->display();
+      $output3 = ob_get_clean();
+
+      $this->assertStringContainsString('tagE', $output3);
+      $this->assertStringNotContainsString('tagD', $output3);
+
+      // Verify navigation link to the previous page
+      $this->assertStringContainsString('keywords_page=2', $output3);
+      $this->assertStringNotContainsString('keywords_page=4', $output3); // No next page
+
+      // Clean up
+      unset($_GET["keywords_page"]);
+    }
     function test_venuevc_pagination() {
       // Define the page size for pagination
       bibtexbrowser_configure('VENUE_SIZE', 2);
