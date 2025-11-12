@@ -1586,6 +1586,61 @@ class BibtexbrowserTest extends PHPUnit_Framework_TestCase {
       // Clean up
       unset($_GET["venue_page"]);
     }
+
+    function test_AcademicDisplay() {
+      // Create test BibTeX database with entries from different categories
+        $bibtex = "@article{journal1,title={Journal Article},author={John Doe},journal={Nature},year=2023,type={Journal Articles}}
+        @inproceedings{conf1,title={Conference Paper},author={Jane Smith},booktitle={ICSE},year=2023,type={Refereed Conference Papers}}
+        @book{book1,title={A Book},author={Bob Johnson},publisher={Springer},year=2022,type={Books}}
+        @techreport{tech1,title={Technical Report},author={Alice Brown},institution={MIT},year=2023,type={Technical Reports}}";
+        
+        $test_data = fopen('php://memory','x+');
+        fwrite($test_data, $bibtex);
+        fseek($test_data,0);
+        $db = new BibDataBase();
+        $db->update_internal("inline", $test_data);
+        
+        // Test with BIBTEXBROWSER_ACADEMIC_TOC = true
+        bibtexbrowser_configure('BIBTEXBROWSER_ACADEMIC_TOC', true);
+        
+        $display = new AcademicDisplay();
+        $display->setDB($db);
+        
+        ob_start();
+        $display->display();
+        $output_with_toc = ob_get_clean();
+        
+        // Verify TOC is present
+        // $this->assertStringContainsString('class="btb-menu-toc"', $output_with_toc);
+        $this->assertStringContainsString('Refereed Articles', $output_with_toc);
+        
+        // Verify HTML structure for both cases
+        $xml1 = new SimpleXMLElement("<doc>".$output_with_toc."</doc>");
+        $headers1 = $xml1->xpath('//div[@class="sheader"]');
+        $this->assertEquals(0, count($headers1));
+        $anchors = $xml1->xpath('//h2');
+        $this->assertGreaterThan(3, count($anchors));
+
+
+        // Test with BIBTEXBROWSER_ACADEMIC_TOC = false
+        bibtexbrowser_configure('BIBTEXBROWSER_ACADEMIC_TOC', false);
+        
+        $display2 = new AcademicDisplay();
+        $display2->setDB($db);
+        
+        ob_start();
+        $display2->display();
+        $output_without_toc = ob_get_clean();
+        
+        // Verify TOC is not present
+        $this->assertStringNotContainsString('class="btb-menu-toc"', $output_without_toc);
+        // But category headers should still be present
+        $this->assertStringContainsString('Refereed Articles', $output_without_toc);
+                
+        $xml2 = new SimpleXMLElement("<doc>".$output_without_toc."</doc>");
+        $headers2 = $xml2->xpath('//div[@class="sheader"]');
+        $this->assertGreaterThan(0, count($headers2));
+    }
 } // end class
 
 // Test implementation that records events

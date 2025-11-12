@@ -3477,7 +3477,7 @@ class AcademicDisplay  {
     $this->db = createBibDataBase();
     $this->db->bibdb = $this->entries;
 
-    if (BIBTEXBROWSER_ACADEMIC_TOC != true) {
+    if (c("BIBTEXBROWSER_ACADEMIC_TOC") == false) {
       foreach (_DefaultBibliographySections() as $section) {
         $this->search2html($section['query'],$section['title']);
       }
@@ -3511,7 +3511,7 @@ class AcademicDisplay  {
         echo "\n<a name=\"".$section['anchor']."\"></a>";
         echo "<h".BIBTEXBROWSER_HTMLHEADINGLEVEL.">";
         echo $section['title']." (".$section['count'].")";
-        echo "</h".BIBTEXBROWSER_HTMLHEADINGLEVEL.">\n",
+        echo "</h".BIBTEXBROWSER_HTMLHEADINGLEVEL.">\n";
         $section['display']->display();
       }
     }
