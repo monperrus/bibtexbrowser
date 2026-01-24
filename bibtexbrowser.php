@@ -236,7 +236,7 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_URL',basename(__FILE__));
 
 // Specify the location of the cache file for servers that need temporary files written in a specific location
-@define('CACHE_DIR','');
+@define('CACHE_DIR','.');
 
 // Specify the location of the bib file for servers that need do not allow slashes in URLs,
 // where the bib file and bibtexbrowser.php are in different directories. 
@@ -368,7 +368,7 @@ function _zetDB($bibtex_filenames) {
   // ---------------------------- HANDLING caching of compiled bibtex files
   // for sake of performance, once the bibtex file is parsed
   // we try to save a "compiled" in a txt file
-  $compiledbib = CACHE_DIR.'bibtexbrowser_'.md5($bibtex_filenames).'.dat';
+  $compiledbib = c("CACHE_DIR").'/bibtexbrowser_'.md5($bibtex_filenames).'.dat';
 
   $parse=filemtime(__FILE__)>@filemtime($compiledbib);
 
